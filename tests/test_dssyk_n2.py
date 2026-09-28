@@ -4,8 +4,8 @@ import sys
 from math import comb
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
-from dssyk_n2 import (bps_fraction_chord, bps_fraction_index, r_chord, two_point_chord,  # noqa: E402
-                      two_point_schwarzian_limit)
+from dssyk_n2 import (bps_fraction_chord, bps_fraction_index, hh_length_distribution, r_chord,  # noqa: E402
+                      two_point_chord, two_point_schwarzian_limit)
 from lmrs_predictions import zero_energy_factor  # noqa: E402
 
 
@@ -42,6 +42,19 @@ def test_bps_fraction_chord_small_lambda():
 
 def test_r_chord_values():
     assert abs(r_chord(14) - 0.6352) < 1e-3 and abs(r_chord(15) - 0.5648) < 1e-3
+
+
+def test_free_compression_is_zero_length_term():
+    """r = a + sum_{n>=1} P_n q^{2 Delta n}: probabilities sum to 1, P_0 = a, and the q^{2 Delta n} average is r."""
+    import numpy as np
+    from math import exp
+    for N in (8, 12, 14, 16):
+        lam = 18 / N
+        P = hh_length_distribution(lam, 0.0)
+        n = np.arange(len(P))
+        assert abs(P.sum() - 1) < 1e-10
+        assert abs(P[0] - bps_fraction_chord(lam, 0.0)) < 1e-14
+        assert abs((P * exp(-lam) ** (2 * n / 3)).sum() - two_point_chord(lam, 0.0, 1 / 3)) < 1e-10
 
 
 if __name__ == "__main__":

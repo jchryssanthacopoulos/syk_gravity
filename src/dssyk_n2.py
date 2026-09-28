@@ -80,3 +80,30 @@ def r_chord(Np: int, P: int | None = None, p: int = 3) -> float:
     lambda = 2 p^2 / N', Delta = 1/p (bilinear psibar_i psi_i: p_O = p_X = 1, BLY eq. 1.8), j = (P - N'/2)/p."""
     P = Np // 2 if P is None else P
     return two_point_chord(2 * p * p / Np, (P - Np / 2) / p, 1.0 / p)
+
+
+def hh_length_distribution(lam: float, j: float, nmax: int = 2000, tol: float = 1e-18):
+    """Chord-number (wormhole-length) distribution P_n of the supersymmetric Hartle-Hawking state |Psi, j>
+    (BLY eqs. 3.2-3.3 recursion with alpha_0 = beta_0 = 1, weights 3.10, norm 3.11).  P_0 = D(j) is the weight of the
+    empty wormhole |Omega> (eq. 3.15); P_n for n >= 1 is the n-th term of (3.10) divided by the norm.
+    Terms are evaluated with rescaled amplitudes a q^{-n/2}, b q^{-n/2} (no overflow) and the series is truncated once
+    terms fall below tol.  Returns numpy array P[0..n_last]."""
+    q = exp(-lam)
+    q2 = q * q
+    a, b = 1.0, 1.0
+    poch = 1.0                                          # (q^2; q^2)_{n-1}, updated incrementally
+    terms = [0.0]
+    for n in range(1, nmax):
+        M = np.array([[-q ** (n - 1), 1 / q], [1 / q, -q ** (n - 1)]])
+        a, b = np.linalg.solve(M, np.array([-q ** j * b, -q ** (-j) * a]))
+        if n >= 2:
+            poch *= 1 - q2 ** (n - 1)
+        at, bt = a * q ** (-n / 2), b * q ** (-n / 2)
+        t = poch * (at * at + bt * bt - 2 * at * bt * q ** n)
+        terms.append(t)
+        if n > 5 and abs(t) < tol:
+            break
+    norm = exp(-(log_poch(q ** (1 + 2 * j), q2) + log_poch(q ** (1 - 2 * j), q2) + log_poch(q2, q2)))
+    P = np.array(terms) / norm
+    P[0] = bps_fraction_chord(lam, j)
+    return P

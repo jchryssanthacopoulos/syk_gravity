@@ -1,6 +1,8 @@
 # Research questions
 
 *Living document. Last revised 2026-09-28 after the project archaeology audit (`docs/project_archaeology.md`).*
+**Checkpoint report (2026-09-28):** `research/pdfs/checkpoint_2026-09-28.pdf` (source `research/tex/checkpoint_2026-09-28.tex`).
+
 Status tags: **[open]**, **[in progress]**, **[answered]**, **[superseded]**.
 
 ## Central question
