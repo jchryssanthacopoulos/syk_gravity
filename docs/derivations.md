@@ -527,19 +527,40 @@ $$
 
 ### Implications for the project goals
 
-**1. Free compression is the zero-length-wormhole term [derived within DSSYK; verified numerically].** BLY give
-$a = P_0$, the probability that the SUSY wormhole has chord number 0 (eq. 1.1/3.15). Our $r$ is
-$\sum_n P_n\,q^{2\Delta n}$ over the same distribution (eqs. 4.5–4.6). Since $q^{0} = 1$,
+**1. Free compression is the zero-length-wormhole term.**
+
+*Provenance.*
+
+| Ingredient | Source |
+|---|---|
+| $D(j) = P_0$: BPS fraction = probability of zero chord number | **BLY** eq. 1.1, derived 3.12–3.15; closed form 3.17 |
+| Zero-T two-point function = $\sum_n P_n q^{2\Delta n}$ (norm sum 3.10 with $q^{2\Delta n}$ inserted; term/norm = $P_n$) | **BLY** eqs. 4.5–4.6 and text after 3.11; closed form 4.7–4.8 |
+| That quantity equals our $r$ | **Derived here** (BLY normalization + D1 Step 1) |
+| Splitting off $n=0$; $\eta_r = \langle q^{2\Delta n}\rangle_{n\ge1}$ | **Derived here** (trivial algebra) |
+| $n=0$ bookkeeping (BLY's summand has a singular $(q^2;q^2)_{-1}$ at $n=0$) | **Ours:** set $P_0 = D(j)$ and check against both closed forms |
+| "$P_0$ ↔ Haar/Wachter value" | **Interpretation, ours.** BLY do not discuss freeness; the Haar value $\rho_2 = a$ is free compression |
+
+Write $a_\lambda \equiv D(j)$ (double-scaled) and $r_\lambda$ for BLY 4.8. Then, exactly within the double-scaled theory,
 $$
-r \;=\; \underbrace{a}_{\text{Haar / Wachter}} \;+\; \sum_{n\ge1} P_n\,q^{2\Delta n},
+r_\lambda = \underbrace{a_\lambda}_{=P_0} + \sum_{n\ge1} P_n\,q^{2\Delta n},
 \qquad
-\eta_r \equiv \frac{r-a}{1-a} = \big\langle q^{2\Delta n}\big\rangle_{n\ge1}.
+\eta_r^{(\lambda)} = \frac{r_\lambda-a_\lambda}{1-a_\lambda} = \big\langle q^{2\Delta n}\big\rangle_{n\ge1}.
 $$
-Checked from the HH recursion (BLY 3.2–3.11) at $N'=14$: $\sum_{n\ge1}P_n = 1-D$ and
-$D + \sum_{n\ge1}P_nq^{2n/3} = r_{\rm chord}$ to $10^{-16}$.
-- The free-probability (Wachter/MANOVA) value of the second free cumulant is exactly the $\ell = 0$ contribution.
-- The deviation from freeness, $r - a$, is the contribution of wormholes of nonzero length.
-- The rigidity fraction $\eta_r$ is the average matter propagator $q^{2\Delta n}$ over those wormholes.
+Checked from the HH recursion (BLY 3.2–3.11) for $N' = 8, 12, 14, 16$: with $P_0 = a_\lambda$ assigned, both
+$\sum P_n = 1$ (norm 3.11) and $\sum P_n q^{2\Delta n} = r_\lambda$ (4.7) hold to $\le10^{-10}$
+(`hh_length_distribution`, test `test_free_compression_is_zero_length_term`).
+
+*Reading [interp].* The zero-length wormhole contributes exactly the value that free compression assigns to $r$ at
+that BPS fraction. The deviation from freeness is the contribution of nonzero-length wormholes.
+
+*Caveats.*
+- **Equality of values, not of structures.** Only the second cumulant is tested.
+- **$a_\lambda$ vs exact $a$.** $a_\lambda$ is 0–10 % larger at $p=3$. The exact Haar statement uses $a$; they agree
+  only within the double-scaled approximation. This explains the ~0.04 offset of measured $\eta_r$ from the chord
+  curve.
+- **$r\ge a$ is automatic in the chord theory, not an exact finite-$N$ theorem.** Individual realizations violate it
+  where $a\gtrsim0.9$ and $d$ is tiny ($q=3$, $N'=5,6$; $q=5$, $N'=9,10$; 2/300 at $q=3$, $N'=7$; min $r/a = 0.965$).
+  Realization averages satisfy it within errors everywhere.
 
 **[conj]** The whole free-compression law (all moments) is the $\ell=0$ truncation of the super-chord computation.
 This is untested beyond $m_2$.

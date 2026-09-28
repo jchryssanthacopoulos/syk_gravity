@@ -66,9 +66,10 @@ measured BPS dimension. It also summarizes a new numerical campaign that measure
 \item \textbf{The finite-$\lambda$ chord formula matches.} The double-scaled super-chord formula of Boruch, Lin
   and Yan~\cite{BLY}, evaluated at $\lambda=2p^2/\Np$ with no free parameters, reproduces the measured variance
   to about 2\,\% for $\Np=5\ldots16$.
-\item \textbf{Freeness corresponds to the zero-length wormhole.} In that theory the Haar/Wachter value of the
-  second free cumulant is exactly the contribution of the \emph{zero-length} supersymmetric wormhole. The
-  deviation from freeness is the contribution of wormholes of nonzero length:
+\item \textbf{Freeness corresponds to the zero-length wormhole.} Combining two results of~\cite{BLY} (our
+  step), the BPS fraction, which is the Haar/Wachter value of the second free cumulant, is exactly the
+  contribution of the \emph{zero-length} supersymmetric wormhole within the double-scaled theory. The deviation
+  from freeness is the contribution of wormholes of nonzero length:
   \[
   r=a+\sum_{n\ge1}P_n\,q^{2\Delta n}.
   \]
@@ -497,61 +498,104 @@ BPS fraction $a$.}
 %=====================================================================
 
 The project's framing asks for ``the deviation from freeness'' of the decoder law. The chord theory gives this
-deviation a precise geometric meaning, at least for the second free cumulant.
+deviation a geometric meaning, at least for the second free cumulant. Because this section mixes results of BLY with
+steps of our own, we first record the provenance of each ingredient.
+
+\subsection{Provenance}\label{sec:provenance}
+\begin{center}\small
+\begin{tabular}{@{}p{0.47\textwidth}p{0.47\textwidth}@{}}\toprule
+Ingredient & Source\\\midrule
+BPS fraction $=$ probability that the SUSY wormhole has zero chord number: $D(j)=P_0$ & \EST\ BLY eq.~1.1, derived in
+eqs.~3.12--3.15, closed form eq.~3.17\\
+Zero-temperature two-point function $=$ norm sum (3.10) with $q^{2\Delta n}$ inserted; each term over the norm
+(3.11) is the length probability $P_n$ & \EST\ BLY eqs.~4.5--4.6 and the sentence after eq.~3.11; closed form eqs.~4.7--4.8\\
+That normalized two-point function equals our $r$ & \DER\ here: BLY's operator normalization + Proposition~\ref{prop:reduction} (eq.~\ref{eq:rchord})\\
+Splitting off $n=0$; $\eta_r=\langle q^{2\Delta n}\rangle_{n\ge1}$ & \DER\ here (algebra, using $\sum_{n\ge1}P_n=1-P_0$)\\
+Treatment of the $n=0$ term & \DER\ here + numerical check (see below); not spelled out by BLY\\
+Identifying $P_0$ with the Haar/Wachter value of $\rho_2$ & \INTERP\ here. BLY do not discuss freeness. The Haar
+value $\rho_2=a$ comes from free compression, eq.~\eqref{eq:rhaar}\\\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Notation.} Write $a_\lambda\equiv D(j)$ for the double-scaled BPS fraction (BLY eq.~3.17), to distinguish it
+from the exact SYK fraction $a=d/D$ of eq.~\eqref{eq:index}. At $p=3$ they differ by $0$--$10\,\%$
+(Table~\ref{tab:chord}; $a_\lambda>a$, a finite-$p$ effect). Likewise $r_\lambda$ denotes eq.~\eqref{eq:bly48}.
 
 \subsection{Two facts about the same distribution}
-Let $P_n$ be the probability that the supersymmetric wormhole $\ket{\Psi,j}$ has chord number $n$. It is the
-$n$-sector weight of $\ket{\Psi,j}$, normalized by eq.~3.11 of~\cite{BLY}; different $n$ are orthogonal.
+Let $P_n$ be the probability that the supersymmetric wormhole $\ket{\Psi,j}$ has chord number $n$: the $n$-sector
+weight of $\ket{\Psi,j}$ divided by its norm (BLY eq.~3.11). States of different $n$ are orthogonal.
 
-\paragraph{Fact 1: the BPS fraction is the zero-length probability \EST\ \cite[eqs.~1.1, 3.12--3.15]{BLY}.}
+\paragraph{Fact 1 \EST\ \cite[eqs.~1.1, 3.12--3.15]{BLY}.}
 Slice the fixed-charge partition function two-sidedly:
 $Z(j,\beta)/Z(j,0)=\langle\Omega,j|e^{-\beta H}|\Omega,j\rangle/\langle\Omega,j|\Omega,j\rangle$, where $\ket{\Omega,j}$
 is the empty ($n=0$) wormhole. As $\beta\to\infty$, $e^{-\beta H}$ projects onto the chord ground state:
 \begin{equation}
-a=\frac{d}{D}=\frac{Z(j,\infty)}{Z(j,0)}=\frac{|\langle\Omega,j|\Psi,j\rangle|^2}{\langle\Omega,j|\Omega,j\rangle\langle\Psi,j|\Psi,j\rangle}=P_0 .
+a_\lambda=\frac{Z(j,\infty)}{Z(j,0)}=\frac{|\langle\Omega,j|\Psi,j\rangle|^2}{\langle\Omega,j|\Omega,j\rangle\langle\Psi,j|\Psi,j\rangle}=P_0 .
 \label{eq:aP0}
 \end{equation}
 
-\paragraph{Fact 2: $r$ is the propagator averaged over wormhole lengths \DER.} By~\eqref{eq:rchord} and
-$W_LW_R=q^{2\Delta n}$ on empty wormholes (a scalar on each $n$-sector),
+\paragraph{Fact 2 \EST\ + \DER.} BLY write the normalized zero-temperature two-point function as the norm sum with
+$q^{2\Delta n}$ inserted (their eqs.~4.5--4.6), i.e.\ as $\sum_nP_n\,q^{2\Delta n}$; $W_LW_R=q^{2\Delta n}$ is a scalar on
+each $n$-sector. By our identification~\eqref{eq:rchord},
 \begin{equation}
-r=\sum_{n\ge0}P_n\,q^{2\Delta n}.
+r_\lambda=\sum_{n\ge0}P_n\,q^{2\Delta n}.
 \label{eq:rPn}
 \end{equation}
 
+\paragraph{The $n=0$ term \DER.} As written, the $n=0$ summand of BLY's sums (3.10) and (4.6) is not well defined:
+its prefactor $(q^2;q^2)_{-1}$ is singular. We take the $n\ge1$ terms from their formula and set $P_0=a_\lambda$ from
+Fact~1. This is not circular. With that assignment, \emph{both} of BLY's independent closed forms are reproduced:
+\[
+\textstyle\sum_{n\ge0}P_n=1\ \ (\text{norm, eq.~3.11}),\qquad \sum_{n\ge0}P_nq^{2\Delta n}=r_\lambda\ \ (\text{eq.~4.7}),
+\]
+to $10^{-10}$ or better for $\Np=8,12,14,16$ (\path{hh_length_distribution}, test
+\path{test_free_compression_is_zero_length_term}). BLY do not spell out this bookkeeping; the check is ours.
+
 \subsection{The identity}
-Since $q^{2\Delta\cdot0}=1$, facts~\eqref{eq:aP0}--\eqref{eq:rPn} combine into
+Since $q^{2\Delta\cdot0}=1$, Facts~1--2 combine into (\DER, our step)
 \begin{equation}
-\boxed{\;r=\underbrace{a}_{\text{Haar / Wachter, eq.~\eqref{eq:rhaar}}}+\sum_{n\ge1}P_n\,q^{2\Delta n},\qquad
-\eta_r\equiv\frac{r-a}{1-a}=\big\langle q^{2\Delta n}\big\rangle_{n\ge1}\;}
+\boxed{\;r_\lambda=\underbrace{a_\lambda}_{=P_0}+\sum_{n\ge1}P_n\,q^{2\Delta n},\qquad
+\eta_r^{(\lambda)}\equiv\frac{r_\lambda-a_\lambda}{1-a_\lambda}=\big\langle q^{2\Delta n}\big\rangle_{n\ge1}\;}
 \label{eq:identity}
 \end{equation}
-\DER\ Verified from the Hartle--Hawking recursion (BLY eqs.~3.2--3.11) for $\Np=8,12,14,16$:
-$\sum_nP_n=1$, $P_0=D(j)$, and $\sum_nP_nq^{2n/3}$ equals~\eqref{eq:bly48} to $10^{-10}$ or better
-(\path{hh_length_distribution}, test \path{test_free_compression_is_zero_length_term}).
+Equation~\eqref{eq:identity} is an exact statement \emph{within the double-scaled theory}. The algebra is trivial;
+the content is in Facts~1--2 (BLY) and in the identification of $r_\lambda$ with our $r$ (Sec.~\ref{sec:chord}).
 
-\paragraph{Reading \INTERP.}
+\paragraph{Relation to freeness \INTERP.} In the Haar null model the second free cumulant ratio is $\rho_2=a$
+(eq.~\ref{eq:rhaar}; free compression, Nica--Speicher). In the chord theory the zero-length term is $a_\lambda$, which
+is the chord theory's own value of the BPS fraction. So, \emph{within the double-scaled theory}, the zero-length
+wormhole contributes exactly the value that free compression would assign to $r$ at that BPS fraction. We read this
+as:
 \begin{itemize}\itemsep1pt
-\item The free-probability value of the second free cumulant, $\rho_2=a$, is \emph{exactly} the contribution of the
-  zero-length wormhole.
-\item The deviation from freeness, $r-a\ge0$, is the contribution of wormholes of nonzero length, each weighted
-  by the matter propagator $q^{2\Delta n}=e^{-\Delta\ell}$.
-\item The rigidity fraction $\eta_r$ is the propagator averaged over nonzero-length wormholes.
-\item In particular $r\ge a$ is automatic in the chord theory. \NUM\ The realization-averaged $r$ satisfies it
-  within errors at every $(q,\Np)$ measured, and by many standard errors for $q=3$, $\Np\ge7$ (e.g.\ $r/a=1.77$
-  at $\Np=16$). Individual realizations violate it only where $a\gtrsim0.9$ and $d$ is tiny ($q=3$, $\Np=5,6$;
-  $q=5$, $\Np=9,10$; 2 of 300 at $q=3$, $\Np=7$). There $r\approx a$ and sample fluctuations cross; the minimum
-  single-realization $r/a$ is $0.965$.
+\item the Haar/Wachter value of the second free cumulant corresponds to the zero-length wormhole;
+\item the deviation from freeness, $r-a$, corresponds to wormholes of nonzero length, each weighted by the matter
+  propagator $q^{2\Delta n}=e^{-\Delta\ell}$;
+\item the rigidity fraction $\eta_r$ is that propagator averaged over nonzero-length wormholes.
 \end{itemize}
-Figure~\ref{fig:worm}(a) shows the decomposition at $\Np=14$: $a=P_0=0.459$ of $r=0.635$ comes from $n=0$, and the
-remaining $0.176$ from $n=1,2,3,\ldots$
+Three caveats limit this reading:
+\begin{enumerate}\itemsep1pt
+\item \emph{Equality of values, not of structures.} Both sides equal the BPS fraction. We have not shown that free
+  compression and the zero-length wormhole are the same mechanism. Only the second cumulant is tested; the
+  extension to the full law is Conjecture~3 below.
+\item \emph{$a_\lambda$ versus $a$.} The exact SYK statement uses $a$; the chord identity uses $a_\lambda$, which is
+  $0$--$10\,\%$ larger at $p=3$. The two coincide only within the double-scaled approximation. This is why the
+  measured $\eta_r=(r-a)/(1-a)$ in Fig.~\ref{fig:worm}(b) sits about $0.04$ above the chord curve built from $a_\lambda$.
+\item \emph{$r\ge a$ is automatic in the chord theory, not an exact finite-$N$ theorem.} \NUM\ The realization-averaged
+  $r$ satisfies it within errors at every $(q,\Np)$ measured, and by many standard errors for $q=3$, $\Np\ge7$
+  (e.g.\ $r/a=1.77$ at $\Np=16$). Individual realizations violate it only where $a\gtrsim0.9$ and $d$ is tiny
+  ($q=3$, $\Np=5,6$; $q=5$, $\Np=9,10$; 2 of 300 at $q=3$, $\Np=7$). There $r\approx a$ and sample fluctuations
+  cross; the minimum single-realization $r/a$ is $0.965$.
+\end{enumerate}
+Figure~\ref{fig:worm}(a) shows the decomposition at $\Np=14$: $a_\lambda=P_0=0.459$ of $r_\lambda=0.635$ comes from
+$n=0$, and the remaining $0.176$ from $n=1,2,3,\ldots$ (For comparison, the exact values are $a=0.425$ and
+$r=0.642$.)
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{checkpoint_2026-09-28_figs/fig_wormhole_freeness.pdf}
 \caption{(a) \DER\ Wormhole-length distribution $P_n$ of the supersymmetric Hartle--Hawking state at $\Np=14$
-($\lambda=18/14$, $j=0$) and its contribution $P_nq^{2\Delta n}$ to $r$. The $n=0$ bar is the BPS fraction $a$, the
-entire Haar/free value. (b) \NUM\ vs prediction: $\eta_r$ from the chord theory (line; no parameters) and exact SYK
+($\lambda=18/14$, $j=0$) and its contribution $P_nq^{2\Delta n}$ to $r$. The $n=0$ bar is $P_0=a_\lambda$, the double-scaled BPS
+fraction, which corresponds to the Haar/free value (Sec.~\ref{sec:provenance}). (b) \NUM\ vs prediction: $\eta_r$ from the chord theory (line; no parameters) and exact SYK
 (points). The chord curve peaks near $\Np\approx22$. The measured values lie about $0.04$ above it, consistent with the
 finite-$p$ excess of $a_{\rm chord}$ over the exact $a$. At $\Np=6$, $1-a=0.1$, so $\eta_r$ is poorly conditioned.}
 \label{fig:worm}

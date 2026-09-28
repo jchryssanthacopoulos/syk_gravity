@@ -4,7 +4,8 @@ Figure: "deviation from freeness = wormholes of nonzero length" (docs/derivation
 
 (a) Chord-number distribution P_n of the supersymmetric Hartle-Hawking state (BLY) at N' = 14 (lambda = 18/14,
     j = 0), and its contribution P_n q^{2 Delta n} to r (Delta = 1/3).  The n = 0 bar is the BPS fraction a, i.e.
-    the entire Haar / free-compression value of r.
+    the double-scaled BPS fraction a_lambda = D(j), which corresponds to the Haar / free-compression value of r
+    (equality of values within the double-scaled theory; exact a is 0-10% smaller at p = 3).
 (b) Rigidity fraction eta_r = (r - a)/(1 - a) = <q^{2 Delta n}>_{n>=1} predicted by the chord theory vs N',
     with the measured SYK values (chord-invariant campaign).
 No free parameters.  Light (< 0.2 GB).
@@ -47,10 +48,10 @@ def main():
     k = 12
     ax1.bar(n[:k] - 0.2, P[:k], width=0.4, color=GRID, edgecolor=INK2, lw=0.6, label=r"$P_n$ (wormhole length)")
     ax1.bar(n[:k] + 0.2, contrib[:k], width=0.4, color=BLUE, label=r"$P_n\,q^{2\Delta n}$ (contribution to $r$)")
-    ax1.bar([0.2], [contrib[0]], width=0.4, color=ORANGE, label=r"$n=0$: $a$ = Haar / free value")
+    ax1.bar([0.2], [contrib[0]], width=0.4, color=ORANGE, label=r"$n=0$: $a_\lambda=P_0$ ($\leftrightarrow$ Haar/free value)")
     r, aa = two_point_chord(lam, 0.0, 1 / 3), bps_fraction_chord(lam, 0.0)
-    ax1.text(5.3, 0.13, rf"$\sum_n P_n = 1$" "\n" rf"$r=\sum_n P_n q^{{2\Delta n}} = {r:.3f}$" "\n"
-             rf"$a = P_0 = {aa:.3f}$" "\n" rf"$r-a = \sum_{{n\geq1}} = {r - aa:.3f}$", fontsize=10, color=INK)
+    ax1.text(5.3, 0.13, rf"$\sum_n P_n = 1$" "\n" rf"$r_\lambda=\sum_n P_n q^{{2\Delta n}} = {r:.3f}$" "\n"
+             rf"$a_\lambda = P_0 = {aa:.3f}$" "\n" rf"$r_\lambda-a_\lambda = \sum_{{n\geq1}} = {r - aa:.3f}$", fontsize=10, color=INK)
     ax1.set_xlabel(r"chord number $n$ (wormhole length $\ell = 2\lambda n$)")
     ax1.set_ylabel("probability / contribution")
     ax1.set_title(rf"(a) SUSY wormhole at $N'={N}$ ($\lambda={lam:.2f}$, $j=0$, $\Delta=1/3$)", fontsize=11)
@@ -61,12 +62,12 @@ def main():
     Ns = np.arange(6, 101, 2)
     eta = [(two_point_chord(18 / m, 0.0, 1 / 3) - bps_fraction_chord(18 / m, 0.0)) /
            (1 - bps_fraction_chord(18 / m, 0.0)) for m in Ns]
-    ax2.plot(Ns, eta, color=INK2, lw=2, label=r"super-chord prediction, $j=0$ (no free parameters)")
+    ax2.plot(Ns, eta, color=INK2, lw=2, label=r"super-chord, $j=0$: $(r_\lambda-a_\lambda)/(1-a_\lambda)$, no free parameters")
     rows = [r_ for r_ in csv.DictReader(open(os.path.join(ROOT, "results/data/chord_invariants_2026-09-28/summary.csv")))
             if r_["q"] == "3" and r_["model"] == "syk" and int(r_["Np"]) % 2 == 0]
     xm = [int(r_["Np"]) for r_ in rows]
     ym = [(float(r_["r"]) - float(r_["a"])) / (1 - float(r_["a"])) for r_ in rows]
-    ax2.plot(xm, ym, "o", color=BLUE, ms=7, mec="white", mew=1.2, label="SYK exact, even $N'$")
+    ax2.plot(xm, ym, "o", color=BLUE, ms=7, mec="white", mew=1.2, label=r"SYK exact, even $N'$: $(r-a)/(1-a)$ with exact $a$")
     ax2.axvline(22, color=GRID, lw=1, ls="--")
     ax2.text(23, 0.40, "predicted maximum\n" r"near $N'\approx 22$", fontsize=9, color=INK2)
     ax2.set_xscale("log")
