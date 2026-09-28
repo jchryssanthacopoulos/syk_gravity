@@ -2,13 +2,7 @@
 
 ## Project Overview
 
-This repository investigates the properties of the uplift decoder in $\mathcal{N}=2$ supersymmetric SYK. The main
-object of study is the slot projector $\Pi_T$ compressed between BPS projectors, an LMRS-type ``compressed
-projector'' whose eigenvalues represent the principal angles between the enlarged BPS space and the occupation
-sector, or ``slot.'' At finite $N$, the eigenvalue density of this operator is given by the Jacobi, or MANOVA,
-ensemble, with a deviation from freeness that can be exactly quantified. The moments of the distribution can be
-reproduced from a purely gravitational computation involving chord diagrams. The planar diagrams are given by
-non-crossing partitions governed by the Narayana numbers.
+This repository investigates the properties of the uplift decoder in $\mathcal{N}=2$ supersymmetric SYK. The main object of study is the slot projector $\Pi_T$ compressed between BPS projectors, an LMRS-type compressed projector whose eigenvalues represent the principal angles between the enlarged BPS space and the occupation sector, or slot. At finite $N$, the eigenvalue density of this operator is given by the Jacobi, or MANOVA, ensemble, with a deviation from freeness that can be exactly quantified. The moments of the distribution can be reproduced from a purely gravitational computation involving chord diagrams. The planar diagrams are given by non-crossing partitions governed by the Narayana numbers.
 
 The papers in `papers/` form the backbone of the literature review. They should be treated as primary sources for the theoretical framework and existing results.
 
