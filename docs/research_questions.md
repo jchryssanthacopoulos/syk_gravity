@@ -28,7 +28,19 @@ a = d/D, b = m/D. B⁰ := B^P_N ⊕ (B^{P−1}_N ∧ e_{N′}) is the LES refere
 At accessible N the two are numerically similar (≈ 0.1–0.15), which may explain why Wachter "almost" works.
 The persistent δm₂ ≈ 0.03–0.05 would then just be the difference of two curves that diverge at large N.
 
-**Known.** SYK variance exceeds Wachter by 0.02–0.035 at N′ = 9–11 (audit smoke test) and δm₂ ≈ 0.035–0.044 at
+**Measured 2026-09-28** (`scripts/audit/variance_scaling.py`, seeds 0–3, 2 for N′=14; half filling P=⌊N′/2⌋):
+r ≡ Var(λ)/[b(1−b)] (fraction of Π_T's UV variance surviving BPS projection; Haar/Wachter predicts r = a):
+
+| N′ | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+|---|---|---|---|---|---|---|---|---|
+| a | .771 | .771 | .643 | .643 | .526 | .526 | .425 | .425 |
+| r | .797 | .818 | .735 | .736 | .667 | .699 | .612 | .652 |
+| r/a | 1.03 | 1.06 | 1.14 | 1.14 | 1.27 | 1.33 | 1.44 | 1.53 |
+
+The deviation from Wachter **grows** with N (δm₂ = 0.006 → 0.057), i.e. it is not a finite-size correction to
+Wachter. r decays far more slowly than a. Power law vs slow exponential cannot be decided from 8 points.
+
+**Earlier estimates.** SYK variance exceeds Wachter by 0.02–0.035 at N′ = 9–11 (audit smoke test) and δm₂ ≈ 0.035–0.044 at
 N = 10–12 (draft, unverified code). A crude, *unverified-normalization* evaluation of LMRS eq. (66) (j = 0,
 Δ = 1/3, C = 0.00842 N) gives O(0.1) at N′ = 13.
 
