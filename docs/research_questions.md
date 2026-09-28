@@ -10,6 +10,12 @@ Status tags: **[open]**, **[in progress]**, **[answered]**, **[superseded]**.
 > and can that law be derived from N=2 super-JT gravity (LMRS-type projected-operator calculus) rather than
 > postulated?**
 
+**Status 2026-09-28 (`docs/derivations.md` D2).** The second moment is now derived gravitationally. The
+finite-λ N=2 super-chord theory (Boruch–Lin–Yan) gives r with no free parameter, to 2 %. Structurally,
+r = a + Σ_{n≥1} P_n q^{2Δn}: the Wachter/Haar value a is the zero-length-wormhole term, and the deviation from
+freeness is the finite-length-wormhole contribution. Predicted: η_r peaks near N′ ≈ 22. Open: higher moments / the
+density (multi-particle chord wormholes), X and e₃.
+
 The previous draft answered "Wachter/MANOVA (two free projectors) + a Haar genus expansion = gravity". The audit
 found that this answer describes a **Haar null model**, not the SYK decoder: its gravitational derivation is not
 valid, and the SYK spectrum departs from it at O(1). The questions below replace that framing.
@@ -19,14 +25,35 @@ a = d/D, b = m/D. B⁰ := B^P_N ⊕ (B^{P−1}_N ∧ e_{N′}) is the LES refere
 
 ---
 
-## Q1. Is the decoder variance exponentially small (Haar) or power-law small (LMRS)? **[open — top priority]**
+## Q1. Is the decoder variance exponentially small (Haar) or power-law small (LMRS)? **[in progress — Haar excluded; finite-λ chord prediction matches to 2 %; asymptotics open]**
 
-**Why it matters.** This is the cleanest discriminator between the two candidate "free" pictures:
-- Haar/Wachter: Var(λ) = m₂ − m₁² = ab(1−b) ∝ a ~ (√3/2)^N → 0 exponentially.
-- LMRS/super-JT: n_{N′} − ⟨n⟩ is a neutral fermion bilinear with Δ = 1/q̂ = 1/3. Zero-energy two-point functions
-  carry (2α_S N)^{−2Δ} (LMRS eqs. 83–85; Chen–Lin–Shenker: width ~ S0^{−Δ}) ⇒ Var(λ) ~ N^{−2/3}.
-At accessible N the two are numerically similar (≈ 0.1–0.15), which may explain why Wachter "almost" works.
-The persistent δm₂ ≈ 0.03–0.05 would then just be the difference of two curves that diverge at large N.
+**Update 2026-09-28 (`docs/derivations.md` D1).** The LMRS zero-energy two-point function in our single R-charge
+sector (j = 0 for even N′, −1/6 for odd N′) gives a parameter-free prediction r_LMRS ∝ N′^{−2/3}.
+- As derived, it **overshoots** the measured q=3 r by 15–24 % (N′ = 9…15), with the gap shrinking in N′.
+- Its j-factor alone correctly accounts for the even/odd alternation (parameter-free).
+- A fitted correction, r ≈ r_LMRS (1 − 2.2/N′), fits well, but a plain power law N′^{−0.44} fits equally well.
+  The pure N′^{−2/3} shape with free normalization does not fit (χ²/dof 335).
+- LMRS themselves compare only at N = 16, with no finite-N correction, and are ~10 % off for their neutral bilinear.
+- All Haar-based models fail.
+
+**Out-of-sample R-charge test (D1, pre-registered).** At fixed even N′, the j = ±1/3 sectors are predicted to have
+Var_{1/3}/Var_0 = 0.645 (no free parameter). Measured: 0.642, 0.668, 0.677, 0.683 (N′ = 8…14). The Haar null gives
+0.56–0.59, and no j-dependence gives 1. So the prediction holds to within 6 %, but the data drift away from it with
+N′, not toward it.
+**Resolution at finite λ (D2, 2026-09-28).** The double-scaled super-chord two-point function of Boruch–Lin–Yan
+(eq. 4.8), evaluated at λ = 2p²/N′ = 18/N′ and Δ = 1/3 with no free parameters, reproduces the measured r to within
+2.2 % for N′ = 5…16 (both parities). The super-Schwarzian overshoots by 15–60 %. So at our sizes the decoder variance
+is in the double-scaled regime (λ ≈ 1.1–3.6), not the Schwarzian one. Residual: a drift of −2 % → +2 % (j = 0,
+∓1/6) and up to +7 % in the j = ±1/3 sectors at N′ = 14. Since DSSYK's λ → 0 limit is not the fixed-p = 3 large-N
+theory (α_S = 1/72 vs 0.00842), the agreement must fail eventually. Q1 status: Haar excluded; the variance is
+quantitatively a chord/gravity quantity at accessible N′. The asymptotic N′ → ∞ power remains open.
+**Why they differ (D1, "no conformal window").** The zero-energy correlator samples boundary times
+Jt ~ 2α_S N′ ≈ 0.75 at N′ = 15, below the microscopic time 1/J. Half its weight comes from where the conformal input
+exceeds the true correlator's UV maximum, so the Schwarzian formula is used outside its regime, and the overshoot is
+expected. A no-parameter "saturated conformal" toy reproduces the size and trend. The N′^{−2/3} regime needs
+N′ ~ 10² (median Jt ≈ 10 at N′ ≈ 200).
+Open: insert the exact large-N Schwinger–Dyson correlator into the zero-energy average (controlled finite-N′
+prediction); the same issue applies to predictions of X and e₃.
 
 **Measured 2026-09-28** (`scripts/audit/variance_scaling.py`, seeds 0–3, 2 for N′=14; half filling P=⌊N′/2⌋):
 r ≡ Var(λ)/[b(1−b)] (fraction of Π_T's UV variance surviving BPS projection; Haar/Wachter predicts r = a):
@@ -52,12 +79,22 @@ X→1 is a light/commuting probe.
 X_Haar ≈ a, whereas SYK crossings stay O(1) and drift slowly. This is the light-probe chord regime, and X is a
 directly gravity-computable number (disk 4-point OTOC/TOC at Δ = 1/3).
 
+**Chord-invariant campaign (2026-09-28; `research/notes/chord_invariants_2026-09-28.md` §3).** Exact, q=3
+N′ = 5…15 and q=5 N′ = 9…16, with a Haar null model that reproduces free compression. Findings:
+(i) r/a grows to 1.70 at N′=15, with r ≈ 0.89 a^0.41 (asymptotic form undetermined).
+(ii) Low free cumulants look like Wachter(t ≈ r), but the spectra are not Wachter(r) (KS 0.15–0.23).
+(iii) F = 1, and words with ≤ 2 crossings are multiplicative in X.
+(iv) The fully crossing word scales as X^{e₃} with **e₃ = 2.27 → 2.41 (± 0.01)**, drifting upward: neither free
+(2) nor the single-parameter chord rule (3).
+Point (iv) is the main quantitative target for a gravity computation.
+
 **Earlier estimates.** SYK variance exceeds Wachter by 0.02–0.035 at N′ = 9–11 (audit smoke test) and δm₂ ≈ 0.035–0.044 at
 N = 10–12 (draft, unverified code). A crude, *unverified-normalization* evaluation of LMRS eq. (66) (j = 0,
 Δ = 1/3, C = 0.00842 N) gives O(0.1) at N′ = 13.
 
 **To do.**
-1. Analytic: derive the zero-energy two-point function of O = n_{N′} − ⟨n⟩ in the fixed-p BPS sector.
+1. ~~Analytic: derive the zero-energy two-point function of O = n_{N′} − ⟨n⟩ in the fixed-p BPS sector.~~ Done
+   2026-09-28, `docs/derivations.md` D1 (i = k handled at leading order; j per parity; b_q̂, α_S from LMRS).
    Issues: i = k bilinear vs LMRS's i ≠ k; R-charge sector j for our P; odd N′ shift (LMRS fn. 6); normalization
    b_q̂, α_S. Output: prediction V_LMRS(N).
 2. Numerical: Var(λ) and m₃ − … (connected moments) vs N for N′ = 8…16 (exact) and larger with `src/q_scan_mf.py`
@@ -106,7 +143,9 @@ Gram statistics with dimension e^{S0}cos(πj). Trumpet/higher-genus contribution
 statistics are exactly those of Haar-random vectors *inside* H_BPS. Gravity therefore predicts ETH-like random
 matrix elements ⟨ψ_i|Π_T|ψ_j⟩ with LMRS variance, not Haar randomness of the BPS subspace in the Fock space and
 not a 1/D² handle tower. (vi) Finite-Δ crossing weights from chords: q̃ = q^Δ (Berkooz–Mamroud eq. 2.28); the
-supersymmetric chord methods of Boruch–Lin–Yan (not yet in `papers/`) are a candidate computational route.
+supersymmetric chord methods of Boruch–Lin–Yan (`papers/boruch_lin_yan_2023.pdf`, noted 2026-09-28) are the
+computational route. Their §5 builds one-particle wormholes and the zero-T OTOC operator (eq. 5.18) without
+evaluating it. With site-local crossing rules, that is a direct finite-λ prediction of X and e₃ (see D2).
 
 **To do.** Compute m₂ (Q1), then the disk 4-point function at finite Δ (LMRS eq. 145-type integral) to get m₃, m₄.
 Double-scaled SYK chord rules may give finite-Δ crossing weights. Decide whether any E=0 topological model with

@@ -80,5 +80,5 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 - [x] Added notes (2026-09-28) for FGMS, Turiaci–Witten, HTZ, Boruch–Iliesiu–Yan, PSSY, HITZ, Y. Chen,
       Collins–Matsumoto–Novak (Weingarten), Berkooz–Mamroud (DSSYK chords).
-- [ ] Still to acquire: LMRS companion (2207.00407); Boruch–Lin–Yan, *Exploring supersymmetric wormholes in N=2 SYK
-      with chords* (JHEP 12 (2023) 151); double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.
+- [x] Boruch–Lin–Yan (arXiv:2308.16283) acquired and noted 2026-09-28 (`literature/notes/boruch_lin_yan_2023.md`).
+- [ ] Still to acquire: LMRS companion (2207.00407); double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.

@@ -1,0 +1,2 @@
+{"cmd": ".venv/bin/python scripts/lmrs_mismatch_checks.py --Np 8-14 --seeds 0-3", "rc": 0, "killed": null, "peak_gb": 0.773, "cap_gb": 4.0, "secs": 454.1, "ended": "2026-09-28T21:02:31"}
+{"cmd": ".venv/bin/python scripts/lmrs_jsector_test.py --Np 8,10,12,14 --seeds 0-3", "rc": 0, "killed": null, "peak_gb": 0.825, "cap_gb": 3.0, "secs": 317.5, "ended": "2026-09-28T22:15:00"}

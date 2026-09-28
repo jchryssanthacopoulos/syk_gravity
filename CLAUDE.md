@@ -136,6 +136,27 @@ Each significant numerical experiment should record:
 - output files
 - relevant code version/commit
 
+### Memory safety (mandatory)
+
+**Every intensive process must run under the memory watchdog.** This machine has 32 GB of RAM; a campaign on
+2026-09-28 was OOM-killed when two large jobs ran concurrently. The project budget is **30 GB total** across all
+our running jobs.
+
+- Before launching, estimate the peak memory (e.g. `--dry-run` in `scripts/run_chord_invariants.py`; for new code,
+  add an equivalent estimate). Do not launch a job whose estimate does not fit.
+- Launch through `scripts/memwatch.py`, with a per-job cap somewhat above the estimate:
+
+      .venv/bin/python scripts/memwatch.py --limit-gb 12 --log results/data/<run>/memwatch.jsonl -- <command>
+
+  memwatch measures the whole process tree (macOS physical footprint, which counts compressed memory), kills the
+  job if it exceeds its cap, if all watched jobs together exceed the 30 GB budget, or if the system runs low. Each
+  job reserves its cap: a launch that would push the reservations of running jobs over 30 GB is refused (or
+  queued with `--wait`). So concurrent jobs' caps must sum to ≤ 30 GB. `memwatch.py --status` lists the jobs.
+- "Intensive" means anything that may exceed ~2 GB or run longer than a few minutes, including parallel groups
+  of small jobs. When in doubt, use the watchdog.
+- Prefer algorithms whose memory is bounded (bounded caches, partial eigendecompositions, streaming) over ones
+  that hold several dense D×D matrices at once. Record the measured peak (memwatch prints it) with the results.
+
 Results should go into:
 
     results/

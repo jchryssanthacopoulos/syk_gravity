@@ -1,0 +1,20 @@
+{
+ "q": 3,
+ "Np": 15,
+ "P": 7,
+ "seeds": "0-2",
+ "haar_seeds": "0-1",
+ "modes": 5,
+ "triples": 2,
+ "kmodes": [
+  2,
+  3
+ ],
+ "method": "auto",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_invariants_2026-09-28",
+ "save_spectra": true,
+ "git": "ab1cb35a661ad00f33d6d123aa4d65ce9620d6d5-dirty",
+ "started": "20260928T190949",
+ "host_numpy": "2.5.3",
+ "description": "chord invariants of BPS-projected slot projectors; see src/chord_invariants.py"
+}

@@ -1,0 +1,6 @@
+memwatch: pid 83142 cap 13.0 GB, budget 30 GB: .venv/bin/python scripts/run_chord_invariants.py --q 3 --Np 16 --seeds 0-1 --haar-seeds 0 --modes 4 --triples 1 --method basis --cache-gb 3
+memory estimate (run under scripts/memwatch.py with a cap above this): {'D': 12870, 'rows': 8736, 'd_est': 4134, 'r_est': 8736, 'null_method': 'eigh', 'peak_gb': 8.13}
+q=3 N'=16 syk seed=0: a=0.340 r=0.5985 rho4=0.2403 X=0.7562 (3151s)
+q=3 N'=16 syk seed=1: a=0.340 r=0.5922 rho4=0.2347 X=0.7530 (3106s)
+q=3 N'=16 haar seed=0: a=0.340 r=0.3399 rho4=0.0393 X=0.3457 (2419s)
+memwatch: done rc=0 peak 7.54 GB (cap 13.0) in 8677s
