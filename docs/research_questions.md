@@ -40,6 +40,18 @@ r ≡ Var(λ)/[b(1−b)] (fraction of Π_T's UV variance surviving BPS projectio
 The deviation from Wachter **grows** with N (δm₂ = 0.006 → 0.057), i.e. it is not a finite-size correction to
 Wachter. r decays far more slowly than a. Power law vs slow exponential cannot be decided from 8 points.
 
+**Chord crossing weight (2026-09-28, `scripts/audit/crossing_ratio.py`).** For two projected occupations
+Â = P_B(n−⟨n⟩)P_B of different modes, X = τ(ÂᵢÂⱼÂᵢÂⱼ)/τ(ÂᵢÂᵢÂⱼÂⱼ). X→0 is free (non-crossing, Wachter),
+X→1 is a light/commuting probe.
+
+| N′ | 8 | 9 | 10 | 11 | 12 | 13 |
+|---|---|---|---|---|---|---|
+| X_SYK | .851 | .800 | .801 | .766 | .792 | .735 |
+| X_Haar | .777 | .651 | .652 | .533 | .531 | .431 |
+
+X_Haar ≈ a, whereas SYK crossings stay O(1) and drift slowly. This is the light-probe chord regime, and X is a
+directly gravity-computable number (disk 4-point OTOC/TOC at Δ = 1/3).
+
 **Earlier estimates.** SYK variance exceeds Wachter by 0.02–0.035 at N′ = 9–11 (audit smoke test) and δm₂ ≈ 0.035–0.044 at
 N = 10–12 (draft, unverified code). A crude, *unverified-normalization* evaluation of LMRS eq. (66) (j = 0,
 Δ = 1/3, C = 0.00842 N) gives O(0.1) at N′ = 13.
