@@ -8,7 +8,8 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 from chord_invariants import BPSProjector  # noqa: E402
 from parity_decoder import parity_projector_diag, x_exact  # noqa: E402
-from size_decomposition import HopTable, casimir_eigs, chi_hat, dim_Vk, size_weights  # noqa: E402
+from size_decomposition import (HopTable, casimir_eigs, chi_hat, dim_Vk, size_weights,  # noqa: E402
+                                transmission_matrix, transmissions_from_weights)
 
 
 def _superop(T):
@@ -61,6 +62,30 @@ def test_haar_sum_rule_reproduces_weingarten():
 def test_x_zero_at_half():
     for N in (8, 10, 12, 14):
         assert abs(x_exact(N, 3, N // 2)) < 1e-15
+
+
+def test_transmissions_brute_force():
+    """phi_k from the universal realignment matrix equals Tr[(P (x) P^T) Pi_k]/dim V_k computed by brute force
+    (full superoperator eigenbasis) at N = 6, P = 3, for SYK and Haar projectors; plus exact sum rules."""
+    N, P = 6, 3
+    T = HopTable(N, P)
+    S = _superop(T)
+    ev, V = np.linalg.eig(S)
+    ev = ev.real
+    Vinv = np.linalg.inv(V)
+    A = transmission_matrix(N, P)
+    for seed, haar in ((0, False), (3, False), (1, True)):
+        pr = BPSProjector(N, P, q=3, seed=seed, method="basis", haar=haar)
+        Pm = pr.B @ pr.B.conj().T
+        sup = np.kron(Pm, Pm.T)                          # vec(P X P) = (P (x) P^T) vec(X), row-major vec
+        w, _ = size_weights(Pm, T)
+        phi = transmissions_from_weights(w, pr.d, N, P, A)
+        for k, e in enumerate(casimir_eigs(N, P)):
+            sel = np.abs(ev - e) < 1e-6
+            brute = np.real(np.trace(Vinv[sel] @ sup @ V[:, sel])) / dim_Vk(N, k)
+            assert abs(brute - phi[k]) < 1e-9, (seed, haar, k, brute, phi[k])
+        assert abs(phi[0] - pr.a) < 1e-12
+        assert abs(sum(phi[k] * dim_Vk(N, k) for k in range(len(phi))) - pr.d ** 2) < 1e-8
 
 
 if __name__ == "__main__":

@@ -1,0 +1,14 @@
+memwatch: pid 87036 cap 3.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_model_overlap.py --Np 10 --pairs 110:111,112:113,114:115,116:117,118:119,120:121,122:123,124:125,126:127,128:129,130:131,132:133
+N'=10 syk seeds 110,111: a=0.6429 E[nu]=0.6396 E[nu^2]=0.5613 (free 0.5609) E[nu^3]=0.5257 (free 0.5232) KS_W(a,a)=0.028
+N'=10 syk seeds 112,113: a=0.6429 E[nu]=0.6409 E[nu^2]=0.5637 (free 0.5609) E[nu^3]=0.5286 (free 0.5232) KS_W(a,a)=0.029
+N'=10 syk seeds 114,115: a=0.6429 E[nu]=0.6455 E[nu^2]=0.5662 (free 0.5609) E[nu^3]=0.5299 (free 0.5232) KS_W(a,a)=0.024
+N'=10 syk seeds 116,117: a=0.6429 E[nu]=0.6437 E[nu^2]=0.5650 (free 0.5609) E[nu^3]=0.5290 (free 0.5232) KS_W(a,a)=0.024
+N'=10 syk seeds 118,119: a=0.6429 E[nu]=0.6444 E[nu^2]=0.5646 (free 0.5609) E[nu^3]=0.5285 (free 0.5232) KS_W(a,a)=0.028
+N'=10 syk seeds 120,121: a=0.6429 E[nu]=0.6421 E[nu^2]=0.5625 (free 0.5609) E[nu^3]=0.5265 (free 0.5232) KS_W(a,a)=0.022
+N'=10 syk seeds 122,123: a=0.6429 E[nu]=0.6394 E[nu^2]=0.5609 (free 0.5609) E[nu^3]=0.5257 (free 0.5232) KS_W(a,a)=0.027
+N'=10 syk seeds 124,125: a=0.6429 E[nu]=0.6595 E[nu^2]=0.5780 (free 0.5609) E[nu^3]=0.5392 (free 0.5232) KS_W(a,a)=0.031
+N'=10 syk seeds 126,127: a=0.6429 E[nu]=0.6306 E[nu^2]=0.5546 (free 0.5609) E[nu^3]=0.5212 (free 0.5232) KS_W(a,a)=0.038
+N'=10 syk seeds 128,129: a=0.6429 E[nu]=0.6469 E[nu^2]=0.5673 (free 0.5609) E[nu^3]=0.5315 (free 0.5232) KS_W(a,a)=0.031
+N'=10 syk seeds 130,131: a=0.6429 E[nu]=0.6392 E[nu^2]=0.5612 (free 0.5609) E[nu^3]=0.5260 (free 0.5232) KS_W(a,a)=0.027
+N'=10 syk seeds 132,133: a=0.6429 E[nu]=0.6373 E[nu^2]=0.5594 (free 0.5609) E[nu^3]=0.5248 (free 0.5232) KS_W(a,a)=0.030
+memwatch: done rc=0 peak 0.01 GB (cap 3.0) in 1s

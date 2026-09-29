@@ -11,3 +11,6 @@
 {"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 12 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.17, "cap_gb": 3.0, "secs": 40.3, "ended": "2026-09-29T03:34:04"}
 {"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 13 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.211, "cap_gb": 3.0, "secs": 172.8, "ended": "2026-09-29T03:38:07"}
 {"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 14 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.666, "cap_gb": 5.0, "secs": 434.4, "ended": "2026-09-29T03:45:22"}
+{"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 10 --pairs 110:111,112:113,114:115,116:117,118:119,120:121,122:123,124:125,126:127,128:129,130:131,132:133", "rc": 0, "killed": null, "peak_gb": 0.01, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T04:25:20"}
+{"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 14 --pairs 110:111,112:113,114:115,116:117,118:119,120:121,122:123,124:125,126:127,128:129,130:131,132:133", "rc": 0, "killed": null, "peak_gb": 0.632, "cap_gb": 4.0, "secs": 474.3, "ended": "2026-09-29T04:33:14"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 14 --seeds 2-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.666, "cap_gb": 5.0, "secs": 655.6, "ended": "2026-09-29T04:44:10"}

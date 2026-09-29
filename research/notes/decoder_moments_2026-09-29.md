@@ -24,7 +24,8 @@ All runs under `scripts/memwatch.py` (peaks ≤ 0.9 GB).
    - As $x\to0$: $r\to a$ (the Haar value), and the second moment becomes free.
    - **But $T_4,T_6$ stay above their free values at $x=0$** ($+5.6\%$, $+10\%$ at $N'=14$, growing with $N'$).
 4. **[num] Two independent SYK models** have BPS spaces that are *not* mutually free. $E[\nu]=a$ exactly (proved,
-   §5), but $E[\nu^2]$ exceeds the free value by $1.4, 2.0, 3.4\%$ at $N'=10, 12, 14$. This is the $x$-independent part
+   §5), but $E[\nu^2]$ exceeds the free value by $0.6, 2.0, 4.3\%$ at $N'=10, 12, 14$ (16, 4, 16 pairs; exact
+   prediction in §10). This is the $x$-independent part
    of the decoder's non-freeness.
 5. **[derived + verified] Exact finite-$N$ sum rule** (§6). The coupling ensemble is $U(N)$-invariant. Decompose
    the BPS projector by operator size, $P=\sum_kP^{(k)}$ ($U(N)$-irreps $V_k\subset\mathrm{End}(\Lambda^P)$). Then
@@ -36,7 +37,14 @@ All runs under `scripts/memwatch.py` (peaks ≤ 0.9 GB).
 
    It reproduces the campaign's $r$ to 0.1–0.8 % for $N'=8\ldots14$, including odd $N'$. The size weights $w_{2n}$
    track BLY's chord-length distribution $P_n$, and $\hat\chi_{2n}$ tracks $x^{2n}$.
-6. **[falsified, strong form] "Wachter = zero-length truncation of the chord computation for all moments"**
+6. **[derived + verified] Exact two-copy structure (§10, added 2026-09-29).** The *transmission spectrum*
+   $\phi_k$ (the eigenvalue of $X\mapsto E[PXP]$ on $V_k$) is a universal linear function of the size spectrum
+   $w_k$. The fourth moment of two independent models is then exact:
+   $$E\,\tau(P_1P_2P_1P_2)=\sum_k\phi_kw_k=(2a^2-a^3)+\sum_{k\ge1}(\phi_k-a^2)\,w_k .$$
+   It matches independent-pair measurements to 0.01–0.2 % ($N'=10$–14). Haar projectors have flat transmission
+   $\phi_{k\ge1}=a^2$. SYK has excess transmission $\delta\phi_k=\phi_k-a^2>0$ at small sizes, and the decoder
+   variance is exactly $r=\phi_1/a$ at half filling. **Both kinds of non-freeness are controlled by $\delta\phi$.**
+7. **[falsified, strong form] "Wachter = zero-length truncation of the chord computation for all moments"**
    (checkpoint §7.4 item 3). Removing the matter dressing ($x\to0$) does *not* leave the free law beyond $m_2$.
    **[conj, refined]** Free compression requires both $x=0$ *and* Haar-like multi-copy size structure of the BPS
    projector. SYK has neither.
@@ -123,13 +131,15 @@ $\nu\sim\mathrm{Wachter}(a,a)$. With 4 seed pairs per $N'$ (`size_sumrule_tables
 
 | $N'$ | $E[\nu]/a$ | $E[\nu^2]/{\rm free}$ | $E[\nu^3]/{\rm free}$ | KS to Wachter(a,a) (SYK / Haar) |
 |---|---|---|---|---|
-| 10 | 1.009 ± 0.006 | 1.014 ± 0.005 | 1.017 ± 0.004 | 0.026 / 0.010 |
+| 10 | 1.009 ± 0.006 | 1.014 ± 0.005 → **1.006 (16 pairs, CV)** | 1.017 ± 0.004 | 0.026 / 0.010 |
 | 12 | 0.999 ± 0.003 | 1.021 ± 0.004 | 1.040 ± 0.004 | 0.032 / 0.007 |
-| 14 | 0.993 ± 0.002 | 1.034 ± 0.003 | 1.077 ± 0.004 | 0.038 / 0.007 |
+| 14 | 0.993 ± 0.002 | 1.034 ± 0.003 → **1.043 (16 pairs, CV)** | 1.077 ± 0.004 | 0.038 / 0.007 |
 
 - **Independent SYK BPS spaces are not free relative to each other,** and the deviation grows with $N'$.
-- **They reproduce the $x=0$ parity numbers at $N'=10,12$.** At $N'=14$ the parity $x=0$ decoder is somewhat
-  more non-free ($T_4$: 1.056 vs 1.034). Its residual correlation is the nonzero $\hat\chi_{k\ge2}(U_{N/2})$ of §6.3.
+- **They are close to the $x=0$ parity numbers** ($T_4$ ratio: parity 1.014 / 1.025 / 1.056 vs two-model
+  1.006 / 1.020 / 1.043 at $N'=10/12/14$). The parity decoder keeps a small extra residual correlation (the
+  nonzero $\hat\chi_{k\ge2}(U_{N/2})$ of §6.3).
+- The bold entries (16 pairs, control variate on the exact $E[\nu]=a$) supersede the 4-pair values; see §10.5.
 - **[interp] Mechanism.** In chord language the two models' chords still cross each other with the $q$-weights set
   by shared site indices, so the models are not free unless $q\to0$. The growth with $N'$ (smaller $\lambda$, larger
   $q=e^{-\lambda}$) matches this. Representation-theoretically (§6), both projectors concentrate on low operator
@@ -188,7 +198,7 @@ $\max|\sum_kP^{(k)}-P|\le2\times10^{-15}$.
 | 10 | 0.6429 | 0.2997 | 0.0574 | – | 0 | 0.7454 | 0.7463 ± 0.0007 |
 | 12 | 0.5260 | 0.3486 | 0.1119 | 0.0135 | 0 | 0.6855 | 0.6874 ± 0.0009 |
 | 13 | 0.4248 | 0.3398 | 0.1435 | 0.0318 | 0.015, 0.022, 0.024 | 0.6176 | 0.6171 ± 0.0018 |
-| 14 (2 seeds) | 0.4248 | 0.3707 | 0.1629 | 0.0416 | 0 | 0.6371 | 0.6420 ± 0.0037 |
+| 14 (4 seeds) | 0.4248 | 0.3706 | 0.1629 | 0.0416 | 0 | 0.6371 | 0.6420 ± 0.0037 |
 
 - **Single-site decoder.** The parameter-free sum rule reproduces $r$ to 0.1–0.8 %. Per realization with one
   fixed site, $T_2$ scatters by $\pm0.02$ around the prediction. Averaging over the 6 campaign modes of seed 0 at
@@ -240,7 +250,7 @@ $\max|\sum_kP^{(k)}-P|\le2\times10^{-15}$.
 
 ## 8. Next steps (in order)
 
-1. **Exact $T_4$ from two-copy size data [derived route, to do].** For two independent models,
+1. **Exact $T_4$ from two-copy size data — DONE for two independent models (§10).** Original plan, kept for the record: For two independent models,
    $E\,\mathrm{Tr}(P_1P_2P_1P_2)=\mathrm{Tr}\big[E(P^{\otimes2})\,E(P^{\otimes2})\,\mathrm{SWAP}\big]$.
    - $E(P^{\otimes 2})$ lies in the $U(N)$ commutant on $\Lambda^P\otimes\Lambda^P$, which is multiplicity-free,
      indexed by $k=0\ldots P$.
@@ -264,3 +274,132 @@ $\max|\sum_kP^{(k)}-P|\le2\times10^{-15}$.
 - $q=3$, $P=\lfloor N'/2\rfloor$, $S=\{N'-1,0,\ldots,s-2\}$.
 - Code state: commit `081877d` + working tree (new files listed above).
 - Memory: all runs under `scripts/memwatch.py`, peaks 0.01–0.86 GB (`memwatch.jsonl`).
+
+## 10. Exact two-copy structure: transmission spectrum and the two-model fourth moment [derived + verified]
+
+*Added 2026-09-29. Code: `src/size_decomposition.py` (`transmission_matrix`, `transmissions_from_weights`,
+`johnson_idempotent_values`, `character_coeffs`); analysis `scripts/analyze_two_copy.py` → `two_copy_tables.md`;
+test `test_transmissions_brute_force`. Extra data: 12 more independent pairs at $N'=10$ and $N'=14$ (seeds
+110–133), size weights for $N'=14$ seeds 2–3 plus Haar. Peaks ≤ 0.7 GB under memwatch.*
+
+### 10.1 The transmission spectrum
+Define the superoperator $\Phi(X)=E[PXP]$ (average over the ensemble). By $U(N)$ invariance, $\Phi$ commutes with
+$\mathrm{Ad}_g$ on $\mathrm{End}(\Lambda^P)$. The decomposition is multiplicity-free, so by Schur $\Phi$ acts on each
+$V_k$ as a scalar $\phi_k$: **the transmission of a size-$k$ operator through the BPS projection.** Equivalently
+$\phi_k=E\,\mathrm{Tr}[(P\otimes P^T)\Pi_k]/\dim V_k$, and for any operator $X$,
+$E\,\mathrm{Tr}(PXPX^\dagger)=\sum_k\phi_k\|X^{(k)}\|^2$.
+
+For two independent models,
+$$E\,\mathrm{Tr}(P_1P_2P_1P_2)=E_1\,\mathrm{Tr}\big(P_1\,\Phi(P_1)\big)=\sum_k\phi_k\,E\|P_1^{(k)}\|^2
+\;\Rightarrow\;\boxed{\,E\,\tau(P_1P_2P_1P_2)=\sum_k\phi_k\,w_k\,}$$
+
+### 10.2 $\phi$ is a universal linear function of $w$ [derived]
+**Realignment.** $P\otimes P^T$, the superoperator $X\mapsto PXP$, is the realignment
+$\mathcal R\big(|P\rangle\rangle\langle\langle P|\big)$ of the rank-one operator whose twirl gives $w_k$. For
+$Y=\sum_i|A_i\rangle\rangle\langle\langle B_i|$, $\mathcal R(Y)$ is the superoperator $X\mapsto\sum_iA_iXB_i^\dagger$.
+$\mathcal R$ is $U(N)$-equivariant: $\mathrm{Ad}_g\,\mathcal R(Y)\,\mathrm{Ad}_g^{-1}=\mathcal R(\mathrm{Ad}_gY\mathrm{Ad}_g^{-1})$.
+So it maps the commutant $\mathrm{span}\{\Pi_k\}$ to itself and commutes with twirling:
+$$\phi_j=\sum_k\mathcal A_{jk}\,c_k,\qquad c_k=\frac{\|P^{(k)}\|^2}{\dim V_k}=\frac{d\,w_k}{\dim V_k},\qquad
+\mathcal R(\Pi_k)=\sum_j\mathcal A_{jk}\Pi_j .$$
+This holds **per realization** (for the $U(N)$-twirled $\phi$), not only in expectation. $\mathcal A$ depends only
+on $(N,P)$.
+
+**Computing $\mathcal A$ via the torus.**
+1. $\mathrm{Tr}[\mathcal R(Y)\,\mathrm{Ad}_g]=\langle\langle\rho(g)^\dagger|Y|\rho(g)^\dagger\rangle\rangle$. So column $k$
+   of $\mathcal A$ is the character expansion of the class function $g\mapsto\|\rho(g)^{(k)}\|^2$ (the size-$k$
+   weight of the group element itself).
+2. On the maximal torus, $\rho(g)=\mathrm{diag}(z^S)$ is diagonal. The size-$k$ part of a diagonal operator is its
+   projection onto the $k$-th eigenspace of the Johnson scheme $J(N,P)$: the weight-zero subspace of $V_k$ carries
+   the $S_N$ irrep $(N-k,k)$. So $\|\rho(g)^{(k)}\|^2=\sum_{S,T}(E_k)_{ST}z^S\bar z^T$, with $E_k$ the $k$-th
+   Johnson idempotent, whose entries $e_k(r)$ depend only on $r=|S\setminus T|$.
+3. With $m_r=\sum_{A\cap B=\emptyset,|A|=|B|=r}z^A\bar z^B$ one has
+   $\sum_{|S\setminus T|=r}z^S\bar z^T=\binom{N-2r}{P-r}m_r$ and
+   $\chi_{V_k}=|e_k|^2-|e_{k-1}|^2=\sum_r\big[\binom{N-2r}{k-r}-\binom{N-2r}{k-r-1}\big]m_r$.
+   Matching coefficients of $m_r$ is a triangular system for each column.
+
+**Verified:** brute force at $N=6$ (full $400\times400$ superoperator $P\otimes P^T$ projected with the Casimir
+eigenbasis) agrees to $10^{-9}$ for two SYK and one Haar projector.
+
+(Only the diagonal correlations $E[P_{SS}P_{TT}]$ enter the torus form of $\phi$ directly. Estimating them from
+single realizations is noisy; for example, $\phi_0$ comes out 0.705 or 0.906 against the exact $a=0.771$ at $N'=8$.
+The realignment route uses the full matrix through $w_k$ and is exact per realization.)
+
+### 10.3 Exact sum rules [derived + verified per realization]
+| identity | reason | max deviation ($N'=8$–14) |
+|---|---|---|
+| $\phi_0=a$ | $\Pi_0$ is the identity direction: $\mathrm{Tr}(P^2)/D$ | $5\times10^{-13}$ |
+| $\sum_k\phi_k\dim V_k=d^2$ | trace of $P\otimes P^T$ $=|\mathrm{Tr}P|^2$ | $6\times10^{-15}$ (relative) |
+| $r=T_2=\phi_1/a$ (half filling) | $U=1-2n_i$ has sizes 0, 1 only; $\|U^{(1)}\|^2=D$ | $2\times10^{-13}$ vs $\sum_kw_k\hat\chi_k(U)$ |
+
+The third row gives **two independent exact routes to the decoder variance** (one via $w$ and characters, one via
+the transmission of one-body operators), and they agree. The second row implies
+$\sum_{k\ge1}(\phi_k-a^2)\dim V_k=-a(1-a)$. So the dimension-weighted mean transmission excess is essentially zero:
+an excess at small sizes must be balanced by a tiny deficit spread over the huge large-size sectors.
+
+### 10.4 Freeness = flat transmission [derived + num]
+- **Haar:** $\phi_k=a^2$ for all $k\ge1$ up to $O(D^{-2})$ (e.g. $0.2767=a^2$ at $N'=12$). Hence
+  $E\tau(P_1P_2P_1P_2)=2a^2-a^3$ (free), and $r=a$.
+- **SYK:** mean over 4 realizations; seed-to-seed spread $\sim10^{-3}$ ($\phi$ is strongly self-averaging).
+
+| $N'$ | $\delta\phi_k=\phi_k-a^2$ for $k=1,2,3,4,\ldots$ |
+|---|---|
+| 8 | +0.0351, −0.0031, −0.0036, +0.0047 |
+| 10 | +0.0659, +0.0108, −0.0039, −0.0017, +0.0036 |
+| 12 | +0.0839, +0.0245, +0.0024, −0.0027, −0.0006, +0.0024 |
+| 13 | +0.0809, +0.0274, +0.0063, −0.0008, −0.0011, +0.0008 |
+| 14 | +0.0902, +0.0333, +0.0092, −0.0000, −0.0017, −0.0001, +0.0016 |
+
+Small operators are transmitted through the BPS projection **more** than freeness allows, increasingly so as $N'$
+grows. $\delta\phi$ decays with size and oscillates slightly around 0 at intermediate $k$ (the compensation in
+§10.3).
+
+### 10.5 The two-model fourth moment: prediction vs measurement [verified]
+Using $\phi_0=w_0=a$ and $\sum_kw_k=1$,
+$$E\,\tau(P_1P_2P_1P_2)=(2a^2-a^3)+\sum_{k\ge1}\delta\phi_k\,w_k\qquad\text{(exact).}$$
+The measured value uses independent pairs. The control-variate estimate regresses on $\nu-a$, whose expectation is
+exactly 0 (§5).
+
+| $N'$ | predicted (single-model data) | $\sum_{k\ge1}\delta\phi_kw_k$ | measured, plain (pairs) | measured, control variate | pred / free |
+|---|---|---|---|---|---|
+| 8 | 0.73054 | −0.00058 | – | – | 0.9992 |
+| 10 | 0.56399 | +0.00313 | 0.56498 ± 0.00146 (16) | 0.56406 ± 0.00014 | 1.0056 |
+| 12 | 0.41606 | +0.00827 | 0.41613 ± 0.00149 (4) | 0.41674 ± 0.00030 | 1.0203 |
+| 13 | 0.29481 | +0.01053 | – | – | 1.0370 |
+| 14 | 0.29661 | +0.01233 | 0.29645 ± 0.00074 (16) | 0.29664 ± 0.00014 | 1.0434 |
+| Haar (all) | $=2a^2-a^3$ | 0.00000 | agrees | – | 1.0000 |
+
+- Agreement is within $0.5\sigma$ at $N'=10$ and 14 (16 pairs each).
+- At $N'=12$ (4 pairs) the plain mean agrees; the control-variate estimate is $2.3\sigma$ off, but with $n=4$ its
+  error bar is unreliable.
+- The earlier $3\sigma$ tension at $N'=14$ (§4, 4 pairs) was sampling noise.
+- **The intrinsic non-freeness of two independent SYK BPS spaces is now an exact, parameter-free function of the
+  single-model size spectrum:** $-0.08\%$ ($N'=8$), $+0.6\%$, $+2.0\%$, $+3.7\%$, $+4.3\%$ ($N'=10$–14).
+
+### 10.6 Interpretation [interp]
+- **One object controls both kinds of non-freeness:** the transmission excess $\delta\phi_k$, the extent to which a
+  size-$k$ operator survives a sandwich between BPS projections beyond the free value $a^2$.
+  - *Decoder variance* (the $x$-dependent effect of §3): the probe $U$ is one-body, so only
+    $\delta\phi_1$ enters, $r-a=\delta\phi_1/a$.
+  - *Intrinsic non-freeness* (the $x$-independent effect of §3–4): the second projector $P_1$ is itself spread over
+    sizes with weights $w_k$, so the excess is $\sum_k\delta\phi_kw_k$. It is large because both $w_k$ and
+    $\delta\phi_k$ sit at small $k$.
+- **Freeness means flat transmission** ($\delta\phi\equiv0$); a Haar projector cannot tell operator sizes apart.
+- **Chord comparison.** A size-$k$ operator is like matter with $\Delta_k=k/p$, so one expects
+  $\phi_k/a\approx\langle q^{2\Delta_kn}\rangle$ (BLY 4.8).
+  - $N'=12$: $\phi_1/a=0.686$ vs 0.690; for $k=2$ the excess over the size-0 value matches (0.047 vs 0.045).
+  - For $k\ge3$ the exact excess falls to ~0 (and slightly below) faster than the chord curve.
+  - The double-scaled formula (always $\ge a_\lambda$) has no analogue of the compensation sum rule of §10.3.
+    Qualitatively right, quantitatively approximate beyond $k=2$.
+
+### 10.7 What remains for the actual decoder $T_4$
+The decoder's $T_4=\tau(PP'PP')$ has $P'=UPU$ *correlated* with $P$, so it does not factorize into
+$E[P^{\otimes2}]\cdot E[P^{\otimes2}]$. An exact expectation-value route exists but needs the **four-copy**
+structure:
+- Averaging $U$ over its $U(N)$ orbit means $n_i\to n_v=\bar\psi(v)\psi(v)$ for a Haar-random orbital $v$.
+- $E_v[v^{\otimes4}\bar v^{\otimes4}]$ is a sum over the 24 permutations in $S_4$. So $E\,T_4$ is a fixed
+  combination of 24 index contractions $\sum\mathrm{Tr}(PE_{a_1b_1}PE_{a_2b_2}PE_{a_3b_3}PE_{a_4b_4})$, all
+  computable from $P$ and the superoperator $M$.
+- This is a finite computation, not a blocker. It does not yet give an interpretable spectral decomposition like
+  §10.1. The natural target is a "two-body transmission" of the pair $U\otimes U$ through $P\otimes P$ that
+  interpolates between the two-model value ($x=0$) and 1 ($x=1$). That is the next step.
+

@@ -103,3 +103,96 @@ def size_weights(P_mat, table: HopTable):
     w = np.array([float(np.real(np.vdot(V, V))) / trP for V in comps])
     resid = float(np.max(np.abs(sum(comps) - P_mat)))
     return w, resid
+
+
+# ----------------------------------------------------------------------------- torus / character method
+def overlap_class_averages(Pm, masks, N, P):
+    """For a (Hermitian) operator Pm on Lambda^P in the bitmask basis, return, for r = 0..min(P, N-P):
+       H[r] = mean |P_ST|^2      over ordered pairs with |S \\ T| = r   (off-diagonal content -> size weights w_k)
+       G[r] = mean P_SS P_TT     over ordered pairs with |S \\ T| = r   (diagonal correlations -> transmissions phi_k)
+    These are the S_N-orbit averages that determine the U(N)-twirls via characters on the maximal torus."""
+    m = np.array(masks, dtype=np.int64)
+    D = len(m)
+    rmax = min(P, N - P)
+    diag = np.real(np.diag(Pm))
+    absq = np.abs(Pm) ** 2
+    H = np.zeros(rmax + 1)
+    G = np.zeros(rmax + 1)
+    cnt = np.zeros(rmax + 1)
+    # |S \ T| = P - |S cap T|; popcount of (m_S & m_T) row by row
+    pc = np.vectorize(lambda v: bin(int(v)).count("1"))
+    for s0 in range(0, D, 256):
+        blk = m[s0:s0 + 256]
+        inter = pc(blk[:, None] & m[None, :])
+        r = P - inter
+        for rr in range(rmax + 1):
+            sel = r == rr
+            H[rr] += absq[s0:s0 + 256][sel].sum()
+            G[rr] += (diag[s0:s0 + 256, None] * diag[None, :])[sel].sum()
+            cnt[rr] += sel.sum()
+    return H / cnt, G / cnt, cnt
+
+
+def character_coeffs(vals, N, P):
+    """Solve sum_k c_k [C(N-2r,k-r) - C(N-2r,k-r-1)] = vals[r] C(N-2r,P-r) (r = 0..P) for the coefficients c_k of
+    a class function sum_{S,T} f(|S\\T|) z^S zbar^T = sum_k c_k chi_{V_k}(z) (triangular in r <= k)."""
+    rmax = len(vals) - 1
+    A = np.zeros((rmax + 1, rmax + 1))
+    for r in range(rmax + 1):
+        for k in range(rmax + 1):
+            t1 = comb(N - 2 * r, k - r) if k - r >= 0 else 0
+            t2 = comb(N - 2 * r, k - r - 1) if k - r - 1 >= 0 else 0
+            A[r, k] = t1 - t2
+    rhs = np.array([vals[r] * comb(N - 2 * r, P - r) for r in range(rmax + 1)])
+    return np.linalg.solve(A, rhs)
+
+
+def size_and_transmission(Pm, masks, N, P):
+    """Return (w_char, phi) for a projector Pm of rank d:
+       w_char[k] = c^H_k dim V_k / d   (torus/S_N estimate of the size weights; = Casimir w_k in expectation)
+       phi[k]    = c^G_k                (eigenvalue of X -> P X P on V_k, U(N)-twirled; phi_0 = a)"""
+    d = float(np.real(np.trace(Pm)))
+    H, G, _ = overlap_class_averages(Pm, masks, N, P)
+    cH = character_coeffs(H, N, P)
+    cG = character_coeffs(G, N, P)
+    w = np.array([cH[k] * dim_Vk(N, k) / d for k in range(len(cH))])
+    return w, cG
+
+
+# ----------------------------------------------------------------------------- exact transmissions from size weights
+def johnson_idempotent_values(N, P, masks=None):
+    """e[k][r] = entry (E_k)_{ST} of the k-th primitive idempotent of the Johnson scheme J(N, P) at |S \\ T| = r.
+    E_k projects functions on P-subsets onto the S_N-isotypic component (N-k, k) = the weight-zero part of V_k
+    (the 'k-body' diagonal operators).  Computed numerically from the distance-1 adjacency."""
+    if masks is None:
+        masks, _ = subset_index(N, P)
+    m = np.array(masks, dtype=np.int64)
+    D = len(m)
+    inter = np.array([[bin(int(x & y)).count("1") for y in m] for x in m])
+    dist = P - inter
+    A1 = (dist == 1).astype(float)
+    ev, V = np.linalg.eigh(A1)
+    rmax = min(P, N - P)
+    e = np.zeros((rmax + 1, rmax + 1))
+    for k in range(rmax + 1):
+        theta = (P - k) * (N - P - k) - k
+        sel = np.abs(ev - theta) < 1e-6
+        Ek = V[:, sel] @ V[:, sel].T
+        for r in range(rmax + 1):
+            e[k, r] = Ek[dist == r].mean()
+    return e
+
+
+def transmission_matrix(N, P, masks=None):
+    """Universal matrix A (rows j, cols k) with phi_j = sum_k A_jk c_k, c_k = ||P^{(k)}||^2 / dim V_k.
+    Column k = character coefficients of the class function g -> ||rho(g)^{(k)}||^2 (torus: Johnson idempotent E_k)."""
+    e = johnson_idempotent_values(N, P, masks)
+    return np.column_stack([character_coeffs(e[k], N, P) for k in range(e.shape[0])])
+
+
+def transmissions_from_weights(w, d, N, P, A=None):
+    """Exact U(N)-twirled transmissions phi_j of X -> P X P (per realization) from the exact size weights w_k."""
+    if A is None:
+        A = transmission_matrix(N, P)
+    c = np.array([w[k] * d / dim_Vk(N, k) for k in range(len(w))])
+    return A @ c
