@@ -18,6 +18,15 @@ r = a + Σ_{n≥1} P_n q^{2Δn}: the Wachter/Haar value a is the zero-length-wor
 freeness is the finite-length-wormhole contribution. Predicted: η_r peaks near N′ ≈ 22. Open: higher moments / the
 density (multi-particle chord wormholes), X and e₃.
 
+**Update 2026-09-29 (`research/notes/decoder_moments_2026-09-29.md`).**
+- **Exact finite-N sum rule.** The coupling ensemble is U(N)-invariant, which gives
+  E[T₂] = Σ_k w_k χ̂_k(U) exactly. Here w_k is the operator-size spectrum of the BPS projector (w₀ = a exactly) and
+  χ̂_k is a U(N) character. It reproduces r to 0.1–0.8 % at N′ = 8…14. This is the exact version of the
+  wormhole identity: zero-length wormhole = identity component, length n ↔ size 2n.
+- **Beyond m₂ the decoder is not free even at x = 0.** Parity-projector family: T₄ is +5.6 % above free at
+  N′ = 14. Two independent SYK BPS spaces are mutually non-free (E[ν²] +3.4 %).
+- The strong "Wachter = zero-length truncation" conjecture is falsified beyond m₂.
+
 The previous draft answered "Wachter/MANOVA (two free projectors) + a Haar genus expansion = gravity". The audit
 found that this answer describes a **Haar null model**, not the SYK decoder: its gravitational derivation is not
 valid, and the SYK spectrum departs from it at O(1). The questions below replace that framing.

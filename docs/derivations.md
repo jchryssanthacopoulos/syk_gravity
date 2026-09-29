@@ -562,8 +562,10 @@ that BPS fraction. The deviation from freeness is the contribution of nonzero-le
   where $a\gtrsim0.9$ and $d$ is tiny ($q=3$, $N'=5,6$; $q=5$, $N'=9,10$; 2/300 at $q=3$, $N'=7$; min $r/a = 0.965$).
   Realization averages satisfy it within errors everywhere.
 
-**[conj]** The whole free-compression law (all moments) is the $\ell=0$ truncation of the super-chord computation.
-This is untested beyond $m_2$.
+**[conj → falsified in strong form, 2026-09-29]** "The whole free-compression law is the $\ell=0$ truncation of the
+super-chord computation." Beyond $m_2$ the decoder is non-free even at $x=0$; see
+`research/notes/decoder_moments_2026-09-29.md`. That note also gives the **exact finite-$N$ version** of the identity:
+$E[T_2]=\sum_k w_k\hat\chi_k(U)$ with $w_0=a$ exactly (operator-size decomposition of the BPS projector).
 
 **2. Prediction: $\eta_r$ peaks, then decays [chord, λ = 18/N′].**
 

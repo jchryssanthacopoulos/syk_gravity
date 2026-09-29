@@ -1,0 +1,13 @@
+{"cmd": ".venv/bin/python scripts/run_parity_family.py --Np 8 --seeds 0-3 --haar-seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.011, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T03:20:43"}
+{"cmd": ".venv/bin/python scripts/run_parity_family.py --Np 10 --seeds 0-3 --haar-seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.011, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T03:20:44"}
+{"cmd": ".venv/bin/python scripts/run_parity_family.py --Np 12 --seeds 0-3 --haar-seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.064, "cap_gb": 3.0, "secs": 4.3, "ended": "2026-09-29T03:20:48"}
+{"cmd": ".venv/bin/python scripts/run_parity_family.py --Np 14 --seeds 0-3 --haar-seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.518, "cap_gb": 4.0, "secs": 168.2, "ended": "2026-09-29T03:23:49"}
+{"cmd": ".venv/bin/python scripts/run_parity_family.py --Np 13 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.155, "cap_gb": 3.0, "secs": 15.9, "ended": "2026-09-29T03:24:05"}
+{"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 10 --haar", "rc": 0, "killed": null, "peak_gb": 0.011, "cap_gb": 4.0, "secs": 1.1, "ended": "2026-09-29T03:26:25"}
+{"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 12 --haar", "rc": 0, "killed": null, "peak_gb": 0.068, "cap_gb": 4.0, "secs": 3.2, "ended": "2026-09-29T03:26:29"}
+{"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 14 --haar", "rc": 0, "killed": null, "peak_gb": 0.858, "cap_gb": 4.0, "secs": 196.6, "ended": "2026-09-29T03:29:45"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 8 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.01, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T03:33:22"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 10 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.036, "cap_gb": 3.0, "secs": 2.1, "ended": "2026-09-29T03:33:24"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 12 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.17, "cap_gb": 3.0, "secs": 40.3, "ended": "2026-09-29T03:34:04"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 13 --seeds 0-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.211, "cap_gb": 3.0, "secs": 172.8, "ended": "2026-09-29T03:38:07"}
+{"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 14 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.666, "cap_gb": 5.0, "secs": 434.4, "ended": "2026-09-29T03:45:22"}

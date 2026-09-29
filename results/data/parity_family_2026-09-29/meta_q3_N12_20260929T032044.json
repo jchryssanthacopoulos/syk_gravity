@@ -1,0 +1,14 @@
+{
+ "q": 3,
+ "Np": 12,
+ "P": 6,
+ "seeds": "0-3",
+ "haar_seeds": "0-1",
+ "smax": 6,
+ "method": "basis",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/parity_family_2026-09-29",
+ "dry_run": false,
+ "git": "86fa66edc8e13fe7eeae1d731adeeb3e983bf7ec-dirty",
+ "started": "20260929T032044",
+ "description": "parity-family decoder spectra; see scripts/run_parity_family.py"
+}
