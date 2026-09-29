@@ -1,5 +1,11 @@
 # Higher moments of the decoder: parity form, correlated BPS spaces, and an exact size sum rule
 
+> **Audited 2026-09-29** (`decoder_moments_audit_2026-09-29.md`). Corrections are applied in the polished report
+> `research/pdfs/progress_2026-09-29.pdf`. This note is kept as the working record. Main corrections: the $N'=13$ sum-rule
+> row ($r\ne T_2$ at odd $N'$; corrected $-0.28\%$); the "zero-length truncation" statement (fails identically beyond
+> $m_2$, even for Haar); §11.4's "small two-copy irreps" is a conjecture, not a measurement; the Z₂ rule is exact only
+> per chord, and the $\mathrm{tr}(U^m)$ statement holds for even $m$ only.
+
 *2026-09-29. Foothold note for open problem 2 of the checkpoint (`research/pdfs/checkpoint_2026-09-28.pdf` §8):
 "higher moments and the density". Status labels: **[derived]**, **[verified]** (exact numerics confirm a derived
 statement), **[num]** (numerical observation), **[conj]**, **[falsified]**.*
