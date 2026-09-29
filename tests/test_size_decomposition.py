@@ -8,8 +8,8 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 from chord_invariants import BPSProjector  # noqa: E402
 from parity_decoder import parity_projector_diag, x_exact  # noqa: E402
-from size_decomposition import (HopTable, casimir_eigs, chi_hat, dim_Vk, size_weights,  # noqa: E402
-                                transmission_matrix, transmissions_from_weights)
+from size_decomposition import (HopTable, casimir_eigs, chi_hat, decoder_T4_pieces, dim_Vk,  # noqa: E402
+                                size_components, size_weights, transmission_matrix, transmissions_from_weights)
 
 
 def _superop(T):
@@ -86,6 +86,29 @@ def test_transmissions_brute_force():
             assert abs(brute - phi[k]) < 1e-9, (seed, haar, k, brute, phi[k])
         assert abs(phi[0] - pr.a) < 1e-12
         assert abs(sum(phi[k] * dim_Vk(N, k) for k in range(len(phi))) - pr.d ** 2) < 1e-8
+
+
+def test_decoder_T4_exact_decomposition():
+    """T_4 = a^2 + 2a(T_2 - a) + Q_4 with Q_4 = S + R; at U = 1: sum Gamma = R(1) = 1 - c0 - 2a(1-a);
+    and for a single-site parity, R computed from the definition matches T_4 - c0 - 2a(T_2 - a)."""
+    N, P = 8, 4
+    T = HopTable(N, P)
+    A = transmission_matrix(N, P)
+    pr = BPSProjector(N, P, q=3, seed=2, method="basis")
+    Pm = pr.B @ pr.B.conj().T
+    comps, _ = size_components(Pm, T)
+    w = np.array([np.real(np.vdot(C, C)) for C in comps]) / pr.d
+    phi = transmissions_from_weights(w, pr.d, N, P, A)
+    c0, G, _ = decoder_T4_pieces(Pm, comps, phi)
+    a = pr.a
+    assert abs(G.sum() - (1 - c0 - 2 * a * (1 - a))) < 1e-10
+    u = 2 * parity_projector_diag(pr.masks, [N - 1]) - 1
+    Y = u[:, None] * (Pm - a * np.eye(len(u))) * u[None, :]           # U (P - a) U
+    Q4 = np.real(np.trace(Pm @ Y @ Pm @ Y)) / pr.d
+    M = pr.B.conj().T @ (u[:, None] * pr.B)
+    mu = np.linalg.eigvalsh((M + M.conj().T) / 2)
+    T2, T4 = np.mean(mu ** 2), np.mean(mu ** 4)
+    assert abs(T4 - (a * a + 2 * a * (T2 - a) + Q4)) < 1e-10
 
 
 if __name__ == "__main__":

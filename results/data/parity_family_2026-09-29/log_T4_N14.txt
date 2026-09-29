@@ -1,0 +1,67 @@
+memwatch: pid 20656 cap 6.0 GB, budget 30 GB: .venv/bin/python scripts/run_decoder_T4.py --Np 14 --seeds 0-3 --haar-seeds 0 --sites 6
+N'=14 syk seed=0: c0=0.29660  R(1)=0.21470 vs 1-c0-2a(1-a)=0.21470  (240s)
+   site   s=1 S=[13]..: T4=0.54533  R_exact=+0.05533  R_diag=+0.02433  T4_pred=0.50124
+   site   s=1 S=[0]..: T4=0.54888  R_exact=+0.05639  R_diag=+0.02433  T4_pred=0.50124
+   site   s=1 S=[1]..: T4=0.50865  R_exact=+0.04807  R_diag=+0.02433  T4_pred=0.50124
+   site   s=1 S=[2]..: T4=0.53810  R_exact=+0.05251  R_diag=+0.02433  T4_pred=0.50124
+   site   s=1 S=[3]..: T4=0.49927  R_exact=+0.04569  R_diag=+0.02433  T4_pred=0.50124
+   site   s=1 S=[4]..: T4=0.53462  R_exact=+0.05296  R_diag=+0.02433  T4_pred=0.50124
+   parity s=2 S=[13, 0]..: T4=0.39814  R_exact=+0.01889  R_diag=+0.00293  T4_pred=0.36857
+   parity s=3 S=[13, 0, 1]..: T4=0.33447  R_exact=+0.00618  R_diag=+0.00028  T4_pred=0.31859
+   parity s=4 S=[13, 0, 1]..: T4=0.30599  R_exact=+0.00087  R_diag=+0.00001  T4_pred=0.30015
+   parity s=5 S=[13, 0, 1]..: T4=0.29842  R_exact=+0.00054  R_diag=+0.00000  T4_pred=0.29605
+   parity s=6 S=[13, 0, 1]..: T4=0.30211  R_exact=-0.00043  R_diag=+0.00000  T4_pred=0.29740
+   parity s=7 S=[13, 0, 1]..: T4=0.30136  R_exact=-0.00062  R_diag=+0.00000  T4_pred=0.29859
+N'=14 syk seed=1: c0=0.29663  R(1)=0.21468 vs 1-c0-2a(1-a)=0.21468  (244s)
+   site   s=1 S=[13]..: T4=0.54299  R_exact=+0.05394  R_diag=+0.02437  T4_pred=0.50145
+   site   s=1 S=[0]..: T4=0.55692  R_exact=+0.05721  R_diag=+0.02437  T4_pred=0.50145
+   site   s=1 S=[1]..: T4=0.56114  R_exact=+0.05940  R_diag=+0.02437  T4_pred=0.50145
+   site   s=1 S=[2]..: T4=0.55678  R_exact=+0.05811  R_diag=+0.02437  T4_pred=0.50145
+   site   s=1 S=[3]..: T4=0.53931  R_exact=+0.05319  R_diag=+0.02437  T4_pred=0.50145
+   site   s=1 S=[4]..: T4=0.51755  R_exact=+0.05114  R_diag=+0.02437  T4_pred=0.50145
+   parity s=2 S=[13, 0]..: T4=0.40999  R_exact=+0.02166  R_diag=+0.00294  T4_pred=0.36866
+   parity s=3 S=[13, 0, 1]..: T4=0.33902  R_exact=+0.00783  R_diag=+0.00028  T4_pred=0.31864
+   parity s=4 S=[13, 0, 1]..: T4=0.30804  R_exact=+0.00222  R_diag=+0.00001  T4_pred=0.30018
+   parity s=5 S=[13, 0, 1]..: T4=0.29812  R_exact=-0.00011  R_diag=+0.00000  T4_pred=0.29607
+   parity s=6 S=[13, 0, 1]..: T4=0.30122  R_exact=+0.00011  R_diag=+0.00000  T4_pred=0.29743
+   parity s=7 S=[13, 0, 1]..: T4=0.29890  R_exact=+0.00012  R_diag=+0.00000  T4_pred=0.29862
+N'=14 syk seed=2: c0=0.29670  R(1)=0.21461 vs 1-c0-2a(1-a)=0.21461  (4600s)
+   site   s=1 S=[13]..: T4=0.52225  R_exact=+0.04941  R_diag=+0.02451  T4_pred=0.50211
+   site   s=1 S=[0]..: T4=0.54880  R_exact=+0.05602  R_diag=+0.02451  T4_pred=0.50211
+   site   s=1 S=[1]..: T4=0.51283  R_exact=+0.04895  R_diag=+0.02451  T4_pred=0.50211
+   site   s=1 S=[2]..: T4=0.53249  R_exact=+0.05259  R_diag=+0.02451  T4_pred=0.50211
+   site   s=1 S=[3]..: T4=0.51050  R_exact=+0.04796  R_diag=+0.02451  T4_pred=0.50211
+   site   s=1 S=[4]..: T4=0.54488  R_exact=+0.05583  R_diag=+0.02451  T4_pred=0.50211
+   parity s=2 S=[13, 0]..: T4=0.38229  R_exact=+0.01747  R_diag=+0.00296  T4_pred=0.36894
+   parity s=3 S=[13, 0, 1]..: T4=0.31422  R_exact=+0.00502  R_diag=+0.00028  T4_pred=0.31878
+   parity s=4 S=[13, 0, 1]..: T4=0.29834  R_exact=+0.00097  R_diag=+0.00001  T4_pred=0.30026
+   parity s=5 S=[13, 0, 1]..: T4=0.30237  R_exact=+0.00022  R_diag=+0.00000  T4_pred=0.29614
+   parity s=6 S=[13, 0, 1]..: T4=0.30149  R_exact=+0.00066  R_diag=+0.00000  T4_pred=0.29750
+   parity s=7 S=[13, 0, 1]..: T4=0.30010  R_exact=-0.00018  R_diag=+0.00000  T4_pred=0.29869
+N'=14 syk seed=3: c0=0.29651  R(1)=0.21479 vs 1-c0-2a(1-a)=0.21479  (238s)
+   site   s=1 S=[13]..: T4=0.53514  R_exact=+0.05257  R_diag=+0.02416  T4_pred=0.50045
+   site   s=1 S=[0]..: T4=0.51772  R_exact=+0.05088  R_diag=+0.02416  T4_pred=0.50045
+   site   s=1 S=[1]..: T4=0.53048  R_exact=+0.05329  R_diag=+0.02416  T4_pred=0.50045
+   site   s=1 S=[2]..: T4=0.53253  R_exact=+0.05366  R_diag=+0.02416  T4_pred=0.50045
+   site   s=1 S=[3]..: T4=0.53645  R_exact=+0.05430  R_diag=+0.02416  T4_pred=0.50045
+   site   s=1 S=[4]..: T4=0.54711  R_exact=+0.05516  R_diag=+0.02416  T4_pred=0.50045
+   parity s=2 S=[13, 0]..: T4=0.38163  R_exact=+0.01830  R_diag=+0.00290  T4_pred=0.36821
+   parity s=3 S=[13, 0, 1]..: T4=0.31303  R_exact=+0.00515  R_diag=+0.00027  T4_pred=0.31842
+   parity s=4 S=[13, 0, 1]..: T4=0.29024  R_exact=+0.00159  R_diag=+0.00001  T4_pred=0.30005
+   parity s=5 S=[13, 0, 1]..: T4=0.29428  R_exact=+0.00087  R_diag=+0.00000  T4_pred=0.29596
+   parity s=6 S=[13, 0, 1]..: T4=0.29269  R_exact=+0.00088  R_diag=+0.00000  T4_pred=0.29731
+   parity s=7 S=[13, 0, 1]..: T4=0.30033  R_exact=+0.00044  R_diag=+0.00000  T4_pred=0.29850
+N'=14 haar seed=0: c0=0.28428  R(1)=0.22702 vs 1-c0-2a(1-a)=0.22702  (239s)
+   site   s=1 S=[13]..: T4=0.28414  R_exact=-0.00017  R_diag=+0.00000  T4_pred=0.28430
+   site   s=1 S=[0]..: T4=0.28407  R_exact=-0.00012  R_diag=+0.00000  T4_pred=0.28430
+   site   s=1 S=[1]..: T4=0.28423  R_exact=-0.00001  R_diag=+0.00000  T4_pred=0.28430
+   site   s=1 S=[2]..: T4=0.28436  R_exact=-0.00007  R_diag=+0.00000  T4_pred=0.28430
+   site   s=1 S=[3]..: T4=0.28471  R_exact=+0.00009  R_diag=+0.00000  T4_pred=0.28430
+   site   s=1 S=[4]..: T4=0.28410  R_exact=-0.00010  R_diag=+0.00000  T4_pred=0.28430
+   parity s=2 S=[13, 0]..: T4=0.28916  R_exact=+0.00198  R_diag=+0.00001  T4_pred=0.28718
+   parity s=3 S=[13, 0, 1]..: T4=0.28426  R_exact=+0.00006  R_diag=+0.00000  T4_pred=0.28428
+   parity s=4 S=[13, 0, 1]..: T4=0.28451  R_exact=+0.00015  R_diag=+0.00000  T4_pred=0.28450
+   parity s=5 S=[13, 0, 1]..: T4=0.28428  R_exact=-0.00001  R_diag=-0.00000  T4_pred=0.28428
+   parity s=6 S=[13, 0, 1]..: T4=0.28473  R_exact=+0.00013  R_diag=+0.00000  T4_pred=0.28435
+   parity s=7 S=[13, 0, 1]..: T4=0.28402  R_exact=-0.00011  R_diag=+0.00000  T4_pred=0.28428
+memwatch: done rc=0 peak 1.00 GB (cap 6.0) in 5572s

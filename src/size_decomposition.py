@@ -196,3 +196,39 @@ def transmissions_from_weights(w, d, N, P, A=None):
         A = transmission_matrix(N, P)
     c = np.array([w[k] * d / dim_Vk(N, k) for k in range(len(w))])
     return A @ c
+
+
+# ----------------------------------------------------------------------------- decoder T_4: size-resolved remainder
+def size_components(P_mat, table: HopTable):
+    """Return the list of size components P^{(k)} (Lagrange filters in the adjoint Casimir) and the residual."""
+    eigs = casimir_eigs(table.N, table.P)
+    cP = table.cP()
+    comps = []
+    for k, ek in enumerate(eigs):
+        V = P_mat.copy()
+        for kk, ekk in enumerate(eigs):
+            if kk != k:
+                V = (table.casimir(V, cP) - ekk * V) / (ek - ekk)
+        comps.append(V)
+    return comps, float(np.max(np.abs(sum(comps) - P_mat)))
+
+
+def decoder_T4_pieces(P_mat, comps, phi):
+    """Exact per-realization pieces of T_4(U) = c_0 + 2a(T_2(U) - a) + R(U) (research note section 11):
+       c_0   = sum_k phi_k w_k               (U(N)-twirled part = two-independent-model value)
+       Gamma = [<P^{(k)}, delta_P P^{(k')}>]/d  for k, k' >= 1, delta_P = (X -> P X P) - twirl
+    Returns (c0, Gamma, w)."""
+    d = float(np.real(np.trace(P_mat)))
+    w = np.array([float(np.real(np.vdot(C, C))) / d for C in comps])
+    c0 = float(np.dot(phi, w))
+    K = len(comps)
+    G = np.zeros((K - 1, K - 1))
+    for j in range(1, K):
+        PCj = P_mat @ comps[j] @ P_mat                      # computed on the fly (memory)
+        for i in range(1, K):
+            val = float(np.real(np.vdot(comps[i], PCj))) / d
+            if i == j:
+                val -= phi[i] * w[i]
+            G[i - 1, j - 1] = val
+        del PCj
+    return c0, G, w

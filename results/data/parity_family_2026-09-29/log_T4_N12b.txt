@@ -1,0 +1,27 @@
+memwatch: pid 65059 cap 3.0 GB, budget 30 GB: .venv/bin/python scripts/run_decoder_T4.py --Np 12 --seeds 2-3 --sites 6
+N'=12 syk seed=2: c0=0.41616  R(1)=0.08519 vs 1-c0-2a(1-a)=0.08519  (8s)
+   site   s=1 S=[11]..: T4=0.59283  R_exact=+0.00975  R_diag=+0.00568  T4_pred=0.59051
+   site   s=1 S=[0]..: T4=0.59641  R_exact=+0.01109  R_diag=+0.00568  T4_pred=0.59051
+   site   s=1 S=[1]..: T4=0.60535  R_exact=+0.01099  R_diag=+0.00568  T4_pred=0.59051
+   site   s=1 S=[2]..: T4=0.60722  R_exact=+0.01316  R_diag=+0.00568  T4_pred=0.59051
+   site   s=1 S=[3]..: T4=0.59444  R_exact=+0.00901  R_diag=+0.00568  T4_pred=0.59051
+   site   s=1 S=[4]..: T4=0.59550  R_exact=+0.01261  R_diag=+0.00568  T4_pred=0.59051
+   parity s=2 S=[11, 0]..: T4=0.46131  R_exact=+0.00623  R_diag=+0.00034  T4_pred=0.46953
+   parity s=3 S=[11, 0, 1]..: T4=0.42199  R_exact=+0.00319  R_diag=+0.00002  T4_pred=0.42598
+   parity s=4 S=[11, 0, 1]..: T4=0.40738  R_exact=+0.00079  R_diag=-0.00000  T4_pred=0.41523
+   parity s=5 S=[11, 0, 1]..: T4=0.42411  R_exact=-0.00194  R_diag=+0.00000  T4_pred=0.41714
+   parity s=6 S=[11, 0, 1]..: T4=0.42141  R_exact=-0.00161  R_diag=+0.00000  T4_pred=0.41947
+N'=12 syk seed=3: c0=0.41610  R(1)=0.08525 vs 1-c0-2a(1-a)=0.08525  (9s)
+   site   s=1 S=[11]..: T4=0.62878  R_exact=+0.01022  R_diag=+0.00562  T4_pred=0.58984
+   site   s=1 S=[0]..: T4=0.59595  R_exact=+0.01300  R_diag=+0.00562  T4_pred=0.58984
+   site   s=1 S=[1]..: T4=0.60895  R_exact=+0.01434  R_diag=+0.00562  T4_pred=0.58984
+   site   s=1 S=[2]..: T4=0.59652  R_exact=+0.01305  R_diag=+0.00562  T4_pred=0.58984
+   site   s=1 S=[3]..: T4=0.59593  R_exact=+0.01159  R_diag=+0.00562  T4_pred=0.58984
+   site   s=1 S=[4]..: T4=0.58514  R_exact=+0.01493  R_diag=+0.00562  T4_pred=0.58984
+   parity s=2 S=[11, 0]..: T4=0.48469  R_exact=+0.00377  R_diag=+0.00033  T4_pred=0.46930
+   parity s=3 S=[11, 0, 1]..: T4=0.42954  R_exact=+0.00173  R_diag=+0.00002  T4_pred=0.42589
+   parity s=4 S=[11, 0, 1]..: T4=0.41987  R_exact=+0.00098  R_diag=-0.00000  T4_pred=0.41518
+   parity s=5 S=[11, 0, 1]..: T4=0.42095  R_exact=-0.00033  R_diag=+0.00000  T4_pred=0.41708
+   parity s=6 S=[11, 0, 1]..: T4=0.41478  R_exact=+0.00110  R_diag=+0.00000  T4_pred=0.41940
+memwatch: done rc=0 peak 0.17 GB (cap 3.0) in 19s
+ALLDONE

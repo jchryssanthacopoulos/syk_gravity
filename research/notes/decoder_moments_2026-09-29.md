@@ -44,7 +44,16 @@ All runs under `scripts/memwatch.py` (peaks ≤ 0.9 GB).
    It matches independent-pair measurements to 0.01–0.2 % ($N'=10$–14). Haar projectors have flat transmission
    $\phi_{k\ge1}=a^2$. SYK has excess transmission $\delta\phi_k=\phi_k-a^2>0$ at small sizes, and the decoder
    variance is exactly $r=\phi_1/a$ at half filling. **Both kinds of non-freeness are controlled by $\delta\phi$.**
-7. **[falsified, strong form] "Wachter = zero-length truncation of the chord computation for all moments"**
+7. **[derived + num] The actual decoder's fourth moment (§11, added 2026-09-29).** Exact decomposition, per
+   realization:
+   $$T_4=a^2+2a(T_2-a)+S+R,\qquad S=\sum_{k\ge1}\phi_kw_k,$$
+   classified by how many of the two rotated projectors carry nonzero size.
+   - At $N'=13$–14 the excess over free splits as **74 % fixed exactly by the variance, 5 % fixed exactly by the size
+     spectrum (two-model part), 21 % a genuinely four-point remainder $R$**.
+   - Two natural closures for $R$ fail: size-diagonal characters are 2–5× too small, and the "coherent mixture"
+     $R\approx\eta^2R(\mathbb 1)$ is good at $N'=12$ but 4–5 % low in $T_4$ at $N'=13$–14.
+   - Empirically $R/R(\mathbb 1)\sim\eta$, not $\eta^2$.
+8. **[falsified, strong form] "Wachter = zero-length truncation of the chord computation for all moments"**
    (checkpoint §7.4 item 3). Removing the matter dressing ($x\to0$) does *not* leave the free law beyond $m_2$.
    **[conj, refined]** Free compression requires both $x=0$ *and* Haar-like multi-copy size structure of the BPS
    projector. SYK has neither.
@@ -250,7 +259,7 @@ $\max|\sum_kP^{(k)}-P|\le2\times10^{-15}$.
 
 ## 8. Next steps (in order)
 
-1. **Exact $T_4$ from two-copy size data — DONE for two independent models (§10).** Original plan, kept for the record: For two independent models,
+1. **Exact $T_4$ from two-copy size data — DONE for two independent models (§10); decoder $T_4$ decomposed exactly in §11 (remainder $R$ open).** Original plan, kept for the record: For two independent models,
    $E\,\mathrm{Tr}(P_1P_2P_1P_2)=\mathrm{Tr}\big[E(P^{\otimes2})\,E(P^{\otimes2})\,\mathrm{SWAP}\big]$.
    - $E(P^{\otimes 2})$ lies in the $U(N)$ commutant on $\Lambda^P\otimes\Lambda^P$, which is multiplicity-free,
      indexed by $k=0\ldots P$.
@@ -402,4 +411,88 @@ structure:
 - This is a finite computation, not a blocker. It does not yet give an interpretable spectral decomposition like
   §10.1. The natural target is a "two-body transmission" of the pair $U\otimes U$ through $P\otimes P$ that
   interpolates between the two-model value ($x=0$) and 1 ($x=1$). That is the next step.
+
+## 11. The actual decoder's fourth moment [derived + num]
+
+*Added 2026-09-29. Code: `size_decomposition.size_components`, `decoder_T4_pieces`; driver
+`scripts/run_decoder_T4.py`; analysis `scripts/analyze_decoder_T4.py` → `decoderT4_tables.md`;
+test `test_decoder_T4_exact_decomposition`. Data `decoderT4_q3_N{8,10,12,13,14}.jsonl`.*
+- Realizations: $N'=8,10$: 2; $N'=12$–14: 4, plus 1 Haar.
+- Probes: single-site parities at 4–6 sites (the decoder) and the parity sets $s\ge2$.
+- Peak 1.0 GB at $N'=14$ (93 min).
+
+### 11.1 Why §10 does not close
+$T_4=\tau(PP'PP')$ with $P'=UPU$ built from the *same* realization, so it does not factorize into
+$E[P^{\otimes2}]\cdot E[P^{\otimes2}]$. As a class function of the probe,
+$E\,T_4(g)=E\,\tau(P\,gPg^\dagger P\,gPg^\dagger)$ expands over $U(N)$-irreps of two-copy operator space. Its
+coefficients involve four-copy moments $E[P^{\otimes4}]$, which the size spectrum $w_k$ (a two-copy object) does
+not determine in general. Only its Haar average over $g$ reduces to §10:
+$E_g\,T_4(g)=\sum_k\phi_kw_k=c_0$, the two-model value. So $x=0$ corresponds to a Haar-random probe, and $x=1$
+to $g=\mathbb 1$ ($T_4=1$).
+
+### 11.2 Exact decomposition [derived + verified]
+Write $P'=a\mathbb 1+Y$ with $Y=U(P-a)U$, the rotated nonzero-size part; $U$ fixes the size-0 part. Using
+$P^2=P$,
+$$T_4=\underbrace{a^2}_{\text{neither }P'\text{ nontrivial}}+\underbrace{2a\,(T_2-a)}_{\text{one}}+\underbrace{Q_4}_{\text{both}},
+\qquad Q_4=\frac{\mathrm{Tr}(PYPY)}d .$$
+Splitting $\mathcal P:X\mapsto PXP$ into its $U(N)$-twirl (the scalars $\phi_k$ of §10) and a remainder $\delta\mathcal P$:
+$$Q_4=S+R,\qquad S=\sum_{k\ge1}\phi_kw_k=c_0-a^2,\qquad R=\frac{\langle Y,\delta\mathcal P\,Y\rangle}{d}.$$
+- Exact per realization and for any probe $U\in U(N)$.
+- At $U=\mathbb 1$: $R(\mathbb 1)=(1-a)^2-S$ (verified to $10^{-10}$ as $\sum_{k,k'\ge1}\Gamma_{kk'}$).
+- For a Haar-random probe: $E_gR=0$ and $E_gT_2=a$.
+- **Free (Haar $P$):** $T_2=a$, $S=a^2(1-a)$, $R=0$, so $T_4=2a^2-a^3$.
+- **Wormhole reading [interp].** The size-0 component of each $P'$ insertion is the zero-length wormhole on that
+  arc. The three terms count how many $P'$-arcs carry nonzero-length wormholes: 0, 1 or 2.
+
+### 11.3 Numbers [num]
+Free baseline: Wachter$(a,b)$ moments of $\mu$ ($b=\tfrac12$ at even $N'$; the general $b$ matters at $N'=13$).
+Means over realizations × sites (`decoderT4_tables.md` (A)):
+
+| $N'$ | $a$ | $T_2$ | $T_4$ | $T_4$/free | linear $2a(T_2-T_2^{\rm free})$ | two-model $S-Q_4^{\rm free}$ | remainder $R$ | shares of excess |
+|---|---|---|---|---|---|---|---|---|
+| 12 | 0.526 | 0.689 | 0.5994 | 1.470 | +0.1715 | +0.0083 | +0.0119 | 89 % / 4 % / 6 % |
+| 13 | 0.425 | 0.615 | 0.5063 | 1.750 | +0.1587 | +0.0084 | +0.0500 | 73 % / 4 % / 23 % |
+| 14 | 0.425 | 0.642 | 0.5342 | 1.879 | +0.1845 | +0.0123 | +0.0531 | 74 % / 5 % / 21 % |
+| Haar (12–14) | | $\approx a$ | | 1.000 ± 0.001 | $\approx0$ | 0 | $\approx0$ | – |
+
+($N'=8,10$: $a>0.618$ puts $R(\mathbb 1)<0$, so the remainder is small and negative there, and shares are not
+meaningful.)
+- **About 79 % of the decoder's fourth-moment deviation from freeness is fixed exactly by one-copy data**:
+  the variance (itself $=\sum w_k\hat\chi_k$) and the size spectrum through $S$.
+- **The rest, $R$, is a genuinely four-point correlation**, and its share grows from 6 % ($N'=12$) to about 22 %
+  ($N'=13,14$).
+
+### 11.4 Two closures for $R$, and why they fail [num]
+- **Size-diagonal characters.** $R\approx\sum_{k,k'\ge1}\hat\chi_k(U)\hat\chi_{k'}(U)\Gamma_{kk'}$ with
+  $\Gamma_{kk'}=\langle P^{(k)},\delta\mathcal PP^{(k')}\rangle/d$. This replaces the reflection's character on each
+  two-copy irrep in $V_k\otimes V_{k'}$ by its dimension-weighted average $\hat\chi_k\hat\chi_{k'}$. It gets the sign
+  at $N'=10,12$ but is **2–5× too small** (e.g. 0.0055 vs 0.0117 at $N'=12$).
+  - Reason: $\Gamma$ has no weight on the trivial pairing, since $\delta\mathcal P$ has zero twirl, but it
+    concentrates on *small* two-copy irreps. There the reflection acts almost like the identity, even when $k,k'$
+    are large.
+- **Coherent mixture** $Y\approx\eta P_{\ge1}+\sqrt{1-\eta^2}\,Y_{\rm indep}$, $\eta=(T_2-a)/(1-a)$. This implies
+  $R\approx\eta^2R(\mathbb 1)$, i.e. $T_4\approx T_2^2+(1-\eta^2)S$, which is exact at $U=\mathbb 1$, at the Haar
+  average, and for Haar $P$.
+  - Per realization and site it is $-0.3\%$ (max 1.3 %) at $N'=12$, but a **systematic $-4$ to $-5\%$** at
+    $N'=13,14$ ($R/R(\mathbb 1)=0.23$–0.25 vs $\eta^2=0.11$–0.14).
+  - The parity probes show the same pattern: good for $s\ge4$, where $R$ is small, and $-3.5\%$ at $s=2$.
+  - $T_4$ "from $w$ alone" (with $T_2\to\sum w_k\hat\chi_k$) inherits this: 0.506 vs 0.534 at $N'=14$.
+- **Empirically** $R/R(\mathbb 1)\approx0.75\,\eta^{1.1}$ at $N'=13$–14 (0.27 $\eta^{0.66}$ at $N'=12$). The probes
+  cluster at few $\eta$ values, so this is **not** a law.
+- **[interp]** $R$ decays roughly like $\eta$, not $\eta^2$. The two rotated copies are *coherently* correlated,
+  not independent: the same $U$ rotates both, and $R$'s weight sits in small two-copy sectors where the
+  reflection's character behaves like a one-copy character.
+
+### 11.5 Consequences
+- **Hierarchy of the decoder's deviation from freeness at fourth order:**
+  - *one nontrivial wormhole*: exactly fixed by the variance, dominant;
+  - *intrinsic two-model non-freeness*: exactly fixed by $w$, small;
+  - *coherent two-wormhole correlation* $R$: about 20 % at $N'=13$–14 and growing.
+- **Only $R$ needs genuinely new information** beyond the one- and two-copy size data.
+- **Open (next):**
+  1. The two-copy class-function content of $R$: characters of the reflection on the irreps of
+     $V_k\otimes V_{k'}$ carrying $\Gamma$. This needs the Casimir on superoperators; $N^2$ commutators per
+     application make it feasible at $N'\le12$.
+  2. The chord Z₂ four-arc computation (§2), which should give $R(x)$ directly.
+  3. Odd $N'$ ($b\neq\tfrac12$), where the size-0 part of $U$ also enters the free baseline.
 

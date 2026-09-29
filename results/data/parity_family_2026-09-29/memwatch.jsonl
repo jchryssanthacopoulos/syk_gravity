@@ -14,3 +14,9 @@
 {"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 10 --pairs 110:111,112:113,114:115,116:117,118:119,120:121,122:123,124:125,126:127,128:129,130:131,132:133", "rc": 0, "killed": null, "peak_gb": 0.01, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T04:25:20"}
 {"cmd": ".venv/bin/python scripts/run_two_model_overlap.py --Np 14 --pairs 110:111,112:113,114:115,116:117,118:119,120:121,122:123,124:125,126:127,128:129,130:131,132:133", "rc": 0, "killed": null, "peak_gb": 0.632, "cap_gb": 4.0, "secs": 474.3, "ended": "2026-09-29T04:33:14"}
 {"cmd": ".venv/bin/python scripts/run_size_decomposition.py --Np 14 --seeds 2-3 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.666, "cap_gb": 5.0, "secs": 655.6, "ended": "2026-09-29T04:44:10"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 8 --seeds 0-1 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.008, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-09-29T16:43:09"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 10 --seeds 0-1 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.036, "cap_gb": 3.0, "secs": 2.1, "ended": "2026-09-29T16:43:12"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 12 --seeds 0-1 --haar-seeds 0", "rc": 0, "killed": null, "peak_gb": 0.178, "cap_gb": 3.0, "secs": 27.7, "ended": "2026-09-29T16:43:39"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 13 --seeds 0-3 --haar-seeds 0 --sites 6", "rc": 0, "killed": null, "peak_gb": 0.144, "cap_gb": 3.0, "secs": 193.3, "ended": "2026-09-29T16:49:44"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 14 --seeds 0-3 --haar-seeds 0 --sites 6", "rc": 0, "killed": null, "peak_gb": 0.998, "cap_gb": 6.0, "secs": 5571.8, "ended": "2026-09-29T18:22:36"}
+{"cmd": ".venv/bin/python scripts/run_decoder_T4.py --Np 12 --seeds 2-3 --sites 6", "rc": 0, "killed": null, "peak_gb": 0.172, "cap_gb": 3.0, "secs": 19.1, "ended": "2026-09-29T18:22:55"}
