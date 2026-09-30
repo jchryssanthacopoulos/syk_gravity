@@ -593,3 +593,107 @@ functions of one fixed operator. Two points need care:
 - Same-site fermion chords then cross with sign $-1$, and disjoint-site bilinears commute (weight 1).
 
 This is the multi-particle wormhole machinery of BLY §5, the same computation that gives $X$ and $e_3$.
+
+---
+
+## D3. Operator size per unit of chord number is $p-1$ (the body number of $H$)
+
+*2026-09-30. Prompted by Lin 2022 (`literature/notes/lin_2022.md`, eqs. 53–59). Code:
+`scripts/check_size_per_chord.py` → `results/data/size_per_chord_2026-09-30/` (seeds 0–1; $p=3$: $N'=10,12$;
+$p=5$: $N'=10,12,14$; peak memory 1.08 GB under memwatch; commit 166252a + working tree). Existing $p=3$ size data:
+`results/data/parity_family_2026-09-29/size_q3_N*.jsonl` (seeds 0–3). Resolves, at the level stated below, the open
+question "why does one super-chord pair carry size 2 rather than $p$?" of `research/pdfs/progress_2026-09-29.pdf` §8.*
+
+### Definitions
+- One-flavor $\mathcal N=2$ SYK on $N=N'$ complex fermions, $Q=\sum_{|I|=p}C_I\psi_I$ with $p$ odd,
+  $H=\{Q,Q^\dagger\}$ on the half-filled sector $\Lambda^F$, $F=\lfloor N/2\rfloor$.
+- **Size** means U(N) body number: $X^{(k)}$ is the component of $X\in\mathrm{End}(\Lambda^F)$ in the irrep $V_k$
+  (adjoint Casimir $2k(N+1-k)$). Then $f_k(H)=\|H^{(k)}\|^2/\|H\|^2$ and $w_k=\|P^{(k)}\|^2/d$ for the BPS projector.
+- $P_n$ is the BLY chord-number distribution of the SUSY Hartle–Hawking state at $\lambda=2p^2/N'$, $j=0$.
+
+### Step 1: $H$ is at most $(p-1)$-body [derived]
+Write $I=A\sqcup S$ and $J=B\sqcup S$ with $S=I\cap J$, $|S|=m$. Normal ordering gives, up to an overall sign,
+$$
+\psi_I\psi_J^\dagger=\pm\,\psi_A\psi_B^\dagger\prod_{s\in S}(1-n_s),\qquad
+\psi_J^\dagger\psi_I=\pm\,\psi_B^\dagger\psi_A\prod_{s\in S}n_s ,
+\qquad \psi_A\psi_B^\dagger=(-1)^{(p-m)}\psi_B^\dagger\psi_A .
+$$
+- **$m=0$.** $\psi_I\psi_J^\dagger=(-1)^{p^2}\psi_J^\dagger\psi_I=-\psi_J^\dagger\psi_I$ for odd $p$, so
+  $\{\psi_I,\psi_J^\dagger\}=0$.
+- **$m=1$** (checked by hand for $p=3$). With the signs in place the two terms combine as
+  $\psi_A\psi_B^\dagger[(1-n_s)+n_s]=\psi_A\psi_B^\dagger$, a pure $(p-1)$-body operator.
+- **General $m$.** The combination is $\psi_A\psi_B^\dagger\,[\prod_s(1-n_s)\pm\prod_s n_s]$, with the relative sign
+  fixed so that the $m=0$ case vanishes. The top-degree term $\prod_s n_s$ cancels, so the bracket has degree
+  $\le m-1$ in the $n_s$. Hence the body number is $\le(p-m)+(m-1)=p-1$.
+
+The sign bookkeeping for general $m$ is sketched, not written out. The conclusion is FGMS's statement that $H$
+contains terms with up to $2\hat q-2$ fermions (FGMS §2, after eq. 2.27), read in U(N) language, and it is verified
+numerically:
+
+| $p$ | $N'$ | $f_0$ | $f_1$ | $f_2$ | $f_3$ | $f_4$ | $f_{\ge5}$ |
+|---|---|---|---|---|---|---|---|
+| 3 | 10, 12 | 0.30, 0.38 | 0 | 0.70, 0.62 | 0 | 0 | 0 |
+| 5 | 10 | 0.008 | 0 | 0.060 | 0 | 0.932 | 0 |
+| 5 | 14 | 0.052 | 0 | 0.057 | 0 | 0.892 | 0 |
+
+The zeros are exact, $\le10^{-28}$. At $p=5$ the 2-body part comes from $m=3$ overlaps.
+
+### Step 2: size per chord unit [approx → conj]
+Lin's derivation of $\bar n=\mathrm{size}/q$ (his eq. 58) inserts the size operator as a chord. Each $H$-chord crossing
+it contributes the size of one Hamiltonian term. In the BLY super-chord theory one unit of chord number is one
+$Q$–$Q^\dagger$ pair across the cut, i.e. one $H$. Transcribing Lin's argument therefore suggests
+$$
+\boxed{\;\text{the chord-number-}n\text{ sector of }P\text{ has U(N) size}\ \approx(p-1)\,n\;}
+\qquad(\text{sizes truncated at }\min(F,N-F)).
+$$
+Consequences:
+1. **For $p=3$ this is $k=2n$**, the empirical $w_{2n}\approx P_n$.
+2. **The naive $k=p\,n$ is excluded.** For odd $p$ it would put the $n=1$ weight at odd $k$, which vanishes exactly
+   at half filling (particle–hole; progress report §4.4).
+3. **The one-unit sector should inherit $H$'s own size distribution.** It should not be concentrated exactly at
+   $k=p-1$.
+
+This is not a derivation for $\mathcal N=2$. Lin's argument is for Majorana DSSYK at $\lambda\to0$, where each chord's
+size is sharp up to $O(\lambda)$ Poisson overlaps (his eq. 59). At our $\lambda=18/N'\approx1.3$–$2.3$, overlaps are
+$O(1)$.
+
+### Step 3: numerical test [num]
+**Test 1: $p=5$, the case where $p-1\ne2$.** The prediction is weight at $k=4$ (plus $H$'s own $k=2$ admixture).
+
+| $N'$ | $a$ | share of $1-a$ at $k=2$ / 4 / 6 | $H$: traceless share at $k=2$ / 4 | BLY $P_1/(1-P_0)$ |
+|---|---|---|---|---|
+| 10 | 0.9921 | 0.061 / 0.939 / – | 0.061 / 0.939 | 0.993 |
+| 12 | 0.9740 | 0.067 / 0.926 / 0.007 | 0.068 / 0.932 | 0.984 |
+| 14 | 0.9470 | 0.057 / 0.924 / 0.019 | 0.060 / 0.940 | 0.972 |
+
+- The one-unit sector sits at $k=4$ and $k=2$ in exactly $H$'s proportions.
+- The small $k=6$ weight tracks the $n\ge2$ chord share (0.016, 0.028), truncated because $k=8$ is not available.
+- Two seeds agree to $\le10^{-3}$.
+
+**Test 2: $p=3$, shapes conditional on nonzero size vs nonzero length.** The last bin absorbs truncated sectors.
+
+| $N'$ | $w_{2n}/(1-a)$, $n=1,2,3$ | $P_n/(1-P_0)$, last = tail | $a$ vs $P_0$ |
+|---|---|---|---|
+| 8 | 0.931, 0.069 | 0.883, 0.117 | 0.771 vs 0.789 |
+| 10 | 0.839, 0.161 | 0.807, 0.193 | 0.643 vs 0.671 |
+| 12 | 0.735, 0.236, 0.028 | 0.727, 0.209, 0.064 | 0.526 vs 0.559 |
+| 14 | 0.644, 0.283, 0.072 | 0.648, 0.247, 0.105 | 0.425 vs 0.459 |
+
+- The $n=1$ conditional share converges to BLY's: the differences are $+0.048, +0.032, +0.008, -0.004$.
+- So most of the 10–20 % termwise mismatch in the progress report's Table 3 is the **normalization** $a$ vs
+  $a_\lambda=P_0$ (a finite-$p$ BPS-fraction effect), not the shape of the size distribution.
+
+### Status
+- **Derived:** $H$ is at most $(p-1)$-body for odd $p$ (sign bookkeeping for general $m$ sketched; verified
+  numerically for $p=3,5$).
+- **Numerical:**
+  - the non-identity size weight of $P$ sits at multiples of $p-1$, with $H$'s own admixture ($p=3$, $N'\le14$;
+    $p=5$, $N'\le14$);
+  - conditional shapes match BLY's chord-sector shares.
+- **Conjectural:** "size $\approx(p-1)\times$ chord number" as a statement about the super-chord Hilbert space. It is
+  the $\mathcal N=2$, U(N)-covariant analogue of Lin's $\bar n=\mathrm{size}/q$. It needs an $\mathcal N=2$ version of
+  Lin's eq. 58 in which $H$-chords, not single $Q$-chords, cross the size cut. Such a version would promote the
+  table rows $w_{2n}\leftrightarrow P_n$ and $w_0=a\leftrightarrow P_0$ to a dictionary.
+- **Related exact statement (progress report §4.3).** The decoder variance is a two-sided light-probe correlator in
+  the BPS TFD, $T_2=\langle\langle P|U\otimes U^*|P\rangle\rangle/d$. Its U(N) orbit average measures mean size,
+  $E[T_2]=1-4\langle k(N+1-k)\rangle_w/(N(N+1))$. This is the exact finite-$N$ analogue of Lin's eq. 53 with $s=1$.

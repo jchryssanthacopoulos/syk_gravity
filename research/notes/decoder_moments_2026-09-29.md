@@ -5,6 +5,12 @@
 > row ($r\ne T_2$ at odd $N'$; corrected $-0.28\%$); the "zero-length truncation" statement (fails identically beyond
 > $m_2$, even for Haar); §11.4's "small two-copy irreps" is a conjecture, not a measurement; the Z₂ rule is exact only
 > per chord, and the $\mathrm{tr}(U^m)$ statement holds for even $m$ only.
+>
+> **Update 2026-09-30.**
+> - The open point "why size 2 per chord pair ($n\leftrightarrow k/2$)" is addressed in `docs/derivations.md` D3. $H$
+>   is at most $(p-1)$-body, so one chord unit carries size $p-1$: $k=2n$ at $p=3$, confirmed as $k=4$ at $p=5$.
+> - Literature context for the whole note: `literature/synthesis.md` §7 (Lin 2022, Liu–Shen 2026,
+>   Belin–Fu–La Rocca 2026).
 
 *2026-09-29. Foothold note for open problem 2 of the checkpoint (`research/pdfs/checkpoint_2026-09-28.pdf` §8):
 "higher moments and the density". Status labels: **[derived]**, **[verified]** (exact numerics confirm a derived

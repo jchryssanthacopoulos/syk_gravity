@@ -1,6 +1,8 @@
 # Research questions
 
-*Living document. Last revised 2026-09-28 after the project archaeology audit (`docs/project_archaeology.md`).*
+*Living document. Last revised 2026-09-30 (literature pass: Belin–Fu–La Rocca, Lin 2022, Liu–Shen; D3). Earlier
+revision 2026-09-28 after the project archaeology audit (`docs/project_archaeology.md`).*
+**Progress report (2026-09-29, audited):** `research/pdfs/progress_2026-09-29.pdf`.
 **Checkpoint report (2026-09-28):** `research/pdfs/checkpoint_2026-09-28.pdf` (source `research/tex/checkpoint_2026-09-28.tex`).
 
 Status tags: **[open]**, **[in progress]**, **[answered]**, **[superseded]**.
@@ -26,6 +28,26 @@ density (multi-particle chord wormholes), X and e₃.
 - **Beyond m₂ the decoder is not free even at x = 0.** Parity-projector family: T₄ is +5.6 % above free at
   N′ = 14. Two independent SYK BPS spaces are mutually non-free (E[ν²] +3.4 %).
 - The strong "Wachter = zero-length truncation" conjecture is falsified beyond m₂.
+
+**Update 2026-09-30 (literature + `docs/derivations.md` D3).**
+- **Positioning.** The chord *rules* we use are standard DSSYK:
+  - the per-chord x is the matter-chord weight (Berkooz–Mamroud eq. 2.28);
+  - chord number = operator size (Lin 2022 eq. 57);
+  - our variance formula is the exact finite-N analogue of Lin's two-sided light-probe correlator (eq. 53).
+
+  What is new is the exact finite-N, U(N)-representation-theoretic layer and its use on the fortuity decoder
+  (`literature/synthesis.md` §7).
+- **Size per chord unit is p − 1** (D3).
+  - H is at most (p−1)-body for odd p. This is derived, and verified at p = 3, 5.
+  - The BPS projector's non-identity size weight sits at multiples of p − 1 in exactly H's proportions (p = 5:
+    k = 4 plus H's own k = 2 admixture, N′ = 10–14).
+  - For p = 3, the conditional shapes w₂ₙ/(1−a) match BLY's Pₙ/(1−P₀), converging to within 0.004 at N′ = 14.
+  - The former "n ↔ k/2 not derived" open point is now a concrete conjecture: the N=2 analogue of Lin eq. 58.
+- **Haar-orientation hypothesis made precise and falsified.** Belin–Fu–La Rocca derive what "the BPS subspace is
+  Haar-oriented" (their BPS-chaos hypothesis) implies. Our size spectrum is exactly the second-moment (2-design)
+  defect from that hypothesis. SYK wall atoms exceed their generic-position count at every N′ (Q3).
+- **Competition to watch.** Unpublished Khamnei–Papadodimas work (cited by Belin–Fu–La Rocca) finds few-fermion
+  operators are not free after BPS projection in SUSY SYK.
 
 The previous draft answered "Wachter/MANOVA (two free projectors) + a Haar genus expansion = gravity". The audit
 found that this answer describes a **Haar null model**, not the SYK decoder: its gravitational derivation is not
@@ -143,6 +165,15 @@ Since dim B ~ 3^{N/2} and binomials ~ 2^N, the atoms must vanish at large N. Thi
 **To do.** Explain the excess by generic position inside CV-type constrained rooms (CV Table 1 logic). Prove the
 vanishing for N ≥ 14 conditional on generic position. Update the draft's narrative.
 
+**Update 2026-09-30 (Belin–Fu–La Rocca Thms. A.1–A.2).**
+- For any *generic* (Haar, or even generic GL) orientation, the wall atoms of the decoder number exactly
+  max(0, d − D/2) at each wall (b = ½). That is a fraction (2a − 1)/a, and anything more is a measure-zero event.
+- SYK exceeds this at every N′. The fractions (SYK vs Haar-generic) are 0.741/0.704, 0.556/0.444, 0.329/0.099,
+  0.056/0, 0.056/0 at N′ = 8, 10, 12, 13, 14 (`parity_family_table.md`).
+- So the SYK BPS space is in a non-generic position relative to the slot. The structural rank bounds above supply
+  the excess. This gives a rigorous formulation: "atoms beyond the generic count = a fortuity/exterior-algebra
+  constraint".
+
 ## Q4. What is a legitimate gravitational description of O_T? **[open]**
 
 **Requirements from the literature.** (i) e^{S0} ∝ BPS degeneracy d, not D (LMRS eq. 82). (ii) Π_T enters as a
@@ -157,6 +188,12 @@ not a 1/D² handle tower. (vi) Finite-Δ crossing weights from chords: q̃ = q^�
 supersymmetric chord methods of Boruch–Lin–Yan (`papers/boruch_lin_yan_2023.pdf`, noted 2026-09-28) are the
 computational route. Their §5 builds one-particle wormholes and the zero-T OTOC operator (eq. 5.18) without
 evaluating it. With site-local crossing rules, that is a direct finite-λ prediction of X and e₃ (see D2).
+
+(vii) *(2026-09-30)* Lin 2022 identifies the DSSYK chord Hilbert space with the two-sided bulk Hilbert space and
+chord number with operator size. |P⟩⟩/√d is the BPS "TFD", w_k is its size spectrum, and T₂ is a two-sided
+light-probe correlator in it. The natural bulk object is the N=2 chord Hilbert space (BLY) restricted to the BPS
+sector (Lin §5 point 5). The dictionary w₀ = a ↔ zero length and size ≈ (p−1)·(chord number) (D3) is the first
+entry.
 
 **To do.** Compute m₂ (Q1), then the disk 4-point function at finite Δ (LMRS eq. 145-type integral) to get m₃, m₄.
 Double-scaled SYK chord rules may give finite-Δ crossing weights. Decide whether any E=0 topological model with
@@ -199,6 +236,39 @@ opposite for a *bilinear* probe (Δ = 1/q̂ gets lighter). Worth running once Q1
 H(λᵢ) is exactly the entanglement entropy of decoder eigenvector i across the single-mode cut. Study
 (1/d)Σ H(λᵢ) vs the Wachter value and vs the Haar-typical-state value H(b). The draft's "fragility = entanglement
 deficit" is a restatement of the wall pile-up and should be framed that way.
+
+## Q10. The size ↔ chord-number dictionary for N=2 SYK **[in progress — D3]**
+
+**Known (2026-09-30).**
+- H is at most (p−1)-body.
+- The BPS projector's size weight sits at multiples of p − 1, with H's own admixture.
+- Conditional shapes match BLY's chord-sector shares (p = 3).
+- w₀ = a exactly vs BLY P₀ = a_λ. The remaining termwise mismatch is the finite-p BPS fraction.
+
+**To do.**
+- (a) Derive the N=2 analogue of Lin eq. 58: insert the U(N) size (Casimir) operator as a cut and show that each
+  H-chord (one Q–Q† pair) crossing it carries size p − 1.
+- (b) Test at p = 5 with smaller λ, i.e. larger N′ (sparse methods), where the n = 2 sector (k = 8) becomes
+  available.
+- (c) Relate the O(λ) smearing (Lin eq. 59) to the observed leakage to lower sizes.
+- (d) Check whether the finite-p correction a vs a_λ is the only obstruction to a termwise identity w_{(p−1)n} ↔ Pₙ.
+
+## Q11. Beyond second moments: the decoder remainder R and correlated q-Gaussians **[open]**
+
+The decoder T₄ = a² + 2a(T₂ − a) + S + R. S is fixed, per realization, by that realization's size spectrum w_k
+(through the U(N)-twirled transmission). R is 21 % of the excess at N′ = 13–14 and is the part not determined by the
+twirl: it depends on the relative orientation of Y = U(P − a)U and P, i.e. four-copy data. By contrast, T₂ and the
+fourth moment of two *independent* models involve only second moments of the ensemble. Two closures failed
+(progress report §6.3).
+
+Candidate frameworks:
+- (i) BLY §5 with a Z₂ flag per chord (the four-arc chord computation);
+- (ii) mixed q-Gaussians with *correlated* generators. Q and Q′ = UQU share couplings with correlation x per chord.
+  Liu–Shen cover only independent generators.
+
+**To do.** The two-copy irrep content of R (Casimir on superoperators, N′ ≤ 12); a correlated mixed-q-Gaussian model
+for the four-arc diagrams.
+
 
 ---
 

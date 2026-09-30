@@ -1,6 +1,6 @@
 # To-do
 
-*Last revised 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-09-30 (literature pass); earlier 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## A. Environment & reproducibility (P0)
@@ -65,6 +65,10 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [ ] **Q6 (P2):** Thouless time of O_T; decoder along the Miyahara–Shibuya Q_g interpolation; two-flavor model.
 - [ ] **Q7 (P2):** reconcile the three decoder spectra (CV state-dependent, uniform O_T, compression on B_old).
 - [ ] **Q8/Q9 (P2):** q-scan once Q1 is settled; single-mode entanglement framing.
+- [ ] **Q10 (P1):** N=2 analogue of Lin eq. 58 (size cut crossed by H-chords ⇒ size p − 1 per chord unit); p = 5 at
+      larger N′ (k = 8 sector) with sparse methods (`scripts/check_size_per_chord.py`, D3).
+- [ ] **Q11 (P1):** two-copy irrep content of the decoder remainder R; correlated mixed-q-Gaussian model for the
+      four-arc diagrams.
 
 ## F. Writing (P2)
 
@@ -82,3 +86,10 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
       Collins–Matsumoto–Novak (Weingarten), Berkooz–Mamroud (DSSYK chords).
 - [x] Boruch–Lin–Yan (arXiv:2308.16283) acquired and noted 2026-09-28 (`literature/notes/boruch_lin_yan_2023.md`).
 - [ ] Still to acquire: LMRS companion (2207.00407); double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.
+- [x] 2026-09-30: notes for Belin–Fu–La Rocca 2026, Lin 2022, Liu–Shen 2026; synthesis §7 (positioning).
+- [ ] Acquire BINT 2018 (1811.02584, original matter-chord rule), Iniguez–Srednicki (2305.15702), Wang et al.
+      (2310.20264), Pluma–Speicher, Feng–Tian–Wei.
+- [ ] Watch for Khamnei–Papadodimas (non-freeness of projected simple operators in SUSY SYK; unpublished, cited by
+      Belin–Fu–La Rocca [53]).
+- [ ] Next report: cite Berkooz–Mamroud eq. 2.28 / BINT for the per-chord weight (progress report §3.2), Lin eq. 53/57
+      for size ↔ length, Liu–Shen for inter-family crossings, and Belin–Fu–La Rocca for the Haar hypothesis.

@@ -1,0 +1,5 @@
+{"cmd": ".venv/bin/python scripts/check_size_per_chord.py --q 3 --Np 10 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.039, "cap_gb": 4.0, "secs": 2.1, "ended": "2026-09-30T19:21:29"}
+{"cmd": ".venv/bin/python scripts/check_size_per_chord.py --q 3 --Np 12 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.068, "cap_gb": 4.0, "secs": 33.0, "ended": "2026-09-30T19:22:02"}
+{"cmd": ".venv/bin/python scripts/check_size_per_chord.py --q 5 --Np 10 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.037, "cap_gb": 4.0, "secs": 2.1, "ended": "2026-09-30T19:22:04"}
+{"cmd": ".venv/bin/python scripts/check_size_per_chord.py --q 5 --Np 12 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 0.076, "cap_gb": 4.0, "secs": 32.0, "ended": "2026-09-30T19:22:36"}
+{"cmd": ".venv/bin/python scripts/check_size_per_chord.py --q 5 --Np 14 --seeds 0-1", "rc": 0, "killed": null, "peak_gb": 1.084, "cap_gb": 5.0, "secs": 783.8, "ended": "2026-09-30T19:36:00"}

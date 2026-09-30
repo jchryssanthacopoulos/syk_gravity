@@ -1,0 +1,12 @@
+{
+ "args": {
+  "q": 5,
+  "Np": 10,
+  "seeds": "0-1",
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/size_per_chord_2026-09-30"
+ },
+ "git": "166252a-dirty",
+ "started": "20260930T192202",
+ "F": 5,
+ "description": "U(N) size spectra of H and of the BPS projector; test of k ~ (p-1) n"
+}
