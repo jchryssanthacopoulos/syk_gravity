@@ -1,0 +1,14 @@
+memwatch: pid 21171 cap 7.0 GB, budget 30 GB: .venv/bin/python scripts/run_chord_chaos.py --Np 14 --K 12 --samples 25 --seed0 10005 --exact-sizes --no-torus --no-ptil --out results/data/chord_chaos_2026-10-01/exact
+N'=14 p=3 K=12: estimated peak memory 5.20 GB
+Traceback (most recent call last):
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 295, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 280, in main
+    time.sleep(a.poll)
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 256, in <lambda>
+    fwd = lambda s, f: kill_group(proc)                                    # noqa: E731
+                       ^^^^^^^^^^^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 199, in kill_group
+    os.killpg(proc.pid, signal.SIGTERM)
+PermissionError: [Errno 1] Operation not permitted

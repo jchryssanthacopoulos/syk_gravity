@@ -1,0 +1,24 @@
+{
+ "args": {
+  "Np": 14,
+  "p": 3,
+  "K": 16,
+  "samples": 30,
+  "seed0": 30000,
+  "full_classes": false,
+  "exact_sizes": true,
+  "no_torus": true,
+  "no_ptil": true,
+  "out": "results/data/chord_chaos_2026-10-01/exact_K16",
+  "dry_run": false
+ },
+ "git": "ee619d3-dirty",
+ "started": "20261002T011428",
+ "D": 3432,
+ "M": 364,
+ "F": 7,
+ "E_trH": 480480.0,
+ "E_normH_nonid": 81496800.0,
+ "mem_estimate_gb": 5.953739519999999,
+ "description": "angle-rotated OU pairs; chord number = Wiener chaos degree; see docs/derivations.md D4"
+}

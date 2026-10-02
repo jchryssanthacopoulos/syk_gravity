@@ -1,0 +1,6 @@
+memwatch: pid 70008 cap 3.0 GB, budget 30 GB: bash results/data/chord_chaos_2026-10-01/checks/run_checks_part2.sh
+{"n_real": 2000, "secs": 6.4, "J24": 0.011453113283901008}
+{"n_real": 1000, "secs": 25.6, "J24": 0.04256331023332834}
+{"n_real": 300, "secs": 325.5, "J24": 0.08508520670250927, "J36": 0.00801832153069368}
+ALL_CHECKS_DONE
+memwatch: done rc=0 peak 0.10 GB (cap 3.0) in 582s

@@ -65,8 +65,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [ ] **Q6 (P2):** Thouless time of O_T; decoder along the Miyahara–Shibuya Q_g interpolation; two-flavor model.
 - [ ] **Q7 (P2):** reconcile the three decoder spectra (CV state-dependent, uniform O_T, compression on B_old).
 - [ ] **Q8/Q9 (P2):** q-scan once Q1 is settled; single-mode entanglement framing.
-- [ ] **Q10 (P1):** N=2 analogue of Lin eq. 58 (size cut crossed by H-chords ⇒ size p − 1 per chord unit); p = 5 at
-      larger N′ (k = 8 sector) with sparse methods (`scripts/check_size_per_chord.py`, D3).
+- [x] **Q10 (P1):** size ↔ chord dictionary derived (D4, `research/notes/chord_size_dictionary_2026-10-02.md`).
+- [ ] **Q10 follow-ups (P2):** finite-N HH recursion for πₙ (n ≥ 2); smearing law; p = 5 exactness of P₍₁₎ ∝ :H:;
+      j_R ≠ 0 joint distribution.
 - [ ] **Q11 (P1):** two-copy irrep content of the decoder remainder R; correlated mixed-q-Gaussian model for the
       four-arc diagrams.
 

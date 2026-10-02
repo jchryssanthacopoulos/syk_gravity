@@ -690,6 +690,8 @@ $O(1)$.
   - the non-identity size weight of $P$ sits at multiples of $p-1$, with $H$'s own admixture ($p=3$, $N'\le14$;
     $p=5$, $N'\le14$);
   - conditional shapes match BLY's chord-sector shares.
+- **[Superseded in part by D4, 2026-10-02: the bound $k\le(p-1)n$ is now exact at half filling, and $n\le1$ is exact for
+  $p=3$.]**
 - **Conjectural:** "size $\approx(p-1)\times$ chord number" as a statement about the super-chord Hilbert space. It is
   the $\mathcal N=2$, U(N)-covariant analogue of Lin's $\bar n=\mathrm{size}/q$. It needs an $\mathcal N=2$ version of
   Lin's eq. 58 in which $H$-chords, not single $Q$-chords, cross the size cut. Such a version would promote the
@@ -697,3 +699,50 @@ $O(1)$.
 - **Related exact statement (progress report §4.3).** The decoder variance is a two-sided light-probe correlator in
   the BPS TFD, $T_2=\langle\langle P|U\otimes U^*|P\rangle\rangle/d$. Its U(N) orbit average measures mean size,
   $E[T_2]=1-4\langle k(N+1-k)\rangle_w/(N(N+1))$. This is the exact finite-$N$ analogue of Lin's eq. 53 with $s=1$.
+
+---
+
+## D4. Chord number = Wiener-chaos degree; exact selection rule $k\le(p-1)n$
+
+*2026-10-02. Full note: `research/notes/chord_size_dictionary_2026-10-02.md` (derivations, tables, Figure 1, reproducibility).
+Code: `src/chord_chaos.py`, `src/plethysm.py`, `scripts/run_chord_chaos.py`, `scripts/analyze_chord_chaos.py`,
+`scripts/run_topsize_projection.py`, `scripts/run_chord1_sizes.py`; tests `tests/test_chord_chaos.py`.
+Data: `results/data/chord_chaos_2026-10-01/`.*
+
+**Definitions.**
+- $P(\omega)$ is the BPS projector as a function of the Gaussian couplings. $P_{[n]}$ is its bidegree-$(n,n)$
+  Wiener-chaos component, and $\pi_n=E\|P_{[n]}\|^2/d$.
+- $J_{nk}=E\|P_{[n]}^{(k)}\|^2/d$ is the joint (chord, U(N) size) distribution, with marginals $\pi_n$ and $w_k$.
+
+**Results.**
+1. **Chord number = chaos degree [derived+verified].**
+   - For OU-correlated couplings, $E\,\tau(P(\omega)P(\omega_x))=\sum_n\pi_nx^{2n}$ (Mehler).
+   - In the chord expansion each contraction across the cut carries $x$, so this is BLY (4.5) with $q^\Delta\to x$.
+2. **Selection rule [derived+verified].** $J_{nk}=0$ unless $k\le n(p-1)+1$; at half filling $k\le n(p-1)$.
+   - Proof: invariance, then the $\mathrm{Sym}^n\Lambda^p$ plethysm for odd $p$ ($\max\ell(\mu)=n(p-1)+1$), then Koike's
+     stable range, then particle–hole parity.
+   - Verified: $J_{2,6}=0.0000(1)$ at $N'=12$; $J_{1,3}=0.0035$ at $N'=9$ (bound attained off half filling).
+3. **Exact low sectors ($p=3$, half filling) [derived+verified].**
+   - $J_{0k}=a\,\delta_{k0}$.
+   - $P_{[1]}=\gamma H^{(2)}$ (Schur), so $J_{1k}=\pi_1\delta_{k2}$.
+   - $\pi_1/\pi_0=m_1^2/(m_2-(1+M^{-1})m_1^2)$ $=7/27,\,24/55,\,220/351,\,52/63$ at $N'=8$–14. It tends to $2q/(1-q)$
+     (BLY) as $p\to\infty$ at fixed $\lambda$, with corrections $\approx c(\lambda)/p^2$.
+4. **Krylov form [derived].**
+   - $\kappa_n=a\,p_n(0)^2$ (averaged DOS) exactly.
+   - BLY's $P_n=a_\lambda p_n^{\rm DS}(0)^2$ at $j_R=0$.
+   - $\kappa_n\approx\pi_n$ [numerical].
+5. **Diagonal dominance [numerical].**
+   - $J_{2,4}/\pi_2=0.47,0.71,0.82,\approx0.87$ ($N'=8$–14).
+   - Top-size parts lie along $(H^n)^{(2n)}$, a lower bound saturated to 1–5%.
+6. **Probe [derived].**
+   - The chord-1 sector is weighted by $\hat\chi_2(U)$, not $x^2$ (the friend mode cancels in the probe's sign).
+   - BLY's ≈2% variance agreement is a compensation of $+0.034$ ($n=0$) and $-0.028$ ($n=1$) at $N'=14$.
+
+**Status.**
+- **Exact:** items 1–4, 6.
+- **Numerical:** item 5.
+- **Open:**
+  - closed form for $\pi_n$, $n\ge2$ (the finite-$N$ HH recursion);
+  - an analytic smearing law;
+  - whether $P_{[1]}\propto{:}H{:}$ holds exactly for $p\ge5$. It holds to 4 digits at $N'=10,12$.
+

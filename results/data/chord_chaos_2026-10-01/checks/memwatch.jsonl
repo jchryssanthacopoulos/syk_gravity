@@ -1,0 +1,2 @@
+{"cmd": "bash results/data/chord_chaos_2026-10-01/checks/run_checks.sh", "rc": -15, "killed": null, "peak_gb": 0.503, "cap_gb": 3.0, "secs": 286.4, "ended": "2026-10-02T14:38:54"}
+{"cmd": "bash results/data/chord_chaos_2026-10-01/checks/run_checks_part2.sh", "rc": 0, "killed": null, "peak_gb": 0.103, "cap_gb": 3.0, "secs": 582.0, "ended": "2026-10-02T14:48:57"}

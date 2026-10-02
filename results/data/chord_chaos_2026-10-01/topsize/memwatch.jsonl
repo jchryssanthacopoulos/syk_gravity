@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python /private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/topsize_lean.py 14 40 41 results/data/chord_chaos_2026-10-01/topsize/topsize_p3_N14.jsonl", "rc": 0, "killed": null, "peak_gb": 0.596, "cap_gb": 3.0, "secs": 11254.9, "ended": "2026-10-02T05:54:29"}

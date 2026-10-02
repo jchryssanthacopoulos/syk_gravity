@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_chord_chaos.py --Np 14 --K 16 --samples 30 --seed0 30000 --exact-sizes --no-torus --no-ptil --out results/data/chord_chaos_2026-10-01/exact_K16", "rc": -15, "killed": null, "peak_gb": 3.298, "cap_gb": 8.0, "secs": 3422.8, "ended": "2026-10-02T02:11:31"}

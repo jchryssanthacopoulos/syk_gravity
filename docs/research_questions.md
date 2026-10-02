@@ -237,7 +237,25 @@ H(λᵢ) is exactly the entanglement entropy of decoder eigenvector i across the
 (1/d)Σ H(λᵢ) vs the Wachter value and vs the Haar-typical-state value H(b). The draft's "fragility = entanglement
 deficit" is a restatement of the wall pile-up and should be framed that way.
 
-## Q10. The size ↔ chord-number dictionary for N=2 SYK **[in progress — D3]**
+## Q10. The size ↔ chord-number dictionary for N=2 SYK **[largely answered — D4; 2026-10-02]**
+
+**Answer (2026-10-02; `research/notes/chord_size_dictionary_2026-10-02.md`).**
+- The exact finite-N chord number is the Wiener-chaos degree of P(ω), and BLY's Pₙ is its double-scaled limit.
+- The joint (chord n, size k) distribution has exact support k ≤ (p−1)n at half filling.
+- n = 0 ↔ k = 0 and n = 1 ↔ k = 2 are exact for p = 3, with a closed form for π₁.
+- For n = 2 the share at k = 4 is 0.47 → 0.87 for N′ = 8–14.
+- The probe weight of a chord pair is the character χ̂₂(U).
+- Of the 2026-09-30 to-do: (a) answered by a different route (chaos + representation theory, not a size cut);
+  (d) answered (no — size leakage and finite-p chord weights both contribute); (c) measured, not derived;
+  (b) not done.
+
+**Still open.**
+- Closed form for πₙ, n ≥ 2 (finite-N HH recursion on the invariant chaos spaces).
+- An analytic smearing law (U(N) analogue of Lin eq. 59).
+- p ≥ 5: is P₍₁₎ ∝ :H: exact? (to 4 digits at N′ = 10, 12).
+- The full joint distribution off half filling (j_R ≠ 0).
+
+**History (2026-09-30), kept for the record.**
 
 **Known (2026-09-30).**
 - H is at most (p−1)-body.

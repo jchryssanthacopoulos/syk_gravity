@@ -1,0 +1,136 @@
+memwatch: pid 73334 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_chord_chaos.py --Np 12 --K 16 --samples 250 --seed0 20000 --exact-sizes --no-torus --out results/data/chord_chaos_2026-10-01/exact
+N'=12 p=3 K=16: estimated peak memory 0.93 GB
+sample 20000: Gt[0]=0.14369 (exact mean 0.14436)  G[K/2]=0.51994 (a=0.52597)  13.0s
+sample 20001: Gt[0]=0.14667 (exact mean 0.14436)  G[K/2]=0.52680 (a=0.52597)  13.3s
+sample 20002: Gt[0]=0.14207 (exact mean 0.14436)  G[K/2]=0.52306 (a=0.52597)  13.4s
+sample 20003: Gt[0]=0.14104 (exact mean 0.14436)  G[K/2]=0.52374 (a=0.52597)  13.5s
+sample 20004: Gt[0]=0.14732 (exact mean 0.14436)  G[K/2]=0.52710 (a=0.52597)  13.0s
+sample 20005: Gt[0]=0.14414 (exact mean 0.14436)  G[K/2]=0.53075 (a=0.52597)  12.9s
+sample 20006: Gt[0]=0.15177 (exact mean 0.14436)  G[K/2]=0.51917 (a=0.52597)  12.9s
+sample 20007: Gt[0]=0.14642 (exact mean 0.14436)  G[K/2]=0.52479 (a=0.52597)  13.1s
+sample 20008: Gt[0]=0.14462 (exact mean 0.14436)  G[K/2]=0.52416 (a=0.52597)  13.2s
+sample 20009: Gt[0]=0.14278 (exact mean 0.14436)  G[K/2]=0.51531 (a=0.52597)  13.0s
+sample 20010: Gt[0]=0.14328 (exact mean 0.14436)  G[K/2]=0.51672 (a=0.52597)  13.0s
+sample 20011: Gt[0]=0.14107 (exact mean 0.14436)  G[K/2]=0.51978 (a=0.52597)  14.6s
+sample 20012: Gt[0]=0.14247 (exact mean 0.14436)  G[K/2]=0.52338 (a=0.52597)  13.9s
+sample 20013: Gt[0]=0.13878 (exact mean 0.14436)  G[K/2]=0.52590 (a=0.52597)  13.5s
+sample 20014: Gt[0]=0.14418 (exact mean 0.14436)  G[K/2]=0.51875 (a=0.52597)  14.0s
+sample 20015: Gt[0]=0.14411 (exact mean 0.14436)  G[K/2]=0.52565 (a=0.52597)  14.1s
+sample 20016: Gt[0]=0.13933 (exact mean 0.14436)  G[K/2]=0.52688 (a=0.52597)  14.4s
+sample 20017: Gt[0]=0.14197 (exact mean 0.14436)  G[K/2]=0.52264 (a=0.52597)  15.5s
+sample 20018: Gt[0]=0.14401 (exact mean 0.14436)  G[K/2]=0.51668 (a=0.52597)  14.3s
+sample 20019: Gt[0]=0.14518 (exact mean 0.14436)  G[K/2]=0.52231 (a=0.52597)  15.0s
+sample 20020: Gt[0]=0.14500 (exact mean 0.14436)  G[K/2]=0.52662 (a=0.52597)  14.7s
+sample 20021: Gt[0]=0.15253 (exact mean 0.14436)  G[K/2]=0.52584 (a=0.52597)  14.3s
+sample 20022: Gt[0]=0.14361 (exact mean 0.14436)  G[K/2]=0.52174 (a=0.52597)  16.1s
+sample 20023: Gt[0]=0.15481 (exact mean 0.14436)  G[K/2]=0.53271 (a=0.52597)  16.0s
+sample 20024: Gt[0]=0.14253 (exact mean 0.14436)  G[K/2]=0.52218 (a=0.52597)  15.2s
+sample 20025: Gt[0]=0.14144 (exact mean 0.14436)  G[K/2]=0.52372 (a=0.52597)  15.3s
+sample 20026: Gt[0]=0.14414 (exact mean 0.14436)  G[K/2]=0.53166 (a=0.52597)  16.1s
+sample 20027: Gt[0]=0.14655 (exact mean 0.14436)  G[K/2]=0.52847 (a=0.52597)  15.9s
+sample 20028: Gt[0]=0.14891 (exact mean 0.14436)  G[K/2]=0.52867 (a=0.52597)  15.7s
+sample 20029: Gt[0]=0.14603 (exact mean 0.14436)  G[K/2]=0.52174 (a=0.52597)  16.0s
+sample 20030: Gt[0]=0.14175 (exact mean 0.14436)  G[K/2]=0.52378 (a=0.52597)  16.2s
+sample 20031: Gt[0]=0.14326 (exact mean 0.14436)  G[K/2]=0.53056 (a=0.52597)  15.7s
+sample 20032: Gt[0]=0.14747 (exact mean 0.14436)  G[K/2]=0.53036 (a=0.52597)  15.6s
+sample 20033: Gt[0]=0.15147 (exact mean 0.14436)  G[K/2]=0.53243 (a=0.52597)  15.7s
+sample 20034: Gt[0]=0.13929 (exact mean 0.14436)  G[K/2]=0.52866 (a=0.52597)  16.3s
+sample 20035: Gt[0]=0.14219 (exact mean 0.14436)  G[K/2]=0.52312 (a=0.52597)  16.5s
+sample 20036: Gt[0]=0.14144 (exact mean 0.14436)  G[K/2]=0.51710 (a=0.52597)  17.1s
+sample 20037: Gt[0]=0.14655 (exact mean 0.14436)  G[K/2]=0.52726 (a=0.52597)  17.1s
+sample 20038: Gt[0]=0.14696 (exact mean 0.14436)  G[K/2]=0.52504 (a=0.52597)  17.1s
+sample 20039: Gt[0]=0.13869 (exact mean 0.14436)  G[K/2]=0.52520 (a=0.52597)  15.3s
+sample 20040: Gt[0]=0.14774 (exact mean 0.14436)  G[K/2]=0.53195 (a=0.52597)  15.4s
+sample 20041: Gt[0]=0.13799 (exact mean 0.14436)  G[K/2]=0.51140 (a=0.52597)  15.7s
+sample 20042: Gt[0]=0.14551 (exact mean 0.14436)  G[K/2]=0.52498 (a=0.52597)  16.5s
+sample 20043: Gt[0]=0.13751 (exact mean 0.14436)  G[K/2]=0.52777 (a=0.52597)  15.8s
+sample 20044: Gt[0]=0.14759 (exact mean 0.14436)  G[K/2]=0.53043 (a=0.52597)  16.1s
+sample 20045: Gt[0]=0.14731 (exact mean 0.14436)  G[K/2]=0.52973 (a=0.52597)  16.3s
+sample 20046: Gt[0]=0.14590 (exact mean 0.14436)  G[K/2]=0.53244 (a=0.52597)  15.8s
+sample 20047: Gt[0]=0.14398 (exact mean 0.14436)  G[K/2]=0.51804 (a=0.52597)  15.4s
+sample 20048: Gt[0]=0.15209 (exact mean 0.14436)  G[K/2]=0.51633 (a=0.52597)  15.5s
+sample 20049: Gt[0]=0.14804 (exact mean 0.14436)  G[K/2]=0.52204 (a=0.52597)  15.5s
+sample 20050: Gt[0]=0.14145 (exact mean 0.14436)  G[K/2]=0.52554 (a=0.52597)  15.2s
+sample 20051: Gt[0]=0.14203 (exact mean 0.14436)  G[K/2]=0.52217 (a=0.52597)  15.3s
+sample 20052: Gt[0]=0.14108 (exact mean 0.14436)  G[K/2]=0.53471 (a=0.52597)  15.7s
+sample 20053: Gt[0]=0.14217 (exact mean 0.14436)  G[K/2]=0.52189 (a=0.52597)  15.4s
+sample 20054: Gt[0]=0.14419 (exact mean 0.14436)  G[K/2]=0.52946 (a=0.52597)  15.6s
+sample 20055: Gt[0]=0.14476 (exact mean 0.14436)  G[K/2]=0.53058 (a=0.52597)  16.4s
+sample 20056: Gt[0]=0.15068 (exact mean 0.14436)  G[K/2]=0.52292 (a=0.52597)  17.3s
+sample 20057: Gt[0]=0.14748 (exact mean 0.14436)  G[K/2]=0.52593 (a=0.52597)  16.9s
+sample 20058: Gt[0]=0.14464 (exact mean 0.14436)  G[K/2]=0.52434 (a=0.52597)  16.3s
+sample 20059: Gt[0]=0.14263 (exact mean 0.14436)  G[K/2]=0.52739 (a=0.52597)  16.6s
+sample 20060: Gt[0]=0.14571 (exact mean 0.14436)  G[K/2]=0.53065 (a=0.52597)  915.7s
+sample 20061: Gt[0]=0.14601 (exact mean 0.14436)  G[K/2]=0.52339 (a=0.52597)  15.5s
+sample 20062: Gt[0]=0.14579 (exact mean 0.14436)  G[K/2]=0.53656 (a=0.52597)  14.8s
+sample 20063: Gt[0]=0.13940 (exact mean 0.14436)  G[K/2]=0.52062 (a=0.52597)  913.3s
+sample 20064: Gt[0]=0.14182 (exact mean 0.14436)  G[K/2]=0.52676 (a=0.52597)  14.8s
+sample 20065: Gt[0]=0.15745 (exact mean 0.14436)  G[K/2]=0.53035 (a=0.52597)  14.9s
+sample 20066: Gt[0]=0.14522 (exact mean 0.14436)  G[K/2]=0.52204 (a=0.52597)  14.7s
+sample 20067: Gt[0]=0.14247 (exact mean 0.14436)  G[K/2]=0.52847 (a=0.52597)  912.8s
+sample 20068: Gt[0]=0.13995 (exact mean 0.14436)  G[K/2]=0.52785 (a=0.52597)  13.5s
+sample 20069: Gt[0]=0.14417 (exact mean 0.14436)  G[K/2]=0.52902 (a=0.52597)  11.9s
+sample 20070: Gt[0]=0.14255 (exact mean 0.14436)  G[K/2]=0.52782 (a=0.52597)  11.8s
+sample 20071: Gt[0]=0.13952 (exact mean 0.14436)  G[K/2]=0.52235 (a=0.52597)  911.2s
+sample 20072: Gt[0]=0.14768 (exact mean 0.14436)  G[K/2]=0.53793 (a=0.52597)  12.1s
+sample 20073: Gt[0]=0.14399 (exact mean 0.14436)  G[K/2]=0.52600 (a=0.52597)  12.1s
+sample 20074: Gt[0]=0.14325 (exact mean 0.14436)  G[K/2]=0.52896 (a=0.52597)  12.0s
+sample 20075: Gt[0]=0.14759 (exact mean 0.14436)  G[K/2]=0.52485 (a=0.52597)  859.2s
+sample 20076: Gt[0]=0.14221 (exact mean 0.14436)  G[K/2]=0.52538 (a=0.52597)  12.2s
+sample 20077: Gt[0]=0.15285 (exact mean 0.14436)  G[K/2]=0.52190 (a=0.52597)  12.1s
+sample 20078: Gt[0]=0.14432 (exact mean 0.14436)  G[K/2]=0.53146 (a=0.52597)  911.6s
+sample 20079: Gt[0]=0.13972 (exact mean 0.14436)  G[K/2]=0.51751 (a=0.52597)  12.6s
+sample 20080: Gt[0]=0.14657 (exact mean 0.14436)  G[K/2]=0.52434 (a=0.52597)  13.7s
+sample 20081: Gt[0]=0.14370 (exact mean 0.14436)  G[K/2]=0.52394 (a=0.52597)  13.6s
+sample 20082: Gt[0]=0.14949 (exact mean 0.14436)  G[K/2]=0.52299 (a=0.52597)  13.5s
+sample 20083: Gt[0]=0.13989 (exact mean 0.14436)  G[K/2]=0.51846 (a=0.52597)  911.8s
+sample 20084: Gt[0]=0.14349 (exact mean 0.14436)  G[K/2]=0.52686 (a=0.52597)  13.5s
+sample 20085: Gt[0]=0.14454 (exact mean 0.14436)  G[K/2]=0.52037 (a=0.52597)  12.6s
+sample 20086: Gt[0]=0.14564 (exact mean 0.14436)  G[K/2]=0.52258 (a=0.52597)  12.8s
+sample 20087: Gt[0]=0.14425 (exact mean 0.14436)  G[K/2]=0.52431 (a=0.52597)  664.5s
+sample 20088: Gt[0]=0.14064 (exact mean 0.14436)  G[K/2]=0.52836 (a=0.52597)  13.1s
+sample 20089: Gt[0]=0.14775 (exact mean 0.14436)  G[K/2]=0.52427 (a=0.52597)  12.8s
+sample 20090: Gt[0]=0.14425 (exact mean 0.14436)  G[K/2]=0.51935 (a=0.52597)  912.1s
+sample 20091: Gt[0]=0.14314 (exact mean 0.14436)  G[K/2]=0.52565 (a=0.52597)  13.7s
+sample 20092: Gt[0]=0.14218 (exact mean 0.14436)  G[K/2]=0.52590 (a=0.52597)  13.6s
+sample 20093: Gt[0]=0.14402 (exact mean 0.14436)  G[K/2]=0.53482 (a=0.52597)  13.7s
+sample 20094: Gt[0]=0.14825 (exact mean 0.14436)  G[K/2]=0.52454 (a=0.52597)  913.3s
+sample 20095: Gt[0]=0.14955 (exact mean 0.14436)  G[K/2]=0.53293 (a=0.52597)  13.7s
+sample 20096: Gt[0]=0.15343 (exact mean 0.14436)  G[K/2]=0.53018 (a=0.52597)  14.6s
+sample 20097: Gt[0]=0.14442 (exact mean 0.14436)  G[K/2]=0.52604 (a=0.52597)  14.1s
+sample 20098: Gt[0]=0.14322 (exact mean 0.14436)  G[K/2]=0.52214 (a=0.52597)  301.4s
+sample 20099: Gt[0]=0.14394 (exact mean 0.14436)  G[K/2]=0.52834 (a=0.52597)  15.2s
+sample 20100: Gt[0]=0.14154 (exact mean 0.14436)  G[K/2]=0.52565 (a=0.52597)  14.3s
+sample 20101: Gt[0]=0.14609 (exact mean 0.14436)  G[K/2]=0.52403 (a=0.52597)  268.6s
+sample 20102: Gt[0]=0.14430 (exact mean 0.14436)  G[K/2]=0.52362 (a=0.52597)  16.2s
+sample 20103: Gt[0]=0.14409 (exact mean 0.14436)  G[K/2]=0.52810 (a=0.52597)  15.8s
+sample 20104: Gt[0]=0.14250 (exact mean 0.14436)  G[K/2]=0.53093 (a=0.52597)  269.5s
+sample 20105: Gt[0]=0.14248 (exact mean 0.14436)  G[K/2]=0.52501 (a=0.52597)  15.5s
+sample 20106: Gt[0]=0.13695 (exact mean 0.14436)  G[K/2]=0.53071 (a=0.52597)  16.2s
+sample 20107: Gt[0]=0.14594 (exact mean 0.14436)  G[K/2]=0.51891 (a=0.52597)  267.2s
+sample 20108: Gt[0]=0.13727 (exact mean 0.14436)  G[K/2]=0.52158 (a=0.52597)  15.9s
+sample 20109: Gt[0]=0.14826 (exact mean 0.14436)  G[K/2]=0.53271 (a=0.52597)  15.7s
+sample 20110: Gt[0]=0.14457 (exact mean 0.14436)  G[K/2]=0.52815 (a=0.52597)  270.1s
+sample 20111: Gt[0]=0.13877 (exact mean 0.14436)  G[K/2]=0.53118 (a=0.52597)  16.2s
+sample 20112: Gt[0]=0.14455 (exact mean 0.14436)  G[K/2]=0.53372 (a=0.52597)  15.8s
+sample 20113: Gt[0]=0.15033 (exact mean 0.14436)  G[K/2]=0.52812 (a=0.52597)  268.4s
+sample 20114: Gt[0]=0.13800 (exact mean 0.14436)  G[K/2]=0.52076 (a=0.52597)  15.0s
+sample 20115: Gt[0]=0.14183 (exact mean 0.14436)  G[K/2]=0.53586 (a=0.52597)  14.9s
+sample 20116: Gt[0]=0.14239 (exact mean 0.14436)  G[K/2]=0.52851 (a=0.52597)  268.3s
+sample 20117: Gt[0]=0.14462 (exact mean 0.14436)  G[K/2]=0.52385 (a=0.52597)  14.5s
+sample 20118: Gt[0]=0.13794 (exact mean 0.14436)  G[K/2]=0.52657 (a=0.52597)  15.3s
+sample 20119: Gt[0]=0.14205 (exact mean 0.14436)  G[K/2]=0.53035 (a=0.52597)  15.0s
+sample 20120: Gt[0]=0.15419 (exact mean 0.14436)  G[K/2]=0.53082 (a=0.52597)  263.2s
+sample 20121: Gt[0]=0.15167 (exact mean 0.14436)  G[K/2]=0.53216 (a=0.52597)  14.6s
+Traceback (most recent call last):
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 295, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 280, in main
+    time.sleep(a.poll)
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 256, in <lambda>
+    fwd = lambda s, f: kill_group(proc)                                    # noqa: E731
+                       ^^^^^^^^^^^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/memwatch.py", line 199, in kill_group
+    os.killpg(proc.pid, signal.SIGTERM)
+PermissionError: [Errno 1] Operation not permitted

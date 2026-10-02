@@ -1,0 +1,37 @@
+memwatch: pid 4426 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_chord_chaos.py --Np 12 --K 16 --samples 120 --seed0 0 --full-classes --out results/data/chord_chaos_2026-10-01
+N'=12 p=3 K=16: estimated peak memory 0.82 GB
+sample 0: Gt[0]=0.14362 (exact mean 0.14436)  G[K/2]=0.53077 (a=0.52597)  14.0s
+sample 1: Gt[0]=0.14039 (exact mean 0.14436)  G[K/2]=0.52101 (a=0.52597)  13.0s
+sample 2: Gt[0]=0.14283 (exact mean 0.14436)  G[K/2]=0.52487 (a=0.52597)  13.8s
+sample 3: Gt[0]=0.14882 (exact mean 0.14436)  G[K/2]=0.52185 (a=0.52597)  12.7s
+sample 4: Gt[0]=0.15060 (exact mean 0.14436)  G[K/2]=0.52530 (a=0.52597)  13.3s
+sample 5: Gt[0]=0.13664 (exact mean 0.14436)  G[K/2]=0.53270 (a=0.52597)  13.5s
+sample 6: Gt[0]=0.14582 (exact mean 0.14436)  G[K/2]=0.52906 (a=0.52597)  12.6s
+sample 7: Gt[0]=0.15124 (exact mean 0.14436)  G[K/2]=0.52935 (a=0.52597)  13.2s
+sample 8: Gt[0]=0.14374 (exact mean 0.14436)  G[K/2]=0.53000 (a=0.52597)  12.4s
+sample 9: Gt[0]=0.14250 (exact mean 0.14436)  G[K/2]=0.52868 (a=0.52597)  13.3s
+sample 10: Gt[0]=0.14723 (exact mean 0.14436)  G[K/2]=0.52603 (a=0.52597)  12.8s
+sample 11: Gt[0]=0.14455 (exact mean 0.14436)  G[K/2]=0.51764 (a=0.52597)  12.5s
+sample 12: Gt[0]=0.14465 (exact mean 0.14436)  G[K/2]=0.52121 (a=0.52597)  12.7s
+sample 13: Gt[0]=0.14516 (exact mean 0.14436)  G[K/2]=0.51780 (a=0.52597)  12.3s
+sample 14: Gt[0]=0.14552 (exact mean 0.14436)  G[K/2]=0.52494 (a=0.52597)  12.9s
+sample 15: Gt[0]=0.14075 (exact mean 0.14436)  G[K/2]=0.51913 (a=0.52597)  12.8s
+sample 16: Gt[0]=0.14555 (exact mean 0.14436)  G[K/2]=0.53132 (a=0.52597)  12.0s
+sample 17: Gt[0]=0.14694 (exact mean 0.14436)  G[K/2]=0.53042 (a=0.52597)  11.9s
+sample 18: Gt[0]=0.14276 (exact mean 0.14436)  G[K/2]=0.51990 (a=0.52597)  12.4s
+sample 19: Gt[0]=0.13800 (exact mean 0.14436)  G[K/2]=0.51998 (a=0.52597)  11.9s
+sample 20: Gt[0]=0.15136 (exact mean 0.14436)  G[K/2]=0.52135 (a=0.52597)  11.9s
+sample 21: Gt[0]=0.14311 (exact mean 0.14436)  G[K/2]=0.52851 (a=0.52597)  12.1s
+sample 22: Gt[0]=0.14165 (exact mean 0.14436)  G[K/2]=0.52118 (a=0.52597)  12.5s
+sample 23: Gt[0]=0.14124 (exact mean 0.14436)  G[K/2]=0.52222 (a=0.52597)  11.9s
+sample 24: Gt[0]=0.14688 (exact mean 0.14436)  G[K/2]=0.53097 (a=0.52597)  12.3s
+sample 25: Gt[0]=0.14492 (exact mean 0.14436)  G[K/2]=0.52669 (a=0.52597)  12.1s
+sample 26: Gt[0]=0.13931 (exact mean 0.14436)  G[K/2]=0.52714 (a=0.52597)  12.0s
+sample 27: Gt[0]=0.14128 (exact mean 0.14436)  G[K/2]=0.52201 (a=0.52597)  12.1s
+sample 28: Gt[0]=0.14463 (exact mean 0.14436)  G[K/2]=0.52954 (a=0.52597)  12.5s
+sample 29: Gt[0]=0.14366 (exact mean 0.14436)  G[K/2]=0.51861 (a=0.52597)  12.2s
+sample 30: Gt[0]=0.14238 (exact mean 0.14436)  G[K/2]=0.52087 (a=0.52597)  12.1s
+sample 31: Gt[0]=0.13991 (exact mean 0.14436)  G[K/2]=0.52246 (a=0.52597)  12.2s
+sample 32: Gt[0]=0.14842 (exact mean 0.14436)  G[K/2]=0.52492 (a=0.52597)  12.0s
+sample 33: Gt[0]=0.14510 (exact mean 0.14436)  G[K/2]=0.52459 (a=0.52597)  12.0s
+memwatch: done rc=-15 peak 0.62 GB (cap 2.0) in 430s
