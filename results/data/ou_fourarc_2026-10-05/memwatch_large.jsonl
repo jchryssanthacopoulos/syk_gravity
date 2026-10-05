@@ -1,0 +1,1 @@
+{"cmd": "bash -c .venv/bin/python scripts/run_ou_fourarc.py --Np 13 --samples 16 --seed0 0 && .venv/bin/python scripts/run_ou_fourarc.py --Np 14 --samples 12 --seed0 0", "rc": -15, "killed": null, "peak_gb": 1.321, "cap_gb": 5.0, "secs": 1375.2, "ended": "2026-10-05T18:16:40"}

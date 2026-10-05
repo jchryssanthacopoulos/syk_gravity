@@ -68,8 +68,13 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [x] **Q10 (P1):** size ↔ chord dictionary derived (D4, `research/notes/chord_size_dictionary_2026-10-02.md`).
 - [ ] **Q10 follow-ups (P2):** finite-N HH recursion for πₙ (n ≥ 2); smearing law; p = 5 exactness of P₍₁₎ ∝ :H:;
       j_R ≠ 0 joint distribution.
-- [ ] **Q11 (P1):** two-copy irrep content of the decoder remainder R; correlated mixed-q-Gaussian model for the
-      four-arc diagrams.
+- [x] **Q11 (P1):** decoder vs OU vs free liberation; R decomposed (D5, `research/notes/decoder_T4_fourarc_2026-10-05.md`).
+- [ ] **Q11 follow-ups (P1):**
+  - analytic model of the localization term (site-restricted quantum-geometric tensor; B-chord clustering);
+  - N′ = 15–16 for its large-N trend;
+  - two-colour chord computation of the isotropic (OU) four-arc function in BBNR/BLY double scaling (the
+    mismatched-wormhole overlap);
+  - Krawtchouk inversion of the parity family (u_t grading, D5 §1).
 
 ## F. Writing (P2)
 

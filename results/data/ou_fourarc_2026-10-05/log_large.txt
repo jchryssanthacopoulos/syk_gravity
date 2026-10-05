@@ -1,0 +1,20 @@
+memwatch: pid 66261 cap 5.0 GB, budget 30 GB: bash -c .venv/bin/python scripts/run_ou_fourarc.py --Np 13 --samples 16 --seed0 0 && .venv/bin/python scripts/run_ou_fourarc.py --Np 14 --samples 12 --seed0 0
+N'=13 p=3 F=6 K=16: estimated peak memory 0.94 GB
+sample 0: 67.1s  basis_err=3.5e-16  T2(x=0)=0.4263 T4(x=0)=0.2958  decoder T2=0.6188 T4=0.5105
+sample 1: 62.6s  basis_err=2.8e-16  T2(x=0)=0.4267 T4(x=0)=0.2957  decoder T2=0.6193 T4=0.5117
+sample 2: 65.4s  basis_err=3.0e-16  T2(x=0)=0.4229 T4(x=0)=0.2931  decoder T2=0.6158 T4=0.5076
+sample 3: 63.6s  basis_err=3.1e-16  T2(x=0)=0.4198 T4(x=0)=0.2901  decoder T2=0.6204 T4=0.5121
+sample 4: 66.3s  basis_err=2.9e-16  T2(x=0)=0.4219 T4(x=0)=0.2917  decoder T2=0.6178 T4=0.5095
+sample 5: 76.9s  basis_err=2.8e-16  T2(x=0)=0.4342 T4(x=0)=0.3031  decoder T2=0.6166 T4=0.5076
+sample 6: 76.5s  basis_err=3.2e-16  T2(x=0)=0.4247 T4(x=0)=0.2949  decoder T2=0.6163 T4=0.5081
+sample 7: 75.5s  basis_err=2.7e-16  T2(x=0)=0.4357 T4(x=0)=0.3035  decoder T2=0.6190 T4=0.5108
+sample 8: 72.6s  basis_err=2.8e-16  T2(x=0)=0.4269 T4(x=0)=0.2966  decoder T2=0.6148 T4=0.5062
+sample 9: 73.2s  basis_err=2.9e-16  T2(x=0)=0.4317 T4(x=0)=0.3012  decoder T2=0.6194 T4=0.5109
+sample 10: 74.5s  basis_err=2.8e-16  T2(x=0)=0.4193 T4(x=0)=0.2907  decoder T2=0.6175 T4=0.5090
+sample 11: 72.2s  basis_err=2.8e-16  T2(x=0)=0.4196 T4(x=0)=0.2905  decoder T2=0.6182 T4=0.5099
+sample 12: 71.2s  basis_err=3.1e-16  T2(x=0)=0.4224 T4(x=0)=0.2927  decoder T2=0.6206 T4=0.5124
+sample 13: 67.6s  basis_err=3.0e-16  T2(x=0)=0.4176 T4(x=0)=0.2879  decoder T2=0.6195 T4=0.5118
+sample 14: 64.3s  basis_err=3.1e-16  T2(x=0)=0.4219 T4(x=0)=0.2933  decoder T2=0.6198 T4=0.5117
+sample 15: 69.2s  basis_err=3.0e-16  T2(x=0)=0.4148 T4(x=0)=0.2864  decoder T2=0.6206 T4=0.5124
+N'=14 p=3 F=7 K=16: estimated peak memory 2.87 GB
+memwatch: done rc=-15 peak 1.32 GB (cap 5.0) in 1375s

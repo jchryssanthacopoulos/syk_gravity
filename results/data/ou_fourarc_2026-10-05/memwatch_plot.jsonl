@@ -1,0 +1,2 @@
+{"cmd": ".venv/bin/python scripts/plot_ou_fourarc.py --Np 8 9 10 11 12 13 14 --panel-a 12 14 --lib-sim 2000 --out results/figures/ou_fourarc_2026-10-05", "rc": 0, "killed": null, "peak_gb": 0.44, "cap_gb": 3.0, "secs": 171.1, "ended": "2026-10-05T19:10:31"}
+{"cmd": ".venv/bin/python scripts/plot_ou_fourarc.py --Np 8 9 10 11 12 13 14 --panel-a 12 14 --lib-sim 2000 --out results/figures/ou_fourarc_2026-10-05", "rc": 0, "killed": null, "peak_gb": 0.362, "cap_gb": 3.0, "secs": 167.0, "ended": "2026-10-05T19:13:34"}

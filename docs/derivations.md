@@ -746,3 +746,149 @@ Data: `results/data/chord_chaos_2026-10-01/`.*
   - an analytic smearing law;
   - whether $P_{[1]}\propto{:}H{:}$ holds exactly for $p\ge5$. It holds to 4 digits at $N'=10,12$.
 
+
+## D5. The decoder fourth moment as a four-arc function: OU family, ℤ₂ chord rule, wormhole overlaps
+
+*2026-10-05. Context: `research/notes/decoder_moments_2026-09-29.md` §11 (decomposition
+$T_4=a^2+2a(T_2-a)+S+R$). Literature: BKS 1997, Pluma–Speicher 2019, BINT 2018, BBNR 2020, G. Lin 2026, CCMP 2026
+(notes in `literature/notes/`). Normalization: $\tau=\mathrm{Tr}/d$ on $\Lambda^F$, so $T_{2m}(\mathbb 1)=1$.*
+
+### Definitions
+- **Couplings.** $C=(C_J)_{|J|=p}$ are i.i.d. standard complex Gaussians. $Q(C)=\sum_JC_J\Psi_J$, $P(C)$ is the BPS
+  projector, $a=d/D$.
+- **Correlated partner.** For a diagonal real correlation $K=(K_J)$, $|K_J|\le1$, let $\tilde C=KC+\sqrt{1-K^2}\,C'$ with
+  $C'$ an independent copy.
+- **Alternating functions.** $T_{2m}(K)=E\,\tau\big((P(C)P(\tilde C))^m\big)$.
+- **Special cases.**
+  - OU family: $K_J\equiv x$.
+  - Decoder with probe $U_A=\prod_{i\in A}(-1)^{n_i}$: $K_J=\sigma_J=(-1)^{|A\cap J|}$, deterministic. This is exact
+    because $U_AQ(C)U_A=Q(\sigma C)$, hence $U_AP(C)U_A=P(\sigma C)$.
+  - Identity: $K\equiv1$. Independent models: $K\equiv0$.
+
+### 1. One generating function for decoder and OU [derived, exact at finite N]
+- Write $F(C)=P(C)\otimes P(C)$ and $\mathcal B(A\otimes B,\,C\otimes D)=\tau(ACBD)$, so that
+  $T_4(K)=E\,\mathcal B(F(C),F(\tilde C))$.
+- The multivariate Mehler formula for a diagonal correlation, valid also at $|K_J|=1$ by parity of Hermite
+  polynomials, gives
+  $$T_4(K)=\sum_\alpha K^\alpha\,t_\alpha,\qquad t_\alpha=\mathcal B(F_\alpha,F_\alpha).$$
+  - $\alpha$ is a multi-index of chaos quanta in $(C,\bar C)$, and $F_\alpha$ is the corresponding Hermite component of
+    $F$.
+  - The same formula with $F\to P$ gives $T_2$.
+- **Chord reading.** A quantum is a Wick contraction between an arc of flavour $C$ and an arc of flavour $\tilde C$,
+  weighted $K_J$. Contractions between the two $C$-arcs (or the two $\tilde C$-arcs) are internal to $F_\alpha$ and
+  carry weight 1.
+- **Four-arc ℤ₂ rule.** On the circle with arcs $P,P',P,P'$:
+  - chords between adjacent arcs carry $K_J$;
+  - chords between opposite arcs carry 1.
+- **Contrast with BINT.** BINT's random matter (crossed 4-pt function) instead weighs adjacent-arc chords $\tilde q$
+  and opposite-arc chords $\tilde q^2$, a product rule. For a fixed ℤ₂ probe all three pairings of the four $U$'s give
+  the same sign $(-1)^{\#U\text{ between the chord ends}}$, so there is no sum over $U$-pairings and BINT's R-matrix
+  does not apply by substitution.
+- **Consequences.**
+  - The OU family and the decoder are **two evaluations of the same coefficients $t_\alpha$**: on the diagonal
+    $K=x\mathbb 1$, and at the cube vertex $K=\sigma$.
+  - Because the ensemble is $S_N$-invariant, the site average is
+    $E_A[\sigma^\alpha]=\mathcal K_s(o(\alpha))/\binom Ns$, a Krawtchouk polynomial with $s=|A|$. Here $o(\alpha)$ is the
+    number of sites covered an odd number of times by the index sets of the cross-arc chords, i.e. the support of the
+    monomial $\prod\Psi$.
+  - For a single site this is $1-2o(\alpha)/N$. For *independent uniformly random* index sets,
+    $E[(-1)^{|A\cap\cup J|}]=x_s^{|\alpha|}$ exactly, with $x_s=\mathcal K_s(p)/\binom Ns$ (`x_exact` in the
+    parity-family table).
+  - **So the decoder equals OU at $x=x_s$, coefficient by coefficient, exactly when the cross-chord index sets are
+    uncorrelated.**
+  - **Double scaling [derived, leading order].** With $p^2/N$ fixed and a heavy probe $s\propto\sqrt N$, the overlap
+    correlations shift $o$ by $O(1)$ and change the weights by $O(s/N)\to0$, so decoder ≡ OU($x_s$) for every
+    $T_{2m}$. For a single site ($s=1$), $x_s\to1$ in strict double scaling and the decoder trivializes.
+  - **Finite $p$ [num, D4 item 6].** Correlations are large. The chaos-1 sector $P_{[1]}=\gamma H^{(2)}$ has forced
+    overlaps ("friends") and weight $\hat\chi_2(U)=0.505$ instead of $x_s^2=0.327$ at $N'=14$. This is the same effect
+    as D3's size per chord unit $p-1$ rather than $p$.
+  - **Hence the natural test (Phase A2):** compare the decoder with OU at the *matched* $x_*$ defined by
+    $T_2^{\rm OU}(x_*)=T_2^{\rm dec}$, not at $x_s$.
+  - **Leading-order prediction for $x_*$ [derived at chaos order ≤ 1; num].**
+    - $T_2$ is dominated by chaos orders 0 and 1. The decoder weights chaos 1 by $\hat\chi_2(U)$ and OU by $x^2$.
+      Hence $x_*\approx\sqrt{\hat\chi_2(U)}=\sqrt{1-8(N-1)/(N(N+1))}$.
+    - Measured: 0.476 / 0.557 / 0.582 / 0.630 / 0.650 / 0.684 / 0.696 against predicted 0.471 / 0.537 / 0.588 /
+      0.628 / 0.660 / 0.688 / 0.711 for $N'=8$–14. Within 2 %, except 3.7 % at $N'=9$ (odd, off half filling).
+    - The naive $x_s$ is 0.25–0.54.
+- **Remark.** At matched $T_2$, $T_4^{\rm dec}-T_4^{\rm OU}(x_*)=R^{\rm dec}-R^{\rm OU}(x_*)$, up to the $x$-dependence of
+  $S^{\rm OU}$, which is a covariance of per-realization size data and is checked numerically. So the test needs no
+  size decomposition.
+
+### 2. Exact properties of the OU curve [derived]
+- $T_2^{\rm OU}(x)=\sum_n\pi_nx^{2n}$ (D4).
+- $T_4^{\rm OU}(x)=\sum_n\theta_nx^{2n}$ with $\theta_n=\sum_{|\alpha|=2n}t_\alpha$. Even powers only, since
+  $P(-C)=P(C)$.
+  - Unlike $\pi_n$, the $\theta_n$ need **not** be non-negative. $\mathcal B$ is not a positive form:
+    $T_4=\tau(Z^2)$ with $Z=P(C)P(\tilde C)$, whereas the time-ordered $\tau(Z^\dagger Z)$ is a norm.
+- $T_4(1)=1$ and $T_4(0)=c_0$, the two-model value.
+- **Sum rule.** $\sum_n n\,\theta_n=2\sum_nn\,\pi_n$, since $\partial_xT_4=2\,\partial_xT_2$ at $x=1$ by $P^2=P$.
+- $T_4-2T_2+1=\tau\big((PP_xP-P)^2\big)\ge0$, the second moment of $\sin^2$ of the principal angles. For the decoder
+  this equals $4\tau\big((PP_oP)^2\big)$, with $P_o=(P-UPU)/2$ the part of $P$ odd under $U$.
+- **Remainder.** Per realization $Q_4=S+R$ as in §11, with $Y_x=P_x-a$. Taking $E_{C'}$ at $x=0$ makes
+  $E[|Y'\rangle\rangle\langle\langle Y'|]$ $U(N)$-invariant, which is orthogonal to $\delta\mathcal P$. So
+  **$R^{\rm OU}(0)=0$ exactly**, and $R^{\rm OU}(1)=(1-a)^2-S$.
+- **Small-angle expansion** $\epsilon=1-x\to0$, with real coupling coordinates $\omega_I$:
+  - $PP_xP-P=-B^\dagger B+O(\delta\omega^3)$, where $B=\sum_I\delta\omega_I(1-P)\partial_IP\,P$.
+  - Then $T_2=1-\frac{2\epsilon}{d}E\,\mathrm{Tr}\,g_{\rm tot}+O(\epsilon^2)$, so $\sum_nn\pi_n=E\,\mathrm{Tr}\,g_{\rm tot}/d$.
+  - And
+    $$T_4-2T_2+1=\frac{4\epsilon^2}{d}E\Big[\mathrm{Tr}\,g_{\rm tot}^2+2\sum_{I,J}\mathrm{Tr}\,g_{IJ}^2\Big]+O(\epsilon^3).$$
+  - Here $G_{IJ}=P\partial_IP(1-P)\partial_JP\,P$ is the operator-valued quantum geometric tensor (CCMP A.7–A.11),
+    $g_{IJ}=(G_{IJ}+G_{JI})/2$, and $g_{\rm tot}=\sum_Ig_{II}$.
+  - The Berry curvature $F_{IJ}=G_{IJ}-G_{JI}$ **cancels** between the $IJIJ$ and $IJJI$ Wick orderings. Isotropic OU
+    noise measures the variance of the quantum metric, not G. Lin's TOC − OTOC curvature moment.
+
+### 3. Two-sided-wormhole reading [derived in double scaling (Majorana); N=2 by analogy]
+- In the q-Gaussian GNS space, left and right multiplications commute. Hence
+  $T_4^{\rm OU}(x)=\langle\Psi_{h_x,h}|\Psi_{h,h_x}\rangle$, with
+  $|\Psi_{h,h'}\rangle=L(P(h))\,R(P(h'))\,\Omega$.
+  - $|\Psi_{h,h'}\rangle$ is the zero-energy state of the two-sided chord Hilbert space whose left boundary evolves with
+    $H(\omega)$ and right boundary with $H(\omega_x)$.
+  - Chords are coloured by the boundary that emitted them. The inner product is the q-Fock product with
+    $\langle h,h_x\rangle=x$.
+- So **$T_4^{\rm OU}$ is the overlap of a mismatched BPS wormhole with its mirror**, and
+  $T_2^{\rm OU}=\langle\Omega|\Psi_{h,h_x}\rangle$.
+- At finite N this is just vectorization, $|P_1P_2\rangle\rangle=(P_1\otimes P_2^T)|1\rangle\rangle$. Its content is
+  that the double-scaled limit is a two-colour chord computation (BBNR's oriented chords with an origin colour), not a
+  matter-chord R-matrix.
+- **Out of time order.** By BKS (§4, Def. 4.1), $(P(\omega),P(\omega_x))$ are values of the q-OU process at two times.
+  $T_2$ is time-ordered and given by the q-Mehler kernel. $T_4$ has operator times $(s,t,s,t)$ and is not determined by
+  the Markov kernel.
+
+### 4. Decoder as a conjugation flow [derived]
+- $U=e^{i\pi n_i}$. So $P(\theta)=e^{i\theta n_i}Pe^{-i\theta n_i}$ interpolates $P\to P'$, a CCMP conjugation
+  deformation with $\Lambda=n_i$. Its couplings are $C_J\to e^{i\theta}C_J$ for $J\ni i$, which is measure-preserving.
+- The quantum metric along it is $\hat\Lambda(1-\hat\Lambda)$, $\hat\Lambda=Pn_iP=P-O_T$. Hence
+  $T_2(\theta)=1-(1-\cos\theta)\cdot2\tau(\hat\Lambda-\hat\Lambda^2)$ exactly. This is a two-term Fourier series,
+  since $n_i$ has eigenvalues 0 and 1.
+
+### 5. Free-liberation baseline [derived; Demni–Hamdi–Hmidi eq. 2]
+- **Model.** Rotate $P$ against itself by a free unitary Brownian motion: $J_t=PY_tPY_t^*P$, $\tau(P)=a$, giving
+  DHH parameters $\lambda=1$, $\theta=a$, $m_n(0)=1$. This is the Hilbert-space-isotropic null model at
+  $D\to\infty$.
+- **Moments.** With $u=e^{-t}$ and $b=1-a$, the moment ODE gives
+  $T_2=a+bu$, so $\eta\equiv(T_2-a)/(1-a)=e^{-t}$ exactly, and
+  $$T_4=a^2(2-a)+4ab^2u+(E-2ab^2t)u^2,\qquad E=1-a^2(2-a)-4ab^2 .$$
+- **Remainder.** Relative to the free two-model value $c_0^{\rm free}=a^2(2-a)$ (i.e. $S_{\rm free}=a^2(1-a)$):
+  $$R_{\rm lib}(\eta)=2a(1-a)(1-2a)\,\eta+\big[E+2a(1-a)^2\ln\eta\big]\eta^2 .$$
+- **Checks.**
+  - The ODE agrees with the closed form to $10^{-11}$ (`tests/test_ou_fourarc.py`).
+  - $R_{\rm lib}(1)=1-2a+a^3$, which is $(1-a)^2-S_{\rm free}$, as it must be.
+- **Sign structure.** The linear term changes sign at $a=\tfrac12$. $R(1)$ changes sign at the golden-ratio root
+  $a=(\sqrt5-1)/2=0.618$ of $a^3-2a+1$. This is the threshold observed empirically in
+  `decoder_moments_2026-09-29.md` §11.3.
+- **Small angle.** $\kappa\equiv(T_4-2T_2+1)/(1-T_2)^2\to1/(1-a)$ as $t\to0$. This is the free-Poisson value for
+  $B^\dagger B$, $B=(1-P)\,dW\,P$.
+- **Non-analyticity.** The $\eta^2\ln\eta$ term is non-analytic. The OU curve is a power series in $x^2$, so OU can
+  approximate liberation but not equal it.
+
+### Status
+- **Exact:** §1 (generating function, four-arc rule, Krawtchouk weights), §2, §4, §5.
+- **Leading order in double scaling:** decoder ≡ OU($x_s$) for heavy probes; the wormhole-overlap reading (Majorana,
+  via Pluma–Speicher and BKS; the N=2 version by analogy).
+- **Tested (A1–A2, `research/notes/decoder_T4_fourarc_2026-10-05.md`) [num].**
+  - The $x$-dependence of $S^{\rm OU}$ is $\le10^{-6}$.
+  - The OU curve is close to free liberation (§5) at equal $T_2$. The deviation tracks the two-model non-freeness.
+  - The decoder does **not** match OU at equal $T_2$. Its excess (localization) is $0.017$–$0.047$ in $T_4$ for
+    $N'=8$–14, or 37 % → 19 % of $T_4^{\rm dec}-T_4^{\rm free}$.
+  - The Gaussian site-local family reproduces it, as does its infinitesimal version (excess quantum-metric
+    heterogeneity $\kappa$).

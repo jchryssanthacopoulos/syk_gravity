@@ -155,6 +155,13 @@ image" explanation.
 function); the distribution of principal angles between B and B⁰ vs N; test whether a free-Jacobi-process law at
 some effective time t(N) fits the SYK spectrum; check whether t(N) grows (→ Wachter) or saturates.
 
+**Update 2026-10-05 (D5 §5, `research/notes/decoder_T4_fourarc_2026-10-05.md`).**
+- The free-liberation curve (DHH ODE, closed form for T₄) describes *isotropic* coupling deformations of the BPS space
+  well at equal T₂ (OU − liberation ≲ 0.01 in T₄).
+- It does *not* describe the decoder: at equal T₂ the decoder has excess T₄, T₆, T₈ from localization (wall pile-up).
+- So a single effective liberation time t(N) cannot fit the decoder spectrum. A liberation model would need an extra
+  un-liberated (protected) component, which is consistent with this question's "un-liberated remainder" hypothesis.
+
 ## Q3. Exact endpoint atoms: generic-position counting **[partly answered]**
 
 **Known.** n₁ = dim(B^P_N ∩ ker D∧), n₀ = dim(B^{P−1}_N ∩ ker ι_D̄) (exact). Fractions: 55.6% (N = 8, 9), 32.9%
@@ -271,7 +278,35 @@ deficit" is a restatement of the wall pile-up and should be framed that way.
 - (c) Relate the O(λ) smearing (Lin eq. 59) to the observed leakage to lower sizes.
 - (d) Check whether the finite-p correction a vs a_λ is the only obstruction to a termwise identity w_{(p−1)n} ↔ Pₙ.
 
-## Q11. Beyond second moments: the decoder remainder R and correlated q-Gaussians **[open]**
+## Q11. Beyond second moments: the decoder remainder R and correlated q-Gaussians **[substantially answered 2026-10-05 — D5; `research/notes/decoder_T4_fourarc_2026-10-05.md`]**
+
+**Update 2026-10-05.**
+- **Exact [derived, D5].**
+  - Decoder, isotropic OU and site-local coupling families are evaluations of one generating function
+    T(K) = Σ_α K^α t_α.
+  - The four-arc chord rule is adjacent-arc chords K_J, opposite-arc chords 1 (ℤ₂, not BINT's product rule).
+  - Correlated couplings are *not* beyond Liu–Shen/Bożejko–Speicher: by multilinearity (Pluma–Speicher Cor. 3.2) they
+    are the q-Gaussian functor on non-orthogonal vectors, with conditioning x^{N̂} (BKS Thm. 2.11). The candidate (ii)
+    below was based on a wrong premise.
+- **Numbers [num, N′ = 8–14].** The decoder's excess over Wachter splits as:
+  1. free liberation at the decoder's T₂: analytic (DHH ODE, closed form R_lib(η)); 63–76 %;
+  2. isotropic SYK non-freeness (OU − liberation): ≲ 5 %;
+  3. **localization** (decoder − OU at equal T₂): 19–37 %.
+     - It is reproduced continuously by the Gaussian site-local family; resampling the site's couplings gives about
+       ⅔ of it.
+     - It is visible infinitesimally as excess heterogeneity κ of the quantum metric (22–49 % above free, against
+       3–12 % for isotropic OU; N′ = 8–12).
+  - R itself is a small residual of a negative liberation part and a positive localization part.
+- **Interpretation [interp].**
+  - Isotropic coupling changes rotate the BPS space approximately like a free unitary Brownian motion: dynamical BPS
+    chaos.
+  - The decoder's genuinely non-free fourth-order content is the UV imprint of the local probe (the wall pile-up).
+- **Open.**
+  - (a) An analytic model of the localization term (B-chord clustering; site-restricted quantum metric).
+  - (b) Its large-N fate: its share falls from 37 % to about 19 % (N′ = 8 → 14) while its absolute size grows.
+  - (c) The two-colour chord (mismatched-wormhole) computation of the isotropic part in BBNR/BLY double scaling.
+
+*Original entry (2026-10-02), kept for the record:*
 
 The decoder T₄ = a² + 2a(T₂ − a) + S + R. S is fixed, per realization, by that realization's size spectrum w_k
 (through the U(N)-twirled transmission). R is 21 % of the excess at N′ = 13–14 and is the part not determined by the

@@ -1,0 +1,26 @@
+{
+ "args": {
+  "Np": 12,
+  "p": 3,
+  "F": null,
+  "K": 16,
+  "samples": 40,
+  "seed0": 0,
+  "probe_proj": 2,
+  "parity_sets": 3,
+  "family": "ou",
+  "site": null,
+  "kmax": 8,
+  "bins": 200,
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/ou_fourarc_2026-10-05",
+  "dry_run": false
+ },
+ "git": "1aa3dd3-dirty",
+ "started": "20261005T175931",
+ "D": 924,
+ "d": 486.0,
+ "M": 220,
+ "F": 6,
+ "mem_estimate_gb": 0.511292928,
+ "description": "OU-pair and decoder principal-angle spectra on matched realizations; docs/derivations.md D5"
+}

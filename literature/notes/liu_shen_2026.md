@@ -46,6 +46,9 @@ None; the proofs are combinatorial (moment method).
 ## Limitations
 - Moments of the *Hamiltonians* only: no projectors, no ground states, no finite-n corrections.
 - Couplings are independent across the family; there are no correlated couplings.
+  - *Added 2026-10-05.* Correlated couplings reduce to this case by multilinearity (Pluma–Speicher Cor. 3.2
+    argument). Copies with coupling correlation x give ⟨h_i, h_j⟩ = x. So this is not a real gap; see
+    `pluma_speicher_2019.md` and `bozejko_kummerer_speicher_1997.md`.
 - Only Majorana, non-supersymmetric models.
 
 ## Relationship to our project

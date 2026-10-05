@@ -1,7 +1,8 @@
 # Literature synthesis
 
-*Last revised 2026-09-30 (third pass: added Belin–Fu–La Rocca 2026, Lin 2022, Liu–Shen 2026; new §7 on where the
-project sits). Second pass 2026-09-28 added 9 papers: PSSY, Turiaci–Witten, Boruch–Iliesiu–Yan, HITZ,
+*Last revised 2026-10-05 (fourth pass: added BBNR 2020, BINT 2018, Pluma–Speicher 2019, Bożejko–Kümmerer–Speicher
+1997, G. Lin 2026; new §8 on tools for the T₄/R program). Third pass 2026-09-30 added Belin–Fu–La Rocca 2026, Lin 2022,
+Liu–Shen 2026 and §7 on where the project sits. Second pass 2026-09-28 added 9 papers: PSSY, Turiaci–Witten, Boruch–Iliesiu–Yan, HITZ,
 Heydeman–Turiaci–Zhao, FGMS, Y. Chen, Collins–Matsumoto–Novak, Berkooz–Mamroud. Per-paper notes are in
 `literature/notes/`; BibTeX in `literature/bibliography.bib`.*
 
@@ -34,6 +35,17 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
 - Together these place our exact finite-N results at the junction of three literatures: fortuity/BPS chaos, DSSYK
   chords/operator size, and free probability (§7).
 
+*Added 2026-10-05.*
+- BBNR 2020 solve N=2 SUSY SYK in double scaling: oriented chords with friend/enemy weights, fixed-charge densities,
+  and the exact finite-N ground-state count. That count explains our d = 2·3^{N′/2−1}.
+- BINT 2018 give the matter-chord rule q̃ = e^{−2pp̃/N} and the crossed 4-pt function / R-matrix of Majorana DSSYK.
+- Pluma–Speicher 2019 and Bożejko–Kümmerer–Speicher 1997 make "correlated couplings ⇒ x per chord ⇒ x^{N̂} on chord
+  space" rigorous (Majorana, double scaled). They also show our four-arc OU function is an **out-of-time-order
+  correlator of the q-OU process**.
+- G. Lin 2026 gives the first explicit zero-energy N=2 super-JT OTOC (equal Δ). His Berry-curvature second moment is
+  TOC − OTOC.
+- See §8 for what this means for the T₄/R program.
+
 ## 2. Literature map
 
 ```
@@ -55,6 +67,12 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
  Kunisky 2023 (MANOVA theorems, error identity) ─ Haikin–Zamir–Gavish 2017 ─ Dubbs–Edelman 2015    │
  Demni–Hamdi–Hmidi 2012 (free Jacobi/liberation) ─ Liu–Chen–Balents 2017 ─ Bouchard 2024 (TR) ────┘
  Liu–Shen 2026 (SYK families → mixed q-Gaussians, q_ij = ±e^{−2λ_ij}; ε-freeness; Poisson overlap lemma)
+ ─── added 2026-10-05 ──────────────────────────────────────────────────────────────────────────────
+ BINT 2018 (matter chords q̃; crossed 4-pt; R-matrix = U_q(su(1,1)) 6j) ─► Berkooz–Mamroud 2024 (review)
+ BBNR 2020 (N=2 DSSYK: oriented chords, friend/enemy, ground-state count, double-chord rule) ─► BLY 2023
+ BKS 1997 (q-Gaussian functor Γ_q(T); q-Mehler; q-OU is Markov) ─► Pluma–Speicher 2019 (SYK copies & Brownian
+   couplings → q-Gaussian/q-Brownian) ─► Liu–Shen 2026
+ LMRS 2022 ─► G. Lin 2026 (particle on SU(1,1|1): exact zero-energy N=2 OTOC; Berry 2nd moment = TOC − OTOC) ◄─ CCMP 2026
 ```
 
 | Paper | Provides | Used by the project for | Connects to |
@@ -86,6 +104,11 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
 | Belin–Fu–La Rocca 2026 | projected spectrum under Haar orientation: exact B-spline density (2.33); GUE/semicircle for α ≪ 1 (2.65–2.66); spin-½ ⇒ Wachter-type law (3.3) and eigenvalue recovery (3.8); generic atom count (Thms. A.1–A.2); free compression (4.69) | the Haar null model stated as the BPS-chaos hypothesis; generic atom count vs SYK atoms (Q3); open question "how Haar is the physical rotation?" | LMRS, Chen–Lin–Shenker, Kunisky, Collins |
 | Lin 2022 | DSSYK chord Hilbert space = bulk Hilbert space; chord number = Krylov (46–48); two-sided light-probe correlators measure length (53); **chord number = size/q** (57) with O(λ) smearing (59) | origin of size ↔ wormhole-length; our variance formula = exact analogue of eq. 53; D3 (size per chord unit = p−1) | BLY (N=2), Berkooz–Mamroud |
 | Liu–Shen 2026 | SYK with different lengths / overlapping supports → mixed q-Gaussians, q_ij = (−1)^{r_ir_j}e^{−2λ_ij} (Thms. 1.1–1.2); Poisson overlap lemma (4.5) and its failure for r/n ↛ 0 (Ex. 4.6); asymptotic ε-freeness | rigorous inter-family crossing weights; two independent SYK are not free at finite λ; our finite-N factorization caveat and x_s = 0 exactness | Berkooz–Mamroud, Speicher |
+| BBNR 2020 | N=2 DSSYK: oriented X–O chords, friend/enemy weights q^{∓1/2} (4.4–4.10); exact trace identity without triple intersections (4.7); fixed-charge transfer matrix (4.25–4.27); mixed-q_ij inner product (4.32–4.37); fixed-charge density (5.18); **finite-N ground-state count (5.25), = (2/3)cos(πs)3^{N/2} at p = 3**; double-chord (neutral bilinear) rule q̃^{N̂} (7.25); sl_q(2\|1) (§8); 4-pt functions listed as open | citable origin of d; Krylov check via (5.18); home of the four-chord-species (Q, Q†, Q′, Q′†) problem; probe rule | BLY, BINT, Berkooz–Mamroud |
+| BINT 2018 | matter chords q̃_A = e^{−2pp_A/N} (2.9–2.11); 2-pt vertex (5.4) = q-Mehler kernel; bi-local conserves energy (3.20); uncrossed (4.9) and crossed (4.13) 4-pt; R-matrix (5.6), integral form (6.3), Schwarzian 6j limit; U_{q^{1/2}}(su(1,1)) (§7); finite-p structure (§8) | the crossed-channel template; shows the random-matter product rule differs from our ℤ₂ four-arc rule (D5) | BBNR, Berkooz–Mamroud, Lin 2022 |
+| Pluma–Speicher 2019 | iid SYK copies → q-Gaussian family (Thm. 3.1); Brownian couplings → q-Brownian motion by multilinearity (Cor. 3.2); exact word sign (Lemma 3.3); higher cumulants at scale binom(n,p)^{−1} (Thm. 4.1); no operator-valued continued fraction (§6) | OU-correlated copies = q-Gaussians with ⟨h,h_x⟩ = x (corrects our BBNR note); fluctuation scale of per-realization quantities | Liu–Shen, BKS |
+| BKS 1997 | q-Hermite & Rogers q-Mehler kernel (Thm. 1.10); second quantization Γ_q(T) for contractions, CP and trace-preserving (Thm. 2.11); q-OU is the unique stationary Markov q-Gaussian (Cor. 3.10, Prop. 3.11); classical versions reproduce only time-ordered correlators (§4) | rigorous "x per chord = x^{N̂}"; T₄^OU is out of OU-time order, so it is not fixed by the Markov kernel (D5) | Pluma–Speicher, BINT |
+| G. Lin 2026 | super-JT as a constrained particle on SU(1,1\|1), PSU(1,1\|2); physical supercharges; Wilson lines; zero-energy 3-pt; **exact zero-energy N=2 OTOC for equal Δ (5.26–5.38)**; N=4 large-Δ (5.41–5.42); Berry 2nd moment = TOC − OTOC (6.15–6.19) | triple-scaled target for the crossed channel of our light probe (Δ = 1/3); the isotropic OU expansion sees only the quantum metric, not curvature (D5) | LMRS, CCMP, BLY |
 
 ## 3. Established results (literature) that the project relies on
 
@@ -125,6 +148,19 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
      not free at finite λ.
    - Factorization of sign averages over several chords is a Poisson limit (Liu–Shen Lemma 4.5). It fails when a set
      size is a finite fraction of n (Ex. 4.6).
+10. **N=2 DSSYK ground states (BBNR).**
+    - The exact finite-N cohomology count is D(r) = Σ_n (−1)^n binom(N, r + np) (BBNR 5.25), = (2/3)cos(πs)3^{N/2} for
+      p = 3. Its double-scaled limit is ϑ₂ (5.28).
+    - The fixed-charge continuous density is (5.18).
+    - Ground states spoil the conformal ansatz for 2-pt functions (§7.1.1).
+11. **Correlated couplings (Majorana, double scaled).**
+    - Copies with coupling correlation x converge to q-Gaussians with ⟨h, h_x⟩ = x (Pluma–Speicher Cor. 3.2 argument).
+    - Conditioning acts as x^{N̂} on chord space (BKS Thm. 2.11), so two-arc functions are q-Mehler integrals (BKS
+      Thm. 1.10). These are the same kernels as BINT's matter vertex.
+    - The q-OU process is Markov, but four-arc alternating functions are out of time order (BKS §4).
+12. **Zero-energy N=2 crossed 4-pt function in super-JT** (equal Δ): G. Lin 2026, eqs. 5.26–5.38. The large-Δ ratio
+    OTOC/TOC ~ e^{−3.52Δ} is LMRS eq. 159. For chiral operators the long-time TOC = OTOC up to sign (LMRS eq. 86 and
+    Fig. 9).
 
 ## 4. Tensions between the literature and the current draft
 
@@ -172,15 +208,21 @@ controlled by Δ (3).
 Still missing and worth adding:
 - LMRS companion, arXiv:2207.00407 (*Holography for people with no time*).
 - ~~Boruch, Lin, Yan~~ (acquired 2026-09-28).
-- Berkooz, Isachenkov, Narovlansky, Torrents, *Towards a full solution of the large N double-scaled SYK model*,
-  arXiv:1811.02584: the original matter-chord crossing rule q̃ = e^{−2pp̃/N}.
+- ~~Berkooz, Isachenkov, Narovlansky, Torrents, arXiv:1811.02584~~ (acquired 2026-10-05).
+- ~~Pluma–Speicher~~, ~~double-scaled SUSY SYK (BBNR)~~ (acquired 2026-10-05). Feng–Tian–Wei is still missing.
+- New since 2026-10-05, not acquired:
+  - Penington–Witten, arXiv:2412.15549: zero-energy N=2 3-pt functions, cited by G. Lin 2026 [49].
+  - Lee–Lee, arXiv:1911.10391: superconformal representation and exchange data needed for a closed-form super-JT OTOC
+    (G. Lin 2026 §6).
+  - Aguilar-Gutierrez, arXiv:2510.11777: BPS Krylov complexity in N=2 DSSYK. Marginal for us (abstract checked
+    only).
 - Iniguez–Srednicki, arXiv:2305.15702, and Wang et al., arXiv:2310.20264: microcanonical truncations
   (Belin–Fu–La Rocca refs. [13], [11]).
-- Pluma–Speicher (independent SYK → q-Gaussian systems) and Feng–Tian–Wei (SYK spectrum q-Gaussian): Liu–Shen refs.
-  [27], [14].
+- Feng–Tian–Wei (SYK spectrum q-Gaussian): Liu–Shen ref. [14]. (Pluma–Speicher, ref. [27], acquired 2026-10-05.)
 - *Watch:* Khamnei–Papadodimas, unpublished, cited by Belin–Fu–La Rocca [53] for "few-fermion operators are not free
   after BPS projection in SUSY SYK". This overlaps qualitatively with our non-freeness results.
-- Double-scaled supersymmetric SYK (Berkooz, Brukner, Narovlansky, Torrents; ref. [66] of Berkooz–Mamroud).
+- ~~Double-scaled supersymmetric SYK~~ (acquired 2026-10-05 as BBNR). An earlier version of this entry gave the fourth
+  author as "Torrents"; Berkooz–Mamroud ref. [66] has Raz.
 - Saad–Shenker–Stanford (1903.11115) and Eynard–Orantin (math-ph/0702045), cited by the draft.
 - Two citations in the draft (MP 2403.05241; DistinguishMicro 2108.00011) have unverified or possibly wrong metadata.
 
@@ -202,3 +244,23 @@ search (2026-09-30) show.
 - So is its application to the fortuity/uplift decoder.
 - Closest competitors: Belin–Fu–La Rocca (the Haar side of the same question) and the unpublished
   Khamnei–Papadodimas work (non-freeness of projected simple operators in SUSY SYK).
+
+## 8. Tools for the T₄ / R program (2026-10-05)
+
+**Question.** What is the decoder fourth moment T₄ = τ(PP′PP′), P′ = UPU, U = (−1)^{n_i}? In particular, what is its
+remainder R beyond the U(N)-twirl part? (`research/pdfs/progress_2026-09-29.pdf` §6–7; `docs/derivations.md` D5.)
+
+| Tool | What it gives | Status / limits |
+|---|---|---|
+| Exact finite-N U(N) representation theory (project) | the size spectrum w_k, transmissions φ_k, sum rules, the T₄ = a² + 2a(T₂ − a) + S + R split | exact; leaves R as a genuine four-point quantity |
+| OU-correlated couplings + second quantization (BKS Thm. 2.11; Pluma–Speicher Cor. 3.2; finite-N classical Mehler) | T₂^OU(x) = Σ κ_n x^{2n}; R^OU(x) = Σ ρ_n x^{2n} with R^OU(0) = 0 exactly; a one-parameter interpolation between independent and identical BPS spaces | T₄^OU is out of OU-time order, so the Markov kernel is not enough. Finite-N numerics (Phase A1) are needed |
+| ℤ₂ four-arc chord rule (derived in project, D5) | the decoder and the OU four-arc function share one structure: adjacent-arc chords weigh x (x_s = 1 − 2p/N for the decoder), opposite-arc chords weigh 1 | the decoder's B-chords are structured (all contain site i), unlike OU's. The difference is what A2 measures |
+| BINT crossed 4-pt / R-matrix | the closed-form crossing kernel for *random* matter | not directly applicable: random matter weighs opposite-arc chords q̃² rather than 1 |
+| BBNR / BLY N=2 chord Hilbert space | the zero-energy HH state; the two-point function ⟨q^{Δ N̂}⟩ = T₂^OU at x = q^Δ; the one-particle wormhole for crossed functions | the crossed function is not evaluated in the literature. The finite-λ computation is open (our action item) |
+| Super-JT (LMRS; G. Lin 2026) | zero-energy OTOC at equal Δ (exact, N=2); large-Δ suppression | the conformal regime overshoots our probe's 2-pt function by 15–60 % at N′ ≤ 16. Use as a limiting check only |
+| Quantum geometric tensor (CCMP App. A) | small-angle OU: T₄ − 2T₂ + a ≈ (4ε²/D) E[Tr g_tot² + 2Σ Tr g_IJ²] | metric only. Berry curvature (TOC − OTOC à la G. Lin) needs two distinct directions in a loop, not isotropic noise |
+
+**Recommendation.**
+- Work at finite N with the OU family as the organizing interpolation, since it is exact and computable.
+- Use the ℤ₂ chord rule to interpret the result. Compare against BBNR/BLY double scaling where it can be evaluated.
+- Treat super-JT results as the triple-scaled limiting check, not as the quantitative model.
