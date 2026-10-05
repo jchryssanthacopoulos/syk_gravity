@@ -78,6 +78,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## F. Writing (P2)
 
+- [x] Progress report 2026-10-05 (`research/pdfs/progress_2026-10-05.pdf`, source `research/tex/progress_2026-10-05.tex`):
+      chord ↔ size dictionary (D4) and the decoder fourth moment as liberation + localization (D5).
+
 - [ ] Rewrite the draft following the "safe core" (see `research/notes/gravitational_dual_fragility_audit.md` §11):
       exact one-flavor geometry → numerics → Haar null model (clearly labelled) → LMRS calculation (Q1) → only then
       any gravity interpretation. Move the two-flavor material to a separate control section.

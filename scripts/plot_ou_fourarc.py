@@ -54,10 +54,15 @@ def main():
     ap.add_argument("--panel-a", type=int, nargs="+", default=[12, 14])
     ap.add_argument("--out", required=True)
     ap.add_argument("--lib-sim", type=int, default=0, help="finite-D liberation spectrum in panel (d) (D, e.g. 2000)")
+    ap.add_argument("--figsize", type=float, nargs=2, default=[9.2, 7.6])
+    ap.add_argument("--fontsize", type=float, default=9)
+    ap.add_argument("--name", default="ou_fourarc", help="output basename")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    plt.rcParams.update({"font.size": 9, "axes.labelsize": 10, "legend.fontsize": 7.5})
-    fig, ax = plt.subplots(2, 2, figsize=(9.2, 7.6))
+    fs = a.fontsize
+    plt.rcParams.update({"font.size": fs, "axes.labelsize": fs + 1, "legend.fontsize": fs - 1.5,
+                         "axes.titlesize": fs, "xtick.labelsize": fs - 0.5, "ytick.labelsize": fs - 0.5})
+    fig, ax = plt.subplots(2, 2, figsize=tuple(a.figsize))
     cols = plt.cm.viridis(np.linspace(0.0, 0.85, len(a.Np)))
     summary = []
     for N, col in zip(a.Np, cols):
@@ -129,8 +134,8 @@ def main():
     ax[1, 0].set_xlabel("$N'$")
     ax[1, 0].set_ylabel(r"share of $T_4^{\rm dec}-T_4^{\rm free}$")
     ax[1, 0].set_ylim(0, 1.3)
-    ax[1, 0].legend(fontsize=6.5, loc="upper left", ncol=2)
-    ax[1, 0].set_title("(c) decoder fourth-moment excess over Wachter, by origin", fontsize=9)
+    ax[1, 0].legend(fontsize=fs - 2, loc="upper left", ncol=1)
+    ax[1, 0].set_title("(c) decoder fourth-moment excess over Wachter, by origin", fontsize=fs)
     # (d) spectra at the largest N'
     Nmax = max(Ns)
     ou = load(Nmax)
@@ -171,20 +176,20 @@ def main():
     ax[1, 1].set_yscale("log")
     ax[1, 1].set_xlabel(r"$\cos^2\theta$ (principal angles of $P$, $P'$)")
     ax[1, 1].set_ylabel("density")
-    ax[1, 1].set_title(f"(d) principal-angle spectra, $N'={Nmax}$", fontsize=9)
+    ax[1, 1].set_title(f"(d) principal-angle spectra, $N'={Nmax}$", fontsize=fs)
     ax[1, 1].legend()
     ax[0, 0].set_xlabel(r"$T_2=\tau(PP')$")
     ax[0, 0].set_ylabel(r"$T_4=\tau(PP'PP')$")
-    ax[0, 0].set_title("(a) fourth vs second moment", fontsize=9)
+    ax[0, 0].set_title("(a) fourth vs second moment", fontsize=fs)
     ax[0, 0].legend(ncol=1)
     ax[0, 1].axhline(0, color="k", lw=0.5)
     ax[0, 1].set_xlabel(r"$\eta=(T_2-a)/(1-a)$")
     ax[0, 1].set_ylabel(r"$R=T_4-c_0-2a(T_2-a)$")
-    ax[0, 1].set_title("(b) remainder $R$: OU (—), site-local (- -), decoder ($\\star$)", fontsize=9)
+    ax[0, 1].set_title("(b) remainder $R$: OU (—), site-local (- -), decoder ($\\star$)", fontsize=fs)
     ax[0, 1].legend()
     fig.tight_layout()
     for ext in ("pdf", "png"):
-        fig.savefig(os.path.join(a.out, f"ou_fourarc.{ext}"), dpi=180)
+        fig.savefig(os.path.join(a.out, f"{a.name}.{ext}"), dpi=180)
     with open(os.path.join(a.out, "ou_fourarc_summary.json"), "w") as fh:
         json.dump(summary, fh, indent=1)
     for r in summary:
