@@ -1,0 +1,26 @@
+{
+ "args": {
+  "Np": 12,
+  "nreal": 3,
+  "seed0": 9000,
+  "exact": true,
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/uplift_2026-10-12"
+ },
+ "git": "1f44feb-dirty",
+ "atom_bound": {
+  "h_dim": 243,
+  "h_target": 164,
+  "h_atoms": 79,
+  "g_dim": 243,
+  "g_target": 164,
+  "g_atoms": 79,
+  "ratio_h": 0.6748971193415638,
+  "ratio_g": 0.6748971193415638
+ },
+ "eps": [
+  0.1,
+  0.03,
+  0.01,
+  0.001
+ ]
+}

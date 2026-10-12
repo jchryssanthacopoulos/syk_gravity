@@ -1,6 +1,6 @@
 # To-do
 
-*Last revised 2026-09-30 (literature pass); earlier 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-10-12 (D6 uplift/localization); earlier 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## A. Environment & reproducibility (P0)
@@ -69,9 +69,20 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [ ] **Q10 follow-ups (P2):** finite-N HH recursion for πₙ (n ≥ 2); smearing law; p = 5 exactness of P₍₁₎ ∝ :H:;
       j_R ≠ 0 joint distribution.
 - [x] **Q11 (P1):** decoder vs OU vs free liberation; R decomposed (D5, `research/notes/decoder_T4_fourarc_2026-10-05.md`).
+- [x] **Q2/Q11 (P1), 2026-10-12:** exact uplift, orthogonal splitting and closed-form block decoder (D6 §§1–5);
+      localization = heterogeneity deficit, predicted from the old model's first-order uplift (D6 §6,
+      `research/notes/uplift_localization_2026-10-12.md`). Wall hypothesis refuted at N′ = 15.
+- [ ] **D6 follow-ups (P1):**
+  - chord (BLY §5 matter-chord, H⁻¹ insertion) computation of the spectra of the integrated pair two-point functions
+    𝒟 = E†H₀⁻¹E, 𝒟′ = EH₀⁻¹E† on closed/coclosed forms. Their harmonic blocks alone fix the first-order spectrum,
+    and hence H_first and the T₄ prediction;
+  - why first order preserves H = ⟨y(1−y)⟩ (approximate cancellation; no symmetry found);
+  - the odd-N′ residual of H (−0.001, −0.003, −0.004 at N′ = 11, 13, 15): first-order N′ = 17 (old model N = 16; cheap)
+    plus one exact N′ = 17 point if memory allows;
+  - the deterministic atom excess over the refined bound (+1, +2, +14, +28 at N′ = 11–14).
 - [ ] **Q11 follow-ups (P1):**
-  - analytic model of the localization term (site-restricted quantum-geometric tensor; B-chord clustering);
-  - N′ = 15–16 for its large-N trend;
+  - ~~analytic model of the localization term~~ → D6 §6 (semi-analytic: old-model first-order uplift);
+  - ~~N′ = 15–16 for its large-N trend~~ → N′ = 15: L flat (D6 §6);
   - two-colour chord computation of the isotropic (OU) four-arc function in BBNR/BLY double scaling (the
     mismatched-wormhole overlap);
   - Krawtchouk inversion of the parity family (u_t grading, D5 §1).

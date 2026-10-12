@@ -1,0 +1,28 @@
+{
+ "args": {
+  "Np": 15,
+  "p": 3,
+  "F": null,
+  "K": 8,
+  "samples": 4,
+  "seed0": 0,
+  "probe_proj": 2,
+  "parity_sets": 1,
+  "family": "ou",
+  "site": null,
+  "fast_basis": true,
+  "pair_starts": 2,
+  "kmax": 8,
+  "bins": 200,
+  "out": "results/data/ou_fourarc_2026-10-05/N15_a",
+  "dry_run": false
+ },
+ "git": "1f44feb-dirty",
+ "started": "20261012T212119",
+ "D": 6435,
+ "d": 2187,
+ "M": 455,
+ "F": 7,
+ "mem_estimate_gb": 6.5270208,
+ "description": "OU-pair and decoder principal-angle spectra on matched realizations; docs/derivations.md D5"
+}

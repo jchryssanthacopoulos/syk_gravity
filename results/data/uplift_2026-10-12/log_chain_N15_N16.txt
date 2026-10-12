@@ -1,0 +1,12 @@
+memwatch: pid 77524 cap 4.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 15 --nreal 3 --seed0 9003 --exact --out results/data/uplift_2026-10-12
+15 0 135s first [0.4412 0.2501 0.1363 0.0101] exact [0.5235 0.3064 0.1724 0.021 ] atoms 0
+15 1 144s first [0.4179 0.225  0.1193 0.0055] exact [0.5002 0.2867 0.1587 0.016 ] atoms 0
+15 2 129s first [0.4161 0.2213 0.1139 0.0027] exact [0.4925 0.2789 0.1504 0.0119] atoms 0
+memwatch: done rc=0 peak 2.99 GB (cap 4.0) in 410s
+memwatch: pid 86355 cap 13.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 16 --nreal 1 --seed0 9000 --exact --out results/data/uplift_2026-10-12
+16 0 1298s first [0.465  0.267  0.1459 0.011 ] exact [0.5409 0.3178 0.1802 0.0215] atoms 0
+memwatch: done rc=0 peak 10.80 GB (cap 13.0) in 1301s
+memwatch: pid 13445 cap 13.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 16 --nreal 1 --seed0 9001 --exact --out results/data/uplift_2026-10-12
+16 0 1043s first [0.4609 0.2643 0.1436 0.0101] exact [0.5505 0.3219 0.1802 0.0206] atoms 0
+memwatch: done rc=0 peak 10.82 GB (cap 13.0) in 1045s
+CHAIN_DONE

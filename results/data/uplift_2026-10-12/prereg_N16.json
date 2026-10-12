@@ -1,0 +1,14 @@
+{
+ "written": "2026-10-12T21:58 BST (file mtime), before any exact N'=16 decoder computation (first N'=16 exact job launched ~22:05)",
+ "source": "first-order uplift from the N=15 old model only (scratchpad walls_N16_first.json; seeds 9000-9002, same couplings as scripts/run_uplift_walls.py --seed0 9000), calibrated on exact N'=10..15 (results/data/uplift_2026-10-12/walls_N*.jsonl)",
+ "first_order_N16": {"H_first_per_seed": {"9000": 0.1216, "9001": 0.1190, "9002": 0.1185}, "frac_y_below_half": [0.451, 0.458, 0.449],
+                      "wall_fractions_eps_0.1_0.03_0.01_0.001": [0.4653, 0.269, 0.1477, 0.0119]},
+ "calibration_exact_minus_first_H": {"10": 0.0079, "11": -0.0012, "12": 0.0045, "13": -0.0026, "14": 0.0034, "15": -0.0040},
+ "predictions": {
+   "P1_heterogeneity": "per seed, H_exact = <y(1-y)> of the exact decoder lies in H_first + [0.000, +0.005] (even-N' sign, decreasing magnitude); i.e. T4_exact = T2_exact - H_first to within +-0.005",
+   "P2_atoms": "exact atoms (min(lam,1-lam) < 1e-9) = 0",
+   "P3_walls": "exact wall fractions at eps = 0.1/0.03/0.01 are 5-20% above first order (0.49-0.56 / 0.28-0.32 / 0.155-0.18); at eps=0.001 between 0.012 and 0.03",
+   "P4_folding": "KS distance between exact and first-order distributions of m = min(y,1-y) <= 0.035, while KS for y itself is >= 0.05; fraction of y < 1/2 drops from 0.45 (first) to 0.36-0.40 (exact)",
+   "P5_T2": "T2_exact (last site, per seed) in 0.585-0.615 (D2 chord r=0.589, D2 exact r=0.601+-0.005)"
+ }
+}

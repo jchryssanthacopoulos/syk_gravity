@@ -892,3 +892,261 @@ $T_4=a^2+2a(T_2-a)+S+R$). Literature: BKS 1997, Pluma–Speicher 2019, BINT 2018
     $N'=8$–14, or 37 % → 19 % of $T_4^{\rm dec}-T_4^{\rm free}$.
   - The Gaussian site-local family reproduces it, as does its infinitesimal version (excess quantum-metric
     heterogeneity $\kappa$).
+
+## D6. Exact uplift formula; decoder walls from the uplift map; the arithmetic origin of localization
+
+*2026-10-12. Context: D5 and `research/notes/decoder_T4_fourarc_2026-10-05.md` (the decoder's fourth-moment excess over
+isotropic deformations, "localization"). Scratch code for this section was promoted to `src/uplift.py`; see the research
+note `research/notes/uplift_localization_2026-10-12.md` for numbers, commands and figures.*
+
+### Setup
+- Let e = the added mode (site i = N′−1) and "o" = the N = N′−1 old modes. Split
+  Λ^F(N′) = Λ^F(o) ⊕ Λ^{F−1}(o)∧e and write Ψ = a + b∧e.
+- The p-form splits as ω = ω₀ + η∧e. Here ω₀ is the old model's p-form (couplings not touching e) and η is a
+  (p−1)-form on the old modes (couplings touching e).
+- Q₀ = ω₀∧ and E = η∧. For p = 3, η is a 2-form, so E commutes with Q₀ (and E† with Q₀†).
+
+### 1. Block form of the supercharge [derived]
+- On sector F, Q(a + b∧e) = Q₀a + (Q₀b + εEa)∧e with ε = (−1)^F, using e∧a = (−1)^{deg a} a∧e.
+- The BPS conditions QΨ = 0 = Q†Ψ read:
+  - Q₀a = 0 and Q₀†b = 0;
+  - Q₀b = −εEa;
+  - Q₀†a = +εE†b.
+
+### 2. Exact uplift formula [derived + verified]
+- Hodge-decompose in the old model: a = h + Q₀x and b = g + Q₀†y, with h ∈ B_o^F and g ∈ B_o^{F−1} harmonic.
+- Ea is Q₀-closed in a degree without cohomology (F+2 lies outside the BPS window), so it is exact. Likewise E†b is
+  coexact.
+- Solving the two inhomogeneous equations with Moore–Penrose pseudo-inverses gives a = h + εK′b and b = g − εKa, with
+  K = Q₀⁺E (Λ^F → coexact Λ^{F−1}) and K′ = (Q₀†)⁺E† (Λ^{F−1} → exact Λ^F).
+- Eliminating b:
+  $$a=(1+K'K)^{-1}(h+\varepsilon K'g),\qquad b=g-\varepsilon K a,\qquad (h,g)\in B^0=B_o^F\oplus B_o^{F-1}.$$
+- This is an explicit isomorphism from the uplift reference B⁰ onto the BPS space B of the N′-mode model. Because K′K
+  maps harmonic forms into exact forms, (1+K′K)⁻¹ is lower-triangular in harmonic ⊕ exact. Hence:
+  - h-states: a = h − (1+D)⁻¹K′Kh, with D = K′K restricted to exact forms;
+  - g-states: a = ε(1+D)⁻¹K′g.
+- **Verified:** relative residual outside the exact BPS space ≤ 4.4·10⁻¹⁵ and full rank d, at N′ = 8, 9, 10, 12, 13, 14,
+  and for scaled site couplings s = 0.4, 2.5.
+- **Relation to CV.** The CV decoder D_T, fidelity and dressing cost (CV §5) are defined abstractly. This formula
+  makes the uplift explicit in terms of the old model's Green's operator Q₀⁺. To first order, the dressing an old BPS
+  state h needs is b ≈ −εKh, so CV's first-order dressing cost is ‖Kh‖²/‖h‖².
+
+### 3. First-order decoder and the walls [derived; num]
+- **First order in η** (no mixing): h-states have decoder eigenvalue λ = 1/(1+σ²), and g-states λ = σ′²/(1+σ′²), where
+  σ, σ′ are the singular values of K|_{B_o^F} and K′|_{B_o^{F−1}}.
+- **Exact walls.** λ = 1 exactly iff η∧h = 0 (CV/Q3's protected states); λ = 0 iff ι_η g = 0.
+- **[num] Near-wall states are first-order exact.**
+  - At N′ = 14 the upper quantiles of the exact decoder (q ≥ 0.75) agree with 1/(1+σ²) to ≤ 3·10⁻³.
+  - Decoder eigenvectors with λ ≥ 0.97 have ‖h‖² ≈ 0.99 and median ‖η∧h‖/‖h‖ ≈ 1.1, against 4–8 in the bulk.
+  - Wall fractions (min(λ, 1−λ) < ε) from first order alone are 10–15 % below the exact ones.
+- **[num] The bulk is not first-order:** first order underestimates T₂ by 5–12 % (N′ = 10–15; table in §5).
+- **Dressing cost = time-integrated BPS two-point function [derived; tested].**
+  - On Λ^{F+2}(o) the exact forms are invariant under H₀ = Q₀Q₀† + Q₀†Q₀, and there H₀ = Q₀Q₀†. Since Eh is exact,
+    K†K = E†(Q₀Q₀†)⁺E gives
+    $$\sigma^2\in\mathrm{spec}\,\mathcal D_h,\qquad \mathcal D_h=P\,E^\dagger H_0^{-1}E\,P=\int_0^\infty d\tau\;P\,E^\dagger e^{-\tau H_0}E\,P ,$$
+    with P the projector on B_o^F. Likewise σ′² ∈ spec P′E H₀⁻¹E†P′ (P′ on B_o^{F−1}; on coexact forms H₀ = Q₀†Q₀).
+  - Test: `tests/test_uplift.py::test_dressing_cost_is_inverse_hamiltonian_two_point_function` (agreement 10⁻⁹).
+  - **[interp]** E = η∧ = Σ_{i<j} η_ij c_i†c_j† is pair creation with Gaussian couplings independent of the old
+    model's: a random two-fermion matter operator (R-charge 2/q̂). So the first-order decoder spectrum is the
+    spectrum (as an operator on the old BPS space, not just its trace) of the zero-temperature, Euclidean-time-
+    integrated two-point function of this matter operator. The τ-integral converges because charge F+2 has no BPS
+    states. This is the object a double-scaled matter-chord computation (BLY §5 type, with an H⁻¹ insertion) would
+    have to produce.
+
+### 4. Arithmetic origin of the walls [derived dimension count; num]
+- Ea is exact in Λ^{F+2}(o). So E|_{B_o^F} maps a space of dimension b_F = dim B_o^F into the exact forms, of dimension
+  e_{F+2} = C(N, F+2) − e_{F+5}, recursively.
+- **Forced exact atoms per wall:** max(0, b_F − e_{F+2}). For the g-wall, use the coexact forms of Λ^{F−3}.
+- **Near-wall states:** when the ratio r = e_{F+2}/b_F is close to 1, the restricted map is nearly square. Its small
+  singular values pile up at a hard edge, which shows up as decoder eigenvalues pressed against the walls.
+- For p = 3 the ratio is:
+
+| N′ | 10 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
+|---|---|---|---|---|---|---|---|---|
+| r (h-wall) | 0.44 | 0.67 | 0.99 | 0.96 | 1.31 | 1.33 | 1.70 | 1.78 |
+
+- So the hard edge sits at N′ = 13–14 and disappears from N′ = 15 on. Since b_F ∼ 3^{N/2} and e_{F+2} ∼ 2^N/√N, r grows
+  exponentially. This is the spectral counterpart of CV §7.2's arithmetic threshold for exact uplift.
+- **Exact atoms [num].**
+  - The measured counts are 80, 160, 41, 82, 0 at N′ = 11–15, identical across realizations.
+  - The refined bound gives 79, 158, 27, 54, 0. A small deterministic excess (+1, +2, +14, +28) remains unexplained.
+- **Pre-registered prediction, confirmed [num].** From old-model (N′−1) data only, first order predicted the fraction
+  of decoder eigenvalues within 0.001 of a wall to drop from 0.117 (N′ = 14) to 0.003–0.012 (N′ = 15). The exact N′ = 15
+  values are 0.012–0.023 (6 realizations), against 0.128 at N′ = 14.
+
+### 5. Three-operator closed form, orthogonal splitting, monotone self-dressing [derived + verified]
+
+*Code: `OldModel.three_operators`, `decoder_blocks`, `decoder_closed_form` in `src/uplift.py`; tests in
+`tests/test_uplift.py`; numbers from `scripts/run_uplift_blocks.py` → `results/data/uplift_2026-10-12/blocks.jsonl`.*
+
+**Hodge pieces.** Write X = Λ^F(o) = H_X ⊕ Ex_X ⊕ Co_X and Y = Λ^{F−1}(o) = H_Y ⊕ Ex_Y ⊕ Co_Y (harmonic, exact,
+coexact). By §2, a = h + x with x ∈ Ex_X, and b = g + z with z ∈ Co_Y. Define three operators:
+- K_H = K|_{H_X} : H_X → Co_Y (first-order dressing of h);
+- K′_H = K′|_{H_Y} : H_Y → Ex_X (first-order dressing of g);
+- L = K|_{Ex_X} : Ex_X → Co_Y.
+
+**Adjoint relation [derived].** Let x = Q₀w ∈ Ex_X and z = Q₀†v ∈ Co_Y.
+- Using [E, Q₀] = 0: Lx = Q₀⁺EQ₀w = Q₀⁺Q₀Ew = P_Co(Ew). Hence ⟨z, Lx⟩ = ⟨Q₀†v, Ew⟩ = ⟨v, EQ₀w⟩ = ⟨E†v, x⟩.
+- Using [E†, Q₀†] = 0: K′z = (Q₀†)⁺Q₀†E†v = P_Ex(E†v). Hence ⟨K′z, x⟩ = ⟨E†v, x⟩.
+- So ⟨z, Lx⟩ = ⟨K′z, x⟩ for all such x and z, i.e.
+$$P_{\rm Ex}\,K'\,P_{\rm Co}=L^\dagger .$$
+Verified to 6·10⁻¹⁵ (N′ = 10–13).
+
+**Exact uplift as an anti-Hermitian linear system.** The two equations x = εK′b and z = −εKa become
+$$(1+\mathbb L)\begin{pmatrix}x\\z\end{pmatrix}=\begin{pmatrix}\varepsilon K'_Hg\\-\varepsilon K_Hh\end{pmatrix},\qquad
+\mathbb L=\begin{pmatrix}0&-\varepsilon L^\dagger\\ \varepsilon L&0\end{pmatrix}=-\mathbb L^\dagger .$$
+1+𝕃 is invertible for any coupling strength (spectrum 1 + iℝ). Moreover
+(1+𝕃)⁻¹†(1+𝕃)⁻¹ = (1−𝕃²)⁻¹ = diag((1+R′)⁻¹, (1+R)⁻¹) with R = LL† on Co_Y and R′ = L†L on Ex_X.
+- **[context; literature not checked]** The one-sided half, b = g − εKa (Q-closedness), has the form of the classical
+  homological perturbation lemma for Q = Q₀ + (εE)·(e∧) with the Hodge homotopy Q₀⁺. The BPS (harmonic) condition
+  adds the dual half, a = h + εK′b. We have not checked whether the two-sided anti-Hermitian form, or the orthogonal
+  splitting below, appears in the literature.
+
+**Orthogonal splitting [derived; verified ≤ 1.1·10⁻¹⁵, N′ = 9–15].** Let B_h = Ψ(B_o^F, 0) (the BPS states whose
+n_e = 1 part is coexact) and B_g = Ψ(0, B_o^{F−1}) (those whose n_e = 0 part is exact). Then
+$$B=B_h\oplus B_g,\qquad B_h\perp B_g .$$
+- Proof: for Ψ_h, the source vector is (0, −εK_Hh); for Ψ_g it is (εK′_Hg, 0). Their images under (1+𝕃)⁻¹ have
+  inner product ⟨u, (1−𝕃²)⁻¹v⟩ = 0, because (1−𝕃²)⁻¹ is block-diagonal. The harmonic parts h and g are orthogonal to
+  everything else.
+- Equivalent direct proof from the BPS equations alone: with b_h = Q₀†v and a_g = Q₀w,
+  ⟨a_h, a_g⟩ = ⟨Q₀†a_h, w⟩ = ε⟨b_h, Ew⟩ and ⟨b_h, b_g⟩ = ⟨v, Q₀b_g⟩ = −ε⟨v, EQ₀w⟩ = −ε⟨b_h, Ew⟩. They cancel.
+
+**Closed-form decoder [derived; verified to 10⁻¹⁰].** In the (non-orthonormal) parametrization by (h, g) ∈ B⁰, the
+decoder μ = PUP|_B (U = (−1)^{n_e}) is the generalized eigenproblem 𝒩v = μ𝒢v, with
+$$\mathcal G=\begin{pmatrix}1+K_H^\dagger(1+R)^{-1}K_H&0\\0&1+K_H'^\dagger(1+R')^{-1}K'_H\end{pmatrix},$$
+$$\mathcal N=\begin{pmatrix}1-K_H^\dagger(1-R)(1+R)^{-2}K_H&-2\varepsilon K_H^\dagger L(1+R')^{-2}K'_H\\
+\text{h.c.}&-1+K_H'^\dagger(1-R')(1+R')^{-2}K'_H\end{pmatrix}.$$
+- First order is L → 0: 𝒩, 𝒢 diagonal with σ², σ′².
+- Relation to the integrated pair two-point functions 𝒟 = E†H₀⁻¹E on the closed forms of Λ^F(o), and
+  𝒟′ = EH₀⁻¹E† on the coclosed forms of Λ^{F−1}(o):
+  - K_H†K_H = P_H𝒟P_H;
+  - K_H†L = P_H𝒟P_Ex;
+  - R′ = P_Ex𝒟P_Ex;
+  - K′_H†K′_H = P_H𝒟′P_H;
+  - R = P_Co𝒟′P_Co.
+- By push-through, A†f(ABA†)A = A†A f(BA†A). For example
+  K_H†(1+R)⁻¹K_H = [𝒟(1 + P_Ex𝒟)⁻¹]_{HH} (checked to 3·10⁻¹⁵).
+- So the **diagonal blocks are functionals of 𝒟 (h-block) and 𝒟′ (g-block) alone**. The h–g block additionally
+  needs the operator K′|_{H_Y} itself, not only its Gram matrix: the link between the X- and Y-sides.
+- First order keeps only the harmonic blocks P_H𝒟P_H and P_H𝒟′P_H.
+- Physical reading of a dressing mode with singular value ℓ of L: the first-order cloud k = K_Hh (n_e = 1) is
+  reduced to norm² ⟨k,(1+R)⁻¹k⟩. A fraction R(1+R)⁻¹ of it reappears as an exact component x of a (n_e = 0).
+
+**Monotone self-dressing [derived].** Within B_h, 1 − λ is the generalized Rayleigh quotient
+⟨k,(1+R)⁻²k⟩ / (‖h‖² + ⟨k,(1+R)⁻¹k⟩). This is ≤ ‖k‖²/(‖h‖² + ‖k‖²) for every h, because n ≤ m ≤ ‖k‖² and m ↦ m/(c+m)
+is increasing. By Courant–Fischer, every ordered eigenvalue of the self-dressed h-block lies at or above its
+first-order value 1/(1+σ²); likewise every g-block eigenvalue lies at or below σ′²/(1+σ′²). Verified (test). The
+h–g mixing then adds 2‖C₂‖²_F/d ≥ 0 to T₂, where C₂ is the off-diagonal block in orthonormal bases.
+
+**[num] First order → self-dressed (blocks exact, C₂ = 0) → exact (seeds 9000, 9001):**
+
+| N′ | T₂ first → self → exact | mixing 2‖C₂‖²/d | H first → self → exact |
+|---|---|---|---|
+| 10 | 0.709 → 0.737 → 0.750; 0.689 → 0.731 → 0.747 | 0.013, 0.015 | 0.058 → 0.062 → 0.066; 0.057 → 0.063 → 0.067 |
+| 11 | 0.637 → 0.663 → 0.671; 0.647 → 0.677 → 0.685 | 0.008, 0.008 | 0.0905 → 0.0905 → 0.0886; 0.0866 → 0.0867 → 0.0855 |
+| 12 | 0.608 → 0.650 → 0.669; 0.633 → 0.674 → 0.687 | 0.019, 0.013 | 0.0832 → 0.0834 → 0.0878; 0.0867 → 0.0873 → 0.0911 |
+| 13 | 0.566 → 0.606 → 0.617; 0.554 → 0.595 → 0.609 | 0.010, 0.014 | 0.1114 → 0.1104 → 0.1090; 0.1123 → 0.1122 → 0.1095 |
+| 14 | 0.572 → 0.621 → 0.638; 0.575 → 0.627 → 0.642 | 0.016, 0.016 | 0.1047 → 0.1034 → 0.1075; 0.1038 → 0.1033 → 0.1067 |
+| 15 | 0.525 → 0.572 → 0.587; 0.552 → 0.592 → 0.601 | 0.015, 0.009 | 0.1269 → 0.1247 → 0.1233; 0.1270 → 0.1241 → 0.1225 |
+
+- Self-dressing raises T₂ by 0.026–0.052 and mixing adds 0.008–0.019. H moves by ≤ 0.003 under self-dressing
+  (N′ ≥ 11) and by +0.004 (even N′) or −0.001 to −0.003 (odd N′) under mixing.
+- A per-mode mean field reproduces the self-dressed T₂ to ≤ 0.005 (N′ = 11–14). It replaces R by
+  ρ_j = ⟨k_j,Rk_j⟩/‖k_j‖² along each singular direction of K_H, giving
+  μ_j = [1 − σ_j²(1−ρ_j)/(1+ρ_j)²]/[1 + σ_j²/(1+ρ_j)].
+- Singular values of L: median 0.35–0.48, max 0.76–0.96 (N′ = 10–13), all < 1 at unit coupling ratio. This is
+  **not** a theorem; ℓ scales with the size of η.
+- Block spectra:
+  - Even N′: spec M_g = −spec M_h per realization (to 7·10⁻¹⁵ at N′ = 10, 12, 14; the λ ↔ 1−λ symmetry acts
+    block-wise), and μ_h ≥ −0.39.
+  - Odd N′: μ_g ≤ −0.21, so every g-state sits on the n_e = 1 side.
+
+### 6. The fourth moment: heterogeneity, not walls [identity; num]
+
+*Script: `scripts/analyze_uplift_heterogeneity.py` → `results/data/uplift_2026-10-12/heterogeneity_analysis.json`,
+`results/figures/uplift_2026-10-12/fig_heterogeneity.pdf`.*
+
+**Identity [exact].** With y = μ² = cos²2θ,
+$$T_4=T_2-H,\qquad H\equiv\langle y(1-y)\rangle=\tfrac14\langle\sin^2 4\theta\rangle .$$
+So at equal T₂ the localization (D5) is L = T₄^dec − T₄^OU(x*) = H^OU(x*) − H^dec. **Localization is exactly the
+decoder's deficit of weight at intermediate angles.**
+
+**The wall hypothesis is refuted [pre-registered, num].**
+- The hard edge collapses at N′ = 15 (§4). If localization were the wall pile-up, it would drop there.
+- Measured: L = 0.0432 (N′=13), 0.0467 (N′=14), 0.0454 ± 0.0003 (N′=15; 8 samples, K = 8). The localization is a property
+  of the bulk of the angle distribution.
+
+**Prediction from the old model [num].** Take H^dec ≈ H_first, with
+H_first = ⟨y(1−y)⟩ at y = ((1−σ²)/(1+σ²))² and the analogue for σ′. Then T₄ ≈ T₂ − H_first.
+
+All-site decoder means from the OU campaign (D5 data; N′ = 15: `ou_fourarc_2026-10-05/N15_{a,b}`). H_first is the mean over 13 seeds (6 at N′ = 15). L = T₄^dec − T₄^OU(x*) (D5).
+
+| N′ | T₄^dec | T₂ − H_first | error | liberation error | OU(x*) error | L measured | L predicted | H_first | H^dec |
+|---|---|---|---|---|---|---|---|---|---|
+| 8 | 0.7778 | 0.7884 | +0.0105 | -0.0151 | -0.0175 | 0.0175 | 0.0280 | 0.0291 | 0.0396 |
+| 9 | 0.6666 | 0.6694 | +0.0029 | -0.0312 | -0.0293 | 0.0293 | 0.0322 | 0.0625 | 0.0653 |
+| 10 | 0.6790 | 0.6869 | +0.0079 | -0.0315 | -0.0321 | 0.0321 | 0.0400 | 0.0587 | 0.0666 |
+| 11 | 0.5799 | 0.5793 | -0.0006 | -0.0444 | -0.0380 | 0.0380 | 0.0374 | 0.0897 | 0.0891 |
+| 12 | 0.5964 | 0.6023 | +0.0059 | -0.0446 | -0.0417 | 0.0417 | 0.0475 | 0.0838 | 0.0897 |
+| 13 | 0.5101 | 0.5077 | -0.0025 | -0.0539 | -0.0432 | 0.0432 | 0.0408 | 0.1107 | 0.1083 |
+| 14 | 0.5283 | 0.5323 | +0.0040 | -0.0541 | -0.0467 | 0.0467 | 0.0507 | 0.1045 | 0.1085 |
+| 15 | 0.4524 | 0.4490 | -0.0034 | -0.0606 | -0.0454 | 0.0454 | 0.0420 | 0.1264 | 0.1230 |
+
+- For N′ ≥ 9 the T₄ error is ≤ 0.008 (≤ 0.006 for N′ ≥ 11), against 0.03–0.06 for liberation alone and 0.03–0.047 for isotropic OU.
+- N′ = 8, where 74 % of the decoder spectrum is exact atoms, is the outlier (+0.011).
+- The localization is predicted to within 2–14 % for N′ ≥ 11 (25 % at N′ = 10).
+
+**Why it works [num].**
+- It is **not** an identity: first order underestimates T₂ by 5–12 %.
+- Per-state overlap tracking (N′ = 12–14) maps first-order states onto exact eigenstates. y shifts up by about +0.10
+  for y₁ < 0.6, falling to +0.005 at the walls, with a spread of sd 0.12–0.16. The per-state change of y(1−y) runs
+  from +0.07 (y₁ < 0.1) to −0.045 (y₁ ≈ 0.65), and these changes cancel in the mean.
+- The block decomposition (§5) splits the cancellation.
+  - Self-dressing barely moves H. Its small effect drifts with size: +0.004 at N′ = 10, about 0 at N′ = 11–12, and
+    −0.0025 at N′ = 15.
+  - Mixing gives the parity-alternating residual (+0.004 at even N′, −0.002 at odd N′).
+  - The drift is why the odd-N′ residual grows. H_first ≈ H^dec is an empirical approximation at these sizes, not an
+    asymptotic statement.
+- *Superseded:* an earlier reading, "first order misplaces states by y ↔ 1−y", is withdrawn. The folded distributions
+  of min(y, 1−y) do agree (KS 0.02–0.03 for N′ ≥ 13, against 0.07–0.09 for y), but per-state tracking shows a shift
+  and spread, not a reflection.
+
+**Parameter-free variant [num].** Taking T₂ from the BLY chord formula (D2) instead of from the decoder:
+errors in T₄ are +0.025, +0.013, +0.018, +0.003, +0.010, −0.006, +0.002, −0.012 at N′ = 8–15 (≤ 0.012, i.e. ≤ 2.7 % of T₄, for N′ ≥ 11). These errors are dominated by the 1–2 % error of the chord T₂ (D2). No input from the N′-mode model is used.
+
+**Out-of-sample test at N′ = 16 [pre-registered, `results/data/uplift_2026-10-12/prereg_N16.json`].**
+- **Pre-registration.** Written 2026-10-12 21:58 from the N = 15 old model only (first-order seeds 9000–9002) and the
+  N′ = 10–15 calibration, before any exact N′ = 16 computation. Exact runs: seeds 9000 and 9001, peak 10.8 GB each
+  (memwatch cap 13 GB), 17–22 min each.
+- **P1 (the main prediction): H_exact − H_first ∈ [0, +0.005] per seed.** Result: +0.0030 and +0.0042. **Pass.**
+  Equivalently, T₄ = T₂ − H_first is within +0.003 / +0.004 of the exact T₄ (0.4829, 0.4887). This continues the
+  even-N′ sequence +0.0079, +0.0045, +0.0034 (N′ = 10, 12, 14).
+- **P2 (no exact atoms):** pass.
+- **P5 (T₂ ∈ 0.585–0.615):** 0.6075 and 0.6119; pass.
+- **P3 (wall fractions 5–20 % above first order):** ε = 0.1 and 0.001 pass. ε = 0.03 and 0.01 *narrowly fail*: the
+  exact/first ratios are 1.19–1.26, so the walls are slightly more enhanced over first order than calibrated.
+- **P4 (folded distributions):**
+  - KS(min(y, 1−y)) = 0.018 and 0.025 (≤ 0.035) and KS(y) = 0.088 and 0.107 (≥ 0.05); pass.
+  - The fraction of y < ½ is 0.367 (pass) and 0.358 (*narrow fail* of the 0.36–0.40 window).
+
+### Status
+- **Exact:**
+  - §§1–2;
+  - the atom characterization and the dressing-cost identity (§3);
+  - the adjoint relation, the anti-Hermitian linear system, the orthogonal splitting B = B_h ⊕ B_g, the closed-form
+    block decoder, and monotone self-dressing (§5);
+  - T₄ = T₂ − H (§6).
+- **Numerical:**
+  - first-order accuracy near the walls;
+  - the hard-edge collapse at N′ = 15 (pre-registered);
+  - H_first ≈ H^dec to 1–7 % for N′ = 11–15 (12 % at N′ = 10), which predicts T₄ to ≤ 0.008 and the localization to 2–25 %
+    (liberation alone misses T₄ by 0.03–0.06);
+  - the pre-registered N′ = 16 test: the main prediction (H residual, i.e. T₄ to +0.003/+0.004) passed; two side
+    predictions (wall fractions, y < ½ fraction) narrowly missed.
+- **Refuted:** "localization = wall pile-up" (pre-registered drop at N′ = 15 not seen).
+- **Open:**
+  - why first order preserves H (an approximate cancellation; no symmetry found);
+  - whether the odd-N′ residual (+0.002, −0.001, −0.003, −0.004 at N′ = 9, 11, 13, 15) keeps growing;
+  - the residual atom excess (§4);
+  - the chord (BLY matter-chord with H⁻¹ insertion) computation of the spectra of the harmonic blocks of 𝒟, 𝒟′.
+    That would make the first-order spectrum, hence H_first and the T₄ prediction, analytic.

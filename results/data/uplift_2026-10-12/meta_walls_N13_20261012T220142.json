@@ -1,0 +1,26 @@
+{
+ "args": {
+  "Np": 13,
+  "nreal": 10,
+  "seed0": 9003,
+  "exact": false,
+  "out": "results/data/uplift_2026-10-12"
+ },
+ "git": "1f44feb-dirty",
+ "atom_bound": {
+  "h_dim": 486,
+  "h_target": 483,
+  "h_atoms": 3,
+  "g_dim": 243,
+  "g_target": 219,
+  "g_atoms": 24,
+  "ratio_h": 0.9938271604938271,
+  "ratio_g": 0.9012345679012346
+ },
+ "eps": [
+  0.1,
+  0.03,
+  0.01,
+  0.001
+ ]
+}

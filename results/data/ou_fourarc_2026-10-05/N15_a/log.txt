@@ -1,0 +1,7 @@
+memwatch: pid 38019 cap 6.0 GB, budget 30 GB: .venv/bin/python scripts/run_ou_fourarc.py --Np 15 --K 8 --samples 4 --seed0 0 --fast-basis --pair-starts 2 --parity-sets 1 --out results/data/ou_fourarc_2026-10-05/N15_a
+N'=15 p=3 F=7 K=8: estimated peak memory 6.53 GB
+sample 0: 768.7s  basis_err=1.3e-15  T2(x=0)=0.3379 T4(x=0)=0.2023  decoder T2=0.5738 T4=0.4506
+sample 1: 914.2s  basis_err=1.2e-15  T2(x=0)=0.3374 T4(x=0)=0.2021  decoder T2=0.5744 T4=0.4514
+sample 2: 865.9s  basis_err=1.2e-15  T2(x=0)=0.3373 T4(x=0)=0.2020  decoder T2=0.5767 T4=0.4538
+sample 3: 1277.2s  basis_err=1.3e-15  T2(x=0)=0.3421 T4(x=0)=0.2054  decoder T2=0.5751 T4=0.4523
+memwatch: done rc=0 peak 3.36 GB (cap 6.0) in 3828s

@@ -1,0 +1,60 @@
+memwatch: pid 81386 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 10 --nreal 10 --seed0 9003 --out results/data/uplift_2026-10-12
+10 0 0s first [0.6296 0.5679 0.5556 0.5556] exact [nan] atoms None
+10 1 0s first [0.642  0.5556 0.5556 0.5556] exact [nan] atoms None
+10 2 0s first [0.6543 0.5802 0.5556 0.5556] exact [nan] atoms None
+10 3 0s first [0.6296 0.5802 0.5556 0.5556] exact [nan] atoms None
+10 4 0s first [0.6667 0.5926 0.5679 0.5556] exact [nan] atoms None
+10 5 0s first [0.6296 0.5556 0.5556 0.5556] exact [nan] atoms None
+10 6 0s first [0.679  0.5802 0.5556 0.5556] exact [nan] atoms None
+10 7 0s first [0.6543 0.5679 0.5556 0.5556] exact [nan] atoms None
+10 8 0s first [0.6296 0.5679 0.5556 0.5556] exact [nan] atoms None
+10 9 0s first [0.6543 0.5802 0.5556 0.5556] exact [nan] atoms None
+memwatch: done rc=0 peak 0.01 GB (cap 2.0) in 1s
+memwatch: pid 81410 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 11 --nreal 10 --seed0 9003 --out results/data/uplift_2026-10-12
+11 0 0s first [0.5597 0.4403 0.3704 0.3292] exact [nan] atoms None
+11 1 0s first [0.5473 0.4198 0.3539 0.3292] exact [nan] atoms None
+11 2 0s first [0.5638 0.4362 0.3704 0.3292] exact [nan] atoms None
+11 3 0s first [0.5556 0.428  0.3663 0.3292] exact [nan] atoms None
+11 4 0s first [0.5514 0.4239 0.358  0.3292] exact [nan] atoms None
+11 5 0s first [0.5597 0.428  0.3621 0.3292] exact [nan] atoms None
+11 6 0s first [0.5267 0.4115 0.3539 0.3292] exact [nan] atoms None
+11 7 0s first [0.5556 0.4321 0.3704 0.3292] exact [nan] atoms None
+11 8 0s first [0.5514 0.4403 0.3745 0.3292] exact [nan] atoms None
+11 9 0s first [0.5473 0.428  0.3621 0.3292] exact [nan] atoms None
+memwatch: done rc=0 peak 0.04 GB (cap 2.0) in 2s
+memwatch: pid 81478 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 12 --nreal 10 --seed0 9003 --out results/data/uplift_2026-10-12
+12 0 0s first [0.5761 0.4486 0.3827 0.3292] exact [nan] atoms None
+12 1 0s first [0.5761 0.4486 0.3745 0.3292] exact [nan] atoms None
+12 2 0s first [0.5761 0.4486 0.3786 0.3292] exact [nan] atoms None
+12 3 0s first [0.5926 0.4609 0.3868 0.3292] exact [nan] atoms None
+12 4 0s first [0.5802 0.4527 0.3704 0.3292] exact [nan] atoms None
+12 5 0s first [0.5597 0.4362 0.3745 0.3292] exact [nan] atoms None
+12 6 0s first [0.5556 0.4444 0.3745 0.3292] exact [nan] atoms None
+12 7 0s first [0.5802 0.4568 0.3868 0.3292] exact [nan] atoms None
+12 8 0s first [0.6008 0.4691 0.3951 0.3292] exact [nan] atoms None
+12 9 0s first [0.6296 0.4856 0.3992 0.3292] exact [nan] atoms None
+memwatch: done rc=0 peak 0.04 GB (cap 2.0) in 4s
+memwatch: pid 81570 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 13 --nreal 10 --seed0 9003 --out results/data/uplift_2026-10-12
+13 0 2s first [0.5048 0.3443 0.2414 0.1139] exact [nan] atoms None
+13 1 2s first [0.4897 0.3278 0.2318 0.1125] exact [nan] atoms None
+13 2 2s first [0.5021 0.3265 0.2291 0.1125] exact [nan] atoms None
+13 3 2s first [0.5103 0.3471 0.2538 0.1262] exact [nan] atoms None
+13 4 2s first [0.4856 0.3265 0.2318 0.1097] exact [nan] atoms None
+13 5 2s first [0.5075 0.3402 0.2401 0.118 ] exact [nan] atoms None
+13 6 2s first [0.4678 0.3086 0.214  0.107 ] exact [nan] atoms None
+13 7 2s first [0.4335 0.2757 0.1934 0.0933] exact [nan] atoms None
+13 8 2s first [0.4925 0.3292 0.2318 0.1139] exact [nan] atoms None
+13 9 2s first [0.4842 0.3155 0.2181 0.107 ] exact [nan] atoms None
+memwatch: done rc=0 peak 0.07 GB (cap 2.0) in 18s
+memwatch: pid 81926 cap 2.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_walls.py --Np 14 --nreal 10 --seed0 9003 --out results/data/uplift_2026-10-12
+14 0 9s first [0.5075 0.3498 0.2497 0.1235] exact [nan] atoms None
+14 1 8s first [0.5089 0.3443 0.2428 0.118 ] exact [nan] atoms None
+14 2 8s first [0.4513 0.3032 0.2154 0.1056] exact [nan] atoms None
+14 3 9s first [0.5117 0.3457 0.2428 0.118 ] exact [nan] atoms None
+14 4 8s first [0.524  0.3608 0.2579 0.1276] exact [nan] atoms None
+14 5 7s first [0.4787 0.3182 0.2222 0.107 ] exact [nan] atoms None
+14 6 6s first [0.5117 0.3471 0.2414 0.1152] exact [nan] atoms None
+14 7 7s first [0.5089 0.3374 0.2373 0.1125] exact [nan] atoms None
+14 8 7s first [0.4897 0.3374 0.2414 0.1207] exact [nan] atoms None
+14 9 9s first [0.5213 0.3553 0.2551 0.1262] exact [nan] atoms None
+memwatch: done rc=0 peak 0.26 GB (cap 2.0) in 80s
