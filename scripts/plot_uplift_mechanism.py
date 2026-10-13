@@ -70,6 +70,7 @@ def main():
     ap.add_argument("--seeds", type=int, nargs="+", default=[9000, 9001])
     ap.add_argument("--out", default=os.path.join(ROOT, "results/figures/uplift_2026-10-12/fig_uplift_mechanism.pdf"))
     ap.add_argument("--json", default=None)
+    ap.add_argument("--sym", default="H", help="symbol for <y(1-y)> in legends (the 2026-10-13 report uses W)")
     a = ap.parse_args()
     runs = [one_seed(a.Np, s) for s in a.seeds]
     cat = {k: np.concatenate([r[k] for r in runs]) for k in runs[0]}
@@ -105,7 +106,7 @@ def main():
                           ("y", "exact", dict(color="k", ls="-"))):
         yy = cat[key]
         ax[0].hist(yy, bins=hb, density=True, histtype="step", lw=1.4,
-                   label=f"{lab}: $T_2$={yy.mean():.3f}, $H$={H(yy):.4f}", **sty)
+                   label=f"{lab}: $T_2$={yy.mean():.3f}, ${a.sym}$={H(yy):.4f}", **sty)
     ax[0].set_yscale("log")
     from matplotlib.ticker import FixedLocator, FixedFormatter, NullLocator
     ax[0].yaxis.set_major_locator(FixedLocator([0.3, 0.5, 1, 2, 5]))

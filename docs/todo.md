@@ -89,6 +89,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## F. Writing (P2)
 
+- [x] Progress report 2026-10-13 (`research/pdfs/progress_2026-10-13.pdf`, source `research/tex/progress_2026-10-13.tex`):
+      exact uplift, orthogonal splitting, closed-form decoder, dressing cost as integrated two-point function, walls,
+      localization as heterogeneity deficit with the first-order prediction and the N′ = 15/16 pre-registered tests (D6).
 - [x] Progress report 2026-10-05 (`research/pdfs/progress_2026-10-05.pdf`, source `research/tex/progress_2026-10-05.tex`):
       chord ↔ size dictionary (D4) and the decoder fourth moment as liberation + localization (D5).
 

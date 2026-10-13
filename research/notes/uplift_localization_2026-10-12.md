@@ -4,7 +4,7 @@
 localization). Derivations: `docs/derivations.md` D6. Code: `src/uplift.py` (tests `tests/test_uplift.py`),
 `scripts/run_uplift_walls.py`, `scripts/run_uplift_blocks.py`, `scripts/analyze_uplift_heterogeneity.py`,
 `scripts/plot_uplift_mechanism.py`. Data: `results/data/uplift_2026-10-12/`; N′ = 15 OU/decoder data in
-`results/data/ou_fourarc_2026-10-05/N15_{a,b}/`. Figures: `results/figures/uplift_2026-10-12/`.*
+`results/data/ou_fourarc_2026-10-05/N15_{a,b}/`. Figures: `results/figures/uplift_2026-10-12/`. Polished write-up: `research/pdfs/progress_2026-10-13.pdf`.*
 
 Labels: **[derived]** proven here or in D6; **[num]** numerical observation; **[interp]** interpretation;
 **[pre-registered]** prediction written down (with timestamp) before the test was run.
@@ -48,6 +48,8 @@ and can it be predicted?
 - **Orthogonal splitting [derived].** The uplifts of B_o^F (b coexact) and of B_o^{F−1} (a exact) are orthogonal,
   because (1+𝕃)⁻¹†(1+𝕃)⁻¹ = diag((1+L†L)⁻¹, (1+LL†)⁻¹) is block-diagonal. Measured overlaps ≤ 1.1·10⁻¹⁵,
   N′ = 9–15.
+- **Canonical uplift [derived; added 2026-10-13].** The BPS uplifts of an old state h are Ψ(h, g) for any g, and the freedom
+  in g is CV's coset ambiguity. By the splitting, Ψ(h, 0) is the unique minimum-norm uplift.
 - **Closed-form decoder [derived; reproduces the N′-mode decoder to 10⁻¹⁰].** 𝒩v = μ𝒢v with
   - 𝒢 = diag(1 + K_H†(1+R)⁻¹K_H, 1 + K′_H†(1+R′)⁻¹K′_H);
   - 𝒩_hh = 1 − K_H†(1−R)(1+R)⁻²K_H;

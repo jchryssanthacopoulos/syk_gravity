@@ -84,6 +84,7 @@ def main():
     ap.add_argument("--json", default=os.path.join(WALLS, "heterogeneity_analysis.json"))
     ap.add_argument("--fig", default=os.path.join(ROOT, "results/figures/uplift_2026-10-12/fig_heterogeneity.pdf"))
     ap.add_argument("--nboot", type=int, default=300)
+    ap.add_argument("--sym", default="H", help="symbol for <y(1-y)> in figure labels (the 2026-10-13 report uses W)")
     a = ap.parse_args()
     t2c = chord_T2()
     res = []
@@ -130,10 +131,10 @@ def main():
     json.dump(res, open(a.json, "w"), indent=1)
     print("wrote", a.json)
     if a.fig:
-        plot(res, a.fig)
+        plot(res, a.fig, a.sym)
 
 
-def plot(res, path):
+def plot(res, path, sym="H"):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -156,7 +157,7 @@ def plot(res, path):
     ax[0].errorbar([e["N"] for e in res], [e["H_first"] for e in res], yerr=[e["H_first_se"] for e in res], fmt="D-",
                    color="tab:red", mfc="none", ms=5, label="first-order uplift (old model only)")
     ax[0].set_xlabel(r"$N'$")
-    ax[0].set_ylabel(r"$H=\langle y(1-y)\rangle = T_2-T_4$")
+    ax[0].set_ylabel(rf"${sym}=\langle y(1-y)\rangle = T_2-T_4$")
     ax[0].set_title("heterogeneity of decoder angles", fontsize=10)
     ax[0].legend(frameon=False, loc="lower right")
     # (b) error of T4 predictors
@@ -166,13 +167,13 @@ def plot(res, path):
     ax[1].plot(NE, err("T4_lib"), "^:", color="tab:green", mfc="none", label="free liberation")
     ax[1].plot(NE, err("T4_ou"), "s--", color="tab:gray", mfc="none", label="isotropic OU")
     ax[1].errorbar(NE, err("T4_pred"), yerr=[e["T4_pred_se"] for e in E], fmt="D-", color="tab:red", mfc="none", ms=5,
-                   label=r"$T_2-H_{\rm first}$")
+                   label=rf"$T_2-{sym}_{{\rm first}}$")
     ax[1].plot(NE, err("T4_pred_chord"), "v-.", color="tab:blue", mfc="none",
-               label=r"$T_2^{\rm chord}-H_{\rm first}$ (no $N'$-mode input)")
+               label=rf"$T_2^{{\rm chord}}-{sym}_{{\rm first}}$ (no $N'$-mode input)")
     if W:   # out of sample (no OU campaign): T2 - H_first vs exact T4 on the same realizations = H_exact - H_first
         ax[1].errorbar([e["N"] for e in W], [e["exact_minus_first"] for e in W],
                        yerr=[e["exact_minus_first_se"] for e in W], fmt="*", color="tab:red", ms=11,
-                       label=r"$T_2-H_{\rm first}$, out of sample (pre-registered)")
+                       label=rf"$T_2-{sym}_{{\rm first}}$, out of sample (pre-registered)")
     ax[1].set_xlabel(r"$N'$")
     ax[1].set_ylabel(r"$T_4^{\rm predicted}-T_4^{\rm decoder}$")
     ax[1].set_title("decoder fourth moment: prediction error", fontsize=10)

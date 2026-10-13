@@ -1011,6 +1011,14 @@ $$B=B_h\oplus B_g,\qquad B_h\perp B_g .$$
 - Equivalent direct proof from the BPS equations alone: with b_h = Q₀†v and a_g = Q₀w,
   ⟨a_h, a_g⟩ = ⟨Q₀†a_h, w⟩ = ε⟨b_h, Ew⟩ and ⟨b_h, b_g⟩ = ⟨v, Q₀b_g⟩ = −ε⟨v, EQ₀w⟩ = −ε⟨b_h, Ew⟩. They cancel.
 
+**Canonical uplift = minimum-norm uplift [derived; 2026-10-13].**
+- In CV's cohomological sense, a BPS state uplifts the old class [h] if its empty-sector component lies in [h], i.e. its
+  old-Hodge harmonic part is h. By §2 these states are exactly Ψ(h, g) for arbitrary g ∈ B_o^{F−1}; the freedom in g is
+  CV's coset ambiguity (CV eq. (40)).
+- By the splitting, ‖Ψ(h, g)‖² = ‖Ψ(h, 0)‖² + ‖Ψ(0, g)‖². So Ψ(h, 0) is the unique minimum-norm uplift, equivalently the
+  one orthogonal to every uplift from the occupied sector.
+- This resolves both ambiguities of CV §4.3 (harmonic representative and coset) using only the old model's metric.
+
 **Closed-form decoder [derived; verified to 10⁻¹⁰].** In the (non-orthonormal) parametrization by (h, g) ∈ B⁰, the
 decoder μ = PUP|_B (U = (−1)^{n_e}) is the generalized eigenproblem 𝒩v = μ𝒢v, with
 $$\mathcal G=\begin{pmatrix}1+K_H^\dagger(1+R)^{-1}K_H&0\\0&1+K_H'^\dagger(1+R')^{-1}K'_H\end{pmatrix},$$
