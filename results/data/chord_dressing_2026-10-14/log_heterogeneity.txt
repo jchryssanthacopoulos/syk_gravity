@@ -1,0 +1,74 @@
+memwatch: pid 53322 cap 6.0 GB, budget 30 GB: bash results/data/chord_dressing_2026-10-14/run_heterogeneity.sh
+N'=10 seed=9000 h: rsd 0.228 | tau: 0.015 0.045 0.142 0.355 0.764 | bins t1-share [0.107, 0.386, 0.311, 0.196] var-share [0.304, 0.531, 0.126, 0.038] coherence -0.557 | R2 pair 0.095 natural 0.072 (scale -3.25) site 0.089 [0s]
+      free (incoherent) estimate: bins [1.767, 0.678, 0.497, 0.418] vs observed [1.767, 0.649, 0.392, 0.343]; whole 0.367 vs 0.228; N_eff levels 20.2 of 36
+      probes: corr(Dbar, B_n) +0.298  corr(Dbar, B_c) -0.829  corr(B_n, B_c) -0.328  rsd B_n 0.062 B_c 0.155 | corr(Dbar, K(tau)): +0.90 +0.92 +0.95 +0.99 +0.93
+N'=10 seed=9000 g: rsd 0.228 | tau: 0.015 0.045 0.142 0.355 0.764 | bins t1-share [0.107, 0.386, 0.311, 0.196] var-share [0.304, 0.531, 0.126, 0.038] coherence -0.557 | R2 pair 0.095 natural 0.072 (scale -3.25) site 0.089 [0s]
+      free (incoherent) estimate: bins [1.767, 0.678, 0.497, 0.418] vs observed [1.767, 0.649, 0.392, 0.343]; whole 0.367 vs 0.228; N_eff levels 20.2 of 36
+      probes: corr(Dbar, B_n) +0.298  corr(Dbar, B_c) -0.829  corr(B_n, B_c) -0.328  rsd B_n 0.080 B_c 0.155 | corr(Dbar, K(tau)): +0.90 +0.92 +0.95 +0.99 +0.93
+N'=10 seed=9001 h: rsd 0.204 | tau: 0.013 0.040 0.129 0.347 0.839 | bins t1-share [0.102, 0.351, 0.326, 0.221] var-share [0.31, 0.497, 0.142, 0.052] coherence -0.584 | R2 pair 0.096 natural 0.076 (scale -3.42) site 0.091 [0s]
+      free (incoherent) estimate: bins [1.725, 0.669, 0.475, 0.414] vs observed [1.725, 0.634, 0.365, 0.326]; whole 0.344 vs 0.204; N_eff levels 22.1 of 36
+      probes: corr(Dbar, B_n) +0.313  corr(Dbar, B_c) -0.849  corr(B_n, B_c) -0.308  rsd B_n 0.060 B_c 0.138 | corr(Dbar, K(tau)): +0.92 +0.93 +0.96 +1.00 +0.93
+N'=10 seed=9001 g: rsd 0.204 | tau: 0.013 0.040 0.129 0.347 0.839 | bins t1-share [0.102, 0.351, 0.326, 0.221] var-share [0.31, 0.497, 0.142, 0.052] coherence -0.584 | R2 pair 0.096 natural 0.076 (scale -3.42) site 0.091 [0s]
+      free (incoherent) estimate: bins [1.725, 0.669, 0.475, 0.414] vs observed [1.725, 0.634, 0.365, 0.326]; whole 0.344 vs 0.204; N_eff levels 22.1 of 36
+      probes: corr(Dbar, B_n) +0.313  corr(Dbar, B_c) -0.849  corr(B_n, B_c) -0.308  rsd B_n 0.078 B_c 0.138 | corr(Dbar, K(tau)): +0.92 +0.93 +0.96 +1.00 +0.93
+N'=11 seed=9000 h: rsd 0.427 | tau: 0.019 0.055 0.162 0.357 0.710 | bins t1-share [0.302, 0.357, 0.235, 0.106] var-share [0.756, 0.211, 0.028, 0.005] coherence -0.074 | R2 pair 0.158 natural 0.131 (scale -5.23) site 0.150 [0s]
+      free (incoherent) estimate: bins [1.197, 0.54, 0.353, 0.289] vs observed [1.279, 0.572, 0.316, 0.299]; whole 0.419 vs 0.427; N_eff levels 33.3 of 119
+      probes: corr(Dbar, B_n) -0.040  corr(Dbar, B_c) -0.724  corr(B_n, B_c) +0.013  rsd B_n 0.056 B_c 0.348 | corr(Dbar, K(tau)): +0.74 +0.76 +0.82 +0.91 +0.99
+N'=11 seed=9000 g: rsd 0.121 | tau: 0.009 0.027 0.088 0.237 0.568 | bins t1-share [0.143, 0.323, 0.312, 0.223] var-share [0.371, 0.407, 0.146, 0.076] coherence -0.762 | R2 pair 0.181 natural 0.144 (scale -2.92) site 0.167 [0s]
+      free (incoherent) estimate: bins [1.033, 0.54, 0.419, 0.364] vs observed [1.062, 0.491, 0.304, 0.307]; whole 0.275 vs 0.121; N_eff levels 27.8 of 45
+      probes: corr(Dbar, B_n) +0.490  corr(Dbar, B_c) -0.904  corr(B_n, B_c) -0.520  rsd B_n 0.111 B_c 0.070 | corr(Dbar, K(tau)): +0.95 +0.96 +0.98 +1.00 +0.89
+N'=11 seed=9001 h: rsd 0.364 | tau: 0.017 0.050 0.152 0.350 0.691 | bins t1-share [0.256, 0.368, 0.255, 0.121] var-share [0.672, 0.28, 0.04, 0.008] coherence -0.150 | R2 pair 0.089 natural 0.058 (scale -5.03) site 0.084 [0s]
+      free (incoherent) estimate: bins [1.116, 0.527, 0.352, 0.282] vs observed [1.267, 0.568, 0.31, 0.293]; whole 0.358 vs 0.364; N_eff levels 40.8 of 119
+      probes: corr(Dbar, B_n) -0.016  corr(Dbar, B_c) -0.741  corr(B_n, B_c) +0.010  rsd B_n 0.054 B_c 0.325 | corr(Dbar, K(tau)): +0.80 +0.82 +0.87 +0.94 +0.99
+N'=11 seed=9001 g: rsd 0.118 | tau: 0.008 0.025 0.084 0.243 0.656 | bins t1-share [0.144, 0.304, 0.318, 0.234] var-share [0.368, 0.365, 0.171, 0.096] coherence -0.761 | R2 pair 0.106 natural 0.056 (scale -3.41) site 0.090 [0s]
+      free (incoherent) estimate: bins [1.005, 0.543, 0.396, 0.356] vs observed [1.02, 0.481, 0.315, 0.321]; whole 0.266 vs 0.118; N_eff levels 28.6 of 45
+      probes: corr(Dbar, B_n) +0.499  corr(Dbar, B_c) -0.904  corr(B_n, B_c) -0.525  rsd B_n 0.109 B_c 0.065 | corr(Dbar, K(tau)): +0.95 +0.96 +0.98 +1.00 +0.90
+N'=12 seed=9000 h: rsd 0.272 | tau: 0.014 0.041 0.131 0.334 0.709 | bins t1-share [0.242, 0.34, 0.276, 0.142] var-share [0.648, 0.279, 0.055, 0.019] coherence -0.268 | R2 pair 0.066 natural 0.049 (scale -5.01) site 0.060 [2s]
+      free (incoherent) estimate: bins [0.908, 0.484, 0.323, 0.283] vs observed [1.056, 0.492, 0.269, 0.311]; whole 0.291 vs 0.272; N_eff levels 68.0 of 164
+      probes: corr(Dbar, B_n) +0.323  corr(Dbar, B_c) -0.857  corr(B_n, B_c) -0.348  rsd B_n 0.057 B_c 0.171 | corr(Dbar, K(tau)): +0.89 +0.91 +0.94 +0.99 +0.98
+N'=12 seed=9000 g: rsd 0.272 | tau: 0.014 0.041 0.131 0.334 0.709 | bins t1-share [0.242, 0.34, 0.276, 0.142] var-share [0.648, 0.279, 0.055, 0.019] coherence -0.268 | R2 pair 0.066 natural 0.049 (scale -5.01) site 0.060 [2s]
+      free (incoherent) estimate: bins [0.908, 0.484, 0.323, 0.283] vs observed [1.056, 0.492, 0.269, 0.311]; whole 0.291 vs 0.272; N_eff levels 68.0 of 164
+      probes: corr(Dbar, B_n) +0.323  corr(Dbar, B_c) -0.857  corr(B_n, B_c) -0.348  rsd B_n 0.071 B_c 0.171 | corr(Dbar, K(tau)): +0.89 +0.91 +0.94 +0.99 +0.98
+N'=12 seed=9001 h: rsd 0.235 | tau: 0.013 0.038 0.122 0.320 0.717 | bins t1-share [0.218, 0.332, 0.293, 0.158] var-share [0.608, 0.297, 0.068, 0.027] coherence -0.351 | R2 pair 0.065 natural 0.048 (scale -5.47) site 0.057 [2s]
+      free (incoherent) estimate: bins [0.914, 0.474, 0.318, 0.28] vs observed [1.042, 0.479, 0.26, 0.302]; whole 0.274 vs 0.235; N_eff levels 76.2 of 164
+      probes: corr(Dbar, B_n) +0.323  corr(Dbar, B_c) -0.857  corr(B_n, B_c) -0.359  rsd B_n 0.057 B_c 0.157 | corr(Dbar, K(tau)): +0.90 +0.92 +0.95 +0.99 +0.97
+N'=12 seed=9001 g: rsd 0.235 | tau: 0.013 0.038 0.122 0.320 0.717 | bins t1-share [0.218, 0.332, 0.293, 0.158] var-share [0.608, 0.297, 0.068, 0.027] coherence -0.351 | R2 pair 0.065 natural 0.048 (scale -5.47) site 0.057 [2s]
+      free (incoherent) estimate: bins [0.914, 0.474, 0.318, 0.28] vs observed [1.042, 0.479, 0.26, 0.302]; whole 0.274 vs 0.235; N_eff levels 76.2 of 164
+      probes: corr(Dbar, B_n) +0.323  corr(Dbar, B_c) -0.857  corr(B_n, B_c) -0.359  rsd B_n 0.070 B_c 0.157 | corr(Dbar, K(tau)): +0.90 +0.92 +0.95 +0.99 +0.97
+N'=13 seed=9000 h: rsd 0.374 | tau: 0.014 0.042 0.129 0.299 0.584 | bins t1-share [0.346, 0.353, 0.215, 0.086] var-share [0.809, 0.17, 0.017, 0.004] coherence -0.033 | R2 pair 0.048 natural 0.026 (scale -4.99) site 0.046 [8s]
+      free (incoherent) estimate: bins [0.72, 0.373, 0.25, 0.209] vs observed [0.988, 0.444, 0.232, 0.264]; whole 0.288 vs 0.374; N_eff levels 126.4 of 483
+      probes: corr(Dbar, B_n) -0.048  corr(Dbar, B_c) -0.766  corr(B_n, B_c) +0.008  rsd B_n 0.053 B_c 0.329 | corr(Dbar, K(tau)): +0.79 +0.81 +0.86 +0.93 +0.99
+N'=13 seed=9000 g: rsd 0.133 | tau: 0.008 0.024 0.080 0.226 0.583 | bins t1-share [0.187, 0.335, 0.313, 0.165] var-share [0.548, 0.302, 0.104, 0.046] coherence -0.596 | R2 pair 0.084 natural 0.026 (scale -2.61) site 0.069 [8s]
+      free (incoherent) estimate: bins [0.713, 0.364, 0.258, 0.241] vs observed [0.829, 0.344, 0.216, 0.271]; whole 0.202 vs 0.133; N_eff levels 110.5 of 219
+      probes: corr(Dbar, B_n) +0.477  corr(Dbar, B_c) -0.917  corr(B_n, B_c) -0.504  rsd B_n 0.092 B_c 0.071 | corr(Dbar, K(tau)): +0.95 +0.95 +0.98 +1.00 +0.95
+N'=13 seed=9001 h: rsd 0.449 | tau: 0.016 0.046 0.141 0.327 0.609 | bins t1-share [0.395, 0.348, 0.184, 0.073] var-share [0.847, 0.142, 0.009, 0.002] coherence +0.047 | R2 pair 0.056 natural 0.047 (scale -7.44) site 0.054 [8s]
+      free (incoherent) estimate: bins [0.734, 0.389, 0.25, 0.21] vs observed [1.022, 0.475, 0.23, 0.274]; whole 0.324 vs 0.449; N_eff levels 105.0 of 483
+      probes: corr(Dbar, B_n) -0.055  corr(Dbar, B_c) -0.777  corr(B_n, B_c) +0.003  rsd B_n 0.053 B_c 0.362 | corr(Dbar, K(tau)): +0.80 +0.81 +0.85 +0.92 +0.99
+N'=13 seed=9001 g: rsd 0.151 | tau: 0.009 0.026 0.086 0.243 0.610 | bins t1-share [0.207, 0.338, 0.3, 0.155] var-share [0.587, 0.289, 0.086, 0.038] coherence -0.552 | R2 pair 0.073 natural 0.054 (scale -5.00) site 0.063 [8s]
+      free (incoherent) estimate: bins [0.705, 0.364, 0.261, 0.244] vs observed [0.833, 0.359, 0.221, 0.284]; whole 0.210 vs 0.151; N_eff levels 102.0 of 219
+      probes: corr(Dbar, B_n) +0.516  corr(Dbar, B_c) -0.910  corr(B_n, B_c) -0.553  rsd B_n 0.095 B_c 0.083 | corr(Dbar, K(tau)): +0.94 +0.95 +0.97 +1.00 +0.95
+N'=14 seed=9000 h: rsd 0.260 | tau: 0.012 0.034 0.110 0.278 0.608 | bins t1-share [0.283, 0.357, 0.252, 0.108] var-share [0.75, 0.206, 0.034, 0.01] coherence -0.219 | R2 pair 0.057 natural 0.037 (scale -4.39) site 0.054 [46s]
+      free (incoherent) estimate: bins [0.633, 0.335, 0.23, 0.206] vs observed [0.902, 0.374, 0.217, 0.267]; whole 0.224 vs 0.260; N_eff levels 242.8 of 702
+      probes: corr(Dbar, B_n) +0.341  corr(Dbar, B_c) -0.872  corr(B_n, B_c) -0.359  rsd B_n 0.054 B_c 0.164 | corr(Dbar, K(tau)): +0.88 +0.89 +0.93 +0.98 +0.99
+N'=14 seed=9000 g: rsd 0.260 | tau: 0.012 0.034 0.110 0.278 0.608 | bins t1-share [0.283, 0.357, 0.252, 0.108] var-share [0.75, 0.206, 0.034, 0.01] coherence -0.219 | R2 pair 0.057 natural 0.037 (scale -4.39) site 0.054 [46s]
+      free (incoherent) estimate: bins [0.633, 0.335, 0.23, 0.206] vs observed [0.902, 0.374, 0.217, 0.267]; whole 0.224 vs 0.260; N_eff levels 242.8 of 702
+      probes: corr(Dbar, B_n) +0.341  corr(Dbar, B_c) -0.872  corr(B_n, B_c) -0.359  rsd B_n 0.065 B_c 0.164 | corr(Dbar, K(tau)): +0.88 +0.89 +0.93 +0.98 +0.99
+N'=14 seed=9001 h: rsd 0.232 | tau: 0.011 0.032 0.103 0.270 0.608 | bins t1-share [0.267, 0.351, 0.266, 0.117] var-share [0.722, 0.225, 0.041, 0.013] coherence -0.280 | R2 pair 0.051 natural 0.025 (scale -3.83) site 0.048 [47s]
+      free (incoherent) estimate: bins [0.619, 0.33, 0.227, 0.203] vs observed [0.87, 0.369, 0.207, 0.264]; whole 0.212 vs 0.232; N_eff levels 262.1 of 702
+      probes: corr(Dbar, B_n) +0.338  corr(Dbar, B_c) -0.875  corr(B_n, B_c) -0.362  rsd B_n 0.053 B_c 0.157 | corr(Dbar, K(tau)): +0.89 +0.90 +0.94 +0.98 +0.98
+N'=14 seed=9001 g: rsd 0.232 | tau: 0.011 0.032 0.103 0.270 0.608 | bins t1-share [0.267, 0.351, 0.266, 0.117] var-share [0.722, 0.225, 0.041, 0.013] coherence -0.280 | R2 pair 0.051 natural 0.025 (scale -3.83) site 0.048 [47s]
+      free (incoherent) estimate: bins [0.619, 0.33, 0.227, 0.203] vs observed [0.87, 0.369, 0.207, 0.264]; whole 0.212 vs 0.232; N_eff levels 262.1 of 702
+      probes: corr(Dbar, B_n) +0.338  corr(Dbar, B_c) -0.875  corr(B_n, B_c) -0.362  rsd B_n 0.064 B_c 0.157 | corr(Dbar, K(tau)): +0.89 +0.90 +0.94 +0.98 +0.98
+N'=15 seed=9000 h: rsd 0.391 | tau: 0.012 0.037 0.112 0.263 0.512 | bins t1-share [0.411, 0.353, 0.178, 0.059] var-share [0.88, 0.111, 0.008, 0.001] coherence +0.021 | R2 pair 0.065 natural 0.050 (scale -7.42) site 0.064 [214s]
+      free (incoherent) estimate: bins [0.526, 0.278, 0.186, 0.161] vs observed [0.885, 0.365, 0.194, 0.243]; whole 0.240 vs 0.391; N_eff levels 384.2 of 1911
+      probes: corr(Dbar, B_n) -0.049  corr(Dbar, B_c) -0.790  corr(B_n, B_c) +0.014  rsd B_n 0.049 B_c 0.329 | corr(Dbar, K(tau)): +0.79 +0.81 +0.85 +0.92 +0.99
+N'=15 seed=9000 g: rsd 0.149 | tau: 0.007 0.022 0.074 0.208 0.540 | bins t1-share [0.255, 0.35, 0.276, 0.118] var-share [0.738, 0.185, 0.059, 0.018] coherence -0.477 | R2 pair 0.060 natural 0.041 (scale -4.95) site 0.054 [214s]
+      free (incoherent) estimate: bins [0.477, 0.252, 0.182, 0.173] vs observed [0.696, 0.254, 0.182, 0.232]; whole 0.160 vs 0.149; N_eff levels 383.5 of 987
+      probes: corr(Dbar, B_n) +0.527  corr(Dbar, B_c) -0.925  corr(B_n, B_c) -0.548  rsd B_n 0.084 B_c 0.079 | corr(Dbar, K(tau)): +0.93 +0.94 +0.97 +0.99 +0.97
+N'=15 seed=9001 h: rsd 0.443 | tau: 0.012 0.037 0.116 0.280 0.545 | bins t1-share [0.438, 0.342, 0.164, 0.056] var-share [0.902, 0.091, 0.005, 0.001] coherence +0.051 | R2 pair 0.039 natural 0.031 (scale -7.50) site 0.038 [203s]
+      free (incoherent) estimate: bins [0.539, 0.282, 0.185, 0.16] vs observed [0.938, 0.382, 0.192, 0.242]; whole 0.257 vs 0.443; N_eff levels 345.5 of 1911
+      probes: corr(Dbar, B_n) -0.062  corr(Dbar, B_c) -0.796  corr(B_n, B_c) +0.013  rsd B_n 0.050 B_c 0.349 | corr(Dbar, K(tau)): +0.81 +0.83 +0.86 +0.92 +0.98
+N'=15 seed=9001 g: rsd 0.163 | tau: 0.008 0.023 0.077 0.223 0.590 | bins t1-share [0.27, 0.344, 0.271, 0.115] var-share [0.777, 0.154, 0.054, 0.016] coherence -0.449 | R2 pair 0.060 natural 0.038 (scale -4.94) site 0.047 [203s]
+      free (incoherent) estimate: bins [0.48, 0.252, 0.182, 0.172] vs observed [0.717, 0.251, 0.188, 0.237]; whole 0.165 vs 0.163; N_eff levels 363.4 of 987
+      probes: corr(Dbar, B_n) +0.551  corr(Dbar, B_c) -0.925  corr(B_n, B_c) -0.569  rsd B_n 0.085 B_c 0.085 | corr(Dbar, K(tau)): +0.94 +0.94 +0.97 +0.99 +0.97
+memwatch: done rc=-15 peak 2.31 GB (cap 6.0) in 760s

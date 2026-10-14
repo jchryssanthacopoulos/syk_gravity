@@ -1,0 +1,81 @@
+memwatch: pid 43029 cap 10.0 GB, budget 30 GB: bash results/data/chord_dressing_2026-10-14/run_calibration.sh
+N'=10: estimated peak memory 0.0 GB (basis 0.0, held 0.0, analysis 0.0)
+N'=10 seed=9000 [0s] W: own 0.0583 sampled 0.0616 kron 0.0646 wishart 0.0637 chord 0.0607 chord_rescaled 0.0627
+   h: b=81 e=36 t1=0.2238 (chord 0.2579) Dbar rsd 0.228 diagS 0.9981 m2 identity 0.2541 sampled 0.2742
+   g: b=81 e=36 t1=0.2238 (chord 0.2579) Dbar rsd 0.228 diagS 0.9981 m2 identity 0.2541 sampled 0.2367
+N'=10 seed=9001 [0s] W: own 0.0573 sampled 0.0577 kron 0.0609 wishart 0.0606 chord 0.0617 chord_rescaled 0.0597
+   h: b=81 e=36 t1=0.2676 (chord 0.2579) Dbar rsd 0.204 diagS 0.9982 m2 identity 0.3379 sampled 0.3502
+   g: b=81 e=36 t1=0.2676 (chord 0.2579) Dbar rsd 0.204 diagS 0.9982 m2 identity 0.3379 sampled 0.3310
+N'=10 seed=9002 [0s] W: own 0.0601 sampled 0.0608 kron 0.0641 wishart 0.0630 chord 0.0610 chord_rescaled 0.0611
+   h: b=81 e=36 t1=0.2598 (chord 0.2579) Dbar rsd 0.256 diagS 0.9980 m2 identity 0.3488 sampled 0.3313
+   g: b=81 e=36 t1=0.2598 (chord 0.2579) Dbar rsd 0.256 diagS 0.9980 m2 identity 0.3488 sampled 0.3351
+N'=10 seed=9003 [0s] W: own 0.0588 sampled 0.0584 kron 0.0614 wishart 0.0616 chord 0.0615 chord_rescaled 0.0593
+   h: b=81 e=36 t1=0.3203 (chord 0.2579) Dbar rsd 0.233 diagS 0.9980 m2 identity 0.5156 sampled 0.5308
+   g: b=81 e=36 t1=0.3203 (chord 0.2579) Dbar rsd 0.233 diagS 0.9980 m2 identity 0.5156 sampled 0.4966
+N'=11: estimated peak memory 0.0 GB (basis 0.0, held 0.0, analysis 0.0)
+N'=11 seed=9000 [0s] W: own 0.0905 sampled 0.0902 kron 0.0942 wishart 0.0943 chord 0.0965 chord_rescaled 0.0979
+   h: b=162 e=119 t1=0.7103 (chord 0.7283) Dbar rsd 0.427 diagS 0.9971 m2 identity 3.0582 sampled 3.4075
+   g: b=81 e=45 t1=0.1247 (chord 0.1444) Dbar rsd 0.121 diagS 0.9867 m2 identity 0.0617 sampled 0.0678
+N'=11 seed=9001 [0s] W: own 0.0866 sampled 0.0896 kron 0.0949 wishart 0.0948 chord 0.0965 chord_rescaled 0.0970
+   h: b=162 e=119 t1=0.6934 (chord 0.7283) Dbar rsd 0.364 diagS 0.9966 m2 identity 2.4601 sampled 2.4382
+   g: b=81 e=45 t1=0.1341 (chord 0.1444) Dbar rsd 0.118 diagS 0.9906 m2 identity 0.0696 sampled 0.0725
+N'=11 seed=9002 [0s] W: own 0.0923 sampled 0.0899 kron 0.0954 wishart 0.0952 chord 0.0968 chord_rescaled 0.0972
+   h: b=162 e=119 t1=0.7765 (chord 0.7283) Dbar rsd 0.363 diagS 0.9972 m2 identity 3.1111 sampled 2.8576
+   g: b=81 e=45 t1=0.1474 (chord 0.1444) Dbar rsd 0.102 diagS 0.9890 m2 identity 0.0808 sampled 0.0811
+N'=11 seed=9003 [0s] W: own 0.0888 sampled 0.0895 kron 0.0944 wishart 0.0947 chord 0.0970 chord_rescaled 0.0969
+   h: b=162 e=119 t1=0.8771 (chord 0.7283) Dbar rsd 0.365 diagS 0.9966 m2 identity 3.8622 sampled 3.8208
+   g: b=81 e=45 t1=0.1698 (chord 0.1444) Dbar rsd 0.118 diagS 0.9876 m2 identity 0.1124 sampled 0.1175
+N'=12: estimated peak memory 0.0 GB (basis 0.0, held 0.0, analysis 0.0)
+N'=12 seed=9000 [1s] W: own 0.0832 sampled 0.0858 kron 0.0898 wishart 0.0901 chord 0.0902 chord_rescaled 0.0901
+   h: b=243 e=164 t1=0.3407 (chord 0.3136) Dbar rsd 0.272 diagS 0.9967 m2 identity 0.5410 sampled 0.6100
+   g: b=243 e=164 t1=0.3407 (chord 0.3136) Dbar rsd 0.272 diagS 0.9967 m2 identity 0.5410 sampled 0.5434
+N'=12 seed=9001 [1s] W: own 0.0867 sampled 0.0847 kron 0.0887 wishart 0.0891 chord 0.0902 chord_rescaled 0.0904
+   h: b=243 e=164 t1=0.3174 (chord 0.3136) Dbar rsd 0.235 diagS 0.9967 m2 identity 0.4286 sampled 0.4529
+   g: b=243 e=164 t1=0.3174 (chord 0.3136) Dbar rsd 0.235 diagS 0.9967 m2 identity 0.4286 sampled 0.4476
+N'=12 seed=9002 [1s] W: own 0.0858 sampled 0.0855 kron 0.0892 wishart 0.0895 chord 0.0901 chord_rescaled 0.0902
+   h: b=243 e=164 t1=0.3379 (chord 0.3136) Dbar rsd 0.262 diagS 0.9966 m2 identity 0.5183 sampled 0.4938
+   g: b=243 e=164 t1=0.3379 (chord 0.3136) Dbar rsd 0.262 diagS 0.9966 m2 identity 0.5183 sampled 0.5264
+N'=12 seed=9003 [1s] W: own 0.0827 sampled 0.0837 kron 0.0884 wishart 0.0885 chord 0.0900 chord_rescaled 0.0902
+   h: b=243 e=164 t1=0.3520 (chord 0.3136) Dbar rsd 0.217 diagS 0.9966 m2 identity 0.5084 sampled 0.5132
+   g: b=243 e=164 t1=0.3520 (chord 0.3136) Dbar rsd 0.217 diagS 0.9966 m2 identity 0.5084 sampled 0.4666
+N'=13: estimated peak memory 0.1 GB (basis 0.0, held 0.0, analysis 0.1)
+N'=13 seed=9000 [4s] W: own 0.1114 sampled 0.1113 kron 0.1157 wishart 0.1164 chord 0.1205 chord_rescaled 0.1204
+   h: b=486 e=483 t1=0.8256 (chord 0.8117) Dbar rsd 0.374 diagS 0.9951 m2 identity 3.4103 sampled 3.6298
+   g: b=243 e=219 t1=0.1762 (chord 0.1821) Dbar rsd 0.133 diagS 0.9852 m2 identity 0.1008 sampled 0.0988
+N'=13 seed=9001 [5s] W: own 0.1123 sampled 0.1117 kron 0.1168 wishart 0.1177 chord 0.1202 chord_rescaled 0.1225
+   h: b=486 e=483 t1=1.0980 (chord 0.8117) Dbar rsd 0.449 diagS 0.9948 m2 identity 7.0565 sampled 7.3507
+   g: b=243 e=219 t1=0.2077 (chord 0.1821) Dbar rsd 0.151 diagS 0.9866 m2 identity 0.1483 sampled 0.1585
+N'=13 seed=9002 [4s] W: own 0.1096 sampled 0.1114 kron 0.1159 wishart 0.1169 chord 0.1201 chord_rescaled 0.1212
+   h: b=486 e=483 t1=0.9257 (chord 0.8117) Dbar rsd 0.444 diagS 0.9954 m2 identity 4.9593 sampled 4.5247
+   g: b=243 e=219 t1=0.1858 (chord 0.1821) Dbar rsd 0.146 diagS 0.9869 m2 identity 0.1157 sampled 0.1198
+N'=13 seed=9003 [4s] W: own 0.1097 sampled 0.1116 kron 0.1161 wishart 0.1170 chord 0.1201 chord_rescaled 0.1216
+   h: b=486 e=483 t1=0.9854 (chord 0.8117) Dbar rsd 0.379 diagS 0.9937 m2 identity 4.8174 sampled 4.5573
+   g: b=243 e=219 t1=0.2069 (chord 0.1821) Dbar rsd 0.153 diagS 0.9860 m2 identity 0.1474 sampled 0.1504
+N'=14: estimated peak memory 0.2 GB (basis 0.1, held 0.0, analysis 0.2)
+N'=14 seed=9000 [22s] W: own 0.1047 sampled 0.1051 kron 0.1093 wishart 0.1099 chord 0.1122 chord_rescaled 0.1127
+   h: b=729 e=702 t1=0.3952 (chord 0.3612) Dbar rsd 0.260 diagS 0.9946 m2 identity 0.6381 sampled 0.6673
+   g: b=729 e=702 t1=0.3952 (chord 0.3612) Dbar rsd 0.260 diagS 0.9946 m2 identity 0.6381 sampled 0.6392
+N'=14 seed=9001 [23s] W: own 0.1038 sampled 0.1047 kron 0.1096 wishart 0.1101 chord 0.1123 chord_rescaled 0.1130
+   h: b=729 e=702 t1=0.4093 (chord 0.3612) Dbar rsd 0.232 diagS 0.9955 m2 identity 0.6445 sampled 0.6778
+   g: b=729 e=702 t1=0.4093 (chord 0.3612) Dbar rsd 0.232 diagS 0.9955 m2 identity 0.6445 sampled 0.6427
+N'=14 seed=9002 [22s] W: own 0.1052 sampled 0.1052 kron 0.1098 wishart 0.1103 chord 0.1123 chord_rescaled 0.1127
+   h: b=729 e=702 t1=0.3903 (chord 0.3612) Dbar rsd 0.238 diagS 0.9958 m2 identity 0.5895 sampled 0.5661
+   g: b=729 e=702 t1=0.3903 (chord 0.3612) Dbar rsd 0.238 diagS 0.9958 m2 identity 0.5895 sampled 0.6311
+N'=14 seed=9003 [23s] W: own 0.1038 sampled 0.1064 kron 0.1107 wishart 0.1116 chord 0.1123 chord_rescaled 0.1135
+   h: b=729 e=702 t1=0.4456 (chord 0.3612) Dbar rsd 0.289 diagS 0.9950 m2 identity 0.8479 sampled 0.8184
+   g: b=729 e=702 t1=0.4456 (chord 0.3612) Dbar rsd 0.289 diagS 0.9950 m2 identity 0.8479 sampled 0.8960
+N'=15: estimated peak memory 1.0 GB (basis 0.4, held 0.1, analysis 0.8)
+N'=15 seed=9000 [99s] W: own 0.1269 sampled 0.1273 kron 0.1312 wishart 0.1322 chord 0.1365 chord_rescaled 0.1375
+   h: b=1458 e=1911 t1=1.0133 (chord 0.8825) Dbar rsd 0.391 diagS 0.9934 m2 identity 5.1071 sampled 5.7367
+   g: b=729 e=987 t1=0.2270 (chord 0.2156) Dbar rsd 0.149 diagS 0.9845 m2 identity 0.1522 sampled 0.1681
+N'=15 seed=9001 [100s] W: own 0.1270 sampled 0.1277 kron 0.1317 wishart 0.1331 chord 0.1364 chord_rescaled 0.1381
+   h: b=1458 e=1911 t1=1.1101 (chord 0.8825) Dbar rsd 0.443 diagS 0.9933 m2 identity 6.7100 sampled 6.7107
+   g: b=729 e=987 t1=0.2371 (chord 0.2156) Dbar rsd 0.163 diagS 0.9861 m2 identity 0.1720 sampled 0.1583
+N'=15 seed=9002 [109s] W: own 0.1242 sampled 0.1270 kron 0.1313 wishart 0.1323 chord 0.1365 chord_rescaled 0.1372
+   h: b=1458 e=1911 t1=0.9812 (chord 0.8825) Dbar rsd 0.383 diagS 0.9943 m2 identity 4.7741 sampled 4.2214
+   g: b=729 e=987 t1=0.2212 (chord 0.2156) Dbar rsd 0.140 diagS 0.9854 m2 identity 0.1414 sampled 0.1175
+N'=16: estimated peak memory 2.8 GB (basis 1.3, held 0.5, analysis 2.4)
+N'=16 seed=9000 [551s] W: own 0.1216 sampled 0.1207 kron 0.1242 wishart 0.1251 chord 0.1281 chord_rescaled 0.1285
+   h: b=2187 e=2898 t1=0.4265 (chord 0.4029) Dbar rsd 0.250 diagS 0.9942 m2 identity 0.6656 sampled 0.6372
+   g: b=2187 e=2898 t1=0.4265 (chord 0.4029) Dbar rsd 0.250 diagS 0.9942 m2 identity 0.6656 sampled 0.5864
+memwatch: done rc=-15 peak 2.57 GB (cap 10.0) in 1244s

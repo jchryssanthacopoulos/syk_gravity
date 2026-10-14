@@ -1,0 +1,44 @@
+{
+ "title": "Pre-registered test of the chord (double-scaled) description of the first-order dressing spectrum at N' = 17",
+ "written": "2026-10-14, before any N' = 17 finite-N computation (no N' = 17 diagonalization of any kind has been run)",
+ "references": {
+  "derivation": "docs/derivations.md D7",
+  "chord prediction": "results/data/chord_dressing_2026-10-14/chord_predictions.json (scripts/chord_dressing_predict.py)",
+  "calibration": "results/data/chord_dressing_2026-10-14/decomp_N{10..16}.jsonl (scripts/run_chord_dressing.py) and results/data/uplift_2026-10-12/walls_N*.jsonl"
+ },
+ "protocol": {
+  "model": "one-flavor N=2 SYK, p = 3, N' = 17 modes; old model N = 16, F = 8; added mode = last mode",
+  "realizations": "seeds 9000 and 9001: rng = default_rng(seed); couplings = random_couplings(rng, Sector(17, 3, F=8).M) (same convention as results/data/uplift_2026-10-12)",
+  "first order": "sigma^2 spectra of D = P E^dag H0^{-1} E P (h, on B^8) and D' (g, on B^7) for the realization's own eta; y = ((1-s)/(1+s))^2; W^(1) = <y(1-y)>, T2^(1) = <y> over all b_8 + b_7 = 6561 states; reported as the mean over the two realizations",
+  "command": ".venv/bin/python scripts/memwatch.py --limit-gb <cap> -- .venv/bin/python scripts/run_chord_dressing.py --Np 17 --seeds 9000 9001 --neta 4 --draws 2 --no-third-moment",
+  "heterogeneity": ".venv/bin/python scripts/analyze_bps_heterogeneity.py --Np 17 --seeds 9000 9001 (if memory allows)"
+ },
+ "parameter_free_chord_values": {
+  "W1": 0.14704, "T2_1": 0.45198, "t1_h": 0.94486, "t1_g": 0.24573, "r_h = e/b": 1.703, "r_g = e/b": 1.942
+ },
+ "calibration_odd_Nprime": {
+  "W1 exact/chord": {"11": 0.9270, "13": 0.9207, "15": 0.9263},
+  "T2_1 exact/chord": {"11": 1.0276, "13": 1.0371, "15": 1.0625},
+  "t1_h exact/chord": {"11": 1.050, "13": 1.181, "15": 1.173},
+  "t1_g exact/chord": {"11": 0.997, "13": 1.066, "15": 1.060},
+  "planar error (kron/sampled - 1) in W": {"11": 0.055, "13": 0.041, "15": 0.032},
+  "chord-input error (chord/wishart - 1) in W": {"11": 0.021, "13": 0.028, "15": 0.030},
+  "Dbar rsd h": {"11": 0.380, "13": 0.412, "15": 0.406},
+  "Dbar rsd g": {"11": 0.115, "13": 0.146, "15": 0.151}
+ },
+ "predictions": [
+  {"id": "P1", "quantity": "W^(1), exact first order (own eta), mean of the two realizations", "central": 0.136, "pass_interval": [0.132, 0.140],
+   "basis": "chord 0.1470 x mean odd-N' ratio 0.925 (sd 0.003); interval = +-0.004 (2-realization scatter ~0.0015 plus ratio and trend uncertainty)"},
+  {"id": "P2", "quantity": "W^(1)_chord / W^(1)_exact (gravity alone overestimates)", "pass_interval": [1.03, 1.12]},
+  {"id": "P3", "quantity": "T2^(1), exact first order (own eta), mean", "central": 0.488, "pass_interval": [0.463, 0.513],
+   "basis": "ratio trend 1.028, 1.037, 1.063 extrapolated to 1.08 +- 0.02; realization scatter ~0.011"},
+  {"id": "P4", "quantity": "t1_h (eta-averaged mean dressing cost, h family), mean", "central": 1.10, "pass_interval": [0.90, 1.31]},
+  {"id": "P5", "quantity": "t1_g, mean", "central": 0.260, "pass_interval": [0.230, 0.290]},
+  {"id": "P6", "quantity": "exact first-order atoms (sigma^2 < 1e-9 max) in either family", "value": 0, "basis": "r_h, r_g > 1 and no excess atoms at N' = 15, 16"},
+  {"id": "P7", "quantity": "planar-law error in W (kron vs sampled), mean", "pass_interval": [0.010, 0.045]},
+  {"id": "P8", "quantity": "chord-input error in W (chord vs wishart), mean", "pass_interval": [0.015, 0.045]},
+  {"id": "P9", "quantity": "diagonal fraction of S in the inner energy basis", "pass": "h >= 0.990 and g >= 0.980"},
+  {"id": "P10", "quantity": "relative spread of the eigenvalues of Dbar (BPS heterogeneity), mean", "pass_interval_h": [0.33, 0.50], "pass_interval_g": [0.12, 0.20],
+   "basis": "flat at odd N' 11-15; the chord theory predicts 0"}
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "args": {
+  "Np": 12,
+  "seeds": [
+   9000,
+   9001
+  ],
+  "nsamp": 1000,
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/chord_dressing_2026-10-14"
+ },
+ "git": "3629842-dirty"
+}

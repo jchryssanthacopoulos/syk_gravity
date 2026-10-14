@@ -1,0 +1,29 @@
+{
+ "args": {
+  "Np": 13,
+  "seeds": [
+   9000,
+   9001,
+   9002,
+   9003
+  ],
+  "neta": 24,
+  "draws": 3,
+  "no_third_moment": false,
+  "families": [
+   "h",
+   "g"
+  ],
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/chord_dressing_2026-10-14",
+  "tag": "",
+  "dry_run": false
+ },
+ "git": "3629842-dirty",
+ "memory_estimate_gb": {
+  "basis": 0.027379968,
+  "held": 0.01026432,
+  "analysis": 0.062108064000000004,
+  "total": 0.07237238400000001
+ },
+ "started": "2026-10-14T21:22:42"
+}

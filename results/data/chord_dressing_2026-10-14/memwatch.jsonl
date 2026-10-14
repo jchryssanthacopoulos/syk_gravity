@@ -1,0 +1,7 @@
+{"cmd": "bash results/data/chord_dressing_2026-10-14/run_heterogeneity.sh", "rc": -15, "killed": null, "peak_gb": 0.604, "cap_gb": 6.0, "secs": 107.3, "ended": "2026-10-14T21:30:15"}
+{"cmd": ".venv/bin/python scripts/chord_dressing_predict.py --Np 10 11 12 13 14 15 16 17 18 19 20 24 30 40", "rc": 0, "killed": null, "peak_gb": 0.81, "cap_gb": 3.0, "secs": 457.7, "ended": "2026-10-14T21:30:20"}
+{"cmd": "bash results/data/chord_dressing_2026-10-14/run_crossing.sh", "rc": 0, "killed": null, "peak_gb": 0.201, "cap_gb": 4.0, "secs": 914.4, "ended": "2026-10-14T21:37:50"}
+{"cmd": "bash results/data/chord_dressing_2026-10-14/run_calibration.sh", "rc": -15, "killed": null, "peak_gb": 2.57, "cap_gb": 10.0, "secs": 1244.3, "ended": "2026-10-14T21:43:20"}
+{"cmd": "bash results/data/chord_dressing_2026-10-14/run_heterogeneity.sh", "rc": -15, "killed": null, "peak_gb": 2.306, "cap_gb": 6.0, "secs": 760.5, "ended": "2026-10-14T21:43:20"}
+{"cmd": ".venv/bin/python scripts/plot_chord_dressing.py --only fig_W1 fig_heterogeneity fig_sigma2 fig_t1", "rc": 1, "killed": null, "peak_gb": 0.417, "cap_gb": 4.0, "secs": 66.9, "ended": "2026-10-14T21:45:02"}
+{"cmd": ".venv/bin/python scripts/plot_chord_dressing.py --only fig_W1 fig_heterogeneity fig_sigma2 fig_t1", "rc": 0, "killed": null, "peak_gb": 0.466, "cap_gb": 4.0, "secs": 67.1, "ended": "2026-10-14T21:46:17"}

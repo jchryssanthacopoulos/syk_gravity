@@ -1158,3 +1158,122 @@ errors in T₄ are +0.025, +0.013, +0.018, +0.003, +0.010, −0.006, +0.002, −
   - the residual atom excess (§4);
   - the chord (BLY matter-chord with H⁻¹ insertion) computation of the spectra of the harmonic blocks of 𝒟, 𝒟′.
     That would make the first-order spectrum, hence H_first and the T₄ prediction, analytic.
+
+---
+
+## D7. The first-order dressing spectrum from chords: closed-form BPS→continuum two-point function, free compound Poisson law, and the BPS heterogeneity
+
+*2026-10-14. Context: D6 §3 (dressing cost σ² ∈ spec 𝒟, 𝒟 = P E† H₀⁻¹ E P) and the open item "chord computation of the
+spectra of 𝒟, 𝒟′". Code: `src/dssyk_n2.py` (closed forms), `src/chord_transfer.py` (transfer-matrix engine, independent
+check), `src/chord_dressing.py` (finite-N machinery); tests `tests/test_chord_dressing.py`; data and logs
+`results/data/chord_dressing_2026-10-14/`. Report: `research/tex/progress_2026-10-14.tex`.*
+
+### Setup and conventions
+- One-sided N=2 chord Hilbert space at fixed charge s (BBNR §§4.4–5.1): bosonic states |∅⟩, |n,X⟩ = XOXO…XO,
+  |n,O⟩ = OXOX…OX; fermionic |n+½,X⟩ = XOX…X, |n+½,O⟩ = OXO…O. Q opens O with q^s and closes X; Q† opens X with q^{−s}
+  and closes O. Inner product BBNR (4.37). λ = 2p²/N, q = e^{−λ}, chord charge s = (degree − N/2)/p.
+- Matter (BBNR §7.1): a chiral single-chord operator of p′ fermions shifts the charge of the region it encloses by
+  δ = p′/p = 2Δ and inserts q̃^N̂ at the junction, q̃ = q^δ. For the pair operator E (p′ = 2, p = 3): Δ = 1/3, δ = 2/3.
+- Dressing problems (old model N = N′−1, F = ⌊N′/2⌋):
+  - h family: s_out = (F − N/2)/p, s_in = s_out + δ (exact forms of degree F+2);
+  - g family: the mirror s → −s (coexact forms of degree F−3).
+  - Even N′: (s_out, s_in) = (1/6, 5/6) for both. Odd N′: h (0, 2/3), g (1/3, 1).
+- Calibration (no fit): energy scale κ from the exact first moment of H₀ in the inner sector,
+  κ = 2[C(d,p) + C(N−d,p)]/(q^{s_in} + q^{−s_in}); τ = 0 value c₀ = 2C(N−F,2) (h), 2C(F−1,2) (g), exact.
+
+### 1. BPS→continuum two-point function in closed form [derived + verified]
+- **Ground state.** QΨ = Q†Ψ = 0 for Ψ = |∅⟩ + Σ_m (x_m|m,X⟩ + o_m|m,O⟩) gives, for m ≥ 0,
+  q^s o_m + q^{−1}o_{m+1} − q^m x_{m+1} = 0 and q^{−s}x_m + q^{−1}x_{m+1} − q^m o_{m+1} = 0, solved by
+  x_m = q^{3m/2} H_m(−cosh λ(s+½) | q²)/(q²;q²)_m (BLY 3.6–3.7).
+- **Matter overlap.** For the B-family basis b_m = Q|m+½,X⟩ of the inner sector, write Q†_in = q^{−δ}(open part of Q†_out)
+  + (close part) and use Q†_out Ψ = 0:
+  $$\langle b_m|\tilde q^{\hat N}|\Psi\rangle=(1-\tilde q q^{\delta})\,(\tilde q/q)^m\,(q^2;q^2)_m\,x_m .$$
+- **Eigenvectors.** BBNR (5.5) gives the B-family recursion. With the eigenvalue convention of BBNR (5.3),
+  Λ_s(φ) = 2q^{−1/2}[cosh λ(s−½) − cos φ], the eigenvector coefficients are α_m(φ) = q^{m/2}H_m(−cos φ|q²)/(q²;q²)_m.
+  BBNR (5.10) writes H_m(+cos φ), which belongs to +cos φ in Λ. This is harmless for BBNR (symmetric measure), but it
+  reflects φ → π − φ in any kernel with one BPS end. Checked directly against (5.5).
+- **q-Mehler** then gives A(φ) := ⟨v_in(φ)|q̃^N̂|Ψ⟩/⟨∅|Ψ⟩ = (q^{2δ};q²)_∞ / (q^{s_in+3/2}e^{±iφ}, q^{½+δ−s_out}e^{±iφ}; q²)_∞.
+- Combined with the B-family density ρ_B = (q², e^{±2iφ};q²)_∞ q^{−s_in}/(2πΛ) (BBNR 5.11), and using
+  1/Λ = q^{s_in}/|1 − a e^{iφ}|² with a = q^{s_in−½} together with q̃q^{3/2+s_out} = a q², one factor cancels:
+  $$G(\tau)=\int_0^\pi d\phi\, f(\phi)\,e^{-\tau\kappa\Lambda_{s_{in}}(\phi)},\qquad
+    f=\frac{(ab;q^2)_\infty\,(q^2,e^{\pm 2i\phi};q^2)_\infty}{2\pi\,(ae^{\pm i\phi},be^{\pm i\phi};q^2)_\infty},\quad
+    a=q^{s_{in}-1/2},\ b=q^{1/2+\delta-s_{out}} .$$
+  **f is the normalized Al-Salam–Chihara measure** (base q², x = cos φ).
+- **Checks.**
+  - Transfer-matrix engine: moments Λ^k for k = −2…3 agree to 1e−15 at several (λ, s, δ).
+  - For s_in < ½ the measure acquires a point mass at zero energy, (q^{1−2s_in};q²)/(q^{1−2s_out};q²). This equals the
+    BPS→BPS weight of BLY (4.14) (to 1e−12).
+  - Triple scaling (φ = λk, λ → 0): f ∝ k sinh πk |Γ(Δ − ¼ + s_out/2 + ik/2) Γ(Δ + ¼ − s_out/2 + ik/2)|²,
+    which is LMRS (43) with j′ = s_out, j = s_in.
+- Literature status: BLY give BPS→BPS; BBNR (7.17) give charge-integrated ground-state/continuum moments. We have not
+  found the fixed-charge measure, the ASC identification or the time integral in BBNR, BLY or LMRS.
+
+### 2. Time-integrated two-point function [derived + verified]
+- At x_a = (a + a⁻¹)/2 the ASC polynomials collapse to p_n = (ab;q²)_n/(2a)^n. The Casoratian sum of the Stieltjes
+  transform then gives
+  $$\int_0^\infty G(\tau)\,d\tau=\frac1\kappa\int\frac{f}{\Lambda}=\frac1\kappa\,\frac{q^{s_{in}}}{1-q^{2\delta}}\;
+    {}_2\phi_1\!\left(q^2,q^2;q^{2+2\delta};q^2,q^{2s_{in}-1}\right).$$
+  Verified against quadrature to 1e−15.
+- Mean first-order dressing cost: t₁ = c₀ × (this). As λ → 0,
+  ∫f/Λ ≈ π/(2 sin πδ) λ^{δ−2}(2s_in − 1)^{δ−1}: the Schwarzian region dominates.
+
+### 3. Higher moments: matter-chord diagrams [derived from the chord rules for uncrossed diagrams; crossed ones measured]
+- E_η tr 𝒟^m is a sum over the m! Wick pairings (E_i ↔ E†_{π(i)}). Each pairing is a disk with alternating zero-temperature
+  segments (charge s_out) and ∫dτ segments (charge s_in).
+- **Uncrossed pairings** (π ∈ NC(m), Catalan many):
+  - each face carries a single energy (BINT/BLY uncrossed rules);
+  - faces with zero-temperature segments sit on the unique zero mode of s_out (rank one ⇒ "factorization");
+  - a G-face with k segments gives (1/b) Tr S^k with S diagonal in energy, eigenvalue g(φ) = (b c₀/D_in) A(φ)/(κΛ(φ)).
+  - Hence the free cumulants are κ_k(𝒟) = (1/b) Tr S^k: **𝒟 is free compound Poisson** with rate r = e/b and jump law g
+    under the normalized B-family density. Atoms 1 − r at r < 1 reproduce the rank bound (D6 §4).
+- **Crossed pairings** need the N=2 matter–matter R-matrix (not available; BLY §5 set up but did not evaluate).
+  Measured instead with an unbiased three-vector estimator: the crossing term of E tr 𝒟³ is −0.44 %, −0.16 %, ≈ +0.1 % of
+  the third moment at N′ = 10, 12, 14 [num].
+- Exact finite-N identities [derived]:
+  - E_η tr 𝒟 = (1/b) Tr S = (1/b) Tr 𝒟̄;
+  - E_η tr 𝒟² = tr 𝒟̄² + (1/b) Tr S²;
+  - the separable (Kronecker) model X = S^{1/2} Z C^{1/2} with C = 𝒟̄/t₁ reproduces both.
+
+### 4. Finite-N tests and error budget [num] (p = 3, N′ = 10–16; 2–4 realizations; no fitted parameters)
+- S is diagonal in the inner energy basis to 98.5–99.8 %.
+- t₁ (h): the chord value is low by 4–15 %. The exact charged spectrum is broader than the double-scaled one
+  (CV² 0.36–0.41 vs 0.32–0.36) and extends below the chord gap. No λ calibration removes this.
+- W^(1): the chord prediction exceeds the exact first-order value by 4–9 %. Error budget:
+  - planar law with exact inputs: +5.5 % → +3.5 % from N′ = 10 to 16. The exact spectrum has a softer lower edge; at
+    N′ = 10, giving each inner level its own η restores the free edge, so it is a finite-number-of-couplings effect;
+  - chord inputs: +1–3 %;
+  - BPS factorization: < 1 %.
+- T₂^(1): the chord value is low by 2–6 %.
+
+### 5. BPS heterogeneity of the averaged dressing cost [derived identity; num]
+- 𝒟̄ = E_η 𝒟 is not ∝ 1 at finite N.
+  - The relative spread of its eigenvalues is 0.22–0.42 (h), 0.12–0.16 (g), roughly flat in N′ = 10–16.
+  - K(τ) = P E_η[E† e^{−τH₀} E] P has zero spread at τ = 0 (Σ_I ψ_I ψ_I† = C(N−F,2) on degree F), and the spread grows
+    with τ: about 1.5 %, 4 %, 12 %, 30 % and 50–75 % at τE_med = 0.1, 0.3, 1, 3, 10.
+  - The lowest 5 % of inner levels carry 31–89 % of the variance.
+- **Sum rule** [derived + verified to 1e−14]. Let c_i = ι_i and E_i = {Q, c_i} = (ι_i ω)∧ (pair creation with the old
+  couplings C_{i··}). For harmonic α, Q† c_i α = 0, so c_i α = harmonic + coexact, and the coexact part has squared norm
+  ⟨α|E_i† G E_i|α⟩. Summing over sites,
+  $$B_c+\sum_i P E_i^\dagger G E_i P = F\,P,\qquad B_c=\sum_i P\,c_i^\dagger P_{F-1}\,c_i\,P .$$
+  𝒟̄ is 72–92 % (traceless-)correlated with Σ_i P E_i† G E_i P, hence anti-correlated with the single-fermion BPS→BPS
+  weight B_c. The heterogeneity the chords miss is therefore the microstate dependence of BPS-projected single-fermion
+  two-point functions.
+- **Incoherent and coherent parts** [num]. Write 𝒟̄ = Σ_n M_n/E_n with M_n = 2Σ_I Pψ_I|n⟩⟨n|ψ_I†P (rank ≤ C(N,2)).
+  - If the M_n were independently Haar-rotated, the eigenvalue variance would be Σ_n [tr M_n² − (tr M_n)²]/E_n² (free
+    cumulants add). Call this the free, or incoherent, estimate.
+  - Lowest 5 % of levels: observed/free spread = 1.00 (N′=10), 1.09 (11), 1.15 (12), 1.37 (13), 1.41 (14), 1.72 (15)
+    for the h family. The coherent share of that variance, 1 − (free/obs)², is therefore 0, 0.17, 0.25, 0.48, 0.50, 0.66;
+    for the g family it is 0.04, 0.27, 0.54 at N′ = 11, 13, 15.
+  - The incoherent part shrinks as the number of contributing levels grows (N_eff = 21 → 365), while the total stays flat.
+  - The whole is further reduced by the exact sum rule Σ_n M_n = c₀P, which makes the bins anti-correlated.
+- [interpretation] The coherent part is a property of the BPS microstates (IR-heavy vs IR-light, i.e. small vs large
+  single-fermion BPS weight). Whether it survives at large N is the same question as the large-N fate of localization.
+
+### Status
+- **Exact:** §1 (closed form; point mass = BLY 4.14; LMRS limit), §2, the finite-N identities of §3, the sum rule of §5.
+- **Derived under the chord rules:** the free compound Poisson law (uncrossed diagrams + rank-one BPS faces).
+- **Numerical:** §4 error budget; crossed diagrams ≤ 0.5 % of the third moment; the heterogeneity has an incoherent part
+  (free estimate, shrinking with N′) and a coherent part (growing share, 0 → 0.66 at N′ = 10–15).
+- **Pre-registered, not yet run:** the N′ = 17 test (`results/data/chord_dressing_2026-10-14/prereg_N17.json`, report §7).
+- **Open:** the N=2 matter–matter R-matrix (crossed diagrams); the soft lower edge (shared couplings); the large-N fate of
+  the coherent heterogeneity.
