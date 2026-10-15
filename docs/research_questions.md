@@ -308,6 +308,23 @@ deficit" is a restatement of the wall pile-up and should be framed that way.
 
 ## Q11. Beyond second moments: the decoder remainder R and correlated q-Gaussians **[substantially answered 2026-10-05 — D5; localization quantified 2026-10-12 — D6]**
 
+**Update 2026-10-14 (D7; report `research/pdfs/progress_2026-10-14.pdf`). The chord computation of the first-order
+dressing spectrum is done.**
+- **[derived + verified]** The BPS→continuum two-point function of a charged chiral single-chord operator is the
+  normalized Al-Salam–Chihara measure (base q², a = q^{s_in−½}, b = q^{½+2Δ−s_out}). Its point mass is BLY (4.14); its
+  Schwarzian limit is LMRS (43). The time integral (mean dressing cost) is a ₂φ₁.
+- **[derived under the chord rules]** Uncrossed matter-chord diagrams make the dressing spectrum free compound Poisson
+  (rate e/b, jump law from the closed form). Crossed diagrams are measured at ≤ 0.5 % of the third moment.
+- **[num]** No fit: W^(1) chord/exact = 1.04–1.09 (N′ = 10–16); chord W vs decoder W within −8 % … +11 %; fully
+  gravitational T₄ within 0.004–0.022. Error budget: planar law +3–5 % (soft lower edge from shared couplings),
+  chord inputs +1–3 % (finite-p spectrum), BPS factorization < 1 %.
+- **[derived + verified]** Sum rule B_c + Σ_i P E_i†G E_i P = F P links the BPS heterogeneity of the dressing cost to
+  single-fermion BPS weights. **[num]** Its incoherent part shrinks with N′, its coherent share grows (0 → 0.66 at
+  N′ = 10–15).
+- **[pre-registered, not yet run]** N′ = 17 (`results/data/chord_dressing_2026-10-14/prereg_N17.json`).
+- **Open:** run N′ = 17; large-N fate of the coherent heterogeneity (= the localization question); a model of the soft
+  lower edge; the N=2 matter–matter R-matrix.
+
 **Update 2026-10-12 (D6 §6; `research/notes/uplift_localization_2026-10-12.md`). Open item (a) is answered
 quantitatively; (b) is answered at N′ = 15.**
 - **[derived]** T₄ = T₂ − H with H = ⟨y(1−y)⟩ (y = cos²2θ). So at equal T₂ the localization is exactly
@@ -325,7 +342,7 @@ quantitatively; (b) is answered at N′ = 15.**
   operator). The exact decoder's diagonal blocks are closed-form functionals of the integrated two-point functions on
   closed/coclosed forms. The h–g coupling block also involves the dressing map K′ itself (D6 §5).
 - **Open.**
-  - The chord computation of these spectra (BLY §5 matter chords with an H⁻¹ insertion).
+  - ~~The chord computation of these spectra (BLY §5 matter chords with an H⁻¹ insertion).~~ → done, D7 (2026-10-14).
   - Why H is preserved by first order.
   - The growing odd-N′ residual.
 

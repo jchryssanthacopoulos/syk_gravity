@@ -129,3 +129,15 @@ None beyond comparison with the known p = 3 ground-state counts ([33], [42]). Fi
 6. **Ground states spoil the conformal ansatz (§7.1.1).** This is consistent with our decoder being a pure
    ground-state (BPS-projected) quantity. Any Schwarzian/JT four-point function used for T₄ must be the
    zero-energy (LMRS-type) one, not the conformal ladder.
+
+## Note added 2026-10-14 (D7)
+
+- **Sign in (5.7)/(5.10).** With T b_n as in (5.5), the coefficients α_n = q^{n/2}H_n(cos φ|q²)/(q²;q²)_n give the
+  eigenvalue q^{−s} + q^{s−1} + 2q^{−1/2}cos φ, i.e. +cos φ. The eigenvector for Λ_s(φ) of (5.3) therefore has
+  H_n(−cos φ|q²). This was checked directly against (5.5) (`tests/test_chord_dressing.py::test_bbnr_eigenvector_sign`).
+  It is harmless for BBNR's density of states (the measure is symmetric under φ → π − φ). It matters for any kernel with
+  one zero-energy end: combining (5.10) with (5.3) reflects the BPS→continuum weight across the band.
+- **Used here.** §7.1 (charge shift s → s ± p′/2p, the q̃^N̂ junction factor) is the matter rule behind our closed-form
+  BPS→continuum two-point function (D7 §1). Our transfer-matrix engine (`src/chord_transfer.py`) implements the chord
+  rules (4.16)–(4.17) and the inner product (4.37), and reproduces (4.40)–(4.42) and (5.5). (7.17) contains the
+  ground-state/continuum moments integrated over the charge; D7 gives the fixed-charge spectral measure in closed form.

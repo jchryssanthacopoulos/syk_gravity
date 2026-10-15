@@ -144,3 +144,16 @@ correlators, OTOCs?
 - **Supersedes an old claim.** The project's older "chord diagrams with Narayana counting" gravity picture (CLAUDE.md
   overview) is not what the actual N = 2 chord theory does. The real chord rules carry arrows, friend/enemy weights,
   and matter weights q^Δ, and their planar limit is not a Haar/free-probability model.
+
+## Note added 2026-10-14 (D7)
+
+- **Relation to the charged BPS→BPS two-point function (4.14).** For a chiral single-chord operator from the ground
+  state at charge s_out to charge s_in, the full zero-temperature spectral measure is the Al-Salam–Chihara measure with
+  a = q^{s_in−½}, b = q^{½+2Δ−s_out} (D7 §1). When s_in < ½ its point mass, (q^{1−2s_in};q²)/(q^{1−2s_out};q²), equals
+  (4.14) times √(D(s_in)/D(s_out)) (checked to 1e−12; our s_out = −j_R, j′_R = j_R − 2Δ). The continuous part, which
+  BLY do not give, is what enters the dressing cost of the uplift problem.
+- **Amplitudes.** Our engine's zero mode has X-amplitudes x_m = q^{3m/2}H_m(−cosh λ(s+½)|q²)/(q²;q²)_m in BBNR's
+  normalization (BLY 3.6).
+- **Uncrossed correlators.** The rule we use for uncrossed matter diagrams (one energy per face) is BLY's statement
+  at the start of §5 that uncrossed n-point functions can be computed in the empty-wormhole Hilbert space. Crossed ones
+  (their §5 one-particle wormholes) are not evaluated there or here.

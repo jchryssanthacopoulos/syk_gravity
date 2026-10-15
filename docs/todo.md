@@ -72,10 +72,17 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [x] **Q2/Q11 (P1), 2026-10-12:** exact uplift, orthogonal splitting and closed-form block decoder (D6 §§1–5);
       localization = heterogeneity deficit, predicted from the old model's first-order uplift (D6 §6,
       `research/notes/uplift_localization_2026-10-12.md`). Wall hypothesis refuted at N′ = 15.
+- [x] **D6 follow-up, 2026-10-14:** chord computation of the first-order dressing spectrum (D7, report
+      `research/pdfs/progress_2026-10-14.pdf`, data `results/data/chord_dressing_2026-10-14/`).
+- [ ] **D7 follow-ups (P1):**
+  - run the pre-registered N′ = 17 test (`prereg_N17.json`; `scripts/run_chord_dressing.py --Np 17 --seeds 9000 9001
+    --neta 4 --draws 2 --no-third-moment` under memwatch, then `scripts/analyze_bps_heterogeneity.py --Np 17`);
+  - complete the stopped N′ = 16 runs (second realization of the decomposition; heterogeneity analysis);
+  - large-N fate of the coherent BPS heterogeneity; relate B_c (single-fermion BPS weight) to the decoder's
+    localization;
+  - a model of the soft lower edge (operator-valued free probability with the exact covariance of Σ η_I A_I);
+  - N=2 matter–matter crossing (R-matrix); low priority (crossed diagrams ≤ 0.5 %).
 - [ ] **D6 follow-ups (P1):**
-  - chord (BLY §5 matter-chord, H⁻¹ insertion) computation of the spectra of the integrated pair two-point functions
-    𝒟 = E†H₀⁻¹E, 𝒟′ = EH₀⁻¹E† on closed/coclosed forms. Their harmonic blocks alone fix the first-order spectrum,
-    and hence H_first and the T₄ prediction;
   - why first order preserves H = ⟨y(1−y)⟩ (approximate cancellation; no symmetry found);
   - the odd-N′ residual of H (−0.001, −0.003, −0.004 at N′ = 11, 13, 15): first-order N′ = 17 (old model N = 16; cheap)
     plus one exact N′ = 17 point if memory allows;
@@ -89,6 +96,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## F. Writing (P2)
 
+- [x] Progress report 2026-10-14 (`research/pdfs/progress_2026-10-14.pdf`, source `research/tex/progress_2026-10-14.tex`):
+      the dressing spectrum from chords (closed-form BPS→continuum two-point function, ₂φ₁ time integral, free compound
+      Poisson law, error budget, sum rule and BPS heterogeneity, pre-registered N′ = 17 test) (D7).
 - [x] Progress report 2026-10-13 (`research/pdfs/progress_2026-10-13.pdf`, source `research/tex/progress_2026-10-13.tex`):
       exact uplift, orthogonal splitting, closed-form decoder, dressing cost as integrated two-point function, walls,
       localization as heterogeneity deficit with the first-order prediction and the N′ = 15/16 pre-registered tests (D6).
