@@ -476,6 +476,29 @@ $$
 - Unlike D1, no conformal normalization $b_{\hat q}$ and no $\alpha_S$ enter. The operator is normalized in the UV,
   which is why this can capture the crossover.
 
+### From $r$ to the decoder second moment $T_2$ [derived; added 2026-10-16]
+
+*Used by the parameter-free $T_4$ prediction (progress report 2026-10-13 §9.3; D7) and by
+`scripts/analyze_uplift_heterogeneity.py::chord_T2`.*
+
+- Decoder moments use $\mu=2\lambda-1\in[-1,1]$ (the eigenvalues of $P_BUP_B$, $U=(-1)^{n_i}$), with
+  $T_{2m}=\langle\mu^{2m}\rangle$. Expanding,
+$$
+T_2=4\langle\lambda^2\rangle-4\langle\lambda\rangle+1=4\,\mathrm{Var}(\lambda)+\big(2\langle\lambda\rangle-1\big)^2 .
+$$
+- **Mean.** On $\Lambda^P$, $\sum_i n_i=P$ exactly. Averaged over the probed site,
+  $\frac1{N'}\sum_i\tau(P_B\Pi_iP_B)=1-P/N'=b$ in every realization. Hence $\langle\lambda\rangle=b$ exactly for the
+  site-averaged decoder. For a single fixed site (e.g. the last one) it holds in the ensemble mean only.
+- **Variance.** $\mathrm{Var}(\lambda)=b(1-b)\,r$ by definition of $r$.
+- With $(2b-1)^2=1-4b(1-b)$:
+$$
+\boxed{\;T_2=1-4b(1-b)(1-r)\;}\qquad\Longleftrightarrow\qquad r=\frac{T_2-c^2}{1-c^2},\quad c=2b-1 .
+$$
+- Even $N'$: $b=\tfrac12$, so $T_2=r$. Odd $N'$: $c=1/N'$, a small offset.
+- **Status.** Exact given $r$ (site-averaged). The only approximation in the parameter-free $T_2$ is the BLY value
+  of $r$ above, evaluated by `src/dssyk_n2.r_chord` (= `two_point_chord(2p²/N′, (P−N′/2)/p, 1/p)`) and tabulated as
+  `r_chord` in `results/data/dssyk_2026-09-28/comparison.csv`; it matches the exact $r$ to about 2 %.
+
 ### Results [num] (no free parameters)
 
 | $N'$ | $j$ | $\lambda$ | $r$ (SYK) | $r$ chord | $r$ LMRS | SYK/chord | $a$ exact | $a$ chord (3.17) |
