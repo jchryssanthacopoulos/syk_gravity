@@ -1,0 +1,7 @@
+memwatch: pid 23034 cap 5.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_flavor_uplift.py --N 7 --seeds 1 --model sym
+N=7->8: largest new sector 4900, estimated peak 2.60 GB
+N=7 seed=1 dims: 81 records [1632s]
+N=7 seed=1 cv: 22 records [73s]
+N=7 seed=1 bare: 25 records [53s]
+memwatch: done rc=-15 peak 4.59 GB (cap 5.0) in 1838s
+[17:15] seed-1 job stopped during 'first' (old code cached all first-order pseudo-inverses; 4.1 GB of 5 GB cap); rerunning 'first tower' with per-sector cache release

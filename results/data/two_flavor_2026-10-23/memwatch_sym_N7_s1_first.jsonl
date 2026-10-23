@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_two_flavor_uplift.py --N 7 --seeds 1 --model sym --tasks first tower", "rc": 0, "killed": null, "peak_gb": 3.199, "cap_gb": 8.0, "secs": 1279.0, "ended": "2026-10-23T17:36:28"}

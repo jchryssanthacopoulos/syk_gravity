@@ -1,7 +1,8 @@
 # Research questions
 
-*Living document. Last revised 2026-09-30 (literature pass: Belin–Fu–La Rocca, Lin 2022, Liu–Shen; D3). Earlier
-revision 2026-09-28 after the project archaeology audit (`docs/project_archaeology.md`).*
+*Living document. Last revised 2026-10-23 (Q12: two-flavor uplift, monotone vs fortuitous; D8). Earlier revisions
+2026-09-30 (literature pass: Belin–Fu–La Rocca, Lin 2022, Liu–Shen; D3) and 2026-09-28 (project archaeology audit,
+`docs/project_archaeology.md`).*
 **Progress report (2026-09-29, audited):** `research/pdfs/progress_2026-09-29.pdf`.
 **Checkpoint report (2026-09-28):** `research/pdfs/checkpoint_2026-09-28.pdf` (source `research/tex/checkpoint_2026-09-28.tex`).
 
@@ -252,7 +253,7 @@ matching Jacobi ensemble.
 
 **To do.** SFF of O_T in **SYK** (not a Jacobi surrogate), with Gaussian filtering. Thouless time vs N. Test CV's
 conjecture "metric fragility ⇔ BPS chaos" on (i) Miyahara–Shibuya's integrable interpolation Q_g (fortuitous but
-integrable), (ii) the two-flavor model (monotone vs fortuitous), (iii) the single-matrix model (rigid).
+integrable), (ii) the two-flavor model (monotone vs fortuitous; its uplift is now solved, Q12), (iii) the single-matrix model (rigid).
 
 ## Q7. Which decoder spectrum is the physical object? **[open, clarification]**
 
@@ -388,6 +389,42 @@ Candidate frameworks:
 **To do.** The two-copy irrep content of R (Casimir on superoperators, N′ ≤ 12); a correlated mixed-q-Gaussian model
 for the four-arc diagrams.
 
+
+## Q12. What in the BPS uplift distinguishes monotone from fortuitous states? (two-flavor model) **[Stage 1 answered 2026-10-23 — D8; Stage 2 (chords) open]**
+
+**Setting.** The symmetrized two-flavor model of CCSY (eq. 3.18) has a monotone tower V^n|Ω⟩ and fortuitous states (CV
+§6.2, Figs. 6–10: empirical fidelity tables and dressing costs, no closed form for fortuitous states). Question: the
+two-flavor analogue of D6, and what it says about monotone vs fortuitous.
+
+**Answer at the level of the exact uplift (D8; report `research/pdfs/progress_2026-10-23.pdf`).**
+- **[derived + verified] One mode with an obstruction.**
+  - Adding a mode is a mapping cone whose connecting map δ = [E] (CV eq. 24) is now nonzero.
+  - The D6 uplift survives on the admissible harmonic sources, P_H E h = 0 = P_H E† g. On them it is unique,
+    orthogonally split and minimum-norm (Theorem A).
+  - The pair is two such steps. A d₂ differential (four peripheral sectors per N) shows that old cohomology plus [E], [K]
+    is not enough.
+- **[derived] The protection identity** [E, V] = K, i.e. the symmetry of C at the new index.
+  - It makes both slot currents vanish on the tower.
+  - So the tower is bare (no Hodge dressing) at every N, with slot weights (N+1−n)/(N+1), n/(N+1).
+  - CV call the same uplift "genuinely dressed": theirs is the channel notion of dressing, ours the Hodge one.
+- **[num] Fortuitous states obey arithmetic.**
+  - Laws: rk D_T = min(d_new, R_T) and dim(B ∩ im D_T) = max(0, b + rk − R_T), with rooms R_T derived from the slot
+    equations. They reproduce every cell of CV Fig. 6 (5 seeds, N = 2→6; N = 7), and explain when the tower's κ₀₀
+    attains CV's bound (iff ker D₀₀ = 0 iff d_new ≤ R₀₀). That is also exactly when the 00 channel stops lifting all
+    fortuitous states.
+  - Bare states = a generic dimension count + the tower; the tower is the only state the counting misses.
+  - The symmetrized and generic models agree on all counts and BPS dimensions.
+- **[derived; num] First order.**
+  - Dressing costs are time-integrated two-point functions of E (ψ†χ), K (ψ†ψ†) and Z (ψ†), with interference between
+    slots.
+  - The tower is exactly dark. Fortuitous states interfere partially, so "monotone = coherent, fortuitous =
+    incoherent" is false.
+- **Open.**
+  - Proofs of four-slot injectivity and of the two counting laws.
+  - The N = 5 coincidences.
+  - The closed-form CV slot decoders.
+  - **Stage 2:** chord computation of the E, K, Z two-point functions and of their interference; the tower as a Ward
+    identity of the chord rules. This requires two-flavor chord rules (literature not yet checked).
 
 ---
 

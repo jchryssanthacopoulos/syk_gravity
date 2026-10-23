@@ -1,0 +1,7 @@
+memwatch: pid 32300 cap 5.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_flavor_uplift.py --N 7 --seeds 1 --model generic --tasks cv bare e2
+N=7->8: largest new sector 4900, estimated peak 2.60 GB
+N=7 seed=1 cv: 22 records [1150s]
+N=7 seed=1 bare: 25 records [101s]
+N=7 seed=1 e2: 81 records [0s]
+N=7 seed=1 done [1252s]
+memwatch: done rc=0 peak 3.27 GB (cap 5.0) in 1252s

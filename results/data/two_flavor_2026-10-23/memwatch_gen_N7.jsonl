@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_two_flavor_uplift.py --N 7 --seeds 1 --model generic --tasks cv bare e2", "rc": 0, "killed": null, "peak_gb": 3.267, "cap_gb": 5.0, "secs": 1252.5, "ended": "2026-10-23T17:13:05"}

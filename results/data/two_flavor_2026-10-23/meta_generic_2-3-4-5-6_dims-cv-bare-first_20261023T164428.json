@@ -1,0 +1,35 @@
+{
+ "args": {
+  "N": [
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "model": "generic",
+  "tasks": [
+   "dims",
+   "cv",
+   "bare",
+   "first"
+  ],
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/two_flavor_2026-10-23",
+  "tag": "",
+  "dry_run": false
+ },
+ "git": "de2a4d9",
+ "started": "20261023T164428",
+ "memory_estimate_gb": {
+  "2": 0.300007776,
+  "3": 0.300124416,
+  "4": 0.30096,
+  "5": 0.31536,
+  "6": 0.44406
+ }
+}

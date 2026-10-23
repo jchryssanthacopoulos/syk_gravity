@@ -1300,3 +1300,298 @@ check), `src/chord_dressing.py` (finite-N machinery); tests `tests/test_chord_dr
 - **Pre-registered, not yet run:** the N′ = 17 test (`results/data/chord_dressing_2026-10-14/prereg_N17.json`, report §7).
 - **Open:** the N=2 matter–matter R-matrix (crossed diagrams); the soft lower edge (shared couplings); the large-N fate of
   the coherent heterogeneity.
+
+---
+
+## D8. The two-flavor pair uplift: obstructed mapping cones, the protected tower, and the arithmetic of exact lifts
+
+*2026-10-23. Context: the two-flavor analogue of D6 (Stage 1 of the monotone-vs-fortuitous study). Model: the
+symmetrized two-flavor N=2 SYK of CCSY (arXiv:2412.06902, eq. 3.18), as studied by CV §6.2 (eqs. 82–90, Figs. 6–9).
+Code: `src/two_flavor.py`, `src/two_flavor_uplift.py`; tests `tests/test_two_flavor.py`; data
+`results/data/two_flavor_2026-10-23/` (`scripts/run_two_flavor_uplift.py`; analysis and figures
+`scripts/analyze_two_flavor_uplift.py` → `summary.json`, `results/figures/two_flavor_2026-10-23/`). Realizations:
+symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 2–6) and 1 (N = 7). Report:
+`research/tex/progress_2026-10-23.tex`.*
+
+### Setup and conventions
+- Complex fermions ψ_i, χ_i (i = 1…N), written with explicit daggers. Supercharge (CCSY 3.18; CV 82):
+  Q = Σ_{ijk} C_ijk ψ_i†ψ_j†χ_k with C symmetric in (j,k); here C = (G + G^{T_jk})/2, G i.i.d. complex Gaussian.
+  Q has charge (+2,−1) under (N_ψ, N_χ); sectors are (a,b) = (N_ψ, N_χ).
+- V = Σ_i ψ_i†χ_i† commutes with Q (CCSY 3.19). The tower V^n|Ω⟩ is BPS: Q-closed by [Q,V] = 0, Q†-closed through the
+  su(2) of V, V†, N_V (CCSY 3.20–3.23). "Fortuitous" is the orthogonal complement of the tower in each sector (CV §6.2).
+- Control: generic (HTZ) couplings, C i.i.d.; there V does not commute with Q and there is no tower.
+- The uplift N → N+1 adds the pair (ψ_e, χ_f), both with coupling index N+1. Slots T = (t_ψ, t_χ), operator convention
+  Ψ = Ψ₀₀ + ψ_e†Ψ₁₀ + χ_f†Ψ₀₁ + ψ_e†χ_f†Ψ₁₁, with Ψ_T in the old sector (A − t_ψ, B − t_χ) when Ψ is in the new sector (A,B).
+- Old-model notation: B(a,b) is the BPS space, b(a,b) its dimension and P_H its projector. H₀ = {Q₀,Q₀†}, and
+  G = H₀⁺ = ∫₀^∞ dτ e^{−τH₀} on the non-harmonic part. Exact and coexact forms are im Q₀ and im Q₀†.
+
+### 1. Block form, identities and slot equations [derived + verified]
+- **Block form.** Collecting the terms of Q_{N+1} with j = e, with k = f, and with both:
+  $$Q_{N+1}=Q_0+\psi_e^\dagger E+K\chi_f+\psi_e^\dagger Z\chi_f,$$
+  with
+  - E = Σ_{i,k}(C_{e,i,k} − C_{i,e,k}) ψ_i†χ_k: even, charge (+1,−1);
+  - K = Σ_{i<j}(C_{i,j,f} − C_{j,i,f}) ψ_i†ψ_j†: even, charge (+2,0);
+  - Z = Σ_i (C_{e,i,f} − C_{i,e,f}) ψ_i†: odd, charge (+1,0).
+
+  This is an operator identity, verified in both models (test).
+- **Nilpotency.** Q_{N+1}² = 0, taken component by component in ψ_e† and χ_f, gives
+  [Q₀,E] = 0 (ψ_e† part), [Q₀,K] = 0 (χ_f part) and **[E,K] = {Q₀,Z}** (ψ_e†χ_f part).
+- **Protection identity.** Write V_{N+1} = V_N + ψ_e†χ_f†. The ψ_e† component of [Q_{N+1},V_{N+1}] = 0 gives
+  $$[E,V_N]=K .$$
+  The χ_f component gives [K,V_N] = 0, which holds automatically since both are built from creation operators.
+  - Directly: [ψ_i†χ_k, V] = −ψ_i†ψ_k†, so [E,V] = −Σ_{i<k}(E_ik − E_ki)ψ_i†ψ_k†.
+  - The identity is therefore K_ik = E_ki − E_ik, i.e. C_{N+1,i,k} = C_{N+1,k,i}: the (j,k) symmetry of the couplings
+    at the new index.
+  - Verified to 1e−16 in the symmetrized model. It fails for generic couplings (test).
+- **Slot equations (S).** QΨ = Q†Ψ = 0, slot by slot. Define the slot currents
+  J₁₀ := EΨ₀₀ − KΨ₁₁ + ZΨ₀₁ and J₀₁ := K†Ψ₀₀ + E†Ψ₁₁ + Z†Ψ₁₀. Then
+
+  | slot | from QΨ = 0 | from Q†Ψ = 0 |
+  |---|---|---|
+  | 00 | Q₀Ψ₀₀ = −KΨ₀₁ | Q₀†Ψ₀₀ = −E†Ψ₁₀ |
+  | 10 | Q₀Ψ₁₀ = J₁₀ | Q₀†Ψ₁₀ = 0 |
+  | 01 | Q₀Ψ₀₁ = 0 | Q₀†Ψ₀₁ = J₀₁ |
+  | 11 | Q₀Ψ₁₁ = −EΨ₀₁ | Q₀†Ψ₁₁ = K†Ψ₁₀ |
+
+  Verified on every BPS state at N = 4, in both models (test).
+- **Consequences.**
+  - Ψ₀₁ is closed and Ψ₁₀ is coclosed.
+  - The non-harmonic parts of Ψ₀₀ and Ψ₁₁ are fixed by Ψ₀₁ and Ψ₁₀:
+    coexact(Ψ₀₀) = −Q₀⁺KΨ₀₁, exact(Ψ₀₀) = −(Q₀†)⁺E†Ψ₁₀, coexact(Ψ₁₁) = −Q₀⁺EΨ₀₁, exact(Ψ₁₁) = (Q₀†)⁺K†Ψ₁₀.
+- **Filtration.** Q raises w := t_ψ − t_χ (01 → {00, 11} → 10) by 0 (Q₀), 1 (E, K) or 2 (Z).
+
+### 2. Adding one mode with an obstruction [derived + verified]
+**Theorem A.**
+- *Setting.* Q₀ is nilpotent on a finite-dimensional graded space H_o, and a fermionic mode μ is added.
+  - Creation type: Q = Q₀ + μ†E, with E even and [Q₀,E] = 0 (forced by Q² = 0).
+  - Write Ψ = a + μ†b with a, b ∈ H_o.
+- *(i) BPS conditions.* Ψ is BPS iff Q₀a = 0, Q₀†b = 0, Q₀b = Ea and Q₀†a = −E†b.
+- *(ii) Existence and uniqueness.* Hodge-decompose a = h + x and b = g + z (h, g harmonic; x exact; z coexact).
+  - A solution exists iff P_H E h = 0 and P_H E† g = 0.
+  - It is then unique: z = Q₀⁺E(h + x) and x = −(Q₀†)⁺E†(g + z).
+- *(iii) The BPS space.* Hence
+  $$B\;\cong\;\ker\big(P_HEP_H\big|_{B_a}\big)\;\oplus\;\ker\big(P_HE^\dagger P_H\big|_{B_b}\big).$$
+  - It splits orthogonally as B_h ⊕ B_g: no harmonic part in the μ-occupied slot, resp. in the μ-empty slot.
+  - Ψ(h, 0) is the minimum-norm uplift of h.
+- *Annihilation type*, Q = Q₀ + Kμ: the slot roles swap.
+  - a = h + z (coexact) and b = g + x (exact).
+  - The obstructions are P_H K g = 0 and P_H K† h = 0.
+
+*Proof.*
+- (i) Expand QΨ = Q₀a + μ†(Ea − Q₀b) and Q†Ψ = Q₀†a + E†b − μ†Q₀†b.
+- (ii), existence. Q₀b = Ea needs Ea to be exact.
+  - Ex = EQ₀w = Q₀Ew is exact. Eh is closed, since Q₀Eh = EQ₀h = 0, and closed = harmonic ⊕ exact.
+  - So Ea is exact iff P_H Eh = 0. The coclosed equation is the mirror image.
+- (ii), uniqueness. The pair (x, z) solves the anti-Hermitian system of D6 §5. Its proof uses only [Q₀,E] = 0 and the
+  exactness of Ea, so it carries over verbatim, and so do the orthogonal splitting and the minimum-norm property. ∎
+
+*Cohomological reading.*
+- Q is the mapping cone of E: (H_o,Q₀) → (H_o,Q₀), whose long exact sequence is CV eq. (24) with connecting map δ = [E].
+  The dimension formula in (iii) is **CV eq. (26)**.
+- The new content is the harmonic (metric) refinement with δ ≠ 0: the explicit uplift map, the obstruction on harmonic
+  sources, the orthogonal splitting and the canonical minimum-norm uplift.
+- In the half-filling sector of the one-flavor model used in D6, δ = 0 because the target of [E] lies outside the
+  fortuity window. In other one-flavor sectors δ can be nonzero; CV §4.2 show only that the incoming and outgoing
+  connecting maps cannot both be nonzero.
+
+*Verified* (`tests/test_two_flavor.py::test_theorem_A_explicit_step1`, N = 4, and scratch checks at N = 5):
+- explicit solve at N = 4, 5 in both models: admissible sources give a BPS state with residual ≤ 1e−12, uniquely;
+  obstructed sources give no solution (residual ≥ 1, i.e. O(1));
+- the splitting holds to 1e−13.
+
+### 3. The pair: two obstructed steps [derived + verified; the E₂ page is num]
+- **The two steps.**
+  - Step 1 adds ψ_e: creation type with E. The intermediate model M has χ_f frozen empty and Q_M = Q₀ + ψ_e†E.
+  - Step 2 adds χ_f: annihilation type over M with K′ = K + ψ_e†Z. [Q_M, K′] = 0 follows from [Q₀,K] = 0 and
+    [E,K] = {Q₀,Z}.
+- **Dimension formula** (Theorem A twice):
+  - dim B_M(A,B) = dim ker(P E P|_{B(A,B)}) + dim ker(P E† P|_{B(A−1,B)});
+  - dim B_{N+1}(A,B) = dim ker(P K′† P|_{B_M(A,B)}) + dim ker(P K′ P|_{B_M(A,B−1)}).
+  - Verified in every sector: 0 mismatches in 950 (symmetrized) and 570 (generic) sector records at N = 2–6, and in
+    all 81 sectors at N = 7 (seed 1).
+- **Four-slot injectivity [num].** A BPS state with vanishing old-harmonic part in all four slots is zero, so
+  B_{N+1} embeds in ⊕_T B(slot T). Rank deficit 0 everywhere at N = 2–7 (both models). Every BPS state is reconstructed
+  from its four harmonic slot parts to 1e−14.
+  - A proof is open. The obstacle: the old-harmonic part of Ψ₀₀ is h₀₀ + P_H E†d, where d comes from the M-coexact
+    dressing. So it differs from the step-1 source.
+  - Injectivity holds, but the smallest bare fraction comes close to zero. It is 1.8e−6 (symmetrized, seed 1) and
+    5e−5 (generic) in (3,3) and (5,5) at N = 7→8, against 1e−4 to 4e−3 at N = 5, 6. Near-"pure dressing" BPS states
+    exist (a lower near-wall), and injectivity may fail at larger N.
+- **The E₂ page is not the answer [num].** The slot complex built from old BPS states is
+  H(01) → H(00) ⊕ H(11) → H(10), with d₁ = ([K], [E]) and (h₀₀, h₁₁) ↦ [E]h₀₀ − [K]h₁₁. Then:
+  - d₁² = 0, because [E][K] − [K][E] = [{Q₀,Z}] = 0, and dim B_{N+1} ≤ dim E₂;
+  - equality fails in exactly four sectors per N, identically in both models.
+  - At N = 6 these are (2,3), (3,5), (4,2), (5,4), with E₂ = 92, 78, 78, 92 against 14, 0, 0, 14 BPS states. At
+    N = 7 they are (2,3), (4,2), (4,6), (6,5), with E₂ = 91, 330, 330, 91 against 0, 239, 239, 0.
+  - A differential d₂ ∼ [Z − EQ₀⁺K + KQ₀⁺E] pairs E₂^{w=−1}(A,B) with E₂^{w=+1}(A+2,B−1), always with the maximal
+    rank (e.g. 9, 78, 91 at N = 5, 6, 7).
+  - So the pair uplift is not computed by the slot complex alone. The two-step formula is exact and accounts for d₂.
+  - *(Corrects a remark made earlier in this project, that the spectral sequence degenerates at E₂: that holds for
+    one mode, not for the pair.)*
+- **Coupling independence of dimensions [num].** The BPS dimensions of the symmetrized and generic models coincide in
+  every sector for N′ ≤ 8.
+  - So the symmetrization creates no extra cohomology at these sizes: it makes one state per diagonal sector special.
+  - This bears on CCSY footnote 18, which suggests that tower states "could easily be lifted" under non-symmetric
+    perturbations. At these sizes, no BPS state is lifted.
+
+### 4. The tower: protection by current cancellation [derived + verified]
+- **Uplift of the tower.** From [E,V] = K, [K,V] = 0 and E|Ω⟩ = 0:
+  $$E\,V^n|\Omega\rangle=n\,K\,V^{n-1}|\Omega\rangle .$$
+  The new tower is V_{N+1}^n|Ω⟩ = V^n|Ω⟩ + n ψ_e†χ_f† V^{n−1}|Ω⟩ (CV 85). So its slots are Ψ₀₀ = V^n|Ω⟩,
+  Ψ₁₁ = nV^{n−1}|Ω⟩ and Ψ₁₀ = Ψ₀₁ = 0, and both nonzero slots are old-harmonic.
+- **Check of (S).**
+  - (Q₁₀): J₁₀ = EV^n|Ω⟩ − nKV^{n−1}|Ω⟩ = 0. This is the protection identity.
+  - (D₀₁): J₀₁ = K†V^n|Ω⟩ + nE†V^{n−1}|Ω⟩ = 0. This is equivalent to Q_{N+1}†V_{N+1}^n|Ω⟩ = 0 (CCSY 3.23), since
+    Q_{N+1}†V_{N+1}^n|Ω⟩ = χ_f†J₀₁ once Q₀†V^m|Ω⟩ = 0 is used.
+  - The other six equations hold trivially.
+- **The tower is bare.** All its slot components are old-harmonic, so its Hodge dressing vanishes at every N and its
+  bare fraction is exactly 1.
+  - Slot weights: (N+1−n)/(N+1) in 00 and n/(N+1) in 11, from the norms (CV 86). Errors ≤ 4e−16.
+  - Reading: the would-be dressing source J₁₀ of the 00 component (EΨ₀₀) is cancelled by the 11 component (KΨ₁₁). This
+    current cancellation is the V Ward identity.
+- **Two notions of dressing.** CV call this uplift "genuinely dressed" (κ₀₀ > 0), because relative to the 00 channel the
+  state needs its 11 component. In Hodge terms it has no dressing. Both statements are correct. This document uses
+  *bare* for the Hodge notion.
+- **Not a decoder eigenvector.** The tower is not an eigenvector of CV's slot decoders P Π_T P: the residuals
+  ‖PΠ_TP t − λt‖ are 0.12–0.43 for N = 5→6 through 7→8, and they are equal for T = 00 and 11.
+
+### 5. Bare states: the bare map, its generic count, and the tower excess [derived count; num]
+- **The bare map.** Bare BPS states are the kernel of the bare map β = [Q; Q†] restricted to ⊕_T B(slot T).
+  With every Ψ_T = h_T harmonic, (S) reduces to:
+  - Kh₀₁ = 0 in closed(A+2,B−1), and Eh₀₁ = 0 in closed(A+1,B−2);
+  - E†h₁₀ = 0 in coclosed(A−2,B+1), and K†h₁₀ = 0 in coclosed(A−3,B);
+  - J₁₀ = 0 in closed(A+1,B−1), and J₀₁ = 0 in coclosed(A−2,B).
+  - J₁₀ is closed once the h₀₁ equations hold, because Q₀J₁₀ = [E,K]h₀₁ = EKh₀₁ − KEh₀₁. J₀₁ is the mirror case.
+- **Generic count.**
+  - Let n₀₁ = dim ker[K; E] on B(01) and n₁₀ = dim ker[E†; K†] on B(10). Generic position gives
+    n₀₁ = max(0, b₀₁ − c₁ − c₂), and n₁₀ likewise.
+  - Then bare_gen = max(0, b₀₀ + b₁₁ + n₀₁ + n₁₀ − c(J₁₀) − c(J₀₁)), with the c's the dimensions of the (co)closed
+    targets listed above.
+- **Result [num].** The law is
+  bare = bare_gen + [one tower state, in diagonal sectors where bare_gen = 0]. It holds with 0 exceptions:
+  - 400 sector records (symmetrized) and 240 (generic) at N = 2–6, provided the exact sub-kernel dimensions are used for
+    n₀₁ and n₁₀;
+  - the generic sub-kernel count fails by +1 only at N = 5: ker[E†;K†] on B(2,2) and ker[K;E] on B(2,1), together with
+    their particle–hole mirrors ker[K;E] on B(3,3) and ker[E†;K†] on B(3,4). These failures occur in both models and
+    are unexplained; they are absent at N = 4, 6 and 7;
+  - the tower excess occurs at N = 6 in the central sectors (3,3) and (4,4), and at N = 7 in every diagonal sector
+    (n,n), n = 1–7, where the generic count is 0;
+  - in the generic model there is never an excess, and its arithmetic walls coincide with the symmetrized ones (N = 7:
+    (1,0) 8, (2,0) 13, (2,1) 56, (3,1) 7, (3,2) 50 and mirrors, in both models).
+- **The monotone/fortuitous statement at the level of bare states.** All bare fortuitous states are arithmetic walls,
+  determined by dimension counting and the same in both models. The tower is the only bare state that the counting does
+  not produce.
+
+### 6. CV's channel decoders: constrained rooms, two counting laws, and the tower [derived rooms; num laws]
+- **Rooms** (from (S); the analogue of CV §7.1). im D_T lies in a room R_T inside the old sector (a,b):
+  - R₀₁ = ker Q₀;
+  - R₁₀ = ker Q₀†;
+  - R₀₀ = B(a,b) ⊕ Q₀⁺K(ker Q₀|_{(a,b−1)}) ⊕ (Q₀†)⁺E†(ker Q₀†|_{(a−1,b)});
+  - R₁₁ = B(a,b) ⊕ Q₀⁺E(ker Q₀|_{(a+1,b)}) ⊕ (Q₀†)⁺K†(ker Q₀†|_{(a,b+1)}).
+- **Two laws [num].**
+  - (L1) rk D_T = min(d_new, R_T), where d_new = dim B_{N+1} of the target sector.
+  - (L2) dim(B ∩ im D_T) = max(0, b + rk D_T − R_T).
+  - Both hold with 0 failures in 1476 (sector, channel, seed) records (symmetrized) and 868 (generic) at N = 2–7.
+- **Corollaries.**
+  - (C1) U_T(fortuitous) = 1 ⟺ d_new ≥ R_T, including diagonal sectors, where the tower lies in im D₀₀ and im D₁₁.
+  - (C2) U_T = 0 ⟺ (b − rk D_T) > 0 [protected channels 00 and 11 on the diagonal], resp. (f − rk D_T) > 0 [otherwise].
+    Here f is the fortuitous dimension.
+  - (C3) The value is intermediate otherwise.
+- **Reproduction of CV Fig. 6 [num].**
+  - The 0/1 pattern and the intermediate cells are reproduced for every column of CV's figure, N = 2→3 through 7→8
+    (five seeds for N ≤ 6, two at N = 7). Intermediate values agree within realization scatter, e.g. (1,2)/00 at 3→4
+    is 0.30 here vs 0.45 in CV, and (3,4)/00 at 7→8 is 0.17 vs 0.13.
+  - The predicted category (1, (0,1) or 0) matches every symmetrized cell.
+  - The generic model has one exception, at N = 5: (2,2)/01 and its mirror (3,3)/10. There B ∩ (im D)^⊥ has one more
+    dimension than generic, in both models; this is another N = 5 coincidence, distinct from the sub-kernel one.
+  - CV's qualitative pattern (00 fails for χ-heavy sectors, which lift through +ψ) is the inequality d_new ≥ R_T
+    sector by sector.
+  - Particle–hole symmetry pairs (a,b; 00) with (N−a, N−b; 11). Equal intermediate values in CV's own Fig. 6 (e.g.
+    0.45/0.45, 0.65/0.65, 0.11/0.11) are this symmetry acting realization by realization, as here.
+- **The tower in CV's channels.**
+  - The tower lies in A₀₀ and A₁₁ for all N: it is not in generic position. Yet dim A_T still equals the generic count
+    (the tower is one of its directions).
+  - In the single-mode channels 10 and 01, the tower behaves like any other vector (CV Fig. 7).
+- **Tower dressing costs [num law + derived corollary].**
+  - κ_T(tower) attains CV's bound (eqs. 87, 88) exactly iff ker D_T = 0, i.e. iff the canonical completion (85) is the
+    minimum-norm uplift: 0 failures in 255 (n, channel, seed) records at N = 2–7.
+  - With (L1) this becomes κ₀₀ = n/(N+1−n) ⟺ d_new(n,n) ≤ R₀₀(n,n).
+  - Together with (C1): **the tower's 00 cost locks onto CV's bound exactly when the 00 channel stops lifting every
+    fortuitous state of the sector** (both at d_new = R₀₀ when equality holds).
+  - This explains CV's observation that the cost "rises onto [the bound] only once N ≳ n+3": n = 1 from N = 4,
+    n = 2 from N = 6, n = 3 from N = 7 (n = 4 still below at N = 7).
+  - Sector (3,3) shows both halves: at N = 6→7 the cost is below the bound and U₀₀ = 1; at N = 7→8 the cost is on
+    the bound and U₀₀ = 0.84.
+
+### 7. First order: slot currents as time-integrated two-point functions [derived; num]
+- **First-order dressing.** Replace Ψ_T by its harmonic source h_T on the right of (S). The six non-harmonic pieces are:
+  - z₁₀ = Q₀⁺J₁₀(h) and x₀₁ = (Q₀†)⁺J₀₁(h);
+  - z₀₀ = −Q₀⁺Kh₀₁ and x₀₀ = −(Q₀†)⁺E†h₁₀;
+  - z₁₁ = −Q₀⁺Eh₀₁ and x₁₁ = (Q₀†)⁺K†h₁₀.
+
+  κ⁽¹⁾ is the sum of their squared norms over ‖h‖². The first-order bare fraction is 1/(1+κ⁽¹⁾), as a generalized
+  eigenproblem on the admissible sources.
+- **Single-slot sources** (test: equal to the slot-diagonal-pseudo-inverse construction to 1e−8):
+  $$\sigma^2_{00}=\langle E^\dagger G E\rangle+\langle K G K^\dagger\rangle,\quad
+    \sigma^2_{11}=\langle K^\dagger G K\rangle+\langle E G E^\dagger\rangle,$$
+  $$\sigma^2_{01}=\langle K^\dagger G K\rangle+\langle E^\dagger G E\rangle+\langle Z^\dagger G Z\rangle,\quad
+    \sigma^2_{10}=\langle E G E^\dagger\rangle+\langle K G K^\dagger\rangle+\langle Z G Z^\dagger\rangle .$$
+  - Each is a zero-temperature, Euclidean-time-integrated two-point function of a matter operator in the old model:
+    flavor conversion ψ†χ (E), ψ-pair creation (K), or single ψ creation (Z).
+  - G acts on (co)exact forms. For Z-terms, if J₁₀ is not closed the pseudo-inverse projects first.
+- **Multi-slot sources interfere.** They share the currents J₁₀ and J₀₁, so κ⁽¹⁾ contains cross terms such as
+  −2 Re⟨Eh₀₀, G Kh₁₁⟩ — mixed two-point functions of different matter operators.
+- **The tower is the exactly dark state of this quadratic form.** J₁₀ = J₀₁ = 0 identically, while the incoherent
+  (single-slot) sum is not small: 0.07–6.9 at N = 5 (seeds 1–5) and 0.07–1.8 at N = 6 (seeds 1–3).
+  - The spread between realizations follows the old model's gap, which is as small as 0.03 at N = 5.
+  - One exploratory realization with gap 0.0067 gave 60; it is not part of the production set.
+- **[num] Accuracy.** First order reproduces the exact bare-fraction distribution. Sector means (sectors with ≥ 50
+  states) agree to within 4.2 % at N = 5–6 and within 6.2 % at N = 7 (seed 1); first order is usually lower, e.g.
+  N = 6 (3,3): 0.7014 vs 0.7322 and N = 7 (4,4): 0.6713 vs 0.7150. Walls coincide in every sector. That they must is
+  clear for exact walls (κ⁽¹⁾ = 0); the converse is observed, not proved.
+- **[num] Fortuitous states interfere too.** In the eigenbasis of the exact bare fraction, the median of
+  (κ⁽¹⁾ − incoherent)/incoherent is −0.03 to −0.69 across sectors at N = 5–6 (seeds 1–5) and +0.00 to −0.81 at N = 7.
+  - The ratio decreases with μ, from about +1 (constructive) for the most dressed states to −1 as μ → 1. At N = 7 a
+    second, more destructive branch appears at small μ.
+  - Near-complete cancellation is common among near-bare states.
+  - **Correction of a working hypothesis:** "monotone = coherent, fortuitous = incoherent" is false. The tower is
+    distinguished by *exact* cancellation at every N (an identity), not by the presence of interference.
+  - Near-bare fortuitous states are tied to the hard edge of the bare map (§5), where bare_gen is close to
+    threshold. The fraction with 0.99 < μ < 1 in the central sectors is 0.003 (N = 4), 0.07–0.08 (N = 5), 0.16 (N = 6:
+    336 unknowns vs 339 constraints in (3,3), nearly square) and 0.065 (N = 7: 1092 vs 1428 in (4,4)). It peaks where
+    the bare map is square. Partial N = 7 quantiles were seen before this was written, so it is a consistency check,
+    not a blind test.
+
+### 8. Monotone vs fortuitous: what the uplift distinguishes [summary]
+| | tower (monotone) | fortuitous |
+|---|---|---|
+| Hodge dressing | 0 at every N (bare) | > 0, except arithmetic walls (peripheral sectors at N ≥ 7) |
+| mechanism | J₁₀ = J₀₁ = 0 via [E,V] = K (V Ward identity) | partial interference |
+| slot content | 00 and 11 only, weights (N+1−n)/(N+1), n/(N+1) | all admissible slots |
+| bare count | the only excess over the generic count | equal to the generic count; same in the generic model |
+| CV channels 00, 11 | always exact (non-generic position) | exact iff d_new ≥ R_T (generic position) |
+| CV κ₀₀ | = n/(N+1−n) iff d_new ≤ R₀₀ | broad, growing (CV Fig. 8) |
+| first-order dressing form | exactly dark | O(1), heavy-tailed |
+
+### Status
+- **Exact:**
+  - §1: the block form, the identities and the slot equations;
+  - Theorem A, with its proof, splitting and minimum-norm uplift (§2);
+  - the two-step dimension formula (§3);
+  - the tower's protection, bareness and slot weights (§4);
+  - the bare-map equations and the rooms (§§5–6);
+  - the first-order formulas (§7).
+- **Numerical laws** (N = 2–6 with 5 seeds, N = 7 with 1–2 seeds; generic control at all N):
+  - four-slot injectivity (holds, but the smallest bare fraction reaches 1.8e−6 at N = 7);
+  - d₂ ≠ 0 in exactly four sectors per N, with maximal rank;
+  - the room laws L1 and L2, and the tower-cost criterion;
+  - bare = generic count + tower;
+  - BPS dimensions are coupling-independent;
+  - first order within 4–6 % for sector means.
+- **Unexplained:** the one-dimensional coincidences at N = 5 in the near-central sectors (2,1), (2,2), (3,3), (3,4) — two
+  particle–hole pairs — in both models.
+- **Open:**
+  - a proof of four-slot injectivity;
+  - a closed form for d₂;
+  - the CV slot decoders in closed form (the analogue of D6 §5's pencil);
+  - the chord computation of the two-point functions of E, K, Z and of their interference (Stage 2).

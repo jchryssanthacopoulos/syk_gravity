@@ -1,0 +1,8 @@
+memwatch: pid 32278 cap 5.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_flavor_uplift.py --N 7 --seeds 2 --model sym --tasks cv bare tower e2
+N=7->8: largest new sector 4900, estimated peak 2.60 GB
+N=7 seed=2 cv: 22 records [1155s]
+N=7 seed=2 bare: 25 records [102s]
+N=7 seed=2 tower: 15 records [293s]
+N=7 seed=2 e2: 81 records [1s]
+N=7 seed=2 done [1550s]
+memwatch: done rc=0 peak 3.65 GB (cap 5.0) in 1551s

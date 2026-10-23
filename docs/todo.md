@@ -1,6 +1,6 @@
 # To-do
 
-*Last revised 2026-10-12 (D6 uplift/localization); earlier 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## A. Environment & reproducibility (P0)
@@ -87,6 +87,15 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
   - the odd-N′ residual of H (−0.001, −0.003, −0.004 at N′ = 11, 13, 15): first-order N′ = 17 (old model N = 16; cheap)
     plus one exact N′ = 17 point if memory allows;
   - the deterministic atom excess over the refined bound (+1, +2, +14, +28 at N′ = 11–14).
+- [x] **Q12 Stage 1, 2026-10-23:** exact two-flavor pair uplift (D8; report `research/pdfs/progress_2026-10-23.pdf`;
+      data `results/data/two_flavor_2026-10-23/`).
+- [ ] **Q12 / D8 follow-ups:**
+  - **Stage 2 (P1):** chord computation of the E (ψ†χ), K (ψ†ψ†), Z (ψ†) two-point functions and their interference;
+    first check the literature for two-flavor N=2 chord rules;
+  - proofs: four-slot injectivity; the room laws L1/L2 (generic position in the refined rooms); closed form of d₂;
+  - the N = 5 coincidences (three one-dimensional excesses in near-central sectors, both models);
+  - closed-form CV slot decoders (analogue of the D6 pencil); dressing-cost spectra κ_T of fortuitous states vs CV Fig. 8;
+  - N = 8 → 9 needs sparse/partial methods (largest sector 15876).
 - [ ] **Q11 follow-ups (P1):**
   - ~~analytic model of the localization term~~ → D6 §6 (semi-analytic: old-model first-order uplift);
   - ~~N′ = 15–16 for its large-N trend~~ → N′ = 15: L flat (D6 §6);
@@ -96,6 +105,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## F. Writing (P2)
 
+- [x] Progress report 2026-10-23 (`research/pdfs/progress_2026-10-23.pdf`, source `research/tex/progress_2026-10-23.tex`):
+      two-flavor uplift; obstruction theorem, protection identity, tower bare, CV Fig. 6 derived from counting laws,
+      bare-state count, first-order interfering two-point functions (D8).
 - [x] Progress report 2026-10-14 (`research/pdfs/progress_2026-10-14.pdf`, source `research/tex/progress_2026-10-14.tex`):
       the dressing spectrum from chords (closed-form BPS→continuum two-point function, ₂φ₁ time integral, free compound
       Poisson law, error budget, sum rule and BPS heterogeneity, pre-registered N′ = 17 test) (D7).

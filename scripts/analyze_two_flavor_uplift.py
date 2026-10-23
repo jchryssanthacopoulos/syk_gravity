@@ -188,7 +188,8 @@ def check_tower():
 # ------------------------------------------------------------------------------------------------ figures
 def fig_cv_fidelity(plt, cells, Ns):
     from matplotlib.patches import Rectangle
-    fig, axes = plt.subplots(1, 4, figsize=(14.5, 4.6), sharey=True)
+    fig, axes = plt.subplots(2, 2, figsize=(9.0, 10.2))
+    axes = axes.ravel()
     cmap = plt.get_cmap("RdYlGn")
     for ax, ch in zip(axes, CH):
         for i, (a, b) in enumerate(CV_ROWS):
@@ -203,22 +204,24 @@ def fig_cv_fidelity(plt, cells, Ns):
                 ok = len(c["pred"]) == 1 and c["pred"][0] == c["obs"]
                 sym = {"1": "■", "mid": "◩", "0": "□"}.get(c["pred"][0] if len(c["pred"]) == 1 else "", "?")
                 lab = f"{U:.2f}" if (U >= 0.005 or U < 1e-7) else "<.01"
-                ax.text(j, y + 0.18, lab, ha="center", va="center", fontsize=7)
-                ax.text(j, y - 0.25, sym if ok else "✗", ha="center", va="center", fontsize=6.5,
+                ax.text(j, y + 0.17, lab, ha="center", va="center", fontsize=8.5)
+                ax.text(j, y - 0.24, sym if ok else "✗", ha="center", va="center", fontsize=8,
                         color="k" if ok else "r")
         ax.set_xlim(-0.5, len(Ns) - 0.5)
         ax.set_ylim(-0.5, len(CV_ROWS) - 0.5)
         ax.set_xticks(range(len(Ns)))
-        ax.set_xticklabels([f"{N}→{N+1}" for N in Ns], fontsize=8)
-        ax.set_title(CH_LABEL[ch], fontsize=10)
-        ax.set_xlabel(r"$N\to N+1$")
+        ax.set_xticklabels([f"{N}→{N+1}" for N in Ns], fontsize=9)
+        ax.set_title(CH_LABEL[ch], fontsize=11)
+        ax.set_xlabel(r"$N\to N+1$", fontsize=10)
         for yy in (2.5, 7.5):
-            ax.axhline(yy, color="k", lw=0.6)
-    axes[0].set_yticks(range(len(CV_ROWS)))
-    axes[0].set_yticklabels([f"({a},{b})" for a, b in CV_ROWS[::-1]], fontsize=8)
-    axes[0].set_ylabel(r"old sector $(N_\psi, N_\chi)$: diagonal / $\chi$-heavy / $\psi$-heavy")
-    fig.suptitle(r"$U_T$ of the fortuitous subspace (CV eq. 89, min over seeds).  Prediction from the room count: "
-                 r"■ $U=1$ ($\mathrm{rk}\,D_T=R_T$), ◩ $0<U<1$, □ $U=0$; ✗ = disagreement", fontsize=9.5)
+            ax.axhline(yy, color="k", lw=0.8)
+        ax.set_yticks(range(len(CV_ROWS)))
+        ax.set_yticklabels([f"({a},{b})" for a, b in CV_ROWS[::-1]], fontsize=9)
+    for ax in axes[::2]:
+        ax.set_ylabel(r"old sector $(N_\psi,N_\chi)$:  diagonal | $\chi$-heavy | $\psi$-heavy", fontsize=9.5)
+    fig.suptitle(r"$U_T$ of the fortuitous subspace (CV eq. 89, min over seeds)" "\n"
+                 r"prediction from the room count: ■ $U=1$ ($\mathrm{rk}\,D_T=R_T$),  ◩ $0<U<1$,  □ $U=0$;  ✗ disagreement",
+                 fontsize=10.5)
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     return fig
 
