@@ -1,0 +1,277 @@
+"""Tests for the two-flavor model and its exact pair uplift (src/two_flavor.py, src/two_flavor_uplift.py; D8)."""
+import os
+import sys
+from math import factorial
+
+import numpy as np
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
+from two_flavor import TwoFlavor, random_generic_couplings, random_symmetric_couplings, vacuum_tower  # noqa: E402
+from two_flavor_uplift import CHANNELS, SLOTS, PairUplift  # noqa: E402
+
+
+def pair(N, seed, generic=False):
+    rng = np.random.default_rng(seed)
+    return PairUplift((random_generic_couplings if generic else random_symmetric_couplings)(N + 1, rng))
+
+
+def sectors(N):
+    return [(a, b) for a in range(N + 1) for b in range(N + 1)]
+
+
+def close(x, y, rel=0.0, abs_=0.0):
+    return abs(x - y) <= max(abs_, rel * abs(y))
+
+
+# ------------------------------------------------------------------------------------------------ the model
+def test_nilpotent():
+    rng = np.random.default_rng(1)
+    for generic in (False, True):
+        m = TwoFlavor((random_generic_couplings if generic else random_symmetric_couplings)(4, rng))
+        for a, b in sectors(4):
+            if m.dim(a, b) and m.dim(a + 2, b - 1) and m.dim(a + 4, b - 2):
+                assert np.abs((m.Q(a + 2, b - 1) @ m.Q(a, b)).toarray()).max() < 1e-12
+
+
+def test_V_commutes_only_when_symmetrized():
+    rng = np.random.default_rng(2)
+    for generic, expect in ((False, True), (True, False)):
+        m = TwoFlavor((random_generic_couplings if generic else random_symmetric_couplings)(4, rng))
+        worst = 0.0
+        for a, b in sectors(4):
+            if m.dim(a, b) and m.dim(a + 3, b) and m.dim(a + 2, b - 1) and m.dim(a + 1, b + 1):
+                comm = m.Q(a + 1, b + 1) @ m.V(a, b) - m.V(a + 2, b - 1) @ m.Q(a, b)
+                worst = max(worst, np.abs(comm.toarray()).max())
+        assert (worst < 1e-12) == expect
+
+
+def test_tower_is_bps_with_cv_norms():
+    rng = np.random.default_rng(3)
+    N = 5
+    m = TwoFlavor(random_symmetric_couplings(N, rng))
+    for n in range(N + 1):
+        t = vacuum_tower(m, n)
+        assert abs(np.linalg.norm(t) ** 2 - factorial(n) * factorial(N) / factorial(N - n)) < 1e-8 * np.linalg.norm(t) ** 2
+        assert close(np.linalg.norm(m.bps(n, n).conj().T @ t) ** 2, np.linalg.norm(t) ** 2, rel=1e-10)
+
+
+# ------------------------------------------------------------------------------------------------ block form and identities
+def test_block_form_of_new_supercharge():
+    """Q_new = Q0 + psi_e^dag E + K chi_f + psi_e^dag Z chi_f as an operator identity on the new Fock space."""
+    for generic in (False, True):
+        _block_form(generic)
+
+
+def _block_form(generic):
+    P = pair(3, 10, generic)
+    N, new = P.N, P.new
+    e, f = 2 * N, 2 * N + 1
+    # the old modes keep their bit positions in the new model (the new pair sits at bits 2N, 2N+1)
+    assert new.psi_pos[:N] == P.old.psi_pos and new.chi_pos[:N] == P.old.chi_pos
+    terms = list(new.Q_terms(sites=range(N)))
+    terms += [(c, [(e, True)] + ops) for c, ops in P._pair_terms("E")]
+    terms += [(c, ops + [(f, False)]) for c, ops in P._pair_terms("K")]
+    terms += [(c, [(e, True)] + ops + [(f, False)]) for c, ops in P._pair_terms("Z")]
+    for A in range(N + 2):
+        for B in range(N + 2):
+            if new.dim(A, B) and new.dim(A + 2, B - 1):
+                diff = new.op_block(terms, (A, B), (A + 2, B - 1)) - new.Q(A, B)
+                assert np.abs(diff.toarray()).max() < 1e-12
+
+
+def test_pair_operator_identities():
+    """[Q0,E] = 0, [Q0,K] = 0, [E,K] = {Q0,Z} (both models); [E,V] = K, [K,V] = 0 (symmetrized only)."""
+    for generic in (False, True):
+        _pair_identities(generic)
+
+
+def _pair_identities(generic):
+    P = pair(4, 11, generic)
+    old = P.old
+    worst = dict(QE=0, QK=0, EKZ=0, EV=0, KV=0)
+    for a, b in sectors(P.N):
+        if not P.old_dim(a, b):
+            continue
+        if P.old_dim(a + 3, b - 2):
+            worst["QE"] = max(worst["QE"], np.abs(P.old_Q(a + 1, b - 1) @ P.E(a, b) - P.E(a + 2, b - 1) @ P.old_Q(a, b)).max())
+        if P.old_dim(a + 4, b - 1):
+            worst["QK"] = max(worst["QK"], np.abs(P.old_Q(a + 2, b) @ P.K(a, b) - P.K(a + 2, b - 1) @ P.old_Q(a, b)).max())
+        if P.old_dim(a + 3, b - 1):                                   # (a,b) -> (a+3,b-1)
+            EK = P.E(a + 2, b) @ P.K(a, b) - P.K(a + 1, b - 1) @ P.E(a, b)
+            QZ = P.old_Q(a + 1, b) @ P.Z(a, b) + P.Z(a + 2, b - 1) @ P.old_Q(a, b)
+            worst["EKZ"] = max(worst["EKZ"], np.abs(EK - QZ).max())
+        if P.old_dim(a + 2, b):                                       # [E, V]: (a,b) -> (a+2,b)
+            EV = P.E(a + 1, b + 1) @ old.V(a, b).toarray() - old.V(a + 1, b - 1).toarray() @ P.E(a, b) \
+                if P.old_dim(a + 1, b + 1) and P.old_dim(a + 1, b - 1) else None
+            if EV is not None:
+                worst["EV"] = max(worst["EV"], np.abs(EV - P.K(a, b)).max())
+        if P.old_dim(a + 3, b + 1):
+            KV = P.K(a + 1, b + 1) @ old.V(a, b).toarray() - old.V(a + 2, b).toarray() @ P.K(a, b)
+            worst["KV"] = max(worst["KV"], np.abs(KV).max())
+    for k in ("QE", "QK", "EKZ", "KV"):
+        assert worst[k] < 1e-12, k
+    assert (worst["EV"] < 1e-12) == (not generic)
+
+
+# ------------------------------------------------------------------------------------------------ exact uplift
+def test_two_step_dimension_formula():
+    for N, generic in ((3, False), (4, False), (4, True)):
+        P = pair(N, 20 + N, generic)
+        for A in range(N + 2):
+            for B in range(N + 2):
+                r = P.two_step_dimensions(A, B)
+                assert r["M_pred"] == r["M"] and r["new_pred"] == r["new"], (A, B, r)
+
+
+def test_slot_equations():
+    """The eight slot equations (D8 eq. S, operator convention) hold on every new BPS state."""
+    for generic in (False, True):
+        _slot_equations(generic)
+
+
+def _slot_equations(generic):
+    P = pair(4, 30, generic)
+    worst = 0.0
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            X = P.new_B(A, B)
+            if X.size == 0 or X.shape[1] == 0:
+                continue
+            S = P.slot_components(A, B, X, operator_convention=True)
+            P00, P10, P01, P11 = S[(0, 0)], S[(1, 0)], S[(0, 1)], S[(1, 1)]
+
+            def op(f, *args):
+                return f(*args) if P.old_ok(*args[:2]) else None
+
+            eqs = []
+            Q0 = P.old_Q
+            # (Q00) Q0 P00 + K P01 = 0                    in old (A+2, B-1)
+            if P.old_dim(A + 2, B - 1):
+                eqs.append((Q0(A, B) @ P00 if P00.size else 0) + (P.K(A, B - 1) @ P01 if P01.size else 0))
+            # (Q10) E P00 - Q0 P10 + Z P01 - K P11 = 0     in old (A+1, B-1)
+            if P.old_dim(A + 1, B - 1):
+                eqs.append((P.E(A, B) @ P00 if P00.size else 0) - (Q0(A - 1, B) @ P10 if P10.size else 0)
+                           + (P.Z(A, B - 1) @ P01 if P01.size else 0) - (P.K(A - 1, B - 1) @ P11 if P11.size else 0))
+            # (Q11) Q0 P11 + E P01 = 0                    in old (A+1, B-2)
+            if P.old_dim(A + 1, B - 2):
+                eqs.append((Q0(A - 1, B - 1) @ P11 if P11.size else 0) + (P.E(A, B - 1) @ P01 if P01.size else 0))
+            # (D00) Q0^dag P00 + E^dag P10 = 0           in old (A-2, B+1)
+            if P.old_dim(A - 2, B + 1):
+                eqs.append((Q0(A - 2, B + 1).conj().T @ P00 if P00.size else 0)
+                           + (P.E(A - 2, B + 1).conj().T @ P10 if P10.size else 0))
+            # (D01) Q0^dag P01 = K^dag P00 + Z^dag P10 + E^dag P11   in old (A-2, B)
+            if P.old_dim(A - 2, B):
+                eqs.append((Q0(A - 2, B).conj().T @ P01 if P01.size else 0)
+                           - (P.K(A - 2, B).conj().T @ P00 if P00.size else 0)
+                           - (P.Z(A - 2, B).conj().T @ P10 if P10.size else 0)
+                           - (P.E(A - 2, B).conj().T @ P11 if P11.size else 0))
+            # (D11) Q0^dag P11 = K^dag P10                in old (A-3, B)
+            if P.old_dim(A - 3, B):
+                eqs.append((Q0(A - 3, B).conj().T @ P11 if P11.size else 0)
+                           - (P.K(A - 3, B).conj().T @ P10 if P10.size else 0))
+            for e in eqs:
+                if not np.isscalar(e):
+                    worst = max(worst, np.abs(e).max())
+    assert worst < 1e-10
+
+
+def test_four_slot_injectivity():
+    for generic in (False, True):
+        P = pair(4, 40, generic)
+        for A in range(P.N + 2):
+            for B in range(P.N + 2):
+                assert P.injectivity_deficit(A, B) == 0
+
+
+# ------------------------------------------------------------------------------------------------ the tower
+def test_tower_is_bare_with_exact_slot_weights():
+    P = pair(5, 50)
+    N = P.N
+    for n in range(N + 2):
+        w, bare = P.tower_slot_weights(n)
+        assert close(bare, 1.0, abs_=1e-10)
+        assert close(w["00"], (N + 1 - n) / (N + 1), abs_=1e-12)
+        assert close(w["11"], n / (N + 1), abs_=1e-12)
+        assert w["10"] < 1e-20 and w["01"] < 1e-20
+
+
+def test_tower_cost_attains_cv_bound_iff_kernel_trivial():
+    P = pair(5, 4005)
+    for n in range(1, P.N + 1):
+        for ch in ("00", "11"):
+            r = P.tower_cost(n, ch)
+            assert r["kappa"] <= r["bound"] + 1e-10
+            assert (abs(r["kappa"] - r["bound"]) < 1e-9 * max(1, r["bound"])) == (r["kerD"] == 0), r
+
+
+# ------------------------------------------------------------------------------------------------ arithmetic of exact lifts
+def test_room_count_predicts_exact_lift_loci():
+    """rk D_T = min(d_new, R_T) and dim(B cap im D_T) = max(0, b + rk D_T - R_T) [D8 sec. 6; numerical law]."""
+    for N in (3, 4):
+        _room_count(N)
+
+
+def _room_count(N):
+    P = pair(N, 60 + N)
+    for a, b in sectors(N):
+        rec = P.cv_channels(a, b)
+        if rec is None:
+            continue
+        for ch in CHANNELS:
+            c = rec[ch]
+            assert c["rkD"] == c["rk_pred"], (a, b, ch, c)
+            assert c["dimA"] == c["a_gen"], (a, b, ch, c)
+            if a == b and ch in ("00", "11"):
+                assert close(c["U_tow"], 1.0, abs_=1e-9)
+
+
+def test_bare_count_is_generic_count_plus_tower():
+    """N = 6 -> 7: bare states = generic count everywhere except the central diagonal sectors, where the tower is the
+    only bare state (generic count 0) [D8 sec. 5; numerical law]."""
+    for generic in (False, True):
+        P = pair(6, 11, generic)
+        for A in range(P.N + 2):
+            for B in range(P.N + 2):
+                if P.new_dim(A, B) == 0:
+                    continue
+                bare, gen = P.bare_count(A, B), P.bare_count_generic(A, B)["gen"]
+                expect = gen + (1 if (not generic and A == B and gen == 0 and 1 <= A <= P.N) else 0)
+                if A == B == 0 or A == B == P.N + 1:
+                    expect = gen
+                assert bare == expect, (generic, A, B, bare, gen)
+
+
+# ------------------------------------------------------------------------------------------------ first order
+def test_first_order_single_slot_is_two_point_function():
+    P = pair(4, 70)
+    rng = np.random.default_rng(0)
+    checked = 0
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            for T in SLOTS:
+                a, b = A - T[0], B - T[1]
+                if not P.old_ok(a, b) or P.b(a, b) == 0 or P.new_dim(A, B) == 0:
+                    continue
+                h = P.old_B(a, b) @ (rng.standard_normal(P.b(a, b)) + 1j * rng.standard_normal(P.b(a, b)))
+                d = P.first_order_dressing(A, B, P.embed_slot(A, B, T, h[:, None]))
+                assert close(np.linalg.norm(d) ** 2, P.single_slot_two_point(A, B, T, h), rel=1e-8, abs_=1e-12)
+                checked += 1
+    assert checked > 20
+
+
+def test_tower_is_dark_at_first_order():
+    P = pair(5, 80)
+    for n in range(1, P.N + 1):
+        t = P.tower_state(n, "new")
+        H, _ = P.harmonic_embedding(n, n)
+        s = H @ (H.conj().T @ t)
+        assert np.linalg.norm(P.first_order_dressing(n, n, s[:, None])) < 1e-10
+
+
+if __name__ == "__main__":
+    import time
+    for name, fn in list(globals().items()):
+        if name.startswith("test_") and callable(fn):
+            t0 = time.time()
+            fn()
+            print(f"ok  {name}  [{time.time() - t0:.1f}s]", flush=True)
