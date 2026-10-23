@@ -11,6 +11,7 @@ Tasks (any subset, one JSONL record per realization and sector):
   first   exact vs first-order bare-fraction spectrum; incoherent vs interference first-order dressing
                                                                                               [per new sector]
   tower   CV dressing costs kappa_00, kappa_11 of the tower vs CV's bounds (eqs. 87-88)       [per rung n]
+  e2      dims of the slot-complex cohomology (E2 page of the w-filtration), old-model data only [per new sector]
 
 Couplings: rng = default_rng(seed); C = random_symmetric_couplings(N+1, rng) (or random_generic_couplings with
 --model generic).  The old model is the restriction of the same couplings to the first N pairs.
@@ -98,6 +99,7 @@ def task_first(P, symmetrized):
     for A in range(P.N + 2):
         for B in range(P.N + 2):
             r = P.first_order(A, B)
+            P.clear_cache("fo")                     # per-sector pseudo-inverses are not reused
             if r is None:
                 continue
             me, m1, k1, ki = r["mu_exact"], r["mu_first"], r["kappa1"], r["kappa_inc"]
@@ -111,6 +113,17 @@ def task_first(P, symmetrized):
                        interference_over_incoherent_q=q(frac), interference_over_incoherent_mean=float(frac.mean()) if len(frac) else None,
                        mu_exact=me.tolist(), mu_first=m1.tolist(), interference_over_incoherent=frac.tolist())
             out.append(rec)
+    return out
+
+
+def task_e2(P):
+    out = []
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            if P.new_dim(A, B) == 0:
+                continue
+            e = P.slot_complex_E2(A, B)
+            out.append(dict(A=A, B=B, E2=list(e), E2_total=int(sum(e))))
     return out
 
 
@@ -130,7 +143,7 @@ def main():
     ap.add_argument("--seeds", type=int, nargs="+", default=[1])
     ap.add_argument("--model", choices=["sym", "generic"], default="sym")
     ap.add_argument("--tasks", nargs="+", default=["dims", "cv", "bare", "first", "tower"],
-                    choices=["dims", "cv", "bare", "first", "tower"])
+                    choices=["dims", "cv", "bare", "first", "tower", "e2"])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--tag", default="")
     ap.add_argument("--dry-run", action="store_true")
@@ -155,12 +168,15 @@ def main():
             for task in a.tasks:
                 t1 = time.time()
                 recs = dict(dims=lambda: task_dims(P), cv=lambda: task_cv(P, sym), bare=lambda: task_bare(P, sym),
-                            first=lambda: task_first(P, sym), tower=lambda: task_tower(P))[task]()
+                            first=lambda: task_first(P, sym), tower=lambda: task_tower(P),
+                            e2=lambda: task_e2(P))[task]()
                 path = os.path.join(a.out, f"{task}_N{N}_{a.model}{a.tag}.jsonl")
                 with open(path, "a") as fh:
                     for r in recs:
                         fh.write(json.dumps(dict(N=N, seed=seed, model=a.model, **r)) + "\n")
                 print(f"N={N} seed={seed} {task}: {len(recs)} records [{time.time() - t1:.0f}s]", flush=True)
+                if task == "dims":
+                    P.clear_cache("MB")                 # the intermediate model is only needed for the two-step check
             print(f"N={N} seed={seed} done [{time.time() - t0:.0f}s]", flush=True)
 
 

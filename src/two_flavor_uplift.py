@@ -97,6 +97,12 @@ class PairUplift:
             self._c[key] = fn()
         return self._c[key]
 
+    def clear_cache(self, *kinds):
+        """Drop cached objects whose key starts with one of `kinds` (e.g. 'MB', 'fo', 'nQ'); all if none given."""
+        for k in list(self._c):
+            if not kinds or k[0] in kinds:
+                del self._c[k]
+
     # ------------------------------------------------------------------ old model
     def old_ok(self, a, b):
         return 0 <= a <= self.N and 0 <= b <= self.N
@@ -338,6 +344,39 @@ class PairUplift:
             k2 += kdim(t.conj().T @ self._Kprime(A, B) @ gM, gM.shape[1]) if t.size and t.shape[1] else gM.shape[1]
         dM = self.M_B(A, B).shape[1] if self.M_B(A, B).size else 0
         return dict(M_pred=k1, M=dM, new_pred=k2, new=self.d_new(A, B))
+
+    # ------------------------------------------------------------------ the slot complex (E2 page of the w-filtration)
+    def _hblock(self, which, a, b, ta, tb):
+        """P_H(target) op P_H(source) in harmonic coordinates (old (a,b) -> old (ta,tb))."""
+        if not (self.old_ok(a, b) and self.old_ok(ta, tb)) or self.b(a, b) == 0 or self.b(ta, tb) == 0:
+            return np.zeros((self.b(ta, tb) if self.old_ok(ta, tb) else 0, self.b(a, b) if self.old_ok(a, b) else 0), complex)
+        return self.old_B(ta, tb).conj().T @ self.pair_op(which, a, b) @ self.old_B(a, b)
+
+    def slot_complex_E2(self, A, B):
+        """dims (w=-1, w=0, w=+1) of the cohomology of the slot complex at new sector (A, B):
+            H(01) --d1--> H(00) (+) H(11) --d1--> H(10),   d1 = ([K], [E]) and (h00, h11) -> [E] h00 - [K] h11,
+        built from old BPS states (E1 = old cohomology of each slot; w = t_psi - t_chi).  dim B_new = sum iff the
+        spectral sequence degenerates at E2; a nonzero d2 ~ [Z - E Q0^+ K + K Q0^+ E] removes classes (D8 sec. 3)."""
+        def bb(a, b):
+            return self.b(a, b) if self.old_ok(a, b) else 0
+
+        def rk(blocks, axis):
+            blocks = [x for x in blocks if x.size]
+            if not blocks:
+                return 0
+            return rank(np.vstack(blocks) if axis == 0 else np.hstack(blocks))
+        n_m1 = bb(A, B - 1)
+        e_m1 = n_m1 - (rk([self._hblock("K", A, B - 1, A + 2, B - 1), self._hblock("E", A, B - 1, A + 1, B - 2)], 0)
+                       if n_m1 else 0)
+        n0 = bb(A, B) + bb(A - 1, B - 1)
+        out0 = rk([self._hblock("E", A, B, A + 1, B - 1), -self._hblock("K", A - 1, B - 1, A + 1, B - 1)], 1) \
+            if (n0 and bb(A + 1, B - 1)) else 0
+        in0 = rk([self._hblock("K", A - 2, B, A, B), self._hblock("E", A - 2, B, A - 1, B - 1)], 0) \
+            if (n0 and bb(A - 2, B)) else 0
+        n1 = bb(A - 1, B)
+        in1 = rk([self._hblock("E", A - 2, B + 1, A - 1, B), -self._hblock("K", A - 3, B, A - 1, B)], 1) \
+            if (n1 and bb(A - 2, B + 1) + bb(A - 3, B)) else 0
+        return e_m1, n0 - out0 - in0, n1 - in1
 
     # ------------------------------------------------------------------ four-slot harmonic map
     def injectivity_deficit(self, A, B):
@@ -610,8 +649,9 @@ class PairUplift:
 
 # ---------------------------------------------------------------------------------------------------- utilities
 def memory_estimate_gb(N):
-    """Peak memory estimate for the full analysis at N -> N+1 (dense new sectors): ~6 dense copies of the largest new
-    sector plus the cached old blocks."""
+    """Peak memory estimate for the full analysis at N -> N+1 (dense new sectors): ~12 dense copies of the largest new
+    sector (Laplacian, eigenvectors, cached Q blocks and BPS bases of all sectors) plus the cached old blocks.
+    Measured: 3.7 GB at N = 7 (estimate 4.9 GB)."""
     Np = N + 1
     dmax = max(comb(Np, A) * comb(Np, B) for A in range(Np + 1) for B in range(Np + 1))
-    return dict(dmax=dmax, total=6 * dmax ** 2 * 16 / 1e9 + 0.3)
+    return dict(dmax=dmax, total=12 * dmax ** 2 * 16 / 1e9 + 0.3)

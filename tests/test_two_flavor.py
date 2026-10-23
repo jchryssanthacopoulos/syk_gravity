@@ -183,6 +183,79 @@ def test_four_slot_injectivity():
                 assert P.injectivity_deficit(A, B) == 0
 
 
+def test_slot_complex_E2_bounds_and_d2():
+    """dim B_new <= dim E2 (slot complex of old BPS data); equality fails exactly where d2 acts (N = 6: four sectors)."""
+    P = pair(6, 83)
+    strict = []
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            if P.new_dim(A, B) == 0:
+                continue
+            e2 = sum(P.slot_complex_E2(A, B))
+            assert P.d_new(A, B) <= e2
+            if P.d_new(A, B) < e2:
+                strict.append((A, B))
+    assert sorted(strict) == [(2, 3), (3, 5), (4, 2), (5, 4)], strict
+
+
+def test_theorem_A_explicit_step1():
+    """Theorem A for step 1 (psi_e, creation type), solved explicitly: admissible harmonic sources give a unique BPS state
+    of the intermediate model M; obstructed sources give none; B_M splits orthogonally into B_h (+) B_g."""
+    from two_flavor_uplift import nullspace, orth_complement, rank
+    for generic in (False, True):
+        P = pair(4, 90, generic)
+        rng = np.random.default_rng(5)
+        for A in range(P.N + 2):
+            for B in range(P.N + 1):
+                idxM = P._M_idx(A, B)
+                if len(idxM) == 0:
+                    continue
+                masks = P.new.sector(A, B)[idxM]
+                low = masks & (P.be - 1)
+                empty, filled = np.where((masks & P.be) == 0)[0], np.where((masks & P.be) != 0)[0]
+                d = len(masks)
+
+                def slot_basis(rows, a, b):
+                    Y = np.zeros((d, P.b(a, b) if P.old_ok(a, b) else 0), complex)
+                    if Y.shape[1]:
+                        Y[rows] = P.old_B(a, b)[np.searchsorted(P.old.sector(a, b), low[rows])]
+                    return Y
+                H0, H1 = slot_basis(empty, A, B), slot_basis(filled, A - 1, B)
+                L = [x for x in (P._QM(A, B), P._QM(A - 2, B + 1).conj().T) if x.size]
+                if not L:
+                    continue
+                L = np.vstack(L)
+                Nm = orth_complement(np.hstack([H0, H1]), d)
+                # admissible / obstructed sources (Theorem A (b))
+                tgt_h, tgt_g = P.old_B(A + 1, B - 1), P.old_B(A - 2, B + 1)
+                Mh = tgt_h.conj().T @ P.E(A, B) @ P.old_B(A, B) if (H0.shape[1] and tgt_h.size and tgt_h.shape[1]) else None
+                Mg = tgt_g.conj().T @ P.E(A - 2, B + 1).conj().T @ P.old_B(A - 1, B) if (H1.shape[1] and tgt_g.size and tgt_g.shape[1]) else None
+                kh = nullspace(Mh, H0.shape[1]) if Mh is not None else np.eye(H0.shape[1])
+                kg = nullspace(Mg, H1.shape[1]) if Mg is not None else np.eye(H1.shape[1])
+                if Nm.shape[1]:
+                    assert rank(L @ Nm) == Nm.shape[1]                       # uniqueness
+                for H, k in ((H0, kh), (H1, kg)):
+                    if H.shape[1] == 0:
+                        continue
+                    if k.shape[1]:                                           # admissible: solvable
+                        src = H @ (k @ rng.standard_normal(k.shape[1]))
+                        c, *_ = np.linalg.lstsq(L @ Nm, -L @ src, rcond=None)
+                        assert np.linalg.norm(L @ (src + Nm @ c)) < 1e-10 * max(1, np.linalg.norm(src))
+                    if k.shape[1] < H.shape[1]:                              # obstructed: no solution
+                        kc = orth_complement(k, H.shape[1])
+                        src = H @ (kc @ rng.standard_normal(kc.shape[1]))
+                        c, *_ = np.linalg.lstsq(L @ Nm, -L @ src, rcond=None)
+                        assert np.linalg.norm(L @ (src + Nm @ c)) > 1e-3 * np.linalg.norm(src)
+                # orthogonal splitting of B_M
+                X = P.M_B(A, B)
+                if X.size and X.shape[1] and H0.shape[1] and H1.shape[1]:
+                    Bh = X @ nullspace(H1.conj().T @ X, X.shape[1])
+                    Bg = X @ nullspace(H0.conj().T @ X, X.shape[1])
+                    assert Bh.shape[1] + Bg.shape[1] == X.shape[1]
+                    if Bh.shape[1] and Bg.shape[1]:
+                        assert np.abs(Bh.conj().T @ Bg).max() < 1e-10
+
+
 # ------------------------------------------------------------------------------------------------ the tower
 def test_tower_is_bare_with_exact_slot_weights():
     P = pair(5, 50)
