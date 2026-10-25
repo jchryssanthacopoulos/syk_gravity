@@ -877,6 +877,74 @@ class PairUplift:
             out["adjoint_resid"] = float(np.abs(r["Lp"] + r["L"].conj().T - r["C"]).max())
         return out
 
+    def cf_dressing_levels(self, A, B):
+        """Bare-fraction spectra at three levels of the closed form, on the exact admissible sources (D8 sec. 9.6):
+          first : sources at first order (Z instead of Zc, no self-energy terms), M -> 1, middle dressing from h only;
+          self  : exact sources, M -> 1 + A (+) A'  (self-energies kept, transfer L, L' and leak dropped);
+          exact : M u = sigma(h).
+        Also returns the relative mismatch between the exact quadratic form and |Psi|^2 (a consistency check)."""
+        Hadm, Psi, _ = self.cf_bps(A, B)
+        k = Hadm.shape[1]
+        if k == 0:
+            return None
+        secs, dims, off = self.cf_layout(A, B)
+        h01, h00, h11, h10 = (Hadm[off[i]:off[i + 1]] for i in range(4))
+        r = self.reduced_system(A, B)
+        Uz, Ux, M, nz, nx = r["Uz"], r["Ux"], r["M"], r["nz"], r["nx"]
+        SG, SpG = self.self_energies(A, B)
+        t10 = np.zeros((self._d(A + 1, B - 1), k), complex)
+        if t10.shape[0]:
+            if h00.size:
+                t10 += self.op("E", A, B) @ h00
+            if h11.size:
+                t10 -= self.op("K", A - 1, B - 1) @ h11
+        t10_1 = t10.copy()
+        if t10.shape[0] and h01.size:
+            t10 += self.Zc(A, B) @ h01
+            t10_1 += self.op("Z", A, B - 1) @ h01
+        t01 = np.zeros((self._d(A - 2, B), k), complex)
+        if t01.shape[0]:
+            if h00.size:
+                t01 += self.opd("K", A, B) @ h00
+            if h11.size:
+                t01 += self.opd("E", A - 1, B - 1) @ h11
+        t01_1 = t01.copy()
+        if t01.shape[0] and h10.size:
+            t01 += self.Zc(A - 2, B + 1).conj().T @ h10
+            t01_1 += self.opd("Z", A - 1, B) @ h10
+        z = lambda d: np.zeros((d, k), complex)
+        sz = Uz.conj().T @ self.Qp(A - 1, B) @ t10 - (Uz.conj().T @ SG @ h10 if h10.size else 0) if nz else z(0)
+        sx = Ux.conj().T @ self.Qdp(A, B - 1) @ t01 - (Ux.conj().T @ SpG @ h01 if h01.size else 0) if nx else z(0)
+        sz1 = Uz.conj().T @ self.Qp(A - 1, B) @ t10_1 if nz else z(0)
+        sx1 = Ux.conj().T @ self.Qdp(A, B - 1) @ t01_1 if nx else z(0)
+        sig, sig1 = np.vstack([sz, sx]), np.vstack([sz1, sx1])
+        u_ex = np.linalg.solve(M, sig) if M.size else sig
+        Dg = np.eye(nz + nx, dtype=complex)
+        if nz:
+            Dg[:nz, :nz] += r["A"]
+        if nx:
+            Dg[nz:, nz:] += r["Ap"]
+        u_self = np.linalg.solve(Dg, sig) if Dg.size else sig
+
+        def dressing(u, outer):
+            P10 = (h10 + (Uz @ u[:nz] if (outer and nz) else 0)) if h10.size else None
+            P01 = (h01 + (Ux @ u[nz:] if (outer and nx) else 0)) if h01.size else None
+            Dm = u.conj().T @ u
+            if P10 is not None:
+                Dm = Dm + P10.conj().T @ SG @ P10
+            if P01 is not None:
+                Dm = Dm + P01.conj().T @ SpG @ P01
+            return Dm
+        N0 = Hadm.conj().T @ Hadm
+        out = {}
+        for name, (u, outer) in (("first", (sig1, False)), ("self", (u_self, True)), ("exact", (u_ex, True))):
+            Gm = N0 + dressing(u, outer)
+            Li = np.linalg.inv(np.linalg.cholesky((Gm + Gm.conj().T) / 2))
+            out[name] = np.sort(np.linalg.eigvalsh(Li @ N0 @ Li.conj().T))
+        Gt = Psi.conj().T @ Psi
+        out["consistency"] = float(np.abs(N0 + dressing(u_ex, True) - Gt).max() / np.abs(Gt).max())
+        return out
+
     # ------------------------------------------------------------------ (IV) closed-form decoders
     def cf_decoders(self, A, B):
         """Bare-fraction spectrum and CV slot-decoder spectra from the closed-form pencil on the admissible sources:

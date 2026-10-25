@@ -15,6 +15,8 @@ Tasks (any subset, one JSONL record per realization and sector):
   closed  closed forms (D8 sec. 9): HPL dimension dim H(E1, d1 + d2); closed-form uplift Psi = (1+Kc)^{-1} h vs exact BPS
           states; reduced two-slot system (conditioning, leak, accretivity criterion); closed-form decoder pencils
                                                                                               [per new sector]
+  levels  bare-fraction spectra at first order, self-dressed (self-energies only) and exact (D8 sec. 9.6)
+                                                                                              [diagonal + (n+1,n) sectors]
 
 Couplings: rng = default_rng(seed); C = random_symmetric_couplings(N+1, rng) (or random_generic_couplings with
 --model generic).  The old model is the restriction of the same couplings to the first N pairs.
@@ -174,6 +176,21 @@ def task_closed(P):
     return out
 
 
+def task_levels(P):
+    out = []
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            if P.new_dim(A, B) == 0 or not (A == B or A == B + 1):
+                continue
+            r = P.cf_dressing_levels(A, B)
+            if r is None or len(r["exact"]) < 8:
+                continue
+            out.append(dict(A=A, B=B, d_new=len(r["exact"]), mu_first=float(np.mean(r["first"])),
+                            mu_self=float(np.mean(r["self"])), mu_exact=float(np.mean(r["exact"])),
+                            consistency=r["consistency"]))
+    return out
+
+
 def task_tower(P):
     out = []
     for n in range(0, P.N + 1):
@@ -190,7 +207,7 @@ def main():
     ap.add_argument("--seeds", type=int, nargs="+", default=[1])
     ap.add_argument("--model", choices=["sym", "generic"], default="sym")
     ap.add_argument("--tasks", nargs="+", default=["dims", "cv", "bare", "first", "tower"],
-                    choices=["dims", "cv", "bare", "first", "tower", "e2", "closed"])
+                    choices=["dims", "cv", "bare", "first", "tower", "e2", "closed", "levels"])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--tag", default="")
     ap.add_argument("--dry-run", action="store_true")
@@ -216,7 +233,8 @@ def main():
                 t1 = time.time()
                 recs = dict(dims=lambda: task_dims(P), cv=lambda: task_cv(P, sym), bare=lambda: task_bare(P, sym),
                             first=lambda: task_first(P, sym), tower=lambda: task_tower(P),
-                            e2=lambda: task_e2(P), closed=lambda: task_closed(P))[task]()
+                            e2=lambda: task_e2(P), closed=lambda: task_closed(P),
+                            levels=lambda: task_levels(P))[task]()
                 path = os.path.join(a.out, f"{task}_N{N}_{a.model}{a.tag}.jsonl")
                 with open(path, "a") as fh:
                     for r in recs:

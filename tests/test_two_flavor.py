@@ -421,6 +421,18 @@ def test_closed_form_decoders_match_exact():
                         assert np.abs(r["lam"][key] - ex).max() < 1e-9
 
 
+
+def test_dressing_levels_consistency():
+    """The closed-form dressing quadratic form equals |Psi|^2 - |h|^2; self-dressing moves the mean bare fraction
+    from first order towards the exact value (central sector, N = 5)."""
+    P = pair(5, 240)
+    r = P.cf_dressing_levels(3, 3)
+    assert r["consistency"] < 1e-10
+    assert np.abs(r["exact"] - np.sort(P.bare_fraction_spectrum(3, 3))).max() < 1e-9
+    mf, ms, me = np.mean(r["first"]), np.mean(r["self"]), np.mean(r["exact"])
+    assert mf < ms <= me + 1e-12
+
+
 if __name__ == "__main__":
     import time
     for name, fn in list(globals().items()):
