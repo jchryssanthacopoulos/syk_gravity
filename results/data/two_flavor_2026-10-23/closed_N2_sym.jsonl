@@ -1,0 +1,80 @@
+{"N": 2, "seed": 1, "model": "sym", "A": 0, "B": 0, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 1, "model": "sym", "A": 0, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 0, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 0, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 1, "B": 0, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 1, "model": "sym", "A": 1, "B": 1, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 3.264179663399267e-16, "bps_residual": 5.225053244463597e-16, "decoder_bare_err": 1.3322676295501878e-15, "decoder_cv_err": 9.992007221626409e-16, "mu_min": 0.265997531836085, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [4, 1]}
+{"N": 2, "seed": 1, "model": "sym", "A": 1, "B": 2, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 2.6682258469654704e-16, "bps_residual": 4.926807679827063e-16, "decoder_bare_err": 1.3322676295501878e-15, "decoder_cv_err": 1.1102230246251565e-15, "mu_min": 0.29002110486473476, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [2, 1]}
+{"N": 2, "seed": 1, "model": "sym", "A": 1, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 2, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 2, "B": 1, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 3.4519689566663833e-16, "bps_residual": 5.6794862503778835e-16, "decoder_bare_err": 5.551115123125783e-16, "decoder_cv_err": 8.881784197001252e-16, "mu_min": 0.2900211048647344, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 2]}
+{"N": 2, "seed": 1, "model": "sym", "A": 2, "B": 2, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 1.8814053802982752e-16, "bps_residual": 1.0636666794678327e-16, "decoder_bare_err": 8.881784197001252e-16, "decoder_cv_err": 1.6653345369377348e-15, "mu_min": 0.26599753183608477, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 4]}
+{"N": 2, "seed": 1, "model": "sym", "A": 2, "B": 3, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 1, "model": "sym", "A": 3, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 3, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 3, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 1, "model": "sym", "A": 3, "B": 3, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 2, "model": "sym", "A": 0, "B": 0, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 2, "model": "sym", "A": 0, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 0, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 0, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 1, "B": 0, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 2, "model": "sym", "A": 1, "B": 1, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 2.1173916050130434e-16, "bps_residual": 1.8341141923583554e-16, "decoder_bare_err": 6.661338147750939e-16, "decoder_cv_err": 6.661338147750939e-16, "mu_min": 0.17951734753642345, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [4, 1]}
+{"N": 2, "seed": 2, "model": "sym", "A": 1, "B": 2, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 5.24388380937493e-16, "bps_residual": 6.03323345280584e-16, "decoder_bare_err": 6.661338147750939e-16, "decoder_cv_err": 1.7763568394002505e-15, "mu_min": 0.18231908292314444, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [2, 1]}
+{"N": 2, "seed": 2, "model": "sym", "A": 1, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 2, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 2, "B": 1, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 3.0553466144787827e-16, "bps_residual": 5.352047190403279e-16, "decoder_bare_err": 1.1102230246251565e-15, "decoder_cv_err": 1.6653345369377348e-15, "mu_min": 0.1823190829231454, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 2]}
+{"N": 2, "seed": 2, "model": "sym", "A": 2, "B": 2, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 2.922172460846025e-16, "bps_residual": 4.3610113191377155e-16, "decoder_bare_err": 5.551115123125783e-16, "decoder_cv_err": 1.3322676295501878e-15, "mu_min": 0.17951734753642323, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 4]}
+{"N": 2, "seed": 2, "model": "sym", "A": 2, "B": 3, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 2, "model": "sym", "A": 3, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 3, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 3, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 2, "model": "sym", "A": 3, "B": 3, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 3, "model": "sym", "A": 0, "B": 0, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 3, "model": "sym", "A": 0, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 0, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 0, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 1, "B": 0, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 3, "model": "sym", "A": 1, "B": 1, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 2.867762090011397e-16, "bps_residual": 1.5755822519252743e-16, "decoder_bare_err": 1.5543122344752192e-15, "decoder_cv_err": 1.1102230246251565e-15, "mu_min": 0.6890972528759975, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [4, 1]}
+{"N": 2, "seed": 3, "model": "sym", "A": 1, "B": 2, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 4.004600784396937e-16, "bps_residual": 3.5688535439170503e-16, "decoder_bare_err": 4.440892098500626e-16, "decoder_cv_err": 8.881784197001252e-16, "mu_min": 0.7261425803416819, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [2, 1]}
+{"N": 2, "seed": 3, "model": "sym", "A": 1, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 2, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 2, "B": 1, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 1.3213158427708658e-16, "bps_residual": 4.2683692724483205e-16, "decoder_bare_err": 1.1102230246251565e-15, "decoder_cv_err": 9.992007221626409e-16, "mu_min": 0.7261425803416817, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 2]}
+{"N": 2, "seed": 3, "model": "sym", "A": 2, "B": 2, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 1.2814260652261827e-16, "bps_residual": 2.2431731238814263e-16, "decoder_bare_err": 1.2212453270876722e-15, "decoder_cv_err": 8.881784197001252e-16, "mu_min": 0.6890972528759977, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 4]}
+{"N": 2, "seed": 3, "model": "sym", "A": 2, "B": 3, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 3, "model": "sym", "A": 3, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 3, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 3, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 3, "model": "sym", "A": 3, "B": 3, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 4, "model": "sym", "A": 0, "B": 0, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 4, "model": "sym", "A": 0, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 0, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 0, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 1, "B": 0, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 4, "model": "sym", "A": 1, "B": 1, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 3.0269242582452265e-16, "bps_residual": 7.138028748423932e-16, "decoder_bare_err": 5.828670879282072e-16, "decoder_cv_err": 6.661338147750939e-16, "mu_min": 0.13521181224757883, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [4, 1]}
+{"N": 2, "seed": 4, "model": "sym", "A": 1, "B": 2, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 4.835712249873366e-16, "bps_residual": 7.271947634919186e-16, "decoder_bare_err": 3.3306690738754696e-16, "decoder_cv_err": 5.551115123125783e-16, "mu_min": 0.16210759689940937, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [2, 1]}
+{"N": 2, "seed": 4, "model": "sym", "A": 1, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 2, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 2, "B": 1, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 3.7676345293154833e-16, "bps_residual": 1.0407923481512748e-15, "decoder_bare_err": 1.1102230246251565e-15, "decoder_cv_err": 6.661338147750939e-16, "mu_min": 0.16210759689940946, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 2]}
+{"N": 2, "seed": 4, "model": "sym", "A": 2, "B": 2, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 1.6256967152053505e-16, "bps_residual": 3.911846324954832e-16, "decoder_bare_err": 1.9984014443252818e-15, "decoder_cv_err": 1.1102230246251565e-15, "mu_min": 0.13521181224757828, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 4]}
+{"N": 2, "seed": 4, "model": "sym", "A": 2, "B": 3, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 4, "model": "sym", "A": 3, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 3, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 3, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 4, "model": "sym", "A": 3, "B": 3, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 5, "model": "sym", "A": 0, "B": 0, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 5, "model": "sym", "A": 0, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 0, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 0, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 1, "B": 0, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 5, "model": "sym", "A": 1, "B": 1, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 1.1338951032217182e-16, "bps_residual": 1.0504950392562199e-16, "decoder_bare_err": 6.661338147750939e-16, "decoder_cv_err": 5.551115123125783e-16, "mu_min": 0.38290787463491727, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [4, 1]}
+{"N": 2, "seed": 5, "model": "sym", "A": 1, "B": 2, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 2.1923500900771748e-16, "bps_residual": 2.7335245129758813e-16, "decoder_bare_err": 8.881784197001252e-16, "decoder_cv_err": 8.881784197001252e-16, "mu_min": 0.3906050299131889, "nz": 1, "nx": 0, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [2, 1]}
+{"N": 2, "seed": 5, "model": "sym", "A": 1, "B": 3, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 2, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 2, "B": 1, "d_new": 6, "hpl_dim": 6, "adm_dim": 6, "reconstruction_err": 2.5876378666775475e-16, "bps_residual": 3.346542923940558e-16, "decoder_bare_err": 8.881784197001252e-16, "decoder_cv_err": 9.992007221626409e-16, "mu_min": 0.3906050299131889, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 2]}
+{"N": 2, "seed": 5, "model": "sym", "A": 2, "B": 2, "d_new": 8, "hpl_dim": 8, "adm_dim": 8, "reconstruction_err": 1.9595657830908622e-16, "bps_residual": 1.9971821768305877e-16, "decoder_bare_err": 1.3322676295501878e-15, "decoder_cv_err": 9.992007221626409e-16, "mu_min": 0.3829078746349174, "nz": 0, "nx": 1, "sigma_min_M": 1.0, "herm_min": 1.0, "leak_norm": 0.0, "accretive_bound": 1.0, "b_mid": [1, 4]}
+{"N": 2, "seed": 5, "model": "sym", "A": 2, "B": 3, "d_new": 3, "hpl_dim": 3, "adm_dim": 3, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}
+{"N": 2, "seed": 5, "model": "sym", "A": 3, "B": 0, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 3, "B": 1, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 3, "B": 2, "d_new": 0, "hpl_dim": 0, "adm_dim": 0}
+{"N": 2, "seed": 5, "model": "sym", "A": 3, "B": 3, "d_new": 1, "hpl_dim": 1, "adm_dim": 1, "reconstruction_err": 0.0, "decoder_bare_err": 0.0, "decoder_cv_err": 0.0, "mu_min": 1.0}

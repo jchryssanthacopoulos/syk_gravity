@@ -1,0 +1,23 @@
+{
+ "model": "sym",
+ "N": 4,
+ "seed": 1,
+ "sector": [
+  2,
+  2
+ ],
+ "scalings": [
+  7.280109582869688,
+  12.304459004440577
+ ],
+ "grid_best_sigma_min": 0.005571442873479405,
+ "sigma_min_M": 1.6209213799519974e-16,
+ "d_new": 65,
+ "hpl_dim": 65,
+ "d_new_unscaled": 65,
+ "min_bare_fraction": -6.607449911646628e-17,
+ "injectivity_deficit": 1,
+ "git": "813a905-dirty",
+ "seconds": 114.2,
+ "tower_bare_fraction": 0.9999999999999998
+}

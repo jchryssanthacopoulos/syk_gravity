@@ -1,0 +1,22 @@
+{
+ "args": {
+  "N": [
+   7
+  ],
+  "seeds": [
+   1
+  ],
+  "model": "sym",
+  "tasks": [
+   "closed"
+  ],
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/two_flavor_2026-10-23",
+  "tag": "",
+  "dry_run": false
+ },
+ "git": "813a905",
+ "started": "20261025T104010",
+ "memory_estimate_gb": {
+  "7": 4.90992
+ }
+}

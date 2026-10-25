@@ -64,3 +64,26 @@ which inflates first-order dressing costs by ~10×. It is not used anywhere in t
     distinguished by exact cancellation.
 - **Unexplained.** Three one-dimensional generic-position failures at N = 5 (near-central sectors, both models, all
   seeds). They are not tolerance artifacts: the old-model gaps are ≥ 0.03.
+
+## Revision 2026-10-25: closed forms (D8 §9; report §9)
+- **Runs** (code commit 813a905, under `scripts/memwatch.py`):
+  - `run_two_flavor_uplift.py --tasks closed` for symmetrized seeds 1–5 (N = 2–6), generic seeds 1–3 (N = 2–6), and seed 1
+    of each model at N = 7. Output: `closed_N*_{sym,generic}.jsonl`.
+  - `--tasks levels` (commit f586878), same seeds at N = 2–6. Output: `levels_N*.jsonl`.
+  - Peaks: 0.43 GB (N ≤ 6), 5.50 GB (N = 7).
+- **Pure-dressing counterexamples**: `scripts/find_pure_dressing_states.py`
+  - `--model generic --N 4 --seed 2 --sector 3 3`
+  - `--model sym --N 4 --seed 1 --sector 2 2`
+  - Output: `pure_dressing_*.json`.
+- **Exact results.**
+  - Cohomology = H(old BPS data, d₁ + d₂), with d₂ = P_H(Z − EQ₀⁺K + KQ₀⁺E)P_H (homological perturbation).
+  - BPS states = (1 + 𝒦)⁻¹h with explicit admissibility.
+  - Integrating out the middle slots gives Dyson equations whose self-energies are EGE† + KGK† and K†GK + E†GE, with a
+    leak through the middle cohomology.
+  - Uniqueness criterion ρ < 2.
+  - Slot weights and decoder pencils.
+- **Numerical results.**
+  - All closed-form checks pass to ≤ 7e−13, with zero dimension mismatches.
+  - Four-slot injectivity fails on a codimension-2 set of couplings (pure-dressing BPS states, both models). Earlier
+    statements that it "holds" are superseded: it is generic, not universal.
+- Scratch checks (not in the repo): `scratchpad/closed/cf1.py`–`cf5.py`, `gscan.py`, `g2scan*.py`.

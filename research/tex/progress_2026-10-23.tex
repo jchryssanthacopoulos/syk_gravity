@@ -30,6 +30,11 @@
 \newcommand{\psie}{\psi_e}
 \newcommand{\chif}{\chi_f}
 \newcommand{\Om}{|\Omega\rangle}
+\newcommand{\Zc}{\mathcal Z}
+\newcommand{\Kc}{\mathcal K}
+\newcommand{\Mb}{\mathbb M}
+\newcommand{\SG}{\mathcal S_G}
+\newcommand{\SGp}{\mathcal S'_G}
 
 % status tags (as in the previous reports)
 \definecolor{cest}{RGB}{30,90,160}
@@ -51,9 +56,9 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
-\title{\bf Monotone and fortuitous states in the two-flavor uplift\\[6pt]\large Progress report, 23 October 2026}
+\title{\bf Monotone and fortuitous states in the two-flavor uplift\\[6pt]\large Progress report, 23 October 2026 (revised 25 October: closed forms)}
 \author{\texttt{syk\_gravity} project\\[2pt]\small Drafted by Claude for J.~Chryssanthacopoulos; code at commit
-\texttt{d69dbb2} (branch \texttt{t4-fourarc})}
+\texttt{f586878} (branch \texttt{t4-fourarc})}
 \date{}
 
 \emergencystretch=2em
@@ -87,6 +92,14 @@ costs are Euclidean-time-integrated two-point functions of three matter operator
 $\psi^\dagger\psi^\dagger$ and $\psi^\dagger$, and these interfere between slots. Fortuitous states cancel partially; the
 tower cancels exactly. These two-point functions and their interference are what a chord computation of the distinction
 would have to produce.
+
+\smallskip\noindent\emph{Revision of 25 October.} The exact uplift is now given in closed form in old-model data.
+The homological perturbation lemma terminates, so the new cohomology is that of the old BPS data with
+$D=d_1+d_2$, where $d_2$ is the secondary operation $Z-EQ_0^+K+KQ_0^+E$. BPS states are $(1+\mathcal K)^{-1}h$ for
+explicitly admissible harmonic data $h$. Integrating out the two middle slots leaves Dyson-type equations whose
+self-energies are time-integrated two-point functions of $E$ and $K$, together with a leak through the middle-slot
+cohomology. A positivity criterion guarantees that BPS states are determined by their harmonic slot data. This fails at
+special couplings, where we exhibit pure-dressing BPS states with no old-BPS content at all; the tower stays bare there.
 \end{abstract}
 
 \tableofcontents
@@ -126,7 +139,7 @@ chords (``Stage~2'') is left for later. The main results are:
   connecting map need not vanish. We give the harmonic refinement of CV's long exact sequence: the explicit uplift map,
   the obstruction on harmonic sources, the orthogonal splitting and the canonical minimum-norm uplift. The pair uplift is
   two such steps (\S\ref{sec:pair}). A $d_2$ differential shows that it is \emph{not} computed by old cohomology plus the
-  first-order maps alone.
+  first-order maps alone. Section~\ref{sec:closed} gives $d_2$ in closed form.
 \item[(ii)] \textbf{The protection identity} (Proposition~\ref{prop:ward}). The enlarged supercharge is
   $Q_0+\psie^\dagger E+K\chif+\psie^\dagger Z\chif$. In the symmetrized model, $[E,V]=K$, a Ward identity of $V$.
 \item[(iii)] \textbf{The tower is bare} (Proposition~\ref{prop:tower}). The two slot currents that source all dressing
@@ -142,6 +155,17 @@ chords (``Stage~2'') is left for later. The main results are:
 \item[(vi)] \textbf{First order: interfering two-point functions} (\S\ref{sec:first}). The first-order dressing is a
   quadratic form in time-integrated two-point functions of $E$, $K$ and $Z$, with cross terms between slots. The tower is
   its exactly dark state. Fortuitous states interfere too, but never completely.
+\item[(vii)] \textbf{The exact uplift in closed form} (\S\ref{sec:closed}, added 25 October). The intermediate model
+  can be removed: everything is built from old-model data.
+  \begin{itemize}\itemsep1pt
+  \item \emph{Cohomology.} The perturbation lemma gives the new cohomology as that of the old BPS data with
+    $D=d_1+d_2$ (Theorem~\ref{thm:B}), where $d_2$ is the secondary operation $\Zc=Z-EQ_0^+K+KQ_0^+E$.
+  \item \emph{BPS states.} They are $(1+\Kc)^{-1}h$ with explicit admissibility (Theorem~\ref{thm:C}).
+  \item \emph{Reduced system.} Integrating out the middle slots leaves two Dyson equations whose self-energies are
+    time-integrated two-point functions, plus a leak through the middle cohomology (Proposition~\ref{prop:reduced}).
+  \item \emph{Uniqueness.} A criterion guarantees it, but four-slot injectivity fails at special couplings, where
+    pure-dressing BPS states appear (\S\ref{sec:unique}).
+  \end{itemize}
 \end{enumerate}
 
 \paragraph{Status of the claims.} \DER\ marks statements proved in the text, and \VER\ those also checked numerically to
@@ -158,7 +182,7 @@ Block form; $[E,K]=\{Q_0,Z\}$; slot equations & \VER & \S\ref{sec:setup}\\
 Protection identity $[E,V]=K$ (symmetrized couplings only) & \VER & Prop.~\ref{prop:ward}\\
 One mode with obstruction: uplift, splitting, minimum norm & \VER & Thm.~\ref{thm:A}\\
 Pair $=$ two obstructed steps; dimension formula & \VER & \S\ref{sec:pair}\\
-Injectivity of the four-slot harmonic map & \NUM & \S\ref{sec:pair}\\
+Injectivity of the four-slot harmonic map (generic; see \S\ref{sec:unique}) & \NUM & \S\ref{sec:pair}\\
 $d_2\ne0$: the slot complex overcounts in four sectors per $N$ & \NUM & \S\ref{sec:pair}\\
 Tower is bare, slot weights $(N+1-n)/(N+1)$, $n/(N+1)$ & \VER & Prop.~\ref{prop:tower}\\
 Bare states $=$ generic count $+$ tower & \NUM & \S\ref{sec:bare}\\
@@ -166,7 +190,14 @@ Rooms of CV's decoders & \DER & \S\ref{sec:rooms}\\
 Laws L1, L2 (rank and exact-lift locus); CV Fig.~6 reproduced and explained & \NUM & \S\ref{sec:cv}\\
 $\kappa_{00}(\text{tower})=n/(N+1-n)\iff\ker D_{00}=0\iff \dnew\le R_{00}$ & \NUM\ (+ L1) & \S\ref{sec:towercost}\\
 First-order dressing $=$ interfering two-point functions; tower exactly dark & \VER & \S\ref{sec:first}\\
-Fortuitous states interfere partially; first-order sector means within 4--6\,\% & \NUM & \S\ref{sec:first}\\\bottomrule
+Fortuitous states interfere partially; first-order sector means within 4--6\,\% & \NUM & \S\ref{sec:first}\\\midrule
+\multicolumn{3}{@{}l}{\emph{Added 25 October: closed forms}}\\
+Cohomology $=H(E_1,d_1+d_2)$, $d_2=\PH\Zc\PH$; dimension formula from old data & \VER & Thm.~\ref{thm:B}\\
+BPS states $=(1+\Kc)^{-1}h$, admissibility (a)--(c), slot weights, decoder pencils & \VER & Thm.~\ref{thm:C}, Prop.~\ref{prop:adm}\\
+Reduced system: self-energies $EGE^\dagger+KGK^\dagger$, transfer $\Zc$, factorized leak & \VER & Prop.~\ref{prop:reduced}\\
+Uniqueness criterion $\rho<2$ & \DER & Prop.~\ref{prop:unique}\\
+Four-slot injectivity fails at special couplings (pure-dressing states) & \NUM & Table~\ref{tab:pure}\\
+Self-energies alone recover $56$--$92\,\%$ of the first-order error in the bare fraction & \NUM & \S\ref{sec:closed}\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -412,9 +443,10 @@ at $N=2$--$7$ in either model, and every BPS state is reconstructed from its fou
 have no proof. The obstacle is that the old-harmonic part of $\Psi_{00}$ is $h_{00}+\PH E^\dagger d$, where $d$ comes
 from the $M$-coexact dressing of step~2, rather than the step-1 source $h_{00}$ itself. Injectivity is not
 robust, though. The smallest eigenvalue of the operator~\eqref{eq:G} below falls to $1.8\times10^{-6}$ (seed 1) and
-$5\times10^{-5}$ (generic) in sectors $(3,3)$ and $(5,5)$ at $N=7\to8$. There are BPS states that are almost pure
-dressing, and injectivity may fail at larger $N$. Injectivity makes the following operator positive definite on
-$\B_{N+1}$:
+$5\times10^{-5}$ (generic) in sectors $(3,3)$ and $(5,5)$ at $N=7\to8$. \emph{Update (\S\ref{sec:unique}):} this happens
+where the old model has a near-zero mode. Injectivity is generic, but it fails exactly on a codimension-two set of
+couplings, where pure-dressing BPS states exist. Where it holds, injectivity makes the following operator positive
+definite on $\B_{N+1}$:
 \begin{equation}\label{eq:G}
 \mathcal G=\sum_T S_T^\dagger\,\PH\,S_T\qquad(S_T:\ \text{slot-}T\text{ component}).
 \end{equation}
@@ -760,6 +792,223 @@ diagonal sectors. The tower (star) is exactly bare and exactly dark. \NUM}\label
 \end{figure}
 
 %=====================================================================
+\section{The exact uplift in closed form}\label{sec:closed}
+%=====================================================================
+
+\emph{Added 25 October.} Sections~\ref{sec:onemode}--\ref{sec:pair} solved the pair uplift through an intermediate model
+$M$, the old model plus $\psie$ alone, whose Hodge theory is not old-model data. This section removes $M$. Every object
+below is built from the old model's BPS bases, its pseudo-inverses $Q_0^+$, $(Q_0^\dagger)^+$, its Green's operator
+$G=H_0^+$, and the three couplings $E$, $K$, $Z$.
+
+\paragraph{Notation.}
+\begin{itemize}\itemsep2pt
+\item Slot vectors are ordered by $w$: $\Psi=(\Psi_{01},\Psi_{00},\Psi_{11},\Psi_{10})$.
+\item The new supercharge splits as $Q_{N+1}=Q_d+Q_c$. The slot-diagonal part is $Q_d=\mathrm{diag}(-Q_0,Q_0,Q_0,-Q_0)$.
+  The cross-slot part $Q_c$ carries the arrows of Fig.~\ref{fig:slots}.
+\item $\PH$ is the slotwise old harmonic projector, and $E_1=\bigoplus_T\B(\text{slot }T)$ is the old BPS data.
+\end{itemize}
+
+\subsection{Cohomology from old data: homological perturbation}
+
+The triple (inclusion of $E_1$, projection $\PH$, homotopy $h=-Q_d^+$) is a strong deformation retract of the slotwise
+complex. That is, $Q_dh+hQ_d=\iota\PH-1$ and $h^2=h\iota=\PH h=0$. The cross-slot part $Q_c$ raises $w$ while $h$
+preserves it, so $(hQ_c)^3=0$. The homological perturbation lemma therefore applies with \emph{finite} series.
+
+\begin{theorem}[Cohomology from old data]\label{thm:B}\VER\
+$H(Q_{N+1})\cong H(E_1,D)$, with the transferred differential $D=\PH Q_c(1+Q_d^+Q_c)^{-1}\PH$:
+\begin{equation}\label{eq:D}
+D\eta=\big(0,\ \PH K\eta_{01},\ \PH E\eta_{01},\ \PH(E\eta_{00}-K\eta_{11}+\Zc\eta_{01})\big),\qquad
+\Zc=Z-E\,Q_0^+K+K\,Q_0^+E .
+\end{equation}
+Hence $\dim\B_{N+1}(A,B)=\dim E_1(A,B)-\rk D_{(A,B)}-\rk D_{(A-2,B+1)}$.
+\end{theorem}
+\begin{proof}
+The perturbation lemma gives $D=\PH Q_c(1-hQ_c)^{-1}\iota$, and the series stops at second order. The $w{+}1$ part of
+$D$ is the slot complex $d_1$ of~\eqref{eq:slotcomplex}. The $w{+}2$ part is
+$d_2=\PH(Z-EQ_0^+K+KQ_0^+E)\PH=\PH\Zc\PH$, and there are no higher terms. As a consistency check, the only
+component of $D^2$ is $\PH(E\PH K-K\PH E)\PH=\PH[E,K]\PH=\PH\{Q_0,Z\}\PH=0$. The first equality uses the fact that
+$(1-\PH)K$ maps harmonic forms to exact ones and $E$ keeps them exact.
+\end{proof}
+
+\VER\ There are no mismatches in any sector record: 950 symmetrized and 570 generic at $N\le6$, and 81 of each model at
+$N=7$. The
+$d_2$ of Table~\ref{tab:d2} is therefore no longer an obstacle: the old BPS data together with $\Zc$ determine the
+enlarged BPS space exactly. $\Zc$ is a secondary, Massey-type operation. A bottom-slot class that $d_1$ annihilates
+reaches the top slot either directly through the single-$\psi$ coupling $Z$, or by zig-zags through the dressed middle
+slots, $EQ_0^+K$ and $KQ_0^+E$.
+
+\subsection{BPS states in closed form}
+
+\begin{theorem}[Closed-form BPS states]\label{thm:C}\VER\
+Let $\Kc=Q_d^+Q_c+(Q_d^\dagger)^+Q_c^\dagger$. A slot vector $\Psi$ is BPS if and only if
+\begin{equation}\label{eq:cf}
+(1+\Kc)\Psi=\PH\Psi\qquad\text{and}\qquad \PH Q_c\Psi=0=\PH Q_c^\dagger\Psi .
+\end{equation}
+If $1+\Kc$ is invertible, then $\B_{N+1}=\{(1+\Kc)^{-1}h:\ h\in\mathcal A\}$ with
+$\mathcal A=\ker\PH(Q_c\oplus Q_c^\dagger)(1+\Kc)^{-1}|_{E_1}$, and the four-slot harmonic map is injective.
+\end{theorem}
+\begin{proof}
+($\Rightarrow$) Write $\Psi=h+r$ slotwise. $Q_{N+1}\Psi=0$ gives $Q_dr=-Q_c\Psi$. So $Q_c\Psi$ is exact, and the
+coexact part of $r$ is $-Q_d^+Q_c\Psi$. Dually, the exact part of $r$ is $-(Q_d^\dagger)^+Q_c^\dagger\Psi$. Together
+these say $r=-\Kc\Psi$.
+
+($\Leftarrow$) From $(1+\Kc)\Psi=\PH\Psi$, $Q_{N+1}\Psi=(P_H+P_{\rm co})u$ with $u=Q_c\Psi$. Nilpotency gives
+$Q_du=-Q_c(P_H+P_{\rm co})u$. Since $Q_c$ raises $w$, the lowest-$w$ component of $u$ is $Q_d$-closed. Its coexact part
+therefore vanishes, and its harmonic part vanishes by assumption, so it is exact. Proceeding upward in $w$ shows
+$Q_{N+1}\Psi=0$. The adjoint condition follows by downward induction.
+\end{proof}
+
+The ten blocks of $\Kc$ are explicit, e.g.\ $(00\leftarrow01)=Q_0^+K$, $(10\leftarrow00)=-Q_0^+E$,
+$(01\leftarrow10)=-(Q_0^\dagger)^+Z^\dagger$. \VER\ At $N\le6$, in both models and all seeds:
+\begin{itemize}\itemsep1pt
+\item $(1+\Kc)^{-1}$ applied to the harmonic slot parts of each BPS state reconstructs it to $2\times10^{-13}$;
+\item $\dim\mathcal A=\dim\B_{N+1}$ in every sector;
+\item the closed-form states are BPS to $10^{-13}$.
+\end{itemize}
+
+\subsection{Integrating out the middle slots}
+
+The dressing of the middle slots is explicit in the outer components:
+$z_{00}=-Q_0^+K\Psi_{01}$, $x_{00}=-(Q_0^\dagger)^+E^\dagger\Psi_{10}$, $z_{11}=-Q_0^+E\Psi_{01}$ and
+$x_{11}=(Q_0^\dagger)^+K^\dagger\Psi_{10}$. Substituting these leaves two equations of Dyson type for the outer slots.
+
+\begin{proposition}[Reduced system]\label{prop:reduced}\VER\
+The outer components of a BPS state satisfy
+\begin{equation}\label{eq:dyson}
+P_{\rm Co}(1+\SG)\Psi_{10}=Q_0^+\big(Eh_{00}-Kh_{11}+\Zc\Psi_{01}\big),\qquad
+P_{\rm Ex}(1+\SGp)\Psi_{01}=(Q_0^\dagger)^+\big(K^\dagger h_{00}+E^\dagger h_{11}+\Zc'^\dagger\Psi_{10}\big),
+\end{equation}
+with the self-energies
+\begin{equation}\label{eq:selfenergy}
+\SG=E\,G\,E^\dagger+K\,G\,K^\dagger\ \ (\text{slot }10),\qquad \SGp=K^\dagger G\,K+E^\dagger G\,E\ \ (\text{slot }01).
+\end{equation}
+$\Zc'$ denotes $\Zc$ one charge level down. For the unknown dressing $u=(z_{10},x_{01})$ this is
+$\Mb u=\sigma(h)$, with
+\begin{equation}\label{eq:M}
+\begin{gathered}
+\Mb=\begin{pmatrix}1+\mathsf A&-L\\-L'&1+\mathsf A'\end{pmatrix},\\
+\mathsf A=P_{\rm Co}\SG P_{\rm Co}\ge0,\quad \mathsf A'=P_{\rm Ex}\SGp P_{\rm Ex}\ge0,\quad L=Q_0^+\Zc,\quad
+L'=(Q_0^\dagger)^+\Zc'^\dagger .
+\end{gathered}
+\end{equation}
+The two off-diagonal blocks are related by $L'=-L^\dagger+C$, where the \emph{leak}
+\begin{equation}\label{eq:leak}
+\begin{gathered}
+C=\alpha_{00}\gamma_{00}^\dagger-\alpha_{11}\gamma_{11}^\dagger,\\
+\alpha_{00}=(Q_0^\dagger)^+K^\dagger\big|_{\B_{00}},\quad \gamma_{00}=Q_0^+E\big|_{\B_{00}},\quad
+\alpha_{11}=(Q_0^\dagger)^+E^\dagger\big|_{\B_{11}},\quad \gamma_{11}=Q_0^+K\big|_{\B_{11}},
+\end{gathered}
+\end{equation}
+factors through the BPS spaces $\B_{00}$, $\B_{11}$ of the middle slots.
+\end{proposition}
+\begin{proof}[Sketch]
+The self-energy form of $\mathsf A$ follows from $\ip{z}{Q_0^+E(Q_0^\dagger)^+E^\dagger z}=\|P_{\rm ex}E^\dagger
+v\|^2=\ip{z}{EGE^\dagger z}$ for $z=Q_0^\dagger v$, and the same with $E\to K$. Both forms are Hermitian, so they agree.
+For the leak, $\{Q_0,Z\}=[E,K]$ together with $Q_0Q_0^+=P_{\rm ex}$ and $Q_0^+Q_0=P_{\rm co}$ gives
+$\{Q_0,\Zc\}=E\PH K-K\PH E$. For $x=Q_0w$ and $z=Q_0^\dagger v$ this yields
+$\ip{z}{Lx}+\ip{L'z}{x}=\ip{v}{(E\PH K-K\PH E)w}=\ip{z}{(\gamma_{00}\alpha_{00}^\dagger-\gamma_{11}\alpha_{11}^\dagger)x}$.
+\end{proof}
+
+\INTERP\ The middle slots act as virtual channels. Integrating them out leaves the outer slots with self-energies,
+which are Euclidean-time-integrated two-point functions of $E$ and $K$ through the old continuum, and a transfer
+amplitude $\Zc$. $\gamma_{00}h$ and $\alpha_{00}h$ are the first-order top- and bottom-slot dressings that a middle-slot
+BPS state $h$ would create. The leak is the path ``top dressing $\to$ middle BPS state $\to$ bottom dressing''. It is
+absent when the middle slots carry no BPS states. \VER\ $\mathsf A$, $\mathsf A'$ equal the projected self-energies,
+and $L'+L^\dagger=C$ holds with the factorized $C$, both to $10^{-13}$.
+
+\subsection{When is the uplift unique?}\label{sec:unique}
+
+\begin{proposition}[Uniqueness criterion]\label{prop:unique}\DER\
+$\mathrm{Herm}\,\Mb=1+\mathsf A\oplus\mathsf A'-\tfrac12\begin{pmatrix}0&C^\dagger\\C&0\end{pmatrix}$, so
+$\mathrm{Herm}\,\Mb>0$ if and only if
+$\rho:=\|(1+\mathsf A')^{-1/2}C(1+\mathsf A)^{-1/2}\|<2$. Then $\Mb$ is accretive and hence invertible. So are
+$1+\Kc$ and the four-slot harmonic map, because the middle rows of $1+\Kc$ are explicit. Without middle cohomology,
+$C=0$, $\mathrm{Herm}\,\Mb\ge1$ and $\|\Mb^{-1}\|\le1$, which is the contraction of the one-flavor uplift.
+\end{proposition}
+
+\NUM\ At unit coupling the criterion holds in $471$ of $499$ reduced systems (symmetrized) and $299$ of $319$ (generic)
+at $N\le7$. $\Mb$ was invertible in all of them. At $N\le6$ the smallest $\sigma_{\min}(\Mb)$ is $0.31$ and $0.11$. At
+$N=7$ (seed 1) it falls to $0.013$ in sectors $(3,3)$ and $(5,5)$ of the symmetrized model, and to $0.051$ in the generic
+one. The old model there has a near-zero mode
+(gap $0.0032$ in sector $(2,3)$), which inflates the dressing to $\|\Kc\|\approx150$. This is the origin of the bare
+fraction $1.8\times10^{-6}$ noted in \S\ref{sec:pair}.
+
+\paragraph{Injectivity is generic, not universal.} $\det\Mb$ is complex, so it can vanish on a set of codimension two in
+coupling space. We scaled two independent families of the couplings that involve the new pair and minimized
+$\sigma_{\min}(\Mb)$. This finds exact singular points in both models (Table~\ref{tab:pure}). At these points the BPS
+dimension is unchanged, yet one BPS state has bare fraction zero: all four of its slot components are non-BPS states of
+the old model. We call these \emph{pure-dressing} BPS states. In the symmetrized example the tower of the same sector
+remains exactly bare. Four-slot injectivity, listed as an open problem in the first version of this report, is therefore
+false in general. The correct statements are the criterion above and the two-step parametrization of
+\S\ref{sec:pair}, which is a bijection everywhere.
+
+\begin{table}[ht]
+\centering\small
+\caption{Exact pure-dressing BPS states at rescaled couplings, $N=4\to5$.
+Generic: $g_1$ scales $C_{N i k}$, $C_{i N k}$ (the $E$ couplings) and $g_2$ scales $C_{ijN}$ (the $K$ couplings).
+Symmetrized: $g_1$ scales $C_{N\cdot\cdot}$ and $g_2$ scales $C_{\cdot N\cdot}=C_{\cdot\cdot N}$.}\label{tab:pure}
+\begin{tabular}{@{}lccccccc@{}}\toprule
+model & seed & sector & $(g_1,g_2)$ & $\sigma_{\min}(\Mb)$ & $\dim\B_{N+1}$ & min.\ bare & deficit\\
+ & & & & & & fraction & \\\midrule
+generic & 2 & $(3,3)$ & $(0.4216,\,12.58)$ & $1.8\times10^{-16}$ & 65 & $\approx0$ & 1\\
+symm. & 1 & $(2,2)$ & $(7.280,\,12.30)$ & $1.6\times10^{-16}$ & 65 & $\approx0$ & 1\\\bottomrule
+\end{tabular}
+
+\smallskip
+{\small ``Deficit'' is the injectivity deficit of the four-slot harmonic map. In the symmetrized example the tower of
+the same sector keeps bare fraction~1. Found and reproduced by \path{scripts/find_pure_dressing_states.py}.}
+\end{table}
+
+\subsection{Admissibility, slot weights and decoders}
+
+\begin{proposition}[Admissibility and decoders]\label{prop:adm}\VER\
+For $h\in E_1$, $\Psi=(1+\Kc)^{-1}h$ is BPS if and only if three conditions hold:
+\begin{itemize}\itemsep2pt
+\item[(a)] $\PH Kh_{01}=\PH Eh_{01}=0$ and $\PH E^\dagger h_{10}=\PH K^\dagger h_{10}=0$;
+\item[(b)] $\PH(Eh_{00}^+-Kh_{11}^+ +\Zc h_{01})=0$, with $h_{00}^+=h_{00}+\alpha_{00}^\dagger x_{01}$ and
+  $h_{11}^+=h_{11}+\alpha_{11}^\dagger x_{01}$;
+\item[(c)] $\PH(K^\dagger h_{00}^-+E^\dagger h_{11}^-+\Zc'^\dagger h_{10})=0$, with
+  $h_{00}^-=h_{00}+\gamma_{00}^\dagger z_{10}$ and $h_{11}^-=h_{11}-\gamma_{11}^\dagger z_{10}$.
+\end{itemize}
+Condition (b) says that the perturbation-lemma class representative $(h_{01},h_{00}^+,h_{11}^+,\cdot)$ of the state is a
+$D$-cocycle; (c) is the dual statement. The slot weights of a BPS state are
+\begin{gather}
+\|\Psi_{01}\|^2=\|h_{01}\|^2+\|x_{01}\|^2,\qquad \|\Psi_{10}\|^2=\|h_{10}\|^2+\|z_{10}\|^2,\nonumber\\
+\|\Psi_{00}\|^2=\|h_{00}\|^2+\ip{\Psi_{01}}{K^\dagger GK\Psi_{01}}+\ip{\Psi_{10}}{EGE^\dagger\Psi_{10}},\nonumber\\
+\|\Psi_{11}\|^2=\|h_{11}\|^2+\ip{\Psi_{01}}{E^\dagger GE\Psi_{01}}+\ip{\Psi_{10}}{KGK^\dagger\Psi_{10}},
+\label{eq:weights}
+\end{gather}
+and its dressing cost is $\kappa=\big[\|u\|^2+\ip{\Psi_{10}}{\SG\Psi_{10}}+\ip{\Psi_{01}}{\SGp\Psi_{01}}\big]/\|h\|^2$.
+The bare-fraction decoder and CV's slot decoders are the generalized eigenvalue problems of
+$(\|h\|^2,\|\Psi\|^2)$ and $(\|\Psi_T\|^2,\|\Psi\|^2)$ on $\mathcal A$.
+\end{proposition}
+
+The same four maps $\alpha$, $\gamma$ govern the leak~\eqref{eq:leak} and the corrections in (b), (c). The first-order
+theory of \S\ref{sec:first} is the leading term: it drops the $\Mb$ corrections and replaces $\Psi_{10}$, $\Psi_{01}$
+by $h_{10}$, $h_{01}$ inside $\kappa$. Two special cases are worth recording.
+\begin{itemize}\itemsep2pt
+\item One added mode: there are no middle slots, so $\mathsf A=\mathsf A'=0$ and $C=0$. $\Mb$ reduces to $1+$
+  (anti-Hermitian), the one-flavor system.
+\item The tower: $\Kc\eta=0$ and $\sigma(\eta)=0$ for $\eta=(0,V^n\Om,nV^{n-1}\Om,0)$, so $\Psi=\eta$ at every
+  coupling.
+\end{itemize}
+\VER\ Conditions (a)--(c) give the same subspace as Theorem~\ref{thm:C} in every sector at $N\le6$. The pencils
+reproduce the exact bare-fraction and slot-decoder spectra to $7\times10^{-13}$. At $N=7$ (one seed per model) all of
+these checks hold to $2\times10^{-11}$; the larger residuals come from the nearly singular sectors of
+\S\ref{sec:unique}.
+
+\paragraph{Most of the exact correction is self-energy.} \NUM\ The closed form separates three levels of approximation.
+\emph{First order} uses first-order sources and sets $\Mb\to1$ (\S\ref{sec:first}). \emph{Self-dressed} keeps the exact
+sources and the self-energies, $\Mb\to1+\mathsf A\oplus\mathsf A'$, but drops the transfer and the leak. \emph{Exact}
+solves the full system. On the exact admissible sources (sectors with at least 50 BPS states, $N=4$--$6$), self-dressing
+moves the mean bare fraction from its first-order value $56$--$92\,\%$ of the way to the exact value. The median is
+$0.67$ (symmetrized) and $0.79$ (generic). For example, in the central sector $(3,3)$ at $N=6\to7$ (five seeds) the
+three levels are $0.7014$, $0.7220$ and $0.7322$. The direction is not always upward: in $(4,3)$ at $N=5\to6$ first order
+is slightly high, and self-dressing corrects that too. The self-energies are pure time-integrated two-point functions
+of $E$ and $K$, so a chord computation of those alone would capture most of the exact correction.
+(\texttt{run\_two\_flavor\_uplift.py --tasks levels}.)
+
+%=====================================================================
 \section{Monotone versus fortuitous}\label{sec:summary}
 %=====================================================================
 
@@ -776,7 +1025,8 @@ slot content & 00 and 11 only; weights $\frac{N+1-n}{N+1}$, $\frac{n}{N+1}$ & al
 bare-state count & the only excess over the generic count & equal to the generic count, same as generic couplings\\
 CV channels 00, 11 & always exact (non-generic position) & exact iff $\dnew\ge R_T$ (generic position)\\
 CV cost $\kappa_{00}$ & $=n/(N+1-n)$ iff $\dnew\le R_{00}$ & broad, growing (CV Fig.~8)\\
-first-order dressing form & exactly dark & $O(1)$; interference from $+1$ to $\approx-1$\\\bottomrule
+first-order dressing form & exactly dark & $O(1)$; interference from $+1$ to $\approx-1$\\
+bare fraction over couplings & $=1$ for all couplings & in $[0,1)$; $=0$ (pure dressing) on a codimension-two set\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -798,7 +1048,10 @@ The one-flavor uplift at half filling was unobstructed: every old BPS state had 
 cloud. The two-flavor uplift is obstructed. Theorem~\ref{thm:A} shows that, once the obstruction is imposed on the
 harmonic sources, the rest of the D6 structure survives intact: the anti-Hermitian system, the orthogonal splitting and
 the minimum-norm uplift. The pair is two such steps. It also carries a genuinely new feature, the $d_2$ differential, so
-the enlarged BPS space is not a function of old cohomology and first-order maps alone.
+the enlarged BPS space is not a function of old cohomology and first-order maps alone. The closed forms of
+\S\ref{sec:closed} show what it \emph{is} a function of: the old BPS data; the self-energies $EGE^\dagger+KGK^\dagger$ and
+$K^\dagger GK+E^\dagger GE$; the transfer $\Zc=Z-EQ_0^+K+KQ_0^+E$; and the four maps $\alpha$, $\gamma$ that connect the
+middle-slot BPS states to the outer dressing.
 
 Within this structure the monotone/fortuitous distinction is sharp and has a one-line origin, $[E,V]=K$. The tower is
 the only state whose dressing currents vanish by an identity, at every $N$. The other bare states are arithmetic walls
@@ -825,15 +1078,26 @@ D7 computed the one-flavor BPS$\to$continuum two-point function at fixed charge 
 measure. A two-flavor version needs chord rules for two flavors with a charge lattice $(N_\psi,N_\chi)$. We have not
 checked whether such rules exist in the literature; establishing that is the first task of Stage~2.
 
+The closed forms of \S\ref{sec:closed} turn this into a definite list, valid exactly and not only at first order. The
+exact uplift needs:
+\begin{itemize}\itemsep2pt
+\item the self-energies $\SG$, $\SGp$ (two-point functions of $E$ and $K$ through the old continuum);
+\item the transfer $\Zc$ (the direct $Z$ coupling plus the zig-zags $EQ_0^+K$, $KQ_0^+E$);
+\item the maps $\alpha$, $\gamma$ between middle-slot BPS states and the outer dressing.
+\end{itemize}
+A chord computation of these three ingredients would give the exact two-flavor uplift.
+
 \subsection{Open problems}
 
 \begin{enumerate}\itemsep2pt
-\item A proof of four-slot injectivity, and a closed form for $d_2$.
+\item The geometry of the singular set of $\Mb$ (pure-dressing states, \S\ref{sec:unique}). Does it approach unit
+  coupling as $N$ grows?
 \item Derivations of Laws~\ref{law:L1}--\ref{law:L2}, i.e.\ why the decoders are maximally generic inside their rooms.
   This is the analogue of CV's generic-position hypothesis, now with the refined rooms~\eqref{eq:rooms}.
 \item The $N=5$ coincidences.
-\item The closed-form CV slot decoders, the analogue of the one-flavor pencil.
-\item Stage~2: the chord computation of the $E$, $K$, $Z$ two-point functions and of their interference.
+\item Simplifying the decoder pencils of Proposition~\ref{prop:adm} further, e.g.\ by push-through identities as in
+  the one-flavor case.
+\item Stage~2: the chord computation of $\SG$, $\SGp$, $\Zc$, $\alpha$ and $\gamma$.
 \end{enumerate}
 
 \appendix
@@ -857,7 +1121,13 @@ Two-step dimension formula~\eqref{eq:dimN} & $N=2$--$7$ & exact counts\\
 Four-slot injectivity; reconstruction from harmonic parts & $N=2$--$7$ & deficit 0; $10^{-14}$\\
 Tower bare, slot weights & $N=2$--$7$ & $4\times10^{-16}$\\
 Single-slot first order $=$ two-point functions~\eqref{eq:sigmas} & $N=4$ & $10^{-8}$ (relative)\\
-Tower dark at first order & $N=5$ & $10^{-10}$\\\bottomrule
+Tower dark at first order & $N=5$ & $10^{-10}$\\\midrule
+\multicolumn{3}{@{}l}{\emph{Closed forms (added 25 October)}}\\
+$\dim\B_{N+1}=\dim H(E_1,D)$ (Theorem~\ref{thm:B}) & $N=2$--$7$, both models & exact counts\\
+$(1+\Kc)^{-1}$ reconstructs BPS states; $\dim\mathcal A=\dim\B_{N+1}$; BPS residual & $N=2$--$7$, both models & $2\times10^{-12}$; exact; $10^{-12}$\\
+Self-energy form of $\mathsf A$, $\mathsf A'$; $L'+L^\dagger=C$, factorized leak & $N=3$--$6$, both models & $10^{-13}$\\
+Admissibility (a)--(c) $=$ Theorem~\ref{thm:C}; decoder pencils & $N=3$--$6$ (pencils $N\le7$) & exact; $2\times10^{-11}$\\
+Herm$\,\Mb\ge1-\|C\|/2$ & $N=2$--$7$, both models & no violation\\\bottomrule
 \end{tabular}
 \end{table}
 
@@ -882,7 +1152,8 @@ tasks were rerun with per-sector cache release (\path{research/notes/two_flavor_
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}p{0.65\textwidth}@{}}\toprule
 Item & Code and data\\\midrule
 Model; uplift machinery & \path{src/two_flavor.py}, \path{src/two_flavor_uplift.py}; tests \path{tests/test_two_flavor.py}\\
-Production runs & \path{scripts/run_two_flavor_uplift.py} (tasks \texttt{dims cv bare first tower e2}) $\to$ \path{results/data/two_flavor_2026-10-23/*.jsonl}, logs, metadata\\
+Production runs & \path{scripts/run_two_flavor_uplift.py} (tasks \texttt{dims cv bare first tower e2 closed}) $\to$ \path{results/data/two_flavor_2026-10-23/*.jsonl}, logs, metadata\\
+Pure-dressing states & \path{scripts/find_pure_dressing_states.py} $\to$ \path{pure_dressing_*.json}\\
 Analysis, tables, figures & \path{scripts/analyze_two_flavor_uplift.py} $\to$ \path{summary.json}, \path{results/figures/two_flavor_2026-10-23/}\\
 Derivations; research note & \path{docs/derivations.md} D8; \path{research/notes/two_flavor_uplift_2026-10-23.md}\\\bottomrule
 \end{tabular}

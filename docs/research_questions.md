@@ -419,12 +419,19 @@ two-flavor analogue of D6, and what it says about monotone vs fortuitous.
     slots.
   - The tower is exactly dark. Fortuitous states interfere partially, so "monotone = coherent, fortuitous =
     incoherent" is false.
+- **[derived + verified] Closed forms (2026-10-25, D8 §9).**
+  - The cohomology is H(old BPS data, d₁ + d₂), with d₂ = P_H(Z − EQ₀⁺K + KQ₀⁺E)P_H.
+  - BPS states are (1 + 𝒦)⁻¹h with explicit admissibility.
+  - Integrating out the middle slots leaves Dyson equations with self-energies EGE† + KGK† and K†GK + E†GE, a transfer
+    𝒵, and a leak through the middle cohomology.
+  - The decoders become explicit pencils.
+  - Four-slot injectivity holds under a positivity criterion but fails on a codimension-2 set of couplings, where
+    pure-dressing BPS states appear. The tower is never affected.
 - **Open.**
-  - Proofs of four-slot injectivity and of the two counting laws.
-  - The N = 5 coincidences.
-  - The closed-form CV slot decoders.
-  - **Stage 2:** chord computation of the E, K, Z two-point functions and of their interference; the tower as a Ward
-    identity of the chord rules. This requires two-flavor chord rules (literature not yet checked).
+  - Proofs of the two counting laws, and the N = 5 coincidences.
+  - The geometry of the singular (pure-dressing) set.
+  - **Stage 2:** a chord computation of the inputs of the exact uplift, the self-energies, 𝒵 and the maps α, γ; and the
+    tower as a Ward identity of the chord rules. This requires two-flavor chord rules (literature not yet checked).
 
 ---
 

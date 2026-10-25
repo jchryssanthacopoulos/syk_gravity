@@ -1,0 +1,1 @@
+{"cmd": "sh -c .venv/bin/python scripts/run_two_flavor_uplift.py --N 2 3 4 5 6 --seeds 1 2 3 4 5 --model sym --tasks closed && .venv/bin/python scripts/run_two_flavor_uplift.py --N 2 3 4 5 6 --seeds 1 2 3 --model generic --tasks closed", "rc": 0, "killed": null, "peak_gb": 0.428, "cap_gb": 3.0, "secs": 251.1, "ended": "2026-10-25T10:44:20"}

@@ -1415,8 +1415,9 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
   - A proof is open. The obstacle: the old-harmonic part of Ψ₀₀ is h₀₀ + P_H E†d, where d comes from the M-coexact
     dressing. So it differs from the step-1 source.
   - Injectivity holds, but the smallest bare fraction comes close to zero. It is 1.8e−6 (symmetrized, seed 1) and
-    5e−5 (generic) in (3,3) and (5,5) at N = 7→8, against 1e−4 to 4e−3 at N = 5, 6. Near-"pure dressing" BPS states
-    exist (a lower near-wall), and injectivity may fail at larger N.
+    5e−5 (generic) in (3,3) and (5,5) at N = 7→8, against 1e−4 to 4e−3 at N = 5, 6.
+  - *Update 2026-10-25 (§9.4):* this is a near-zero old gap making the dressing system nearly singular. Injectivity is
+    generic but fails on a codimension-2 set of couplings, where pure-dressing BPS states appear.
 - **The E₂ page is not the answer [num].** The slot complex built from old BPS states is
   H(01) → H(00) ⊕ H(11) → H(10), with d₁ = ([K], [E]) and (h₀₀, h₁₁) ↦ [E]h₀₀ − [K]h₁₁. Then:
   - d₁² = 0, because [E][K] − [K][E] = [{Q₀,Z}] = 0, and dim B_{N+1} ≤ dim E₂;
@@ -1426,6 +1427,8 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
   - A differential d₂ ∼ [Z − EQ₀⁺K + KQ₀⁺E] pairs E₂^{w=−1}(A,B) with E₂^{w=+1}(A+2,B−1), always with the maximal
     rank (e.g. 9, 78, 91 at N = 5, 6, 7).
   - So the pair uplift is not computed by the slot complex alone. The two-step formula is exact and accounts for d₂.
+  - *Update 2026-10-25 (§9.1):* the full transferred differential D = d₁ + d₂, with d₂ = P_H(Z − EQ₀⁺K + KQ₀⁺E)P_H,
+    computes the cohomology from old-model data alone.
   - *(Corrects a remark made earlier in this project, that the spectral sequence degenerates at E₂: that holds for
     one mode, not for the pair.)*
 - **Coupling independence of dimensions [num].** The BPS dimensions of the symmetrized and generic models coincide in
@@ -1573,6 +1576,152 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
 | CV κ₀₀ | = n/(N+1−n) iff d_new ≤ R₀₀ | broad, growing (CV Fig. 8) |
 | first-order dressing form | exactly dark | O(1), heavy-tailed |
 
+### 9. Closed forms (added 2026-10-25) [derived + verified]
+
+*Request: closed-form expressions for the pair uplift in old-model data (uplift map, obstruction and d₂, decoders,
+injectivity). Code: `PairUplift.hpl_D`, `hpl_dim`, `cf_K`, `cf_bps`, `self_energies`, `reduced_system`, `cf_decoders`
+in `src/two_flavor_uplift.py`; 4 new tests (20 in total); production task `closed` → `closed_N*_{sym,generic}.jsonl`;
+counterexamples `scripts/find_pure_dressing_states.py` → `pure_dressing_*.json`.*
+
+**Notation.**
+- Slot vectors are Ψ = (Ψ₀₁, Ψ₀₀, Ψ₁₁, Ψ₁₀), ordered by w.
+- Q_{N+1} = Q_d + Q_c:
+  - Q_d = diag(−Q₀, Q₀, Q₀, −Q₀) is slot-diagonal (operator convention);
+  - Q_c sends Ψ₀₁ ↦ KΨ₀₁ (00), EΨ₀₁ (11), ZΨ₀₁ (10); Ψ₀₀ ↦ EΨ₀₀ (10); Ψ₁₁ ↦ −KΨ₁₁ (10). It raises w by 1 (E, K) or 2 (Z).
+- P_H is the slotwise old harmonic projector. E₁ = ⊕_T B(slot T) is the old BPS data. G = H₀⁺.
+
+**9.1 Cohomology from old data: homological perturbation [derived + verified].**
+- The data (ι, p = P_H, h = −Q_d⁺) form a strong deformation retract of (C, Q_d) onto (E₁, 0):
+  Q_d h + h Q_d = ιp − 1, with h² = hι = ph = 0.
+- Perturb by δ = Q_c. h preserves w and δ raises it, so (hδ)³ = 0, and the perturbation lemma (Brown–Gugenheim) holds
+  with finite series.
+- **Theorem B.** H(Q_{N+1}) ≅ H(E₁, D), where D = P_H Q_c (1 + Q_d⁺Q_c)⁻¹ P_H. Explicitly,
+  $$D\eta=\big(0,\ P_HK\eta_{01},\ P_HE\eta_{01},\ P_H(E\eta_{00}-K\eta_{11}+\mathcal Z\eta_{01})\big),\qquad
+    \mathcal Z=Z-E\,Q_0^+K+K\,Q_0^+E .$$
+  - D = d₁ + d₂. Here d₁ is the slot complex of §3, and d₂ = P_H 𝒵 P_H : H(01) → H(10). There are no higher differentials
+    (three filtration levels).
+  - D² = 0. Its only component is P_H(E P_H K − K P_H E)P_H = P_H[E,K]P_H = P_H{Q₀,Z}P_H = 0, because (1 − P_H)K maps
+    harmonic forms to exact ones and E keeps them exact.
+  - Closed representatives (the HPL inclusion), for η ∈ ker D:
+    Ψ_cl(η) = (η₀₁, η₀₀ − Q₀⁺Kη₀₁, η₁₁ − Q₀⁺Eη₀₁, η₁₀ + Q₀⁺(Eη₀₀ − Kη₁₁ + 𝒵η₀₁)).
+  - **Dimension formula:** dim B_{N+1}(A,B) = dim E₁(A,B) − rk D(A,B) − rk D(A−2,B+1). It uses only old-model data and
+    needs no intermediate model.
+  - Verified: 0 mismatches in every sector record (950 symmetrized + 570 generic at N = 2–6, plus 81 + 81 at N = 7).
+  - Reading: 𝒵 is a secondary, Massey-type operation. A bottom-slot class killed by d₁ reaches the top slot either
+    directly (Z) or by zig-zags through the dressed middle slots (EQ₀⁺K, KQ₀⁺E). This sharpens §3: old cohomology plus
+    [E], [K] is not enough, but old BPS data plus 𝒵 is exactly enough.
+
+**9.2 BPS states in closed form [derived + verified].**
+- **Theorem C.** Let 𝒦 = Q_d⁺Q_c + (Q_d†)⁺Q_c†. A slot vector Ψ is BPS iff
+  (i) (1 + 𝒦)Ψ = P_HΨ, and (ii) P_H Q_cΨ = 0 = P_H Q_c†Ψ.
+  The nonzero blocks of 𝒦 (row ← column):
+  - 01 ← 00: −(Q₀†)⁺K†; 01 ← 11: −(Q₀†)⁺E†; 01 ← 10: −(Q₀†)⁺Z†;
+  - 00 ← 01: Q₀⁺K; 00 ← 10: (Q₀†)⁺E†;
+  - 11 ← 01: Q₀⁺E; 11 ← 10: −(Q₀†)⁺K†;
+  - 10 ← 01: −Q₀⁺Z; 10 ← 00: −Q₀⁺E; 10 ← 11: Q₀⁺K.
+- *Proof.*
+  - (⇒) Decompose slotwise Ψ = h + r. Q_{N+1}Ψ = 0 gives Q_d r = −Q_cΨ. So Q_cΨ is exact, which gives P_H Q_cΨ = 0, and
+    the coexact part of r is −Q_d⁺Q_cΨ. Dually, the exact part of r is −(Q_d†)⁺Q_c†Ψ. Hence r = −𝒦Ψ.
+  - (⇐) From (i), Q_dΨ = −P_ex Q_cΨ, so Q_{N+1}Ψ = (P_H + P_co)u with u = Q_cΨ. Q_{N+1}² = 0 gives
+    Q_d u = −Q_c(P_H + P_co)u. Induct on w: the lowest component of u is Q_d-closed, because Q_c raises w. Its coexact
+    part therefore vanishes, and by (ii) so does its harmonic part. The next component is then closed, and so on, so
+    Q_{N+1}Ψ = 0. Q_{N+1}†Ψ = 0 follows the same way by descending induction. ∎
+- So if 1 + 𝒦 is invertible:
+  - B_{N+1} = {(1 + 𝒦)⁻¹h : h ∈ 𝒜}, with 𝒜 = ker P_H(Q_c ⊕ Q_c†)(1 + 𝒦)⁻¹|_{E₁};
+  - the four-slot harmonic map is injective.
+- Verified (N = 2–6, both models):
+  - every BPS state is reconstructed from its harmonic slot parts to ≤ 2.3e−13;
+  - dim 𝒜 = dim B_{N+1};
+  - the closed-form states have BPS residual ≤ 1e−13.
+
+**9.3 Integrating out the middle slots [derived + verified].**
+- **Middle slots.** Their dressing is explicit in terms of the outer slots: z₀₀ = −Q₀⁺KΨ₀₁, x₀₀ = −(Q₀†)⁺E†Ψ₁₀,
+  z₁₁ = −Q₀⁺EΨ₀₁ and x₁₁ = (Q₀†)⁺K†Ψ₁₀.
+- **Outer slots.** Substituting these leaves two "Dyson equations" for the outer components:
+  $$P_{\rm Co}(1+\mathcal S_G)\Psi_{10}=Q_0^+\big(Eh_{00}-Kh_{11}+\mathcal Z\Psi_{01}\big),\qquad
+    P_{\rm Ex}(1+\mathcal S'_G)\Psi_{01}=(Q_0^\dagger)^+\big(K^\dagger h_{00}+E^\dagger h_{11}+\mathcal Z'^\dagger\Psi_{10}\big).$$
+  - 𝒮_G = E G E† + K G K† acts on slot 10, and 𝒮′_G = K† G K + E† G E on slot 01. Both are self-energies: Euclidean-time-
+    integrated two-point functions of E and K through the old continuum.
+  - 𝒵′ is 𝒵 one charge level down.
+- **Reduced system.** For u = (z₁₀, x₀₁) ∈ Co(10) ⊕ Ex(01) this is 𝕄u = σ(h) with
+  𝕄 = [[1 + 𝖠, −L], [−L′, 1 + 𝖠′]], 𝖠 = P_Co𝒮_G P_Co, 𝖠′ = P_Ex𝒮′_G P_Ex, L = Q₀⁺𝒵 and L′ = (Q₀†)⁺𝒵′†.
+- **Structure.** 𝖠 and 𝖠′ are Hermitian PSD, and L′ = −L† + C with the leak
+  $$C=\alpha_{00}\gamma_{00}^\dagger-\alpha_{11}\gamma_{11}^\dagger,\qquad
+    \alpha_{00}=(Q_0^\dagger)^+K^\dagger|_{B_{00}},\ \gamma_{00}=Q_0^+E|_{B_{00}},\ \alpha_{11}=(Q_0^\dagger)^+E^\dagger|_{B_{11}},\
+    \gamma_{11}=Q_0^+K|_{B_{11}} .$$
+  B₀₀ and B₁₁ are the old BPS spaces of the middle slots.
+- *Proof.*
+  - From {Q₀, Z} = [E, K], Q₀Q₀⁺ = P_ex and Q₀⁺Q₀ = P_co one gets {Q₀, 𝒵} = Γ := E P_H K − K P_H E.
+  - For x = Q₀w and z = Q₀†v this gives ⟨z, Lx⟩ = ⟨v, 𝒵Q₀w⟩ = −⟨L′z, x⟩ + ⟨v, Γw⟩.
+  - Finally ⟨v, Γw⟩ = ⟨z, (γ₀₀α₀₀† − γ₁₁α₁₁†)x⟩. ∎
+- **Reading of the leak.** γ₀₀h and α₀₀h are the first-order top-slot and bottom-slot dressings created by a
+  middle-slot BPS state h. The leak is "top dressing → middle BPS state → bottom dressing". It vanishes when the middle
+  slots carry no BPS states.
+- Verified to 1e−13 (tests, and the scratch checks V1–V3).
+
+**9.4 Uniqueness criterion: injectivity is generic, not universal [derived; num].**
+- **Criterion.** The anti-Hermitian parts drop out of Herm 𝕄, leaving Herm 𝕄 = 1 + 𝖠 ⊕ 𝖠′ − ½[[0, C†],[C, 0]].
+  - Hence Herm 𝕄 > 0 ⟺ ρ := ‖(1 + 𝖠′)^{−1/2} C (1 + 𝖠)^{−1/2}‖ < 2.
+  - Then 𝕄 is accretive, hence invertible. 1 + 𝒦 is invertible too, since its middle rows are explicit, and the
+    four-slot harmonic map is injective.
+  - With no middle cohomology, C = 0, Herm 𝕄 ≥ 1 and ‖𝕄⁻¹‖ ≤ 1. This is the D6 contraction.
+- **Numerics at unit coupling.**
+  - N = 2–6: ρ < 2 in 426/450 (symmetrized) and 254/270 (generic) reduced systems. 𝕄 was invertible in all of them; the
+    smallest σ_min(𝕄) is 0.31 and 0.11 respectively (N = 7: §9.8).
+  - N = 7 (seed 1): σ_min(𝕄) drops to 0.013 in (3,3) and (5,5). The old model there has a near-zero mode (gap 0.0032 in
+    sector (2,3)), so ‖𝒦‖ ≈ 148. This is the origin of the bare fraction 1.8e−6 noted in §3.
+- **Counterexamples.** det 𝕄 is complex, so it vanishes on a codimension-2 set of couplings. Scaling two families of
+  new-pair couplings and minimizing σ_min(𝕄) finds such points:
+  - *generic model*, N = 4→5 (seed 2), sector (3,3): E-type couplings × 0.4216 and K-type × 12.58 give
+    σ_min(𝕄) = 1.8e−16;
+  - *symmetrized model*, N = 4→5 (seed 1), sector (2,2): C[N,·,·] × 7.280 and C[·,N,·] = C[·,·,N] × 12.30 give
+    σ_min(𝕄) = 1.6e−16.
+- **What happens there.** In both cases dim B_{N+1} is unchanged (65), yet one BPS state has bare fraction 0
+  (injectivity deficit 1). It is a **pure-dressing** BPS state: all four of its slot components are non-BPS states of the
+  old model. In the symmetrized example the tower of the same sector stays exactly bare.
+- **Conclusion.** Four-slot injectivity (§3) is generic but false in general. The true statements are the criterion above
+  and the always-valid two-step parametrization (§3).
+
+**9.5 Admissibility in closed form [derived + verified].** For h ∈ E₁, Ψ = (1 + 𝒦)⁻¹h is BPS iff:
+- (a) P_H K h₀₁ = P_H E h₀₁ = 0 and P_H E† h₁₀ = P_H K† h₁₀ = 0 (the w = 0 currents);
+- (b) P_H[E h₀₀⁺ − K h₁₁⁺ + 𝒵 h₀₁] = 0, with h₀₀⁺ = h₀₀ + α₀₀†x₀₁ and h₁₁⁺ = h₁₁ + α₁₁†x₀₁;
+- (c) P_H[K† h₀₀⁻ + E† h₁₁⁻ + 𝒵′† h₁₀] = 0, with h₀₀⁻ = h₀₀ + γ₀₀†z₁₀ and h₁₁⁻ = h₁₁ − γ₁₁†z₁₀.
+
+Readings:
+- (b) is Dη_Q = 0 for the HPL class representative η_Q = p_∞Ψ = (h₀₁, h₀₀⁺, h₁₁⁺, ·) of the BPS state; (c) is the dual
+  statement.
+- The same maps α, γ govern the leak and these corrections.
+- Verified: (a)–(c) give the same subspace as Theorem C in every sector (N = 3–6, both models).
+
+**9.6 Slot weights and decoder pencils [derived + verified].** For a BPS state with sources h and outer dressing u:
+- ‖Ψ₀₁‖² = ‖h₀₁‖² + ‖x₀₁‖² and ‖Ψ₁₀‖² = ‖h₁₀‖² + ‖z₁₀‖²;
+- ‖Ψ₀₀‖² = ‖h₀₀‖² + ⟨Ψ₀₁, K†GKΨ₀₁⟩ + ⟨Ψ₁₀, EGE†Ψ₁₀⟩;
+- ‖Ψ₁₁‖² = ‖h₁₁‖² + ⟨Ψ₀₁, E†GEΨ₀₁⟩ + ⟨Ψ₁₀, KGK†Ψ₁₀⟩;
+- κ := ‖Ψ‖²/‖h‖² − 1 = [‖u‖² + ⟨Ψ₁₀, 𝒮_GΨ₁₀⟩ + ⟨Ψ₀₁, 𝒮′_GΨ₀₁⟩]/‖h‖². This is the exact version of the first-order cost of
+  §7, which drops the 𝕄 corrections and replaces Ψ₁₀, Ψ₀₁ by h₁₀, h₀₁.
+- The bare-fraction decoder (μ) and CV's slot decoders (λ_T) are the generalized eigenvalues of (‖h‖², ‖Ψ‖²) and
+  (‖Ψ_T‖², ‖Ψ‖²) on 𝒜. They agree with the exact spectra to 7e−13.
+- **[num] Most of the exact correction is self-energy.** Three levels on the exact admissible sources (task `levels`):
+  - first order: first-order sources, 𝕄 → 1;
+  - self-dressed: exact sources, 𝕄 → 1 + 𝖠 ⊕ 𝖠′;
+  - exact.
+
+  Self-dressing moves the mean bare fraction 56–92 % of the way from first order to exact (N = 4–6, sectors with ≥ 50
+  BPS states; median 0.67 symmetrized, 0.79 generic). Example: (3,3) at N = 6→7 gives 0.7014 → 0.7220 → 0.7322. The
+  closed-form quadratic form reproduces ‖Ψ‖² to ≤ 6e−14.
+
+**9.7 Special cases.**
+- *One added mode.* There are no middle slots, so 𝖠 = 𝖠′ = 0 and C = 0, and 𝕄 = 1 + (anti-Hermitian). This is D6 §5.
+- *The tower.* η = (0, V^n|Ω⟩, nV^{n−1}|Ω⟩, 0) has 𝒦η = 0 and σ(η) = 0, so u = 0 and Ψ = η, at every coupling (§4).
+
+**9.8 N = 7 [num].** One seed of each model; 81 sector records per model.
+- The dimension formula, the admissible dimension and the reconstruction all hold, with 0 mismatches and residuals
+  ≤ 2e−11.
+- The reduced system is invertible in all 49 sectors and accretive in 45 of them (per model). Its smallest σ_min is 0.013
+  (symmetrized) and 0.051 (generic).
+- Peak memory 5.5 GB.
+- Totals at N = 2–7: the criterion ρ < 2 holds in 471/499 (symmetrized) and 299/319 (generic) reduced systems.
+
 ### Status
 - **Exact:**
   - §1: the block form, the identities and the slot equations;
@@ -1580,9 +1729,16 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
   - the two-step dimension formula (§3);
   - the tower's protection, bareness and slot weights (§4);
   - the bare-map equations and the rooms (§§5–6);
-  - the first-order formulas (§7).
+  - the first-order formulas (§7);
+  - *(added 2026-10-25, §9)* Theorem B: H(Q_{N+1}) ≅ H(E₁, d₁ + d₂), with d₂ = P_H(Z − EQ₀⁺K + KQ₀⁺E)P_H and a dimension
+    formula in old-model data;
+  - Theorem C: BPS states = (1 + 𝒦)⁻¹h with admissibility (a)–(c);
+  - the reduced two-slot system, with self-energies EGE† + KGK†, K†GK + E†GE and the factorized leak;
+  - the accretivity criterion ρ < 2 for injectivity;
+  - the slot-weight formulas and decoder pencils.
 - **Numerical laws** (N = 2–6 with 5 seeds, N = 7 with 1–2 seeds; generic control at all N):
-  - four-slot injectivity (holds, but the smallest bare fraction reaches 1.8e−6 at N = 7);
+  - four-slot injectivity at random couplings. It is *not* universal: it fails on a codimension-2 set of couplings, with
+    explicit pure-dressing counterexamples (§9.4);
   - d₂ ≠ 0 in exactly four sectors per N, with maximal rank;
   - the room laws L1 and L2, and the tower-cost criterion;
   - bare = generic count + tower;
@@ -1591,7 +1747,7 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
 - **Unexplained:** the one-dimensional coincidences at N = 5 in the near-central sectors (2,1), (2,2), (3,3), (3,4) — two
   particle–hole pairs — in both models.
 - **Open:**
-  - a proof of four-slot injectivity;
-  - a closed form for d₂;
-  - the CV slot decoders in closed form (the analogue of D6 §5's pencil);
-  - the chord computation of the two-point functions of E, K, Z and of their interference (Stage 2).
+  - the geometry of the singular set of 𝕄 (pure-dressing states), and whether it approaches unit coupling as N grows;
+  - simplifying the decoder pencils of §9.6 further, e.g. via push-through identities as in D6 §5;
+  - the chord computation of the self-energies 𝒮_G, 𝒮′_G, the transfer 𝒵 and the leak maps α, γ (Stage 2). These are now
+    the complete list of old-model inputs of the exact uplift.

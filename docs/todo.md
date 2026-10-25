@@ -92,9 +92,12 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [ ] **Q12 / D8 follow-ups:**
   - **Stage 2 (P1):** chord computation of the E (ψ†χ), K (ψ†ψ†), Z (ψ†) two-point functions and their interference;
     first check the literature for two-flavor N=2 chord rules;
-  - proofs: four-slot injectivity; the room laws L1/L2 (generic position in the refined rooms); closed form of d₂;
+  - ~~proofs: four-slot injectivity; closed form of d₂~~ → done 2026-10-25 (D8 §9): d₂ closed form via homological
+    perturbation; injectivity is generic but fails at special couplings (pure-dressing states);
+  - proofs: the room laws L1/L2 (generic position in the refined rooms); the geometry of the pure-dressing set;
   - the N = 5 coincidences (three one-dimensional excesses in near-central sectors, both models);
-  - closed-form CV slot decoders (analogue of the D6 pencil); dressing-cost spectra κ_T of fortuitous states vs CV Fig. 8;
+  - ~~closed-form CV slot decoders~~ → pencils in D8 §9.6; still open: simplifying them (push-through) and the
+    dressing-cost spectra κ_T of fortuitous states vs CV Fig. 8;
   - N = 8 → 9 needs sparse/partial methods (largest sector 15876).
 - [ ] **Q11 follow-ups (P1):**
   - ~~analytic model of the localization term~~ → D6 §6 (semi-analytic: old-model first-order uplift);

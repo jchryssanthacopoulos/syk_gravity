@@ -185,6 +185,32 @@ def check_tower():
     return res, recs
 
 
+# ------------------------------------------------------------------------------------------------ closed forms
+def check_closed(model):
+    recs = load("closed", model)
+    res = dict(n=len(recs), Ns=sorted({r["N"] for r in recs}), hpl_fail=0, adm_fail=0, recon=0.0, bps=0.0, dec_bare=0.0,
+               dec_cv=0.0, reduced=0, leak_free=0, accretive=0, herm_bound_viol=0, sigma_min_M=np.inf, worst=None,
+               refined_lt2=0)
+    for r in recs:
+        res["hpl_fail"] += r["hpl_dim"] != r["d_new"]
+        res["adm_fail"] += r["adm_dim"] != r["d_new"]
+        res["recon"] = max(res["recon"], r.get("reconstruction_err", 0.0))
+        res["bps"] = max(res["bps"], r.get("bps_residual", 0.0))
+        res["dec_bare"] = max(res["dec_bare"], r.get("decoder_bare_err", 0.0))
+        res["dec_cv"] = max(res["dec_cv"], r.get("decoder_cv_err", 0.0))
+        if "sigma_min_M" in r:
+            res["reduced"] += 1
+            res["leak_free"] += r["leak_norm"] < 1e-10
+            res["accretive"] += r["herm_min"] > 0
+            res["herm_bound_viol"] += r["herm_min"] < r["accretive_bound"] - 1e-9
+            res["refined_lt2"] += r.get("refined_leak", 0.0) < 2
+            if r["sigma_min_M"] < res["sigma_min_M"]:
+                res["sigma_min_M"] = r["sigma_min_M"]
+                res["worst"] = dict(N=r["N"], seed=r["seed"], A=r["A"], B=r["B"], mu_min=r.get("mu_min"),
+                                    leak=r["leak_norm"], refined=r.get("refined_leak"))
+    return res, recs
+
+
 # ------------------------------------------------------------------------------------------------ figures
 def fig_cv_fidelity(plt, cells, Ns):
     from matplotlib.patches import Rectangle
@@ -436,6 +462,15 @@ def main():
     for x in he:
         print(f"    N={x['N']} ({x['A']},{x['B']}) d={x['d_new']} seeds={x['nseeds']}: near-bare {x['near_bare_frac']:.3f}  balance {x['balance']}")
     summary["hard_edge"] = he
+    for model in ("sym", "generic"):
+        c, _ = check_closed(model)
+        if c["n"]:
+            print(f"\n[closed {model}] N={c['Ns']}: {c['n']} sector records; HPL dim failures {c['hpl_fail']}, admissible-dim "
+                  f"failures {c['adm_fail']}; reconstruction {c['recon']:.1e}, BPS residual {c['bps']:.1e}, decoder pencils "
+                  f"{c['dec_bare']:.1e} / {c['dec_cv']:.1e}; reduced systems {c['reduced']}: leak-free {c['leak_free']}, "
+                  f"Herm(M) > 0 in {c['accretive']} (refined criterion < 2 in {c['refined_lt2']}), bound violations "
+                  f"{c['herm_bound_viol']}; smallest sigma_min(M) {c['sigma_min_M']:.3g} at {c['worst']}")
+            summary[f"closed_{model}"] = c
     t, trecs = check_tower()
     print(f"\n[tower] {t['n']} records: criterion (kappa = bound <=> ker D_T = 0) failures {t['criterion_fail']}, above bound {t['above_bound']}")
     summary["tower"] = t
