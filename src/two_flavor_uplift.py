@@ -646,6 +646,255 @@ class PairUplift:
             out += float(np.linalg.norm(y) ** 2)
         return out
 
+    # ================================================================== closed forms (D8 sec. 9)
+    # Slot order by w = t_psi - t_chi:  01, 00, 11, 10.  New sector (A,B) -> old sectors (A,B-1), (A,B), (A-1,B-1), (A-1,B).
+    # "Slot vectors" are the concatenated operator-convention slot components in this order.
+    CF_SLOTS = ((0, 1), (0, 0), (1, 1), (1, 0))
+
+    def _d(self, a, b):
+        return self.old_dim(a, b) if self.old_ok(a, b) else 0
+
+    def _Q(self, a, b):
+        """Q0: (a,b) -> (a+2,b-1), with correct (possibly empty) shape."""
+        return self.old_Q(a, b) if self._d(a, b) else np.zeros((self._d(a + 2, b - 1), 0), complex)
+
+    def Qp(self, a, b):
+        """Q0^+ : (a+2,b-1) -> (a,b)."""
+        def f():
+            Q = self._Q(a, b)
+            return np.linalg.pinv(Q, rcond=1e-10) if Q.size else np.zeros((self._d(a, b), self._d(a + 2, b - 1)), complex)
+        return self._cache(("Qp", a, b), f)
+
+    def Qdp(self, a, b):
+        """(Q0^dag)^+ : (a-2,b+1) -> (a,b)."""
+        def f():
+            Q = self._Q(a - 2, b + 1)
+            return np.linalg.pinv(Q.conj().T, rcond=1e-10) if Q.size else np.zeros((self._d(a, b), self._d(a - 2, b + 1)), complex)
+        return self._cache(("Qdp", a, b), f)
+
+    def op(self, which, a, b):
+        """E, K, Z from old sector (a,b) (shape-safe)."""
+        da, db = self._SHIFT[which]
+        if self._d(a, b) and self._d(a + da, b + db):
+            return self.pair_op(which, a, b)
+        return np.zeros((self._d(a + da, b + db), self._d(a, b)), complex)
+
+    def opd(self, which, a, b):
+        """Adjoint of E, K or Z whose TARGET is old sector (a,b): maps (a,b) back to the source sector."""
+        da, db = self._SHIFT[which]
+        return self.op(which, a - da, b - db).conj().T
+
+    def H(self, a, b):
+        B = self.old_B(a, b) if self._d(a, b) else np.zeros((0, 0))
+        return B if B.size else np.zeros((self._d(a, b), 0), complex)
+
+    def green(self, a, b):
+        """Old Green's operator G = H0^+ on sector (a,b)."""
+        def f():
+            d = self._d(a, b)
+            if d == 0:
+                return np.zeros((0, 0), complex)
+            L = np.zeros((d, d), complex)
+            Qo, Qi = self._Q(a, b), self._Q(a - 2, b + 1)
+            if Qo.size:
+                L += Qo.conj().T @ Qo
+            if Qi.size:
+                L += Qi @ Qi.conj().T
+            return np.linalg.pinv((L + L.conj().T) / 2, rcond=1e-10, hermitian=True)
+        return self._cache(("G", a, b), f)
+
+    def Zc(self, A, B):
+        """Zc = Z - E Q0^+ K + K Q0^+ E : old (A,B-1) -> (A+1,B-1)  (the d2 kernel; D8 eq. Zc)."""
+        return (self.op("Z", A, B - 1) - self.op("E", A, B) @ self.Qp(A, B) @ self.op("K", A, B - 1)
+                + self.op("K", A - 1, B - 1) @ self.Qp(A - 1, B - 1) @ self.op("E", A, B - 1))
+
+    # ------------------------------------------------------------------ (I) cohomology by homological perturbation
+    def hpl_D(self, A, B):
+        """Transferred differential D = d1 + d2 : E1(A,B) -> E1(A+2,B-1), E1 = (+)_T old BPS(slot T), slot order 01,00,11,10:
+            D(eta01, eta00, eta11, eta10) = (0, P K eta01, P E eta01, P(E eta00 - K eta11 + Zc eta01))."""
+        src = [self.H(A, B - 1), self.H(A, B), self.H(A - 1, B - 1), self.H(A - 1, B)]
+        tgt = [self.H(A + 2, B - 2), self.H(A + 2, B - 1), self.H(A + 1, B - 2), self.H(A + 1, B - 1)]
+        ns, nt = [x.shape[1] for x in src], [x.shape[1] for x in tgt]
+        os_, ot = np.concatenate([[0], np.cumsum(ns)]), np.concatenate([[0], np.cumsum(nt)])
+        M = np.zeros((ot[-1], os_[-1]), complex)
+
+        def put(r, c, X):
+            if nt[r] and ns[c]:
+                M[ot[r]:ot[r + 1], os_[c]:os_[c + 1]] = tgt[r].conj().T @ X @ src[c]
+        put(1, 0, self.op("K", A, B - 1))
+        put(2, 0, self.op("E", A, B - 1))
+        put(3, 0, self.Zc(A, B))
+        put(3, 1, self.op("E", A, B))
+        put(3, 2, -self.op("K", A - 1, B - 1))
+        return M
+
+    def hpl_dim(self, A, B):
+        """dim H(E1, D) at new sector (A,B) = dim B_new(A,B) (D8 Theorem B)."""
+        Dout, Din = self.hpl_D(A, B), self.hpl_D(A - 2, B + 1)
+        return Dout.shape[1] - (rank(Dout) if Dout.size else 0) - (rank(Din) if Din.size else 0)
+
+    # ------------------------------------------------------------------ (II) explicit two-sided uplift
+    def cf_layout(self, A, B):
+        secs = [(A - T[0], B - T[1]) for T in self.CF_SLOTS]
+        dims = [self._d(*s) for s in secs]
+        return secs, dims, np.concatenate([[0], np.cumsum(dims)]).astype(int)
+
+    def cf_K(self, A, B):
+        """Kc = Qd^+ Qc + (Qd^dag)^+ Qc^dag on slot vectors (01,00,11,10), operator convention (D8 eq. Kc)."""
+        secs, dims, off = self.cf_layout(A, B)
+        M = np.zeros((off[-1], off[-1]), complex)
+
+        def put(r, c, X):
+            if X.size and dims[r] and dims[c]:
+                M[off[r]:off[r + 1], off[c]:off[c + 1]] += X
+        put(0, 1, -self.Qdp(A, B - 1) @ self.opd("K", A, B))
+        put(0, 2, -self.Qdp(A, B - 1) @ self.opd("E", A - 1, B - 1))
+        put(0, 3, -self.Qdp(A, B - 1) @ self.opd("Z", A - 1, B))
+        put(1, 0, self.Qp(A, B) @ self.op("K", A, B - 1))
+        put(1, 3, self.Qdp(A, B) @ self.opd("E", A - 1, B))
+        put(2, 0, self.Qp(A - 1, B - 1) @ self.op("E", A, B - 1))
+        put(2, 3, -self.Qdp(A - 1, B - 1) @ self.opd("K", A - 1, B))
+        put(3, 0, -self.Qp(A - 1, B) @ self.op("Z", A, B - 1))
+        put(3, 1, -self.Qp(A - 1, B) @ self.op("E", A, B))
+        put(3, 2, self.Qp(A - 1, B) @ self.op("K", A - 1, B - 1))
+        return M
+
+    def cf_harmonic(self, A, B):
+        """Columns: the old-harmonic basis of each slot, embedded in slot-vector coordinates."""
+        secs, dims, off = self.cf_layout(A, B)
+        cols = []
+        for i, s in enumerate(secs):
+            Hs = self.H(*s)
+            if Hs.shape[1]:
+                Y = np.zeros((off[-1], Hs.shape[1]), complex)
+                Y[off[i]:off[i + 1]] = Hs
+                cols.append(Y)
+        return np.hstack(cols) if cols else np.zeros((off[-1], 0), complex)
+
+    def cf_to_slots(self, A, B, X):
+        S = self.slot_components(A, B, X, operator_convention=True)
+        return np.vstack([S[T] if S[T].size else np.zeros((0, X.shape[1]), complex) for T in self.CF_SLOTS])
+
+    def cf_from_slots(self, A, B, Y):
+        secs, dims, off = self.cf_layout(A, B)
+        out = np.zeros((self.new_dim(A, B), Y.shape[1]), complex)
+        idx = self.slot_index(A, B)
+        for i, T in enumerate(self.CF_SLOTS):
+            if dims[i]:
+                out[idx[T]] = self.slot_sign(A, B, T) * Y[off[i]:off[i + 1]]
+        return out
+
+    def cf_obstruction(self, A, B):
+        """Rows of Psi -> (P_H Qc Psi, P_H Qc^dag Psi): the harmonic parts of the six currents (D8 sec. 9.2)."""
+        secs, dims, off = self.cf_layout(A, B)
+        rows = []
+
+        def row(parts, tgt):
+            Ht = self.H(*tgt)
+            if Ht.shape[1] == 0:
+                return
+            R = np.zeros((Ht.shape[1], off[-1]), complex)
+            for i, X in parts:
+                if X.size and dims[i]:
+                    R[:, off[i]:off[i + 1]] += Ht.conj().T @ X
+            rows.append(R)
+        row([(0, self.op("K", A, B - 1))], (A + 2, B - 1))
+        row([(0, self.op("E", A, B - 1))], (A + 1, B - 2))
+        row([(0, self.op("Z", A, B - 1)), (1, self.op("E", A, B)), (2, -self.op("K", A - 1, B - 1))], (A + 1, B - 1))
+        row([(1, self.opd("K", A, B)), (2, self.opd("E", A - 1, B - 1)), (3, self.opd("Z", A - 1, B))], (A - 2, B))
+        row([(3, self.opd("E", A - 1, B))], (A - 2, B + 1))
+        row([(3, -self.opd("K", A - 1, B))], (A - 3, B))
+        return np.vstack(rows) if rows else np.zeros((0, off[-1]), complex)
+
+    def cf_bps(self, A, B):
+        """Closed-form BPS space: admissible harmonic sources h (columns, slot coordinates) and Psi = (1 + Kc)^{-1} h.
+        Returns (Hadm, Psi, R) with R = (1 + Kc)^{-1}."""
+        Kc = self.cf_K(A, B)
+        R = np.linalg.inv(np.eye(Kc.shape[0]) + Kc)
+        Hh = self.cf_harmonic(A, B)
+        O = self.cf_obstruction(A, B)
+        if Hh.shape[1] == 0:
+            return Hh, Hh, R
+        adm = nullspace(O @ R @ Hh, Hh.shape[1]) if O.shape[0] else np.eye(Hh.shape[1])
+        Hadm = Hh @ adm
+        return Hadm, R @ Hadm, R
+
+    # ------------------------------------------------------------------ (III) the reduced two-slot system
+    def self_energies(self, A, B):
+        """S_G = E G E^dag + K G K^dag on old (A-1,B) [slot 10];  S'_G = K^dag G K + E^dag G E on old (A,B-1) [slot 01]."""
+        SG = (self.op("E", A - 2, B + 1) @ self.green(A - 2, B + 1) @ self.op("E", A - 2, B + 1).conj().T
+              + self.op("K", A - 3, B) @ self.green(A - 3, B) @ self.op("K", A - 3, B).conj().T)
+        SpG = (self.op("K", A, B - 1).conj().T @ self.green(A + 2, B - 1) @ self.op("K", A, B - 1)
+               + self.op("E", A, B - 1).conj().T @ self.green(A + 1, B - 2) @ self.op("E", A, B - 1))
+        return SG, SpG
+
+    def reduced_system(self, A, B):
+        """The 2x2 block system for (z10, x01) in orthonormal bases of Co(10) and Ex(01) (D8 sec. 9.3):
+             M = [[1 + A, -L], [-L', 1 + A']],   A = P S_G P,  A' = P S'_G P,  L = Q0^+ Zc,  L' = (Q0^dag)^+ Zc'^dag,
+             L' = -L^dag + C,   C = alpha00 gamma00^dag - alpha11 gamma11^dag   (leak through the middle cohomology)."""
+        Uz = colspace(self._Q(A - 1, B).conj().T) if (self._d(A - 1, B) and self._d(A + 1, B - 1)) \
+            else np.zeros((self._d(A - 1, B), 0), complex)
+        Ux = colspace(self._Q(A - 2, B)) if (self._d(A - 2, B) and self._d(A, B - 1)) \
+            else np.zeros((self._d(A, B - 1), 0), complex)
+        SG, SpG = self.self_energies(A, B)
+        Am = Uz.conj().T @ SG @ Uz if Uz.shape[1] else np.zeros((0, 0), complex)
+        Apm = Ux.conj().T @ SpG @ Ux if Ux.shape[1] else np.zeros((0, 0), complex)
+        L = Uz.conj().T @ self.Qp(A - 1, B) @ self.Zc(A, B) @ Ux
+        Lp = Ux.conj().T @ self.Qdp(A, B - 1) @ self.Zc(A - 2, B + 1).conj().T @ Uz
+        nz, nx = Uz.shape[1], Ux.shape[1]
+        C = np.zeros((nx, nz), complex)
+        H00, H11 = self.H(A, B), self.H(A - 1, B - 1)
+        if nz and nx and H00.shape[1]:
+            a00 = Ux.conj().T @ self.Qdp(A, B - 1) @ self.opd("K", A, B) @ H00
+            g00 = Uz.conj().T @ self.Qp(A - 1, B) @ self.op("E", A, B) @ H00
+            C += a00 @ g00.conj().T
+        if nz and nx and H11.shape[1]:
+            a11 = Ux.conj().T @ self.Qdp(A, B - 1) @ self.opd("E", A - 1, B - 1) @ H11
+            g11 = Uz.conj().T @ self.Qp(A - 1, B) @ self.op("K", A - 1, B - 1) @ H11
+            C -= a11 @ g11.conj().T
+        M = np.eye(nz + nx, dtype=complex)
+        if nz:
+            M[:nz, :nz] += Am
+        if nx:
+            M[nz:, nz:] += Apm
+        if nz and nx:
+            M[:nz, nz:] -= L
+            M[nz:, :nz] -= Lp
+        return dict(A=Am, Ap=Apm, L=L, Lp=Lp, C=C, M=M, nz=nz, nx=nx, Uz=Uz, Ux=Ux)
+
+    def reduced_diagnostics(self, A, B):
+        r = self.reduced_system(A, B)
+        M = r["M"]
+        if M.size == 0:
+            return None
+        herm = np.linalg.eigvalsh((M + M.conj().T) / 2).min()
+        cn = float(np.linalg.norm(r["C"], 2)) if r["C"].size else 0.0
+        out = dict(nz=r["nz"], nx=r["nx"], sigma_min_M=float(np.linalg.svd(M, compute_uv=False).min()),
+                   herm_min=float(herm), leak_norm=cn, accretive_bound=1 - cn / 2,
+                   b_mid=[self.b(A, B) if self.old_ok(A, B) else 0, self.b(A - 1, B - 1) if self.old_ok(A - 1, B - 1) else 0])
+        if r["L"].size:
+            out["L_norm"] = float(np.linalg.norm(r["L"], 2))
+            out["adjoint_resid"] = float(np.abs(r["Lp"] + r["L"].conj().T - r["C"]).max())
+        return out
+
+    # ------------------------------------------------------------------ (IV) closed-form decoders
+    def cf_decoders(self, A, B):
+        """Bare-fraction spectrum and CV slot-decoder spectra from the closed-form pencil on the admissible sources:
+            mu: <h,h> = mu <Psi(h),Psi(h)>;   lambda_T: <Psi_T(h),Psi_T(h)> = lambda <Psi(h),Psi(h)>."""
+        Hadm, Psi, _ = self.cf_bps(A, B)
+        if Hadm.shape[1] == 0:
+            return None
+        Gm = Psi.conj().T @ Psi
+        Li = np.linalg.inv(np.linalg.cholesky((Gm + Gm.conj().T) / 2))
+        mu = np.sort(np.linalg.eigvalsh(Li @ (Hadm.conj().T @ Hadm) @ Li.conj().T))
+        secs, dims, off = self.cf_layout(A, B)
+        lam = {}
+        for i, T in enumerate(self.CF_SLOTS):
+            if dims[i]:
+                PT = Psi[off[i]:off[i + 1]]
+                lam["".join(map(str, T))] = np.sort(np.linalg.eigvalsh(Li @ (PT.conj().T @ PT) @ Li.conj().T))
+        return dict(mu=mu, lam=lam)
+
 
 # ---------------------------------------------------------------------------------------------------- utilities
 def memory_estimate_gb(N):

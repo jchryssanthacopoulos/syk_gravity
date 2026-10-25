@@ -12,6 +12,9 @@ Tasks (any subset, one JSONL record per realization and sector):
                                                                                               [per new sector]
   tower   CV dressing costs kappa_00, kappa_11 of the tower vs CV's bounds (eqs. 87-88)       [per rung n]
   e2      dims of the slot-complex cohomology (E2 page of the w-filtration), old-model data only [per new sector]
+  closed  closed forms (D8 sec. 9): HPL dimension dim H(E1, d1 + d2); closed-form uplift Psi = (1+Kc)^{-1} h vs exact BPS
+          states; reduced two-slot system (conditioning, leak, accretivity criterion); closed-form decoder pencils
+                                                                                              [per new sector]
 
 Couplings: rng = default_rng(seed); C = random_symmetric_couplings(N+1, rng) (or random_generic_couplings with
 --model generic).  The old model is the restriction of the same couplings to the first N pairs.
@@ -127,6 +130,50 @@ def task_e2(P):
     return out
 
 
+def task_closed(P):
+    out = []
+    for A in range(P.N + 2):
+        for B in range(P.N + 2):
+            if P.new_dim(A, B) == 0:
+                continue
+            rec = dict(A=A, B=B, d_new=P.d_new(A, B), hpl_dim=P.hpl_dim(A, B))
+            Hadm, Psi, R = P.cf_bps(A, B)
+            rec["adm_dim"] = int(Hadm.shape[1])
+            X = P.new_B(A, B)
+            if X.size and X.shape[1]:
+                Y = P.cf_to_slots(A, B, X)
+                Hh = P.cf_harmonic(A, B)
+                rec["reconstruction_err"] = float(np.linalg.norm(R @ (Hh @ (Hh.conj().T @ Y)) - Y) / np.linalg.norm(Y))
+                L = P.bps_constraints(A, B)
+                if L is not None and Psi.shape[1]:
+                    code = P.cf_from_slots(A, B, Psi)
+                    rec["bps_residual"] = float(np.linalg.norm(L @ code) / np.linalg.norm(code))
+                dec = P.cf_decoders(A, B)
+                mu = np.sort(P.bare_fraction_spectrum(A, B))
+                rec["decoder_bare_err"] = float(np.abs(dec["mu"] - mu).max())
+                S = P.slot_components(A, B, X)
+                err = 0.0
+                for T in ((0, 0), (1, 0), (0, 1), (1, 1)):
+                    key = "".join(map(str, T))
+                    if key in dec["lam"]:
+                        ex = np.sort(np.linalg.eigvalsh(S[T].conj().T @ S[T]))
+                        err = max(err, float(np.abs(dec["lam"][key] - ex).max()))
+                rec["decoder_cv_err"] = err
+                rec["mu_min"] = float(mu.min())
+            dg = P.reduced_diagnostics(A, B)
+            if dg is not None:
+                r = P.reduced_system(A, B)
+                if r["C"].size and r["nz"] and r["nx"]:
+                    wz = np.linalg.eigh(np.eye(r["nz"]) + (r["A"] + r["A"].conj().T) / 2)
+                    wx = np.linalg.eigh(np.eye(r["nx"]) + (r["Ap"] + r["Ap"].conj().T) / 2)
+                    iz = wz[1] @ np.diag(wz[0] ** -0.5) @ wz[1].conj().T
+                    ix = wx[1] @ np.diag(wx[0] ** -0.5) @ wx[1].conj().T
+                    dg["refined_leak"] = float(np.linalg.norm(ix @ r["C"] @ iz, 2))
+                rec.update(dg)
+            out.append(rec)
+    return out
+
+
 def task_tower(P):
     out = []
     for n in range(0, P.N + 1):
@@ -143,7 +190,7 @@ def main():
     ap.add_argument("--seeds", type=int, nargs="+", default=[1])
     ap.add_argument("--model", choices=["sym", "generic"], default="sym")
     ap.add_argument("--tasks", nargs="+", default=["dims", "cv", "bare", "first", "tower"],
-                    choices=["dims", "cv", "bare", "first", "tower", "e2"])
+                    choices=["dims", "cv", "bare", "first", "tower", "e2", "closed"])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--tag", default="")
     ap.add_argument("--dry-run", action="store_true")
@@ -169,7 +216,7 @@ def main():
                 t1 = time.time()
                 recs = dict(dims=lambda: task_dims(P), cv=lambda: task_cv(P, sym), bare=lambda: task_bare(P, sym),
                             first=lambda: task_first(P, sym), tower=lambda: task_tower(P),
-                            e2=lambda: task_e2(P))[task]()
+                            e2=lambda: task_e2(P), closed=lambda: task_closed(P))[task]()
                 path = os.path.join(a.out, f"{task}_N{N}_{a.model}{a.tag}.jsonl")
                 with open(path, "a") as fh:
                     for r in recs:

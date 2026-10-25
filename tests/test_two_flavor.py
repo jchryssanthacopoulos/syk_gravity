@@ -341,6 +341,86 @@ def test_tower_is_dark_at_first_order():
         assert np.linalg.norm(P.first_order_dressing(n, n, s[:, None])) < 1e-10
 
 
+# ------------------------------------------------------------------------------------------------ closed forms (D8 sec. 9)
+def test_hpl_dimension_formula():
+    """dim B_new = dim H(E1, D), D = d1 + d2 with d2 = P_H Zc P_H, in every sector (both models)."""
+    for N, generic in ((3, False), (4, False), (5, False), (4, True), (5, True)):
+        P = pair(N, 200 + N, generic)
+        for A in range(N + 2):
+            for B in range(N + 2):
+                if P.new_dim(A, B):
+                    assert P.hpl_dim(A, B) == P.d_new(A, B), (N, generic, A, B)
+
+
+def test_closed_form_uplift_reproduces_bps_states():
+    """Psi = (1 + Kc)^{-1} h reconstructs every BPS state from its harmonic slot parts; the admissible sources
+    (vanishing harmonic parts of the currents) span exactly B_new."""
+    from two_flavor_uplift import rank as _rank
+    for generic in (False, True):
+        P = pair(4, 210, generic)
+        for A in range(P.N + 2):
+            for B in range(P.N + 2):
+                if P.new_dim(A, B) == 0:
+                    continue
+                Hadm, Psi, R = P.cf_bps(A, B)
+                X = P.new_B(A, B)
+                d = X.shape[1] if X.size else 0
+                assert Hadm.shape[1] == d
+                if d == 0:
+                    continue
+                Y = P.cf_to_slots(A, B, X)
+                Hh = P.cf_harmonic(A, B)
+                assert np.linalg.norm(R @ (Hh @ (Hh.conj().T @ Y)) - Y) < 1e-10 * np.linalg.norm(Y)
+                L = P.bps_constraints(A, B)
+                code = P.cf_from_slots(A, B, Psi)
+                if L is not None:
+                    assert np.linalg.norm(L @ code) < 1e-10 * np.linalg.norm(code)
+                assert _rank(np.hstack([X, code])) == d          # same span
+
+
+def test_reduced_system_structure():
+    """A, A' Hermitian PSD and equal to the projected self-energies; L' = -L^dag + C with the factorized leak;
+    Herm(M) >= 1 - |C|/2 (so M is invertible when |C| < 2); C = 0 when the middle slots carry no cohomology."""
+    for generic in (False, True):
+        P = pair(5, 220, generic)
+        for A in range(P.N + 2):
+            for B in range(P.N + 2):
+                if P.new_dim(A, B) == 0:
+                    continue
+                r = P.reduced_system(A, B)
+                for X in (r["A"], r["Ap"]):
+                    if X.size:
+                        assert np.abs(X - X.conj().T).max() < 1e-10
+                        assert np.linalg.eigvalsh((X + X.conj().T) / 2).min() > -1e-10
+                if r["L"].size:
+                    assert np.abs(r["Lp"] + r["L"].conj().T - r["C"]).max() < 1e-9
+                M = r["M"]
+                if M.size:
+                    cn = np.linalg.norm(r["C"], 2) if r["C"].size else 0.0
+                    assert np.linalg.eigvalsh((M + M.conj().T) / 2).min() >= 1 - cn / 2 - 1e-9
+                    bmid = (P.b(A, B) if P.old_ok(A, B) else 0) + (P.b(A - 1, B - 1) if P.old_ok(A - 1, B - 1) else 0)
+                    if bmid == 0:
+                        assert cn < 1e-10
+
+
+def test_closed_form_decoders_match_exact():
+    for generic in (False, True):
+        P = pair(4, 230, generic)
+        for A in range(P.N + 2):
+            for B in range(P.N + 2):
+                r = P.cf_decoders(A, B) if P.new_dim(A, B) else None
+                if r is None:
+                    continue
+                assert np.abs(r["mu"] - np.sort(P.bare_fraction_spectrum(A, B))).max() < 1e-9
+                X = P.new_B(A, B)
+                S = P.slot_components(A, B, X)
+                for T in SLOTS:
+                    key = "".join(map(str, T))
+                    if key in r["lam"]:
+                        ex = np.sort(np.linalg.eigvalsh(S[T].conj().T @ S[T]))
+                        assert np.abs(r["lam"][key] - ex).max() < 1e-9
+
+
 if __name__ == "__main__":
     import time
     for name, fn in list(globals().items()):
