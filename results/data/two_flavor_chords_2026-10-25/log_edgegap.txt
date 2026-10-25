@@ -1,0 +1,26 @@
+memwatch: pid 78360 cap 8.0 GB, budget 30 GB: /private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage2/job_edgegap.sh
+memory estimate (GB): {"N=3": {"resonance_pairing_tower": 0.30024883199999997, "blocks": 0.3, "edgegap": 0.3}, "N=5": {"resonance_pairing_tower": 0.33072, "blocks": 0.3, "edgegap": 0.3}, "N=7": {"resonance_pairing_tower": 4.90992, "blocks": 0.87, "edgegap": 0.33}}
+edgegap N=3 seed=1: 4 edge sectors, 0.0s
+edgegap N=3 seed=2: 4 edge sectors, 0.0s
+edgegap N=3 seed=3: 4 edge sectors, 0.0s
+edgegap N=5 seed=1: 4 edge sectors, 0.0s
+edgegap N=5 seed=2: 4 edge sectors, 0.0s
+edgegap N=5 seed=3: 4 edge sectors, 0.0s
+edgegap N=7 seed=1: 8 edge sectors, 0.7s
+edgegap N=7 seed=2: 8 edge sectors, 0.8s
+edgegap N=7 seed=3: 8 edge sectors, 0.7s
+memory estimate (GB): {"N=3": {"resonance_pairing_tower": 0.30024883199999997, "blocks": 0.3, "edgegap": 0.3}, "N=5": {"resonance_pairing_tower": 0.33072, "blocks": 0.3, "edgegap": 0.3}, "N=7": {"resonance_pairing_tower": 4.90992, "blocks": 0.87, "edgegap": 0.33}}
+edgegap N=3 seed=1: 4 edge sectors, 0.0s
+edgegap N=3 seed=2: 4 edge sectors, 0.0s
+edgegap N=3 seed=3: 4 edge sectors, 0.0s
+edgegap N=5 seed=1: 4 edge sectors, 0.0s
+edgegap N=5 seed=2: 4 edge sectors, 0.0s
+edgegap N=5 seed=3: 4 edge sectors, 0.0s
+edgegap N=7 seed=1: 8 edge sectors, 0.7s
+edgegap N=7 seed=2: 8 edge sectors, 0.7s
+edgegap N=7 seed=3: 8 edge sectors, 0.7s
+memory estimate (GB): {"N=9": {"resonance_pairing_tower": 774.589539072, "blocks": 113.77, "edgegap": 6.57}}
+edgegap N=9 seed=1: 8 edge sectors, 1974.8s
+edgegap N=9 seed=2: 8 edge sectors, 1064.2s
+/private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage2/job_edgegap.sh: line 8: 46423 Terminated: 15          $PY $R --tasks edgegap --N 9 --seeds 1 2 --model generic
+memwatch: done rc=143 peak 6.80 GB (cap 8.0) in 3062s

@@ -1,6 +1,6 @@
 # To-do
 
-*Last revised 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-10-25 (D9 chords for the two-flavor uplift); 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## A. Environment & reproducibility (P0)
@@ -90,8 +90,14 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [x] **Q12 Stage 1, 2026-10-23:** exact two-flavor pair uplift (D8; report `research/pdfs/progress_2026-10-23.pdf`;
       data `results/data/two_flavor_2026-10-23/`).
 - [ ] **Q12 / D8 follow-ups:**
-  - **Stage 2 (P1):** chord computation of the E (ψ†χ), K (ψ†ψ†), Z (ψ†) two-point functions and their interference;
-    first check the literature for two-flavor N=2 chord rules;
+  - ~~**Stage 2 (P1):** chord computation of the E (ψ†χ), K (ψ†ψ†), Z (ψ†) two-point functions and their interference;
+    first check the literature for two-flavor N=2 chord rules~~ → done 2026-10-25 (D9; report
+    `research/pdfs/progress_2026-10-25.pdf`; data `results/data/two_flavor_chords_2026-10-25/`): two-flavor chord dictionary,
+    black-hole window with gapless edges, emission resonances, tower = no emission (twisted chord = V insertion);
+  - **Stage 2 follow-ups (P1):** chord evaluation of 𝒵, α, γ (exact uplift from chords); a chord Hilbert space for graviton
+    states (resum twisted chords); per-sector chord prediction of the mean exact dressing (slot weights + interference);
+    N' = 10 at resonant parity with sparse methods (predicted: the J-resonant bulk sectors (3,2), (4,4), (5,6) and their
+    mirrors (4,2), (5,4), (6,6) far above the s' = 0 sectors (4,3), (5,5), (6,7), with the tower bare in (4,4), (6,6));
   - ~~proofs: four-slot injectivity; closed form of d₂~~ → done 2026-10-25 (D8 §9): d₂ closed form via homological
     perturbation; injectivity is generic but fails at special couplings (pure-dressing states);
   - proofs: the room laws L1/L2 (generic position in the refined rooms); the geometry of the pure-dressing set;

@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_two_flavor_chords.py --tasks tower blocks resonance pairing --N 7 --seeds 1 2 --model sym", "rc": 0, "killed": null, "peak_gb": 2.549, "cap_gb": 8.0, "secs": 2687.2, "ended": "2026-10-25T17:25:34"}

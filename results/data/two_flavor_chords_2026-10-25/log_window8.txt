@@ -1,0 +1,18 @@
+memwatch: pid 74621 cap 4.0 GB, budget 30 GB: /private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage2/job_window8.sh
+memory estimate (GB): {"Np=8": {"window": 2.6}}
+window N'=8 seed=1: 81 sectors, 118.8s
+window N'=8 seed=2: 81 sectors, 157.6s
+memory estimate (GB): {"Np=8": {"window": 2.6}}
+window N'=8 seed=1: 81 sectors, 157.5s
+window N'=8 seed=2: 81 sectors, 152.9s
+memory estimate (GB): {"Np=9": {"window": 1.16}, "Np=10": {"window": 1.16}}
+window N'=9 seed=1: 68 sectors, 32.7s
+window N'=9 seed=2: 68 sectors, 32.9s
+window N'=10 seed=1: 76 sectors, 194.2s
+window N'=10 seed=2: 76 sectors, 174.5s
+memory estimate (GB): {"Np=9": {"window": 1.16}, "Np=10": {"window": 1.16}}
+window N'=9 seed=1: 68 sectors, 24.2s
+window N'=9 seed=2: 68 sectors, 27.6s
+window N'=10 seed=1: 76 sectors, 187.7s
+window N'=10 seed=2: 76 sectors, 198.8s
+memwatch: done rc=0 peak 2.11 GB (cap 4.0) in 1463s

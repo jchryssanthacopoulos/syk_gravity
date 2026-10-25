@@ -1,0 +1,4 @@
+memwatch: pid 46802 cap 8.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_flavor_chords.py --tasks edgegap --N 9 --seeds 2 --model generic
+memory estimate (GB): {"N=9": {"resonance_pairing_tower": 774.589539072, "blocks": 113.77, "edgegap": 6.57}}
+edgegap N=9 seed=2: 8 edge sectors, 1171.9s
+memwatch: done rc=0 peak 6.78 GB (cap 8.0) in 1172s

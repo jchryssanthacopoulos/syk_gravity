@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_two_flavor_chords.py --tasks blocks resonance pairing --N 7 --seeds 1 2 --model generic", "rc": 0, "killed": null, "peak_gb": 2.702, "cap_gb": 8.0, "secs": 2635.6, "ended": "2026-10-25T17:24:42"}

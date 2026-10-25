@@ -1336,6 +1336,10 @@ symmetrized seeds 1–5 (N = 2–6) and 1–2 (N = 7); generic seeds 1–3 (N = 
   This is an operator identity, verified in both models (test).
 - **Nilpotency.** Q_{N+1}² = 0, taken component by component in ψ_e† and χ_f, gives
   [Q₀,E] = 0 (ψ_e† part), [Q₀,K] = 0 (χ_f part) and **[E,K] = {Q₀,Z}** (ψ_e†χ_f part).
+  - *Note added 2026-10-25 (D9 §1.1).* All four operators are polynomials in the mutually anticommuting set
+    {ψ_i†, χ_k}. Hence [Q₀,E] = [Q₀,K] = [E,K] = 0 and {Q₀,Z} = 0 identically, and the last identity holds as 0 = 0
+    (checked to 1e−15 in both models). Nothing below needs it to be non-trivial; in particular
+    {Q₀,𝒵} = E P_H K − K P_H E (§9) is unaffected.
 - **Protection identity.** Write V_{N+1} = V_N + ψ_e†χ_f†. The ψ_e† component of [Q_{N+1},V_{N+1}] = 0 gives
   $$[E,V_N]=K .$$
   The χ_f component gives [K,V_N] = 0, which holds automatically since both are built from creation operators.
@@ -1751,3 +1755,321 @@ Readings:
   - simplifying the decoder pencils of §9.6 further, e.g. via push-through identities as in D6 §5;
   - the chord computation of the self-energies 𝒮_G, 𝒮′_G, the transfer 𝒵 and the leak maps α, γ (Stage 2). These are now
     the complete list of old-model inputs of the exact uplift.
+
+---
+
+## D9. Chords for the two-flavor uplift: the black-hole window, emission into it, and why the tower does not dress
+
+*2026-10-25. Stage 2 of the monotone-vs-fortuitous study (Q12): a chord (double-scaled, "gravitational") description of the
+two-flavor pair uplift of D8. Code: `src/two_flavor_chords.py` (dictionary), `scripts/run_two_flavor_chords.py` (tasks
+window, blocks, resonance, pairing, tower, edgegap, twisted), `scripts/analyze_two_flavor_chords.py`; tests `tests/test_two_flavor_chords.py`;
+data `results/data/two_flavor_chords_2026-10-25/` (`summary.json`); figures `results/figures/two_flavor_chords_2026-10-25/`.
+Report: `research/tex/progress_2026-10-25.tex`. Realizations: symmetrized and generic seeds 1–3 (old N ≤ 6, N' ≤ 7) and
+1–2 (N = 7, N' = 8–10), same couplings as D8.*
+
+### What is imported and what is new
+- **Imported.**
+  - BBNR §§4.1–4.5: oriented chord diagrams, friend/enemy weights, and the localized fixed-charge transfer matrix.
+  - BBNR (5.3), (5.25): continuum eigenvalues and the window |s| < 1/2 of the exact ground-state count.
+  - BLY (3.17), (4.14): BPS fraction and BPS→BPS weight.
+  - D7 §§1–2: the BPS→continuum spectral measure of a chiral matter chord (Al-Salam–Chihara) and its time integral.
+  - CCSY §3: the model, the tower, the statement that symmetrization leaves the large-N G–Σ action unchanged (their §3.3),
+    and the nonlinear charge constraint (their eq. 3.14).
+- **Not in the papers we have.** A chord treatment of the two-flavor model. CCSY §3.3 and HTZ §3 use the G–Σ method only.
+- **New here.**
+  - The two-flavor chord dictionary (§1).
+  - The window and its gapless edges in this model (§2).
+  - The uplift as matter-chord emission, with its resonances (§3).
+  - A chord-level account of the tower: twisted chords (§§1.2, 4).
+
+### 1. The two-flavor chord dictionary [derived]
+**1.1 Reduction to one-flavor chords.**
+
+*Setting.*
+- Let every term of Q create p_ψ ψ's and annihilate p_χ χ's: Q = Σ C_{IK} Ψ_I† X_K with |I| = p_ψ, |K| = p_χ. Our model has
+  p_ψ = 2, p_χ = 1 and C_{ijk} − C_{jik} as the coupling of ψ_i†ψ_j†χ_k.
+- Double scaling: p_ψ, p_χ → ∞ at fixed ratio, with λ := 2(p_ψ² + p_χ²)/N fixed, q = e^{−λ}.
+- Sector (N_ψ, N_χ); A := N_ψ − N/2, B := N_χ − N/2.
+
+*Claim.* The normalized moments m_k(A,B)/m_0(A,B) of H equal BBNR's fixed-charge chord moments at (q, s), with
+  s = (p_ψA − p_χB)/(p_ψ² + p_χ²)   [= (2A − B)/5 for our model]. Q raises s by exactly 1.
+
+*Derivation* (BBNR's steps, two flavors).
+1. *Wick.* Moments are sums over oriented chord diagrams (BBNR 4.1–4.3). Each chord joins a Q to a Q† with the same
+   (I, K).
+2. *Pairs of chords.* For two chords the overlaps m_ψ = |I₁∩I₂| and m_χ = |K₁∩K₂| are independent, Poisson(p_ψ²/N) and
+   Poisson(p_χ²/N).
+   - *Enemy configurations* (BBNR 4.4 i, ii) put two ψ†'s (or two χ's) on a shared site with nothing between them. They
+     therefore need m_ψ = m_χ = 0, with probability e^{−(p_ψ²+p_χ²)/N} = q^{1/2}.
+   - *Friend configurations* gain a factor 2 per shared site of either flavor (BBNR 4.6–4.7). This gives
+     E[2^{m_ψ+m_χ}] = q^{−1/2}.
+   - *Crossings.* Ψ_I†X_K contains p_ψ + p_χ fermions (odd here), so crossings give (−1)^{#int}.
+   - Hence m_k = 2^{−k} Σ (−1)^{#int} q^{(#e−#f)/2}, which is BBNR (4.10) with the combined λ.
+3. *Chemical potentials.* Weight the trace with e^{−μ_ψ A_op − μ_χ B_op}.
+   - A ψ-site of a chord carries ψ† at its O (Q) end; a χ-site carries χ there.
+   - So at the base point of the trace, a right-pointing chord (O before X) leaves its ψ-sites occupied and its χ-sites
+     empty. A left-pointing chord does the opposite.
+   - Each chord therefore contributes e^{∓(p_ψμ_ψ − p_χμ_χ)/2}: only μ_eff = p_ψμ_ψ − p_χμ_χ couples to the net
+     orientation m = n_→ − n_←.
+   - Uncovered sites give cosh(μ_ψ/2)^{N−kp_ψ} cosh(μ_χ/2)^{N−kp_χ}. Doubly covered sites are subleading (BBNR's case 3).
+4. *Fixed charge.* Fourier transforming in (iμ_ψ, iμ_χ), the two Gaussian integrals give
+   e^{−2(A²+B²)/N} · e^{λ s m} · e^{−λm²/4}.
+   - The first factor is the sector-dimension fraction.
+   - The last factor cancels BBNR's q^{−m²/4} (4.14), because the λ there is the same combined λ.
+   - What remains is BBNR (4.24)–(4.27) with charge s. ∎
+
+*Matter.*
+- Consider an operator O = Σ η_{I'K'} Ψ_{I'}†X_{K'} with independent Gaussian η, |I'| = p'_ψ, |K'| = p'_χ.
+- An H-chord crossing it carries overlaps Poisson(p_ψp'_ψ/N) and Poisson(p_χp'_χ/N). So the crossing weight is
+  q̃ = e^{−2(p_ψp'_ψ + p_χp'_χ)/N} = q^δ, with δ = (p_ψp'_ψ + p_χp'_χ)/(p_ψ² + p_χ²).
+- O changes (A, B) by (p'_ψ, −p'_χ), i.e. s by the same δ. It is therefore a *chiral* single-chord operator in the sense
+  of D7 (charge shift = crossing exponent).
+- Uplift operators (D8 §1): E = ψ†χ has δ = 3/5, K = ψ†ψ† has δ = 4/5, Z = ψ† has δ = 2/5. Their daggers lower s by the same
+  amounts (mirror s → −s, D7's g family).
+
+*Exact chirality.*
+- Q₀, E, K, Z are polynomials in the mutually anticommuting set {ψ_i†, χ_k}. Hence [Q₀,E] = [Q₀,K] = [E,K] = 0 and
+  {Q₀,Z} = 0 identically (checked to 1e−15).
+- For BPS h, O h is therefore Q₀-closed: it lies in BPS ⊕ exact, the B family. O†h lies in BPS ⊕ coexact, the A family.
+  This is the support the chord measure assigns.
+- *Clarification of D8 §1:* the identity [E,K] = {Q₀,Z} derived there from nilpotency holds as 0 = 0. No D8 result needed
+  it to be non-trivial; {Q₀, 𝒵} = E P_H K − K P_H E (D8 §9) is unaffected.
+
+**1.2 Symmetrized couplings: twisted chords.**
+
+*Covariance.* For C = (G + G^{T_jk})/2 (E|G|² = 2) the antisymmetrized couplings A_ijk = C_ijk − C_jik have
+  ⟨A_ijk Ā_lmn⟩ = (δ_ilδ_jm − δ_imδ_jl)δ_kn + ½[δ_ilδ_jnδ_km − δ_imδ_jnδ_kl − δ_jlδ_inδ_km + δ_jmδ_inδ_kl].
+- The first group is the generic (untwisted) chord.
+- The second pairs a Q-term with a Q†-term in which a ψ-index and the χ-index are exchanged: a **twisted chord**.
+
+*What a twisted chord does.* Written out, ψ_i†ψ_j†χ_k ··· χ_j†ψ_kψ_i is a number factor on site i times ψ_j†χ_j† times
+χ_kψ_k. So it moves a ψχ pair from site k to site j.
+
+*Counting.*
+- In a trace, or a diagonal matrix element in a Fock state, every mode must balance. The pair hops of the twisted chords
+  in a diagram must therefore compose to the identity.
+- For t twisted chords this imposes at least t extra index identifications (j = k for t = 1). Each costs 1/N relative to
+  an untwisted diagram.
+- **Twisted chords are therefore O(1/N) in every trace-level ("black-hole") quantity:** the density of states, the BPS
+  fraction, and BPS-averaged correlators of operators with independent couplings. At leading order the symmetrized and
+  generic models have the same chord diagrams.
+- This is the chord-level version of CCSY §3.3, now covering all moments and correlators rather than the saddle alone.
+- [num] It is consistent with: identical BPS dimensions at N' ≤ 8 (D8 §3); identical L1/L2 laws (D8 §6); the same
+  dictionary accuracy in both models; and identical black-hole E–K emission coherence in both models (§5, task `twisted`).
+
+*On graviton states.* On V-descendants V^n|Ω⟩ = Σ_{|S|=n} Π_{i∈S}ψ_i†χ_i†|Ω⟩, a pair hop maps tower configurations to
+tower configurations with equal amplitude. Twisted chords then act coherently (Σ over N² hops, no identification): O(1).
+
+*The uplift operators.*
+- In the symmetrized model K_ij = E_ji − E_ij (D8 §1), so E[Ē_{i'k'}K_ij] = v(δ_{i'j}δ_{k'i} − δ_{i'i}δ_{k'j}).
+- The E–K cross term of a two-point function is a twisted matter chord. Its net effect on the state is the pair creation
+  ψ_i†χ_i†, a V insertion.
+- It can be O(1) only between components related coherently by V, e.g. h₀₀ ∝ V h₁₁.
+
+### 2. The black-hole window [derived + num]
+- **The window.**
+  - D(s) (BLY 3.17) is the zero-length-wormhole probability for |s| < 1/2 and vanishes at s = ±1/2. Outside the window
+    there are no ground states: the exact count (BBNR 5.25) is nonzero only for |s| < 1/2.
+  - Q shifts s by 1, so every Q-complex has at most one window sector, or two at exact edges s = ±1/2, where BBNR's count is
+    ambiguous. This is CCSY's R-charge concentration in double-scaled form.
+  - In charge space the window is the band |2(N_ψ − N/2) − (N_χ − N/2)| < 5/2: slope dN_χ/dN_ψ = 2 through the center.
+- **Relation to CCSY's line [num, evaluated here from CCSY 3.14].**
+  - CCSY's large-N line at p = (2,1) passes through the center with slope dn_χ/dj = 0.392, against 2/5 for the band.
+  - The band is therefore the double-scaled linearization of the true line. The 2 % slope difference is a finite-p effect.
+  - At N ≤ 10 it shifts the band by ≲ 0.2 sector, except near the boundary of charge space.
+- **The tower relative to the window.**
+  - The tower sector (n,n) has s = (n − N/2)/5: inside the window iff |n − N/2| < 5/2.
+  - Following N at fixed n, the tower crosses the window, from s > 1/2 to s < −1/2, during about 10 uplifts. It then stays
+    BPS outside, where the chord model has no BPS states.
+- **Gapless edges [derived].**
+  - By BBNR (5.3), with D7's sign, the exact (B) continuum at s starts at 2q^{−1/2}[cosh λ(s − ½) − 1] and the coexact (A)
+    continuum at 2q^{−1/2}[cosh λ(s + ½) − 1], in units of κ.
+  - So the B continuum reaches zero energy at s = +½, the A continuum at s = −½.
+  - Near the edge the B-family density in φ tends to a constant while Λ ∝ φ². The edge is therefore a hard edge with
+    ρ(E) ∝ E^{−1/2}.
+  - The two edges are the two halves of one multiplet. Q maps the coexact family at s = −½ onto the exact family at s = +½
+    of the same complex, and the two share their nonzero spectrum. This is the gapless Q = ½ supermultiplet of the N=2
+    super-Schwarzian (HITZ App. A, eq. A.14, Fig. 5): it exists when the charge lattice contains ½. For p = (2,1) that is
+    odd N (s ∈ (1/5)ℤ + 1/10). Example: at N = 7, (2,3) → (4,2) carries the near-zero level 0.003175 in both sectors.
+- [num] *Results:* §5.
+
+### 3. The uplift as emission into the window [derived + num]
+**Bookkeeping.** Let a new BPS state sit in sector (A,B) of the N'-model, at chord charge s' = s_{N'}(A,B).
+- *Slots.* For p = (2,1) the old slots sit at s' + 1/10 (00), s' − 1/10 (11), s' − 3/10 (10) and s' + 3/10 (01).
+- *Dressing terms* (D8 §7):
+  - the currents J₁₀ (E h₀₀, K h₁₁, Z h₀₁) land in old (A+1, B−1) at s' + 7/10;
+  - J₀₁ (K†h₀₀, E†h₁₁, Z†h₁₀) lands in (A−2, B) at s' − 7/10;
+  - z₁₁ (E h₀₁) at s' + 9/10, x₀₀ (E†h₁₀) at s' − 9/10;
+  - z₀₀ (K h₀₁) at s' + 11/10, x₁₁ (K†h₁₀) at s' − 11/10.
+
+**Emission spectrum [derived from D7].** Each term's normalized spectral measure is the Al-Salam–Chihara measure with
+a = q^{s_in − ½} and b = q^{½ + δ − s_out}.
+- *Point mass.* For s_in < ½ it has a point mass at zero energy: the BPS→BPS (obstruction) weight
+  ‖P_H O h‖²/‖O h‖² = (q^{1−2s_in};q²)/(q^{1−2s_out};q²) (BLY 4.14). This is the obstruction of D8's Theorem A, now with a
+  chord value.
+- *Continuum.* The continuous part integrated against 1/Λ is the dressing building block, in units c₀/κ, where:
+  - c₀ is the exact τ = 0 value;
+  - κ comes from the exact first moment of the target sector, as in D7.
+
+**Resonances [derived].**
+- When a term lands on its gapless edge (raising at s_in = +½, lowering at −½), f(φ) → const while Λ ∝ φ². The time
+  integral ∫ f/Λ dφ ∼ ∫ dφ/φ² then diverges.
+- The resonant new charges are s' = −1/5 (J₁₀), −2/5 (z₁₁), −3/5 (z₀₀), and their mirrors.
+- For p = (2,1), s' ∈ (1/5)ℤ at even N' and (1/5)ℤ + 1/10 at odd N'. So the currents are exactly resonant only at even N'.
+  At odd N' every bulk sector is 1/10 from an edge (near-resonant).
+- Prediction: black-hole dressing grows as the emission approaches a gapless edge. At finite N it is controlled by the
+  near-zero modes of the edge sector.
+
+[num] *Results:* §5.
+
+### 4. The tower: no emission [derived + num]
+- **Mechanism (D8 §4).** The Ward identity [E,V] = K and EΩ = 0 give E V^nΩ = nK V^{n−1}Ω, so J₁₀ = J₀₁ = 0. The tower emits
+  nothing, at any coupling and any N.
+- **Chord reading.**
+  - The cancellation is between the E-emission of the 00 slot and the K-emission of the 11 slot. Their interference term is
+    the twisted E–K matter chord, i.e. a V insertion (§1.2).
+  - It cancels the direct terms only along a V-chain that ends on an E-annihilated state (here Ω).
+  - Black-hole states are not V-descendants of E-annihilated states. On them twisted chords are O(1/N), so their
+    emissions add incoherently.
+- [num] *Results:* §5.
+
+### 5. Results [num] (filled from `results/data/two_flavor_chords_2026-10-25/summary.json`)
+**Window (task `window`; N' = 4–8 every sector, both models, seeds 1–3 (N' = 8: 1–2); N' = 9, 10 sectors of dim ≤ 3000).**
+- *Support.*
+  - At N' = 4–8, every sector with BPS states lies in |s| ≤ 1/2, except the diagonal (tower) sectors with
+    |n − N'/2| ≥ 3.
+  - At N' = 8 these are (0,0), (8,8), (1,1) and (7,7), the latter two at s = ∓0.6. Each of (1,1) and (7,7) holds 8 BPS
+    states: the tower plus 7 forced by dimension counting (dim (1,1) = 64 > dim (3,0) = 56). The in-window partners of
+    these complexes, (3,0) and (5,8), are then empty.
+- *The tower alone (N' = 9, 10).* (1,1) has exactly one BPS state, the tower, with symmetrized couplings and none with
+  generic ones (seeds 1–2; dimension counting gives 81 < 84 and 100 < 120). This is the first sector where the BPS
+  dimensions of the two models differ; D8 found them equal for N' ≤ 8.
+- *Boundary miss (N' = 10).* The 15 states of the complex J = 6 sit in (2,2), at s = −0.6, in both models. This is the
+  curvature of the true line near the boundary of charge space (the slope at the center is 0.392 vs 2/5).
+- *Fractions.* Exact/D(s) over window sectors of dim ≥ 20 averages 0.91–1.04 (range 0.79–1.76), and 0.84–0.95 in central
+  sectors.
+- *Continuum edges.* In bulk sectors (dim ≥ 50, off the edge) the exact lowest eigenvalue of each family, divided by the
+  chord edge (§2), has geometric mean 0.65–0.97 and log-scatter 0.2–0.47, over gaps spanning three decades. The exact gaps
+  are systematically lower, as in D7.
+- *Gapless edges.* Edge sectors (s = ±1/2) of large dimension have the predicted family down to ~5×10⁻⁵ of the sector
+  mean at N = 7, against a bulk median of 0.06–0.12.
+
+**Edge-gap scaling (task `edgegap`; largest edge sector, both models).** Relative gap ε/m1 of the gapless family:
+- N = 3 (dim 3): 0.05–0.27;
+- N = 5 (dim 50, family 48): 4×10⁻⁴ – 4×10⁻³;
+- N = 7 (dim 735, family 686): 2.9×10⁻⁵ – 1.0×10⁻⁴;
+- N = 9 (dim 10584, family 9297): 3.3×10⁻⁵ – 4.8×10⁻⁵ (both models, seeds 1–2; symmetrized 3.6–4.8, generic 3.3–3.6).
+
+Up to N = 7 the gap falls by about two orders of magnitude per step, faster than 1/D. At N = 9 it **stalls**, while the
+levels above it pile up: the six lowest lie within a factor 1.4–1.55 of each other (N = 7: a factor 5). So the chord model's
+exact gaplessness is approached but not reached at p = (2,1).
+
+[conj] A possible reading: the true gapless edge (CCSY's curved line in IR-charge terms) sits at s = ½ + Δs. The chord
+edge then leaves a residual gap ≈ λ²Δs²/(1 + q) in units of the mean. Δs ≈ 0.006 reproduces N = 9 and is consistent
+with N = 7; at N ≤ 5 the discreteness of the levels dominates. A fixed Δs makes the residual gap fall only like
+λ² ∝ N⁻² (×0.6 from N = 7 to 9), as against the exponentially fast fall of the level spacing up to N = 7. Δs is fitted,
+and two points cannot fix a scaling. Whether the stall is a finite-p offset or a genuine finite-N gap needs larger N
+(sparse methods).
+
+**Dictionary (task `blocks`; N = 3–7, both models, seeds 1–3 (N = 7: 1–2), η-averaged with random phases).** Chord/exact,
+geometric mean and log-scatter:
+- obstruction weights (point masses): 1.05–1.21, 0.06–0.29;
+- time integrals with targets ≥ 0.15 from an edge: 0.80–1.08, 0.17–0.34 (a mild drift to 0.80–0.88 at N = 7, with the
+  exact gaps lying below the chord edges);
+- targets 0.1 from an edge: 0.89–0.96, 0.27–0.71.
+
+Both models agree equally well, as §1.2 requires. Targets exactly on a large edge (chord: ∞) give exact T/c₀ medians of
+0.46–0.53 (N = 5) and 1.2–2.8 (N = 7), against 0.011–0.062 elsewhere. So they are enhanced 25–250×, and the enhancement
+grows with N.
+
+**Resonances (task `resonance`; exact bare fractions μ, κ = 1/μ − 1; N' = 4–7 seeds 1–3, N' = 8 seeds 1–2).**
+- *N' = 6, bulk sectors.*
+  - J-resonant (s' = ±1/5): the median over sectors of the mean dressing is 4.8 (symmetrized) and 9.8 (generic), against
+    0.42 and 0.51 for non-resonant sectors.
+  - Median per-sector maxima: 270 / 778 against 6.7 / 7.9.
+  - z₁₁-resonant (±2/5): 1.2 / 1.6.
+- *N' = 8 (seeds 1–2), bulk sectors, median over sectors (sym / generic):*
+  - J-resonant with a large edge target: mean κ 125 / 48, largest 7.8×10⁴ / 1.5×10⁴;
+  - J-resonant with a small boundary edge target (same s', no near-zero modes): 1.3 / 1.2 and 35 / 31, i.e. no
+    enhancement (a control);
+  - z-resonant: 2.4 / 2.2 and 34 / 28;
+  - non-resonant: 1.0 / 0.98 and 30 / 29.
+  So the J-resonance raises the mean ×50–125 and the maximum ×10³–10⁴, and it grows by one to two orders of magnitude
+  from N' = 6.
+- *Odd N' (near-resonant):* intermediate (N' = 7: mean 1.8, maxima ~44).
+- Medians over states move little: the resonance lives in the upper tail.
+- *D8 connection.* This explains D8 §9.4's smallest σ_min(𝕄) = 0.013 at N' = 8 in (3,3) and (5,5), with "old gap 0.0032".
+  Those are the J-resonant sectors, and 0.003175 is the near-zero mode of the edge sector (4,2) at N = 7.
+
+**Tower (task `tower`; symmetrized, N = 3–7).**
+- Every current cancels: |J|/|one term| ≤ 2.5×10⁻¹⁶ over 96+ records.
+- G-weighted, the individual emissions are of the size of the black-hole averages of the same operators (along the
+  diagonal within a factor ~3).
+- At the gapless targets they share the enhancement. At N = 7, seed 1, the E- and K-terms into (4,2) are 16.9 and 28.2 per
+  unit norm, against black-hole means of 61.5 and 21.5. Off-edge they are 0.02–0.9.
+
+**Twisted chord on black holes (task `twisted`; N = 4–7, seeds 1–3).**
+- The quantity is the mean squared G-cosine between the E-emission of B(n,n) and the K-emission of B(n−1,n−1), with the
+  tower projected out.
+- It is the same in the two models at every (N, n). For example 0.0064 vs 0.0065 (N = 7, n = 4) and 0.0219 vs 0.0210
+  (N = 6, n = 4).
+- In the bulk it falls with N: 0.044 (N = 5, n = 3), 0.022–0.031 (N = 6), 0.006–0.010 (N = 7, n = 4, 5).
+- The tower's own cosine² is 1 to 1e−15.
+
+**Pairing (task `pairing`).**
+- The sector means of c = ⟨n_ψe n_χf⟩ − ⟨n_ψe⟩⟨n_χf⟩ over fortuitous states lie in [−0.023, 0.021] for N' = 4–7
+  ([−0.002, 0.008] at N' = 8). The symmetrized model's are slightly larger (median 0.008 at N' = 7, 0.002 at N' = 8,
+  against 0.003 and 0.0007 generic): an O(1/N) twisted-chord effect, two orders of magnitude below the tower.
+- Per-state 5–95 % ranges are within ±0.1, shrinking with N, in both models.
+- ⟨n_ψe⟩ = A/N' to ≤ 0.035 in bulk sectors.
+- The tower has c = n(N' − n)/N'² = 0.11–0.25 exactly.
+
+### 6. Monotone vs fortuitous in the chord picture [summary]
+**Does the distinction emerge in a purely chord picture? Largely yes, with one gap.**
+- *From the chord rules alone*, tested in both models:
+  - where black holes are: the window and its gapless edges;
+  - how they lift: emission of chiral matter chords, with ASC weights and edge resonances;
+  - that symmetrization does nothing to them: twisted chords are O(1/N);
+  - that they absorb the new pair flavor by flavor.
+- *The tower is the exception to each statement.* It sits outside the window; it emits nothing, although each emission
+  alone is black-hole-sized; twisted chords are O(1) for it and supply exactly the cancelling term; and it absorbs the
+  pair bound.
+- *Not yet chord-intrinsic:* the reason for the exception. Zero emission is the microscopic V Ward identity. The chord
+  picture identifies the cancelling term as a twisted chord (a V insertion) and shows why black holes cannot use it, but
+  does not derive the identity from chord dynamics. That needs a chord Hilbert space for graviton states.
+
+| | fortuitous (black hole) | monotone (tower, graviton gas) |
+|---|---|---|
+| chord object | zero-length wormhole, \|s\| < 1/2 | V-descendant of Ω; outside the window: alone, gapped |
+| where | band around CCSY's line (slope 2) | diagonal N_ψ = N_χ, crossing the band |
+| uplift | emits chiral matter chords E, K, Z into the window continuum | emits nothing: J₁₀ = J₀₁ = 0 |
+| obstruction weight | ASC point mass (BLY 4.14) | cancelled by the 11 slot |
+| dressing | time-integrated ASC two-point function; diverges at gapless edges (s' = ±1/5 resonances) | 0 at every N, including resonant sectors |
+| twisted chords (symmetrization) | O(1/N): same as the generic model | O(1): the cancelling V insertion |
+| absorbing the new pair | independent, c ≈ 0 | bound pair, c = n(N'−n)/N'² |
+
+### Status
+- **Derived (double-scaled):**
+  - the two-flavor dictionary (λ, s, δ);
+  - exact chirality, and the triviality of [E,K] = {Q₀,Z};
+  - twisted-chord counting;
+  - the window and its gapless edges;
+  - the resonance positions.
+- **Numerical, at p = (2,1), N ≤ 10:**
+  - window support, and isolation of the tower at N' = 9, 10;
+  - dictionary accuracy;
+  - edge-gap collapse and its N-dependence;
+  - dressing resonances in both models;
+  - the tower's individual emissions are BH-like and cancel;
+  - no twisted coherence for black holes;
+  - pairing.
+- **Interpretation:**
+  - zero-length wormholes = black holes;
+  - window edges = the super-Schwarzian Q = ±1/2 supermultiplet (HITZ App. A);
+  - the tower = a graviton gas, dressed only through a symmetry.
+- **Open:**
+  - chord evaluation of 𝒵, α, γ (the exact uplift from chords);
+  - a chord Hilbert space for graviton states (twisted chords resummed);
+  - per-sector prediction of the mean exact dressing, which needs the slot weights and the interference;
+  - the large-N form of the resonant growth;
+  - N' = 10 at resonant parity (needs sparse methods).

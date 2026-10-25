@@ -1,0 +1,7 @@
+memwatch: pid 60406 cap 8.0 GB, budget 30 GB: .venv/bin/python scripts/run_two_flavor_chords.py --tasks blocks resonance pairing --N 7 --seeds 1 2 --model generic
+memory estimate (GB): {"N=7": {"resonance_pairing_tower": 4.90992, "blocks": 0.87}}
+blocks N=7 seed=1: 116 records, 45.8s
+resonance/pairing N=7 seed=1: 25/25 records, 1330.5s
+blocks N=7 seed=2: 116 records, 41.5s
+resonance/pairing N=7 seed=2: 25/25 records, 1216.4s
+memwatch: done rc=0 peak 2.70 GB (cap 8.0) in 2636s

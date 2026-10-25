@@ -1,0 +1,1 @@
+{"cmd": ".venv/bin/python scripts/run_two_flavor_chords.py --tasks edgegap --N 9 --seeds 1 --model generic", "rc": 0, "killed": null, "peak_gb": 6.757, "cap_gb": 8.0, "secs": 1187.1, "ended": "2026-10-25T18:03:33"}

@@ -1,0 +1,28 @@
+{
+ "args": {
+  "tasks": [
+   "window"
+  ],
+  "N": [],
+  "Np": [
+   8
+  ],
+  "seeds": [
+   1,
+   2
+  ],
+  "model": "sym",
+  "dmax": 0,
+  "ndraw": 6,
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/two_flavor_chords_2026-10-25",
+  "tag": "",
+  "dry_run": false
+ },
+ "git": "887be9a-dirty",
+ "started": "20261025T165026",
+ "estimate_gb": {
+  "Np=8": {
+   "window": 2.6
+  }
+ }
+}

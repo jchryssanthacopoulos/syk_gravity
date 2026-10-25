@@ -1,6 +1,6 @@
 # Research questions
 
-*Living document. Last revised 2026-10-23 (Q12: two-flavor uplift, monotone vs fortuitous; D8). Earlier revisions
+*Living document. Last revised 2026-10-25 (Q12 Stage 2: chord picture of the two-flavor uplift; D9). Before that 2026-10-23 (Q12: two-flavor uplift, monotone vs fortuitous; D8). Earlier revisions
 2026-09-30 (literature pass: Belin–Fu–La Rocca, Lin 2022, Liu–Shen; D3) and 2026-09-28 (project archaeology audit,
 `docs/project_archaeology.md`).*
 **Progress report (2026-09-29, audited):** `research/pdfs/progress_2026-09-29.pdf`.
@@ -390,7 +390,7 @@ Candidate frameworks:
 for the four-arc diagrams.
 
 
-## Q12. What in the BPS uplift distinguishes monotone from fortuitous states? (two-flavor model) **[Stage 1 answered 2026-10-23 — D8; Stage 2 (chords) open]**
+## Q12. What in the BPS uplift distinguishes monotone from fortuitous states? (two-flavor model) **[Stage 1 answered 2026-10-23 — D8; Stage 2 (chords) answered in outline 2026-10-25 — D9]**
 
 **Setting.** The symmetrized two-flavor model of CCSY (eq. 3.18) has a monotone tower V^n|Ω⟩ and fortuitous states (CV
 §6.2, Figs. 6–10: empirical fidelity tables and dressing costs, no closed form for fortuitous states). Question: the
@@ -427,11 +427,40 @@ two-flavor analogue of D6, and what it says about monotone vs fortuitous.
   - The decoders become explicit pencils.
   - Four-slot injectivity holds under a positivity criterion but fails on a codimension-2 set of couplings, where
     pure-dressing BPS states appear. The tower is never affected.
+- **Stage 2: the chord ("gravitational") picture (2026-10-25, D9; report `research/pdfs/progress_2026-10-25.pdf`).**
+  - *Literature.* There is no chord treatment of the two-flavor model in `papers/` (CCSY §3.3 and HTZ §3 are G–Σ only).
+    The rules are derived here.
+  - **[derived] Dictionary.**
+    - The model is the one-flavor N=2 chord theory at λ = 2(p_ψ² + p_χ²)/N = 10/N and s = (2δN_ψ − δN_χ)/5.
+    - E, K, Z are chiral matter chords with δ = 3/5, 4/5, 2/5.
+    - The symmetrization adds twisted chords (pair hops). These are O(1/N) in all black-hole (trace-level) quantities and
+      reduce to a V insertion. On V-descendants they are O(1).
+  - **[derived + num] Window.**
+    - Zero-length wormholes exist only for |s| < 1/2. The edges are gapless: the super-Schwarzian Q = ±1/2 multiplet
+      (HITZ App. A).
+    - Every BPS sector at N' ≤ 8 lies in the window except the outer tower sectors. At N' = 9 the only BPS states outside
+      it are tower states.
+    - (1,1) at N' = 9, 10 holds the tower in the symmetrized model and nothing in the generic one: the first BPS
+      dimension difference between the models.
+  - **[derived + num] Uplift = emission.**
+    - Obstruction weights and dressing building blocks are Al-Salam–Chihara (D7) quantities. With no fit, chord/exact is
+      about 1.1 for the obstruction weights and 0.85–1.08 for the continuum.
+    - When the currents land on a gapless edge (s' = ±1/5, even N') the exact dressing is resonantly enhanced, in both
+      models. At N' = 8 the mean is 45–317 against 0.8–0.9, and the maximum 10⁴–10⁵ against 25.
+    - This explains D8's near-singular 𝕄 at N' = 8 (the "old gap 0.0032" is the edge's near-zero mode).
+  - **[num] The tower does not dress.**
+    - Its individual emissions are black-hole-sized, including at the resonance, and cancel to 1e−16.
+    - Black holes show no twisted-chord coherence: symmetrized ⟨cos²⟩ = generic at every (N, n).
+    - The tower absorbs the new pair as a bound pair, c = n(N'−n)/N'², while black holes absorb it independently
+      (|c| ≲ 0.02).
 - **Open.**
   - Proofs of the two counting laws, and the N = 5 coincidences.
   - The geometry of the singular (pure-dressing) set.
-  - **Stage 2:** a chord computation of the inputs of the exact uplift, the self-energies, 𝒵 and the maps α, γ; and the
-    tower as a Ward identity of the chord rules. This requires two-flavor chord rules (literature not yet checked).
+  - Chord evaluation of 𝒵, α, γ (the exact uplift from chords).
+  - A chord Hilbert space for graviton states (twisted chords resummed), so that the tower's protection is derived within
+    the chord theory.
+  - The large-N form of the resonant growth.
+  - Per-sector prediction of the mean exact dressing (needs slot weights and interference).
 
 ---
 

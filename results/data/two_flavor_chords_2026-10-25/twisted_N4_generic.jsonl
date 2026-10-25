@@ -1,0 +1,6 @@
+{"N": 4, "seed": 1, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.6, "b00": 28, "b11": 12, "c2_mean": 0.20091412943429127, "c2_max": 0.8724763371579705, "rank_target": 16}
+{"N": 4, "seed": 1, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.8, "b00": 12, "b11": 28, "c2_mean": 0.2150884131807168, "c2_max": 0.9626826547402392, "rank_target": 6}
+{"N": 4, "seed": 2, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.6, "b00": 28, "b11": 12, "c2_mean": 0.16799593606895113, "c2_max": 0.9063259903961233, "rank_target": 16}
+{"N": 4, "seed": 2, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.8, "b00": 12, "b11": 28, "c2_mean": 0.22933212880188278, "c2_max": 0.883178798991759, "rank_target": 6}
+{"N": 4, "seed": 3, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.6, "b00": 28, "b11": 12, "c2_mean": 0.14085860654415255, "c2_max": 0.7996075477109751, "rank_target": 16}
+{"N": 4, "seed": 3, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.8, "b00": 12, "b11": 28, "c2_mean": 0.19249908886262632, "c2_max": 0.8298897225572726, "rank_target": 6}

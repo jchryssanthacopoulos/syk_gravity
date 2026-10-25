@@ -1,0 +1,47 @@
+{
+ "args": {
+  "tasks": [
+   "blocks",
+   "resonance",
+   "pairing"
+  ],
+  "N": [
+   3,
+   4,
+   5,
+   6
+  ],
+  "Np": [],
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "model": "generic",
+  "dmax": 0,
+  "ndraw": 6,
+  "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/two_flavor_chords_2026-10-25",
+  "tag": "",
+  "dry_run": false
+ },
+ "git": "887be9a-dirty",
+ "started": "20261025T164232",
+ "estimate_gb": {
+  "N=3": {
+   "resonance_pairing_tower": 0.30024883199999997,
+   "blocks": 0.3
+  },
+  "N=4": {
+   "resonance_pairing_tower": 0.30191999999999997,
+   "blocks": 0.3
+  },
+  "N=5": {
+   "resonance_pairing_tower": 0.33072,
+   "blocks": 0.3
+  },
+  "N=6": {
+   "resonance_pairing_tower": 0.58812,
+   "blocks": 0.34
+  }
+ }
+}

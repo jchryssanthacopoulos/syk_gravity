@@ -1,0 +1,12 @@
+{"N": 6, "seed": 1, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.4, "b00": 116, "b11": 16, "c2_mean": 0.05053739191068721, "c2_max": 0.7684785084413426, "rank_target": 96}
+{"N": 6, "seed": 1, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.6, "b00": 220, "b11": 116, "c2_mean": 0.026178340369807748, "c2_max": 0.9079295962009342, "rank_target": 225}
+{"N": 6, "seed": 1, "model": "generic", "n": 4, "target": [5, 3], "s_target": 0.8, "b00": 116, "b11": 220, "c2_mean": 0.02014961294654112, "c2_max": 0.8293398875415219, "rank_target": 120}
+{"N": 6, "seed": 1, "model": "generic", "n": 5, "target": [6, 4], "s_target": 1.0, "b00": 16, "b11": 116, "c2_mean": 0.0980954262143216, "c2_max": 0.821934155226524, "rank_target": 15}
+{"N": 6, "seed": 2, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.4, "b00": 116, "b11": 16, "c2_mean": 0.08161192821401632, "c2_max": 0.7580294320583122, "rank_target": 96}
+{"N": 6, "seed": 2, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.6, "b00": 220, "b11": 116, "c2_mean": 0.03492330445863059, "c2_max": 0.8491516108021604, "rank_target": 225}
+{"N": 6, "seed": 2, "model": "generic", "n": 4, "target": [5, 3], "s_target": 0.8, "b00": 116, "b11": 220, "c2_mean": 0.02510899331484992, "c2_max": 0.8972915531314408, "rank_target": 120}
+{"N": 6, "seed": 2, "model": "generic", "n": 5, "target": [6, 4], "s_target": 1.0, "b00": 16, "b11": 116, "c2_mean": 0.12422636026029345, "c2_max": 0.8855971280391995, "rank_target": 15}
+{"N": 6, "seed": 3, "model": "generic", "n": 2, "target": [3, 1], "s_target": 0.4, "b00": 116, "b11": 16, "c2_mean": 0.057624151082456984, "c2_max": 0.6374919801475961, "rank_target": 96}
+{"N": 6, "seed": 3, "model": "generic", "n": 3, "target": [4, 2], "s_target": 0.6, "b00": 220, "b11": 116, "c2_mean": 0.025938689121862785, "c2_max": 0.6351172753081267, "rank_target": 225}
+{"N": 6, "seed": 3, "model": "generic", "n": 4, "target": [5, 3], "s_target": 0.8, "b00": 116, "b11": 220, "c2_mean": 0.017670343249433534, "c2_max": 0.8268802523875735, "rank_target": 120}
+{"N": 6, "seed": 3, "model": "generic", "n": 5, "target": [6, 4], "s_target": 1.0, "b00": 16, "b11": 116, "c2_mean": 0.0944410787268764, "c2_max": 0.8465433484040991, "rank_target": 15}
