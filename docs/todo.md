@@ -115,8 +115,8 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [ ] **Q13 follow-ups (P1, D10):**
   - the N′ = 9 radical excess: test whether rank B_η on H(8, −2) is 24 for every η, including structured choices
     (rank-deficient η);
-  - large-N resonant tail: extend N′ = 16 (running 2026-10-26) to N′ = 18 with sparse/partial methods (only the lowest
-    edge modes matter);
+  - large-N resonant tail: extend N′ = 16 (done 2026-10-26: α = 0.48 ± 0.03) to N′ = 18 with sparse/partial methods
+    (only the lowest edge modes matter; rank decisions must use the known dimensions, D10 §5 caution);
   - chord amplitude of the tail beyond the rank-one approximation (free compound Poisson with heavy-tailed jumps);
   - an analytic model for the exact resonant decoder edge λ_min ≈ 10⁻² (the spectral measure of R along the
     resonant modes);
@@ -124,8 +124,9 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## F. Writing (P2)
 
-- [ ] Progress report 2026-10-26 (`research/tex/progress_2026-10-26.tex`): the uplift anywhere in the window (D10);
-      jump map, exact ranks and exceptional radicals, edge resonance and its chord tail; KW 2017 note.
+- [x] Progress report 2026-10-26 (`research/pdfs/progress_2026-10-26.pdf`, source `research/tex/progress_2026-10-26.tex`):
+      the uplift anywhere in the window (D10); jump map, exact ranks and exceptional radicals, edge resonance and its
+      chord tail; KW 2017 note.
 - [x] Progress report 2026-10-23 (`research/pdfs/progress_2026-10-23.pdf`, source `research/tex/progress_2026-10-23.tex`):
       two-flavor uplift; obstruction theorem, protection identity, tower bare, CV Fig. 6 derived from counting laws,
       bare-state count, first-order interfering two-point functions (D8).
