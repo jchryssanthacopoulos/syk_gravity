@@ -1,0 +1,5 @@
+memwatch: pid 42285 cap 13.0 GB, budget 30 GB: /private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage3/jobD.sh
+N'=15 seed=9000 F=6 l'=-3 d=0+0 (direct None, expected 0) ranks 729,0 T2=nan res=nan dev=nan [68.65s]
+N'=15 seed=9000 F=7 l'=-1 d=1458+729 (direct None, expected 2187) ranks 0,0 T2=0.5866 res=nan dev=nan [213.39s]
+N'=15 seed=9001 F=6 l'=-3 d=0+0 (direct None, expected 0) ranks 729,0 T2=nan res=nan dev=nan [84.49s]
+N'=15 seed=9001 F=7 l'=-1 d=1458+729 (direct None, expected 2187) ranks 0,0 T2=0.6013 res=nan dev=nan [248.1s]

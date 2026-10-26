@@ -2073,3 +2073,297 @@ grows with N.
   - per-sector prediction of the mean exact dressing, which needs the slot weights and the interference;
   - the large-N form of the resonant growth;
   - N' = 10 at resonant parity (needs sparse methods).
+
+---
+
+## D10. The uplift anywhere in the window: where the jump starts and where the dressing lands
+
+*2026-10-26. Context: D6 (the uplift at half filling), D8 §2 (Theorem A, two flavors), CV §§3–4 (LES, walks),
+Kanazawa–Wettig 2017 (KW, Hodge pieces per degree; `literature/notes/kanazawa_wettig_2017.md`).
+- Code: `src/uplift.py` (`OldModel(F=...)`, `harmonic_basis`, `uplift_bookkeeping`, `connecting_form`, `OldModel.dyson`);
+  `src/chord_dressing.py` (`chord_sectors(..., F=)`).
+- Scripts: `scripts/run_uplift_window.py`, `scripts/analyze_uplift_window.py`, `scripts/plot_uplift_window_map.py`.
+- Tests: `tests/test_uplift_window.py`.
+- Data: `results/data/uplift_window_2026-10-26/`. Figures: `results/figures/uplift_window_2026-10-26/`.
+- Note: `research/notes/uplift_window_2026-10-26.md`.*
+
+D6 assumed half filling at one point only: "Ea is exact because degree F+2 lies outside the window". This section
+removes that assumption.
+- The uplift is classified by where its dressing lands.
+- The obstruction (CV's connecting map) is computed exactly in every sector, and the exceptional states are identified
+  as the radical of a bilinear form.
+- The one genuinely new regime is the one-step-off-centre sector, where the dressing resonates with the gapless
+  window-edge multiplet.
+
+### Setup
+- Old model: N modes, supercharge Q₀ = ω₀∧ (q-form, q odd). New model: N′ = N + 1 modes, sector of fermion number F,
+  level ℓ′ = 2F − N′ (CV eq. 29). The window is |ℓ′| ≤ q.
+- As in D6: Ψ = a + b∧e. Here a ∈ Λ^F(o) (n_e = 0) sits at old level ℓ′ + 1 (the down step of CV's walks), and
+  b ∈ Λ^{F−1}(o) (n_e = 1) sits at old level ℓ′ − 1 (the up step).
+- E = η∧ with η the (q−1)-form of couplings touching e. Since q − 1 is even, E commutes with Q₀ and E† with Q₀†.
+  E raises the level by 2(q−1); E† lowers it by 2(q−1).
+- Hodge pieces of the old model: H (harmonic = BPS), Ex (exact = KW's V⁻), Co (coexact = KW's V⁺).
+- Slot spaces: H_X ⊕ Ex_X ⊕ Co_X = Λ^F(o) and H_Y ⊕ Ex_Y ⊕ Co_Y = Λ^{F−1}(o).
+
+### 1. Level bookkeeping and the three regimes [derived]
+- **h family** (sources h ∈ H_X): the first-order dressing K h = Q₀⁺E h.
+  - E h has level ℓ′ + 2q − 1 (degree F + q − 1). Q₀⁺ brings it back by −2q to level ℓ′ − 1, the n_e = 1 slot.
+  - The intermediate supermultiplet is coexact(ℓ′ − 1) ↔ exact(ℓ′ + 2q − 1).
+- **g family** (sources g ∈ H_Y): K′g = (Q₀†)⁺E†g passes through level ℓ′ − 2q + 1 (degree F − q) and returns to
+  ℓ′ + 1. The multiplet is coexact(ℓ′ − 2q + 1) ↔ exact(ℓ′ + 1).
+- **Chord charges** s = ℓ/(2q): h has (s_out, s_in) = ((ℓ′+1)/2q, (ℓ′+2q−1)/2q); g is the mirror,
+  ((1−ℓ′)/2q, (2q−1−ℓ′)/2q).
+  - At q = 3 and half filling these are D7's (1/6, 5/6) for even N′, and (0, 2/3), (1/3, 1) for odd N′.
+- **Regime of a family**, fixed by where its dressing target lies (equivalently s_in against ½):
+
+| regime | target | s_in | h family at | g family at |
+|---|---|---|---|---|
+| gapped | outside the window | > ½ | ℓ′ ≥ 2 − q | ℓ′ ≤ q − 2 |
+| resonant | the window edge ±q | = ½ | ℓ′ = 1 − q | ℓ′ = q − 1 |
+| obstructed | inside the window | < ½ | ℓ′ = −q | ℓ′ = q |
+
+- So the **central** sectors |ℓ′| ≤ q − 2 have both families gapped; this is the D6 regime.
+- The **off-centre** sectors |ℓ′| = q − 1 have one resonant family.
+- The **edge** sectors |ℓ′| = q have one obstructed family. The other slot is empty: it lies outside the window.
+- For q = 3 this means central ℓ′ ∈ {0, ±1}, resonant ℓ′ = ±2 (even N′ only), and edge ℓ′ = ±3 (odd N′ only).
+- Consistency: CV's necessary conditions (34)–(35) for nonzero connecting maps, ℓ ≤ 2 − q and ℓ ≥ q − 2 on the old
+  class, are exactly "target inside or at the edge of the window".
+- `uplift.uplift_bookkeeping`; `tests/test_uplift_window.py::test_bookkeeping_regimes`.
+
+### 2. The uplift on admissible sources [derived; verified]
+- The BPS equations of D6 §1 do not depend on the sector.
+- The only half-filling input of D6 §2 was that E a is exact. In general:
+  - E a is Q₀-closed, since Q₀ a = 0 and [E, Q₀] = 0.
+  - E maps exact forms to exact forms: E Q₀ x = Q₀ E x.
+  - So with a = h + x (x exact), P_H E a = P_H E h. Likewise P_H E† b = P_H E† g.
+- The equation Q₀ b = −εE a is solvable iff P_H E h = 0, and Q₀† a = εE† b iff P_H E† g = 0.
+- **Theorem (general sector).** Define the connecting maps δ_h = P_H E P_H : H_X → H^{F+q−1}(o) and
+  δ_g = P_H E† P_H : H_Y → H^{F−q}(o), and the admissible sources A_h = ker δ_h, A_g = ker δ_g. Then
+  $$B(N',F)=\Psi(A_h,0)\oplus\Psi(0,A_g),\qquad a=(1+K'K)^{-1}(h+\varepsilon K'g),\quad b=g-\varepsilon K a .$$
+- Proof.
+  - Any BPS Ψ has harmonic parts h = P_H a and g = P_H b. They must be admissible, and the rest is fixed uniquely by
+    the anti-Hermitian system of D6 §5.
+  - 1 + K′K is invertible in every sector. K′ maps into exact forms, and K′K|_Ex = L†L ≥ 0.
+  - The map (h, g) ↦ Ψ is injective because h = P_H a and g = P_H b.
+- dim B = dim ker δ_h + dim ker δ_g. Since δ_g is the adjoint of the connecting map H^{F−q} → H^{F−1}, this is CV
+  eq. (26).
+- D6 §5 holds verbatim with B_o^F → A_h and B_o^{F−1} → A_g. Its proofs used only [E, Q₀] = 0 and the Hodge
+  decomposition. This covers:
+  - the adjoint relation P_Ex K′ P_Co = L† and the anti-Hermitian system;
+  - the orthogonal splitting B = B_h ⊕ B_g and the minimum-norm uplift;
+  - the closed-form decoder (𝒩, 𝒢) and monotone self-dressing.
+- **Verified** (seeds 9000–9002; q = 3 at N′ = 5–14, all |ℓ′| ≤ 4; q = 5 at N′ = 6–14, all |ℓ′| ≤ 6):
+  - d_h + d_g = the directly computed BPS dimension of the N′-mode model = the known count (strip walks plus KW
+    exceptional states);
+  - uplift residual outside the BPS space ≤ 6.4·10⁻¹³, with full rank;
+  - closed-form vs direct decoder ≤ 2.6·10⁻¹¹;
+  - splitting overlap ≤ 1.1·10⁻¹³.
+- At N′ = 15 the code reproduces D6's exact half-filling T₂ (0.5866 and 0.6013 for seeds 9000 and 9001; D6 table:
+  0.587, 0.601).
+- One more identity: per realization, spec λ(F) = 1 − spec λ(N′ − F) **[derived; verified]**.
+  - The Hodge star conjugates H_C to H_{C̄} and sends n_e to 1 − n_e; complex conjugation maps H_{C̄} back to H_C.
+  - Verified on 39 (q = 3) and 40 (q = 5) sector pairs, to ≤ 2.7·10⁻¹².
+  - D6's per-realization symmetry at even N′ is the self-mirror case ℓ′ = 0.
+
+### 3. The connecting maps: exact ranks, the exchange, and exceptional states as a radical [derived; verified]
+
+**Pairing.**
+- For harmonic α at level ℓ and β at level −ℓ − 2(q−1) of the old model, define B_η(β, α) = ∫β∧η∧α (top-form
+  coefficient; `uplift.connecting_form`).
+- β ↦ conj(⋆β) is an antilinear bijection between harmonic spaces at levels ℓ and −ℓ (by the previous paragraph). So
+  the matrix of δ on H(N, ℓ) is the matrix of B_η.
+- The two ranks agree: rank δ|H(ℓ) = rank δ|H(−ℓ−2(q−1)).
+- Moving β through α∧η costs (−1)^{k}, where k is the degree of α (η has even degree). On the self-paired level
+  ℓ = 1 − q (k = (N − q + 1)/2):
+  $$B_\eta(\alpha,\beta)=(-1)^k B_\eta(\beta,\alpha).$$
+
+**Exact ranks for q = 3** (e(N) = exceptional states of the N-mode model per edge):
+
+| ℓ′ | δ_h : source → target | rank δ_h | A_h | A_g |
+|---|---|---|---|---|
+| 0, ±1 | target outside window | 0 | H_X | H_Y |
+| −2 | H(N,−1) → H(N,+3) | e(N): surjective | codim e(N) | H(N,−3): the e(N) exceptional states |
+| −3 | H(N,−2) → H(N,+2) | 3^{N/2−1} − e(N′) | radical of B_η | 0 |
+| −4 | H(N,−3) → H(N,+1) | e(N): injective | 0 | 0 |
+
+- The positive ℓ′ are the mirror, with δ_g.
+- Derivation:
+  - The ℓ′ = −4 row is forced by the window premise at N′: no BPS states at |ℓ′| > q (KW 6.15; CV eq. 12).
+  - The pairing B_η makes H(N,−3) and H(N,−1) dual, so the ℓ′ = −2 rank equals the ℓ′ = −4 rank. This gives the
+    surjectivity.
+  - The ℓ′ = −3 row is the self-paired form.
+- **The exchange at ℓ′ = ∓2 (N ≡ 1 mod 4) [derived].**
+  - e ordinary classes of H(N, −1) are obstructed: they would have to dress into the exceptional states at +3.
+  - The e exceptional states at −3, which cannot step down (row ℓ′ = −4), step up instead and replace them.
+  - The total 3^{(N−1)/2} is unchanged, which is CV's walk count.
+  - So CV's strip walks count the dimension correctly, but an exceptional state's history is a boundary excursion.
+    It is created at the edge by the radical (below), and it leaves by an up step that displaces one obstructed
+    ordinary class.
+- [verified] All connecting-map ranks equal these predictions in all 139 q = 3 records (N′ ≤ 15) and all 114 q = 5
+  records (with the q = 5 analogues: e(N) at |ℓ′| = 4, 6; radical at |ℓ′| = 5).
+
+**Exceptional states = the radical of an (anti)symmetric form [derived; verified].**
+- The edge sector ℓ′ = −q has empty b-slot (level −q−1). So B(N′, −q) = ker δ_h on H(N, 1−q), which is the radical
+  of B_η restricted to the self-paired level.
+- With k = (N′ − q)/2, B_η is antisymmetric iff k is odd. An antisymmetric form on an odd-dimensional space has a
+  nonzero radical. Hence:
+  $$k=\tfrac{N'-q}{2}\ \text{odd}\ \ \text{and}\ \ \dim H(N'-1,1-q)\ \text{odd}\ \Longrightarrow\ \text{exceptional states at }N'.$$
+- For q = 3, dim H(N, −2) = 3^{N/2−1} is always odd, so the condition is N′ ≡ 1 (mod 4). This is the uplift version
+  of KW's Kramers argument (§6.2) and of CV eq. (15).
+- Parity equivalence with CV's version: CV's M on Λ^a(N′) with a = k gives dim harm ≡ D̃_a(N′) (mod 2). Ours gives
+  S_{N′−1}(1−q) = D̃_a(N′−1) − D̃_{a−1}(N′−1), while D̃_a(N′) = D̃_a(N′−1) + D̃_{a−1}(N′−1). These have the same
+  parity.
+- [verified, `forms_p*.jsonl`] |B^T − (−1)^k B|/|B| ≤ 4.3·10⁻¹⁵ for q = 3 (N = 4–14) and q = 5 (N = 6–14).
+  - q = 3: radicals 1, 3, 1 at N = 4, 8, 12, and 0 at N = 6, 10, 14.
+  - q = 5: radical 1 at N = 6, 10. At N = 14 the form is antisymmetric (k = 5), but dim = 1000 is even, so the radical
+    is 0, as KW report for N_c = 15.
+  - The singular values of the antisymmetric forms come in equal pairs, as they must.
+- **The parity criterion beyond KW's range [derived].** Forced exceptional states for N′ ≤ 45:
+  - q = 3: every N′ ≡ 1 (mod 4).
+  - q = 5: N′ = 7, 11, 19, 23, 31, 35, 43.
+  - q = 7: 9, 21, 25, 29, 37.
+  - q = 9: 11, 15, 23, 39, 43.
+- KW checked q̂ = 5 only up to N_c = 17 ("saturated only for N_c = 7 and 11"). **N′ = 19 at q = 5 is rigorous for
+  generic couplings:**
+  - CV's M on Λ⁷(19) is antisymmetric on the even dimension 50388;
+  - exact(7) = rank(Q|Λ²) = 171, verified for two realizations (σ_min/σ_max = 0.89), so generically;
+  - hence dim H⁷ ≡ 0 − 171 ≡ 1 (mod 2).
+- **Not explained:** why the radical is larger than parity requires at N′ = 9, q = 3 (dimension 3, KW footnote 12).
+  The radical subspace changes with η, but its dimension is 3 for every η tried.
+
+### 4. Dressing in the three regimes: the window edge resonates [derived (chords, identities); num]
+
+**Two-point function.**
+- D6 §3 holds on admissible sources with H₀⁻¹ → H₀⁺. The first-order dressing cost is the time-integrated
+  BPS → continuum two-point function of E at charges (s_out, s_in).
+- For a non-admissible source the τ-integral grows linearly. Its coefficient ‖δh‖² is the late-time plateau, i.e. the
+  BPS → BPS weight (D7's point mass, = BLY 4.14). **The obstruction is the plateau of the two-point function.**
+
+**Late-time behaviour in the chord limit** [derived from D7 §1]. The ASC weight is
+f = (ab; q²)(q², e^{±2iφ}; q²)/[2π(ae^{±iφ}, be^{±iφ}; q²)] with a = q^{s_in−½}, and
+Λ(φ) = 2q^{−½}[cosh λ(s_in−½) − cos φ].
+- s_in > ½ (a < 1): f ∝ φ² as φ → 0. So G(τ) ~ τ^{−3/2} e^{−κΛ_min τ}, with Λ_min = 2q^{−½}[cosh λ(s_in−½) − 1].
+- s_in = ½ (a = 1): the zero of (e^{±2iφ}) cancels against (e^{±iφ}), so f(0) is finite. Λ ≈ q^{−½}φ², so
+  **G(τ) ~ τ^{−1/2}** and the time integral diverges.
+  - D7's closed form ∝ ₂φ₁(q², q²; q^{2+2δ}; q², q^{2s_in−1}) has terms that tend to a constant, so it has a simple
+    pole ∝ 1/(λ(2s_in − 1)) as s_in → ½⁺ at fixed λ.
+  - The Schwarzian limit, (2s_in−1)^{δ−1} (D7 §2), diverges too.
+- s_in < ½: a zero-energy point mass, i.e. the obstruction.
+
+**The resonant jump law** [derived under D7's chord rules].
+- Near φ = 0, g(φ) ∝ A(φ)/Λ(φ) ≈ G₀/φ², and the B-family density has a finite limit ρ₀.
+- Each inner mode with a large jump contributes one large eigenvalue of 𝒟 (rank one). Hence
+  $$P(\sigma^2>K)\simeq r\,w(g>K)\simeq r\rho_0\sqrt{G_0}\,K^{-1/2}.$$
+- The mean is therefore infinite in the chord limit. At finite N it is cut off by the smallest inner energy.
+- Parameter-free amplitude (`chord_dressing.chord_jump_law(F=(N′−2)/2)`, `chord_tail.json`): P·√K = 0.50, 0.51, 0.52
+  at N′ = 12, 14, 16.
+
+**Finite N [num]** (`summary.json`, seeds 9000–9002, `fig_resonance`):
+- **Which multiplet.** The resonant family dresses through coexact(−q) ↔ exact(+q). This is KW's window-straddling
+  multiplet, GOE/GSE (KW 6.13, 6.24).
+  - [heuristic] It is the only multiplet in which Q₀ maps between ambient spaces of equal dimension,
+    C(N, (N−q)/2) = C(N, (N+q)/2). That suggests a "square" hard edge at zero.
+- **Its gap.** E_min/Ē = 2.5e−1, 2.1e−2, 2.9e−3, 5.9e−6, 8.1e−7 at N = 5, 7, 9, 11, 13. Gapped families sit at
+  0.02–0.6.
+  - The h family at ℓ′ = −1 (s_in = 2/3) closes much more slowly: 0.21 → 0.017 from N = 6 to 14. That is a power
+    of N, in line with a chord gap Λ_min ∝ λ²(s_in − ½)² at small λ = 2q²/N; the matching was not checked.
+- **Dominance of the bottom modes.** The lowest 1 % of inner modes carry 90 % (N = 11) and 98 % (N = 13) of
+  Tr(first-order dressing). In gapped families they carry ≤ 14 %.
+- **Dressing costs (first order).** Mean 1.3, 4.1, 7.0, 1244, 1084 at N′ = 6, 8, 10, 12, 14; median 0.14–0.72;
+  maximum 4.7·10⁵ (N′ = 12). Central sectors: mean ≤ 0.4, maximum ≤ 5.
+- **The tail.**
+  - P(σ² > K) ∝ K^{−α} over four decades: Hill α = 0.43 (N′ = 12, K > 100, n = 96) and 0.48 ± 0.03 (N′ = 14, n = 288).
+    The chord value is α = ½.
+  - Amplitude P·√K at K = 100: 0.66 (data) vs 0.50–0.51 (chord) at both N′. The data are heavier at the largest K,
+    and the effective exponent drifts toward ½ with N.
+  - q = 5 shows the same at |ℓ′| = 4 only: gap 8.1e−5 (N = 11) and 7.5e−7 (N = 13); mean dressing 98 and 1070.
+
+**What the exact uplift does with the resonance** [derived identity + num].
+- In the singular basis Q₀ = Σ s_j |u_j⟩⟨v_j| of the inner multiplet, with e = U†E V_h:
+  $$K_H^\dagger(1+R)^{-1}K_H=e^\dagger(S^2+W)^{-1}e,\qquad W=U^\dagger E P_{\rm Ex}E^\dagger U = S R S .$$
+  - This is the first-order dressing with the propagator of H₀ + E P_Ex E† (a Dyson resummation; `OldModel.dyson`,
+    verified ≤ 4·10⁻¹⁵).
+  - But [E, Q₀] = 0 forces W_jj = s_j² R_jj with R_jj = O(0.1) (measured 0.06–0.13 on the lowest modes). The
+    self-energy vanishes on the near-zero modes, so **the resonance survives in the exact (minimum-norm) dressing
+    cost**: mean 1190 vs 1244 first order at N′ = 12, and 1004 vs 1084 at N′ = 14.
+- **The decoder does not resonate.**
+  - For a cloud-dominated state, the exact h-block gives λ → 1 − ⟨k̂,(1+R)^{−2}k̂⟩/⟨k̂,(1+R)^{−1}k̂⟩. This is set by
+    the bounded operator R, not by σ.
+  - Measured: first order puts 2.3–2.5 % of resonant-sector states within 10⁻³ of the wall (lowest λ₁ ≈ 10⁻⁶–10⁻⁵).
+    The exact decoder has none; its lowest λ is 4.5–6.5·10⁻³ (N′ = 12) and 8–10·10⁻³ (N′ = 14).
+  - D6's per-mode mean field (R → ρ_j) fails here (T₂ low by 0.04–0.05), while it is good in central sectors. The
+    spread of R along the resonant direction matters.
+- **[interpretation]**
+  - In resonant sectors a few BPS states of N′ are dominated by the near-zero modes of the old edge multiplet: the
+    "almost-BPS" states of N at the window edge s = ±½.
+  - Their harmonic seed carries a vanishing fraction of the norm, ‖h‖²/‖Ψ‖² ~ 1/κ.
+  - This is CV's metric fragility in its strongest form, and it is localized at |ℓ′| = q − 1.
+  - In chord language: the dressing two-point function of these sectors ends on the gapless Q = ½ supermultiplet of
+    the super-Schwarzian (HITZ App. A).
+  - Two-flavor analogue: the resonances at s′ = ±1/5 (D9).
+
+### 5. The decoder across the window [identities; num]
+Seed-averaged values (3 seeds), from `summary.json`:
+
+| N′ | ℓ′ | d (h+g) | T₂ first → self → exact | H first / exact | T₄ − (T₂ − H_first) | walls(10⁻³) first / exact |
+|---|---|---|---|---|---|---|
+| 12 | 0 | 486 (243+243) | 0.631 → 0.670 → 0.685 | 0.085 / 0.090 | −0.0045 | 0.329 / 0.329 (atoms) |
+| 12 | −2 | 243 (243+0) | 0.515 → 0.497 → 0.497 | 0.125 / 0.132 | −0.0069 | 0.025 / 0.000 |
+| 13 | −1 | 729 (486+243) | 0.563 → 0.604 → 0.616 | 0.111 / 0.109 | +0.0026 | 0.112 / 0.123 |
+| 13 | −3 | 1 (1+0) | λ = 0.65, 0.58, 0.65 (one exceptional state) | – | – | – |
+| 14 | 0 | 1458 (729+729) | 0.574 → 0.624 → 0.640 | 0.104 / 0.107 | −0.0029 | 0.118 / 0.130 |
+| 14 | −2 | 729 (728+1) | 0.483 → 0.461 → 0.461 | 0.133 / 0.142 | −0.0088 | 0.023 / 0.000 |
+
+- **T₄ = T₂ − H** is exact in every sector. The first-order prediction T₄ ≈ T₂ − H_first (D6 §6) holds to ≤ 0.009 in
+  every extensive sector at N′ = 9–14.
+  - The resonant sectors are the worst (−0.007 to −0.009), although their first-order spectrum is visibly wrong at
+    the bottom.
+- **In resonant sectors self-dressing lowers T₂.** Cloud-dominated states move away from the λ = 0 wall, so y drops
+  from ≈ 1. In central sectors self-dressing raises T₂.
+- **Atom counting** (D6 §4) generalizes: forced atoms = max(0, dim A − dim(target family)).
+  - At ℓ′ = −2 the target family is the edge multiplet. N′ = 8: 27 − 21 = 6 atoms, observed 6 in every seed. None from
+    N′ = 10 on.
+- **Exceptional states.** They are h-type at ℓ′ = −q (g-type at +q). The state at N′ = 5, 9, 13 has 58–76 % of its
+  weight in n_e = 0 at the lower edge (spread 0.27–0.79 at N′ = 9).
+- The exceptional b-states that uplift at ℓ′ = −2 have gapped first-order dressing (target −7): λ₁ = 0.02–0.13.
+  - N′ = 6: an exact atom at λ = 0, since E† kills a 1-form.
+  - N′ = 10: in the exact decoder they sit at λ = 0.003–0.02, with g-weight 0.54–0.94.
+  - N′ = 14: the single exceptional g-state dissolves into the resonant h-block. No exact eigenvector has g-weight
+    above 5–9 %. The h–g mixing block −2εK_H†L(1+R′)⁻²K′_H is driven by the large resonant K_H.
+
+### 6. Figure (`scripts/plot_uplift_window_map.py`)
+- `fig_jump_map_q3` / `_q5`: CV Fig. 2/3 conventions with N up to 16. The right margin gives the regime of each row
+  ℓ′; red crosses mark sectors with δ ≠ 0.
+- `fig_jump_panels_q3`: the four regimes, each drawn as one step N → N′:
+  - central (11 → 12, ℓ′ = 0);
+  - resonant (11 → 12, ℓ′ = −2);
+  - resonant with exchange (9 → 10, ℓ′ = −2);
+  - edge (12 → 13, ℓ′ = −3).
+- Each panel shows the jump arrows from the two slots, the E / E† dressing loops to their targets coloured by regime,
+  and the Q₀⁺ returns.
+
+### Status
+- **Exact:**
+  - §2: the general-sector theorem, all of D6 §5 on admissible sources, and the mirror symmetry;
+  - §3: the duality of connecting maps, the (anti)symmetry of B_η, the radical characterization of exceptional states,
+    the parity criterion, and N′ = 19 at q = 5 (given rank(Q|Λ²) = 171, checked);
+  - §4: the Dyson identity with W = SRS, and the cloud-dominated decoder limit;
+  - T₄ = T₂ − H.
+- **Exact given the window premise** (KW 6.15 / CV Conj. A.1, verified to N ≤ 17): the rank table of §3 and the
+  exchange.
+- **Derived under D7's chord rules:** the late-time asymptotics e^{−E₀τ}τ^{−3/2}, τ^{−1/2} and the plateau; the
+  K^{−1/2} tail and its amplitude.
+- **Numerical:**
+  - everything in §§2–3 is verified to machine precision;
+  - the edge-multiplet hard edge (E_min/Ē ≈ 10⁻⁶ at N = 11–13);
+  - the tail exponent 0.43 → 0.48 (chord: ½) and amplitude within ~30 % of the chord value;
+  - no wall pile-up in the exact decoder;
+  - the T₄ prediction to ≤ 0.009 in all sectors.
+- **Heuristic:** the "square ambient dimensions" reason for the hard edge.
+- **Open:**
+  - the N′ = 9 radical excess;
+  - the large-N law of the resonant tail and of E_min (finite-size vs chord);
+  - a closed form for the exact resonant decoder edge (λ_min ≈ 10⁻²);
+  - whether the "cloud-dominated" BPS states have a gravitational description: BPS states of N′ assembled from the
+    gapless edge continuum of N;
+  - two-flavor and q ≥ 5 versions of the radical criterion with the full counts.

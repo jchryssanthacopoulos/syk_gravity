@@ -1,0 +1,27 @@
+{
+ "argv": [
+  "scripts/run_uplift_window.py",
+  "--task",
+  "forms",
+  "--p",
+  "3",
+  "--N",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "--seeds",
+  "9000",
+  "9001"
+ ],
+ "git": "7c685ab-dirty",
+ "started": "2026-10-26T10:35:27",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/uplift_window_2026-10-26/forms_p3.jsonl"
+}

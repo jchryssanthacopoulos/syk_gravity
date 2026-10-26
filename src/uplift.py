@@ -17,6 +17,16 @@ Orthogonal splitting: the uplifts of B_o^F (b coexact) and of B_o^{F-1} (a exact
 decoder is a 2x2 block operator on B = B_h (+) B_g (decoder_blocks).
 
 Conventions follow src/chord_chaos.py (coupling order = itertools.combinations; Fock basis = subset_index masks).
+
+Any sector of the window (docs/derivations.md D10).  OldModel(Np, c, rng, F=F) works for every charge F.
+- New-sector level l' = 2F - N'. The sources sit at old levels l'+1 (n_e = 0 slot, degree F) and l'-1 (n_e = 1 slot,
+  degree F-1).
+- E maps the n_e = 0 slot to level l' + 2p - 1, and E^dag maps the n_e = 1 slot to level l' - 2p + 1.
+- When such a target level lies in the window, E h can have a harmonic part. The connecting map
+  delta = P_H E P_H (CV eq. 25) then obstructs some sources.
+- The formula above holds verbatim on the admissible sources A_h = ker(P_H E|B_o^F) and A_g = ker(P_H E^dag|B_o^{F-1}).
+  These are stored as VF, VF1. The full harmonic bases are BF, BF1.
+- At half filling the targets lie outside the window, so A = B and nothing changes.
 """
 from __future__ import annotations
 
@@ -65,34 +75,208 @@ def split_couplings(Np: int, p: int, c: np.ndarray):
 
 
 def pinv(A: np.ndarray, rtol: float = 1e-10) -> np.ndarray:
+    if A.size == 0:
+        return np.zeros((A.shape[1], A.shape[0]), dtype=A.dtype)
     U, s, Vh = np.linalg.svd(A, full_matrices=False)
     keep = s > rtol * s.max()
     return (Vh[keep].conj().T / s[keep]) @ U[:, keep].conj().T
 
 
 def pinv_apply(A: np.ndarray, rhs: np.ndarray, rtol: float = 1e-10) -> np.ndarray:
+    if A.size == 0:
+        return np.zeros((A.shape[1], rhs.shape[1]), dtype=complex)
     U, s, Vh = np.linalg.svd(A, full_matrices=False)
     keep = s > rtol * s.max()
     return Vh[keep].conj().T @ ((U[:, keep].conj().T @ rhs) / s[keep][:, None])
 
 
-class OldModel:
-    """Old-model data needed for the uplift at N' = N+1, charge F: harmonic bases B_o^F, B_o^{F-1}, and the maps."""
+def range_basis(A: np.ndarray, rtol: float = 1e-10):
+    """Orthonormal basis of the column space of A and the nonzero singular values (descending), via a thin SVD."""
+    if A.size == 0:
+        return np.zeros((A.shape[0], 0), complex), np.zeros(0)
+    U, s, _ = np.linalg.svd(A, full_matrices=False)
+    keep = s > rtol * s.max()
+    return U[:, keep], s[keep]
 
-    def __init__(self, Np: int, c: np.ndarray, rng, p: int = 3, basis_fn=None):
+
+# --------------------------------------------------------------------------- any sector of the window (D10) --
+
+def level(N: int, F: int) -> int:
+    """Level l = 2F - N of degree F in the N-mode model (CV eq. 29)."""
+    return 2 * F - N
+
+
+def strip_walk_count(N: int, p: int, F: int) -> int:
+    """Number of +-1 walks of length N from 0 to l = 2F - N that stay in |x| <= p - 1 (CV App. A, S_p).
+    Unconditionally a walk count.  It equals the ordinary (non-exceptional) BPS dimension conditional on CV's rank
+    formula (Conjecture A.1): S_p = D~_p - D~_{N-p-q} (CV eq. 130)."""
+    w = {0: 1}
+    for _ in range(N):
+        nw = {}
+        for x, m in w.items():
+            for y in (x - 1, x + 1):
+                if abs(y) <= p - 1:
+                    nw[y] = nw.get(y, 0) + m
+        w = nw
+    return w.get(2 * F - N, 0)
+
+
+EXCEPTIONAL_Q3 = {5: 1, 9: 3, 13: 1, 17: 1}      # per window edge, q = 3, N <= 17 (KW App. B; CV Fig. 1)
+
+
+def bps_dim_q3(N: int, F: int) -> int:
+    """BPS dimension of the q = 3 model, N <= 17: strip walks plus the known exceptional states at l = +-3."""
+    if abs(level(N, F)) == 3:
+        if N > 17:
+            raise ValueError("exceptional counts are known only for N <= 17")
+        return EXCEPTIONAL_Q3.get(N, 0)
+    return strip_walk_count(N, 3, F)
+
+
+def uplift_bookkeeping(Np: int, F: int, p: int = 3) -> dict:
+    """Levels, degrees and chord charges of the uplift into sector (N', F) (D10 §1).
+    Slots: a (n_e = 0, old degree F, level l'+1) and b (n_e = 1, old degree F-1, level l'-1).
+    Dressing targets: E a at degree F+p-1 (level l'+2p-1); E^dag b at degree F-p (level l'-2p+1).
+    The dressing returns to the other slot via Q0^+ (K a in the b slot, K' b in the a slot).
+    Chord charges s = l/(2p): h family (s_out, s_in) = (s_a, s_a + 2/p), g family mirrored (-s_b, -s_b + 2/p).
+    Regime of each family, decided by s_in against 1/2:
+      'gapped' (s_in > 1/2: the target has no BPS states, its continuum is gapped);
+      'resonant' (s_in = 1/2: the target is the window edge |l| = p, where the continuum is gapless);
+      'obstructed' (s_in < 1/2: the target holds an extensive BPS space, so delta can be nonzero);
+      'empty' (the slot has no BPS states: |level| > p)."""
+    N = Np - 1
+    lp = level(Np, F)
+    la, lb = lp + 1, lp - 1
+    ta, tb = la + 2 * (p - 1), lb - 2 * (p - 1)
+    out = dict(Np=Np, N=N, F=F, p=p, lp=lp, slot_a=dict(level=la, degree=F), slot_b=dict(level=lb, degree=F - 1),
+               target_a=dict(level=ta, degree=F + p - 1), target_b=dict(level=tb, degree=F - p))
+    for fam, ls, lt in (("h", la, ta), ("g", -lb, -tb)):
+        s_out, s_in = ls / (2 * p), lt / (2 * p)
+        if abs(ls) > p:
+            reg = "empty"
+        elif abs(s_in - 0.5) < 1e-12:
+            reg = "resonant"
+        elif s_in < 0.5:
+            reg = "obstructed"
+        else:
+            reg = "gapped"
+        out[fam] = dict(s_out=s_out, s_in=s_in, regime=reg)
+    return out
+
+
+def harmonic_basis(S: Sector, c: np.ndarray, rng, d_expected: int | None = None) -> np.ndarray:
+    """Orthonormal basis (D x d) of the harmonic forms ker Q n ker Q^dag in Lambda^F, for any degree F.
+    This includes the window edges, degrees with F < p or F + p > N (where one of the two maps is empty), and degrees
+    with no harmonic forms (d = 0).  The algorithm and the random draws are those of run_ou_fourarc.bps_basis_fast, so
+    the output is identical to it whenever both apply."""
+    from run_ou_fourarc import _orth_range_gram  # noqa: WPS433  (scripts/ on sys.path)
+    if S.D == 0:
+        return np.zeros((0, 0), complex)
+    has_up, has_down = S.up.shape[0] > 0, S.down.shape[1] > 0
+    Rs = [np.zeros((S.D, 0), complex)]
+    if has_up:
+        Rs.append(_orth_range_gram(S.up.matrix(c).toarray(), "row")[0])
+    if has_down:
+        Rs.append(_orth_range_gram(S.down.matrix(c).toarray(), "col")[0])
+    R = np.hstack(Rs)
+    d = S.D - R.shape[1]
+    if d_expected is not None and d != d_expected:
+        raise RuntimeError(f"BPS dimension {d} != expected {d_expected}")
+    V = rng.standard_normal((S.D, d)) + 1j * rng.standard_normal((S.D, d))
+    for _ in range(2):
+        V = V - R @ (R.conj().T @ V)
+        V, _ = np.linalg.qr(V)
+    return V
+
+
+def wedge_pairing(N: int, k: int) -> np.ndarray:
+    """Top-form pairing W (C(N,k) x C(N,N-k)): int beta ^ gamma = beta^T W gamma for beta in Lambda^k,
+    gamma in Lambda^{N-k} (Fock bases ordered as chord_chaos.Sector / q_scan.subset_index)."""
+    from q_scan import merge_sign, subset_index
+    rows, _ = subset_index(N, k)
+    _, cmap = subset_index(N, N - k)
+    full = (1 << N) - 1
+    W = np.zeros((len(rows), len(cmap)))
+    for i, S in enumerate(rows):
+        W[i, cmap[full ^ S]] = merge_sign(S, full ^ S)
+    return W
+
+
+def connecting_form(N: int, p: int, k: int, cA: np.ndarray, eta: np.ndarray, rng, k2: int | None = None):
+    """Bilinear connecting form B(beta, alpha) = int beta ^ eta ^ alpha on harmonic forms of the N-mode model.
+    alpha is in H^k and beta in H^{k2}, with k2 = N - k - (p-1) by default. Returns (M, V_k, V_k2) with
+    M[i, j] = B(beta_i, alpha_j).
+    For k2 = k, i.e. k = (N-p+1)/2 (level 1-p), the form obeys B(alpha, beta) = (-1)^k B(beta, alpha), so
+    M^T = (-1)^k M.
+    The kernel of M (as a map on alpha) is ker(P_H E P_H | H^k), i.e. the kernel of CV's delta[alpha] = [eta ^ alpha]."""
+    k2 = N - k - (p - 1) if k2 is None else k2
+    Vk = harmonic_basis(Sector(N, p, F=k), cA, rng)
+    Vk2 = Vk if k2 == k else harmonic_basis(Sector(N, p, F=k2), cA, rng)
+    E = WedgeStructure(N, k, p - 1).matrix(eta).toarray()            # Lambda^k -> Lambda^{k+p-1} = Lambda^{N-k2}
+    M = Vk2.T @ wedge_pairing(N, k2) @ (E @ Vk)
+    return M, Vk, Vk2
+
+
+class OldModel:
+    """Old-model data needed for the uplift at N' = N+1, charge F: harmonic bases B_o^F, B_o^{F-1}, and the maps.
+
+    F = None means half filling (F = N'//2), with the original behaviour: same random draws, and the BPS dimensions
+    checked against bps_dim.  For any other F (D10), the harmonic bases are computed without an expected dimension.
+    The obstruction maps are then
+        delta_h = P_H E   : B_o^F     -> H^{F+p-1}   (computed as (1 - P_exact) E h, since E h is Q0-closed),
+        delta_g = P_H E^+ : B_o^{F-1} -> H^{F-p}     (computed as (1 - P_coexact) E^dag g, since E^dag g is coclosed).
+    The admissible sources are VF = B_o^F n ker delta_h and VF1 = B_o^{F-1} n ker delta_g.  All the methods below
+    act on them.  The full harmonic bases are kept as BF, BF1, and the singular values of delta in self.obstruction."""
+
+    def __init__(self, Np: int, c: np.ndarray, rng, p: int = 3, basis_fn=None, F: int | None = None,
+                 obstruction_rtol: float = 1e-8):
         from run_ou_fourarc import bps_basis_fast  # noqa: WPS433  (scripts/ on sys.path)
         basis_fn = basis_fn or bps_basis_fast
-        self.Np, self.p, self.N, self.F = Np, p, Np - 1, Np // 2
+        half = F is None
+        self.Np, self.p, self.N, self.F = Np, p, Np - 1, (Np // 2 if half else F)
         N, F = self.N, self.F
         self.eps = (-1) ** F
         self.cA, self.eta = split_couplings(Np, p, c)
         self.SF, self.SF1 = Sector(N, p, F=F), Sector(N, p, F=F - 1)
-        self.VF, _, _ = basis_fn(self.SF, self.cA, bps_dim(N, p, F), rng)
-        self.VF1, _, _ = basis_fn(self.SF1, self.cA, bps_dim(N, p, F - 1), rng)
+        if half:
+            self.VF, _, _ = basis_fn(self.SF, self.cA, bps_dim(N, p, F), rng)
+            self.VF1, _, _ = basis_fn(self.SF1, self.cA, bps_dim(N, p, F - 1), rng)
+        else:
+            self.VF = harmonic_basis(self.SF, self.cA, rng)
+            self.VF1 = harmonic_basis(self.SF1, self.cA, rng)
+        self.BF, self.BF1 = self.VF, self.VF1
         self.Q0_Fm1 = WedgeStructure(N, F - 1, p).matrix(self.cA).toarray()        # L^{F-1} -> L^{F+2}
         self.Q0_Fm3 = WedgeStructure(N, F - p, p).matrix(self.cA).toarray()        # L^{F-3} -> L^F
         self.E_F = WedgeStructure(N, F, p - 1).matrix(self.eta).toarray()          # L^F -> L^{F+2}
         self.E_Fm3 = WedgeStructure(N, F - p, p - 1).matrix(self.eta).toarray()    # L^{F-3} -> L^{F-1}
+        self.obstruction = None
+        if not half:
+            self.obstruction = self._admissible(obstruction_rtol)
+
+    def _admissible(self, rtol: float) -> dict:
+        """Restrict VF, VF1 to the kernels of the connecting maps (D10 §2).  Returns the singular values of
+        delta_h, delta_g in units of the norm scale of E h (resp. E^dag g), and the ranks."""
+        out = {}
+        for fam, B, X, Q, side in (("h", self.BF, self.E_F, self.Q0_Fm1, "range"),
+                                   ("g", self.BF1, self.E_Fm3.conj().T, self.Q0_Fm3, "corange")):
+            if B.shape[1] == 0 or X.shape[0] == 0:
+                out[fam] = dict(sv=[], rank=0, dim=int(B.shape[1]), admissible=int(B.shape[1]))
+                continue
+            Y = X @ B                                                        # E h (closed) / E^dag g (coclosed)
+            R, _ = range_basis(Q if side == "range" else Q.conj().T)        # exact (resp. coexact) forms of the target
+            Z = Y - R @ (R.conj().T @ Y)                                     # = P_H E h  (resp. P_H E^dag g)
+            scale = np.linalg.norm(Y) / np.sqrt(Y.shape[1])
+            _, s, Vh = np.linalg.svd(Z, full_matrices=True)
+            s = s / scale if scale > 0 else np.zeros_like(s)
+            rank = int(np.sum(s > rtol))
+            if rank:
+                B = B @ Vh[rank:].conj().T
+                if fam == "h":
+                    self.VF = B
+                else:
+                    self.VF1 = B
+            out[fam] = dict(sv=[float(x) for x in s], rank=rank, dim=int(Y.shape[1]), admissible=int(B.shape[1]))
+        return out
 
     def first_order_singular_values(self):
         """Singular values of K on B_o^F and of K' on B_o^{F-1} (padded with zeros to the full dimensions)."""
@@ -129,7 +313,8 @@ class OldModel:
             S = U / np.sqrt(w)
             fam.append((A @ S, B @ S))
         (Ah, Bh), (Ag, Bg) = fam
-        overlap = float(np.abs(Ah.conj().T @ Ag + Bh.conj().T @ Bg).max())
+        Ov = Ah.conj().T @ Ag + Bh.conj().T @ Bg
+        overlap = float(np.abs(Ov).max()) if Ov.size else 0.0
         Mh = Ah.conj().T @ Ah - Bh.conj().T @ Bh
         Mg = Ag.conj().T @ Ag - Bg.conj().T @ Bg
         C2 = Ah.conj().T @ Ag - Bh.conj().T @ Bg
@@ -175,6 +360,31 @@ class OldModel:
         for k, m in enumerate(SN.masks):
             Psi[k] = b[idxF1[m & ~bit]] if m & bit else a[idxF[m]]
         return Psi
+
+    def dyson(self, fam: str = "h", rtol: float = 1e-10) -> dict:
+        """First-order dressing and its exact resummation in the singular basis of the old supercharge (D10 §4).
+        h family:
+        - Q0 = sum_j s_j |u_j><v_j| (coexact Lambda^{F-1} -> exact Lambda^{F+p-1}), so K_H h = sum_j v_j <u_j|E h>/s_j.
+        - With e = U^dag E V_F, first order is K_H^dag K_H = e^dag S^-2 e.
+        - The exact self-dressed metric is K_H^dag (1+R)^-1 K_H = e^dag (S^2 + W)^-1 e, where W = U^dag E P_Ex E^dag U
+          (P_Ex: exact forms of the n_e = 0 slot).  This is the propagator of H0 + E P_Ex E^dag on the target exact forms
+          in place of H0^-1: a Dyson resummation with self-energy E P_Ex E^dag >= 0.
+        g family: the mirror, with Q0^dag (exact Lambda^F <- coexact Lambda^{F-p}), E^dag, and P_Co on Lambda^{F-1}.
+        Returns dict(s2 = inner energies s_j^2 (descending), e, W)."""
+        if fam == "h":
+            Q, X, Vs = self.Q0_Fm1, self.E_F, self.VF
+            P_slot, _ = range_basis(self.Q0_Fm3)                    # exact forms of Lambda^F (n_e = 0 slot)
+        else:
+            Q, X, Vs = self.Q0_Fm3.conj().T, self.E_Fm3.conj().T, self.VF1
+            P_slot, _ = range_basis(self.Q0_Fm1.conj().T)           # coexact forms of Lambda^{F-1} (n_e = 1 slot)
+        if Q.size == 0:
+            return dict(s2=np.zeros(0), e=np.zeros((0, Vs.shape[1]), complex), W=np.zeros((0, 0), complex))
+        U, s, _ = np.linalg.svd(Q, full_matrices=False)
+        keep = s > rtol * s.max()
+        U, s = U[:, keep], s[keep]
+        e = U.conj().T @ (X @ Vs)
+        Y = U.conj().T @ (X @ P_slot)
+        return dict(s2=s ** 2, e=e, W=Y @ Y.conj().T)
 
 
 def decoder_from_basis(SN: Sector, V: np.ndarray, Np: int) -> np.ndarray:

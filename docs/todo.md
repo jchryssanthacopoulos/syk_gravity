@@ -1,6 +1,6 @@
 # To-do
 
-*Last revised 2026-10-25 (D9 chords for the two-flavor uplift); 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-10-26 (D10 uplift anywhere in the window; KW 2017 note); 2026-10-25 (D9 chords for the two-flavor uplift); 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
 
 ## A. Environment & reproducibility (P0)
@@ -112,8 +112,20 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
     mismatched-wormhole overlap);
   - Krawtchouk inversion of the parity family (u_t grading, D5 §1).
 
+- [ ] **Q13 follow-ups (P1, D10):**
+  - the N′ = 9 radical excess: test whether rank B_η on H(8, −2) is 24 for every η, including structured choices
+    (rank-deficient η);
+  - large-N resonant tail: extend N′ = 16 (running 2026-10-26) to N′ = 18 with sparse/partial methods (only the lowest
+    edge modes matter);
+  - chord amplitude of the tail beyond the rank-one approximation (free compound Poisson with heavy-tailed jumps);
+  - an analytic model for the exact resonant decoder edge λ_min ≈ 10⁻² (the spectral measure of R along the
+    resonant modes);
+  - general q: exceptional counts beyond parity (q = 5, N′ = 19, 23 need sparse methods).
+
 ## F. Writing (P2)
 
+- [ ] Progress report 2026-10-26 (`research/tex/progress_2026-10-26.tex`): the uplift anywhere in the window (D10);
+      jump map, exact ranks and exceptional radicals, edge resonance and its chord tail; KW 2017 note.
 - [x] Progress report 2026-10-23 (`research/pdfs/progress_2026-10-23.pdf`, source `research/tex/progress_2026-10-23.tex`):
       two-flavor uplift; obstruction theorem, protection identity, tower bare, CV Fig. 6 derived from counting laws,
       bare-state count, first-order interfering two-point functions (D8).
@@ -139,6 +151,7 @@ Priority: **P0** blocks everything / **P1** next / **P2** later.
 - [x] Added notes (2026-09-28) for FGMS, Turiaci–Witten, HTZ, Boruch–Iliesiu–Yan, PSSY, HITZ, Y. Chen,
       Collins–Matsumoto–Novak (Weingarten), Berkooz–Mamroud (DSSYK chords).
 - [x] Boruch–Lin–Yan (arXiv:2308.16283) acquired and noted 2026-09-28 (`literature/notes/boruch_lin_yan_2023.md`).
+- [x] 2026-10-26: Kanazawa–Wettig 2017 acquired and noted (`literature/notes/kanazawa_wettig_2017.md`); synthesis §3 item 13.
 - [ ] Still to acquire: LMRS companion (2207.00407); double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.
 - [x] 2026-09-30: notes for Belin–Fu–La Rocca 2026, Lin 2022, Liu–Shen 2026; synthesis §7 (positioning).
 - [ ] Acquire BINT 2018 (1811.02584, original matter-chord rule), Iniguez–Srednicki (2305.15702), Wang et al.

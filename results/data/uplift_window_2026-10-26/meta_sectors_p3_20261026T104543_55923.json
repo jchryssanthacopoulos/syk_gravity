@@ -1,0 +1,22 @@
+{
+ "argv": [
+  "scripts/run_uplift_window.py",
+  "--task",
+  "sectors",
+  "--p",
+  "3",
+  "--Np",
+  "16",
+  "--F",
+  "7",
+  "8",
+  "--seeds",
+  "9000",
+  "9001",
+  "--direct-max",
+  "14"
+ ],
+ "git": "7c685ab-dirty",
+ "started": "2026-10-26T10:45:43",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/uplift_window_2026-10-26/sectors_p3.jsonl"
+}

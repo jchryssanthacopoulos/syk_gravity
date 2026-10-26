@@ -462,6 +462,48 @@ two-flavor analogue of D6, and what it says about monotone vs fortuitous.
   - The large-N form of the resonant growth.
   - Per-sector prediction of the mean exact dressing (needs slot weights and interference).
 
+## Q13. The uplift anywhere in the fortuity window: where does it jump from, where does the dressing land, and what changes off half filling? **[answered in outline 2026-10-26 — D10]**
+
+**Setting.** D6 (the uplift, 2026-10-13 report) used half filling once: E a has no harmonic part because its degree lies
+outside the window. Question: the uplift into every sector (N′, ℓ′) of the window, with a jump map in the style of CV
+Figs. 1–3. KW 2017 (Hodge pieces per degree) is the dimensional reference.
+
+**Answer (D10; data `results/data/uplift_window_2026-10-26/`; figures `results/figures/uplift_window_2026-10-26/`).**
+- **[derived + verified] General theorem.** BPS(N′, F) is the D6 uplift of the admissible sources A = ker δ. All of
+  D6 §5 holds verbatim, and spec λ(ℓ′) = 1 − spec λ(−ℓ′) per realization. Verified for q = 3 at N′ = 5–15 and q = 5 at
+  N′ = 6–14, to machine precision.
+- **[derived] Three regimes, fixed by where the dressing lands** (s_in vs ½):
+  - central |ℓ′| ≤ q−2: gapped (D6);
+  - resonant |ℓ′| = q−1: the dressing passes through KW's GOE/GSE window-straddling multiplet, which is gapless;
+  - edge |ℓ′| = q: the dressing target holds BPS states, so δ ≠ 0.
+- **[derived + verified] Exact ranks of CV's connecting map in every sector.**
+  - A duality pairs ℓ with −ℓ − 2(q−1).
+  - Exchange at |ℓ′| = q−1: the e(N) exceptional states replace e(N) obstructed ordinary classes.
+  - The exceptional states are the radical of the bilinear form ∫β∧η∧α on H(N′−1, 1−q). It has symmetry (−1)^k with
+    k = (N′−q)/2. Parity criterion: k odd and dim H odd.
+  - This reproduces KW (q̂ = 3 and 5) and predicts exceptional states for q̂ = 5 at N′ = 19, 23, 31, …. N′ = 19 is
+    rigorous for generic couplings. KW's N_c = 9 excess remains unexplained.
+- **[derived (chords) + num] The window edge resonates.**
+  - The time-integrated BPS → continuum two-point function goes from e^{−E₀τ}τ^{−3/2} (gapped), to τ^{−1/2} at s_in = ½,
+    to a plateau, the obstruction (s_in < ½).
+  - At finite N the edge multiplet has a hard edge (E_min/Ē ≈ 10⁻⁶ at N = 11–13).
+  - First-order dressing costs have a tail P(σ² > K) ∝ K^{−α}, with α = 0.43 → 0.48 at N′ = 12 → 14. Chord: α = ½,
+    amplitude within ~30 %.
+  - The resonance survives in the exact minimum-norm dressing cost: the Dyson self-energy W = SRS vanishes on the
+    near-zero modes.
+  - The decoder does not resonate: cloud-dominated states have λ set by R (exact λ_min ≈ 10⁻²; first order 10⁻⁶).
+- **[num] T₄ = T₂ − H_first** holds to ≤ 0.009 in every extensive sector at N′ = 9–14, resonant ones included.
+- **Figure.** `fig_jump_map_q3/_q5` (CV-style dimensions with regimes and δ marks) and `fig_jump_panels_q3` (the four
+  regimes as single steps N → N′).
+
+**Open.**
+- The N′ = 9 radical excess (KW footnote 12).
+- The large-N law of the resonant tail and of the edge gap (finite N vs chords).
+- A closed form for the exact resonant decoder edge.
+- A gravitational description of the cloud-dominated BPS states: BPS states of N′ assembled from the gapless edge
+  continuum of N.
+- The general-q exceptional counts.
+
 ---
 
 ### Superseded questions (kept for the record)

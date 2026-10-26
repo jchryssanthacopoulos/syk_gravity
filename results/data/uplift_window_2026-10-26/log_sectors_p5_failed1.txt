@@ -1,0 +1,18 @@
+memwatch: pid 42283 cap 3.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_window.py --task sectors --p 5 --Np 6 7 8 9 10 11 12 13 14 --seeds 9000 9001
+Traceback (most recent call last):
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_uplift_window.py", line 248, in <module>
+    main()
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_uplift_window.py", line 228, in main
+    rec = sector_record(Np, F, c, seed, a.p, a.direct_max, rng)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_uplift_window.py", line 145, in sector_record
+    Mh, Mg, C2, overlap = om.decoder_blocks()
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../src/uplift.py", line 316, in decoder_blocks
+    overlap = float(np.abs(Ah.conj().T @ Ag + Bh.conj().T @ Bg).max())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/james.chryssanthacopoulos/src/syk_gravity/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py", line 41, in _amax
+    return umr_maximum(a, axis, None, out, keepdims, initial, where)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zero-size array to reduction operation maximum which has no identity
+memwatch: done rc=1 peak 0.01 GB (cap 3.0) in 1s

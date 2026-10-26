@@ -1,0 +1,5 @@
+{"cmd": ".venv/bin/python scripts/run_uplift_window.py --task sectors --p 5 --Np 6 7 8 9 10 11 12 13 14 --seeds 9000 9001", "rc": 1, "killed": null, "peak_gb": 0.009, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-10-26T10:35:27"}
+{"cmd": ".venv/bin/python scripts/run_uplift_window.py --task sectors --p 3 --Np 5 6 7 8 9 10 11 12 13 14 --seeds 9000 9001 9002", "rc": 1, "killed": null, "peak_gb": 0.017, "cap_gb": 3.0, "secs": 1.1, "ended": "2026-10-26T10:35:27"}
+{"cmd": "/private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage3/jobB.sh", "rc": 0, "killed": null, "peak_gb": 0.501, "cap_gb": 2.0, "secs": 37.6, "ended": "2026-10-26T10:36:04"}
+{"cmd": ".venv/bin/python scripts/run_uplift_window.py --task sectors --p 3 --Np 5 6 7 8 9 10 11 12 13 14 --seeds 9000 9001 9002", "rc": 0, "killed": null, "peak_gb": 0.828, "cap_gb": 3.0, "secs": 919.2, "ended": "2026-10-26T10:52:24"}
+{"cmd": ".venv/bin/python scripts/run_uplift_window.py --task sectors --p 5 --Np 6 7 8 9 10 11 12 13 14 --seeds 9000 9001", "rc": 0, "killed": null, "peak_gb": 1.506, "cap_gb": 3.0, "secs": 1048.2, "ended": "2026-10-26T10:54:33"}

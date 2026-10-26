@@ -32,10 +32,12 @@ from uplift import bps_dim, coexact_forms_dim, exact_forms_dim, split_couplings
 
 # ----------------------------------------------------------------------------------------------------- chord side --
 
-def chord_sectors(Np: int, fam: str, p: int = 3) -> dict:
-    """Chord parameters of the h ('h') or g ('g') dressing problem at N' (old model N = N' - 1, F = N'//2)."""
+def chord_sectors(Np: int, fam: str, p: int = 3, F: int | None = None) -> dict:
+    """Chord parameters of the h ('h') or g ('g') dressing problem at N' (old model N = N' - 1).
+    F = N'//2 by default (D7).  Any other F is a window sector (D10 §4).  The resonant families (s_in = 1/2) are the
+    h family at l' = 2F - N' = -2 and the g family at l' = +2.  There the jump law has a 1/phi^2 tail."""
     N = Np - 1
-    F = Np // 2
+    F = Np // 2 if F is None else F
     lam = 2 * p * p / N
     q = np.exp(-lam)
     delta = 2 / p
@@ -59,9 +61,9 @@ def chord_t1(Np: int, fam: str) -> float:
     return P["c0"] / P["kappa"] * time_integrated_two_point(P["lam"], P["s_out"], P["delta"])
 
 
-def chord_jump_law(Np: int, fam: str, nphi: int = 4000):
+def chord_jump_law(Np: int, fam: str, nphi: int = 4000, F: int | None = None):
     """Gauss-Legendre nodes in phi: S-eigenvalues g_k and weights w_k (sum 1) of the chord jump law; returns (g, w, P)."""
-    P = chord_sectors(Np, fam)
+    P = chord_sectors(Np, fam, F=F)
     x, wg = np.polynomial.legendre.leggauss(nphi)
     phi = (x + 1) * np.pi / 2
     rho = b_family_density(P["lam"], P["s_in"], phi) * wg * np.pi / 2

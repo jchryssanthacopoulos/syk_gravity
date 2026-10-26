@@ -1,6 +1,7 @@
 # Literature synthesis
 
-*Last revised 2026-10-05 (fourth pass: added BBNR 2020, BINT 2018, Pluma–Speicher 2019, Bożejko–Kümmerer–Speicher
+*Last revised 2026-10-26 (fifth pass: added Kanazawa–Wettig 2017, the per-degree Hodge/RMT classification; §3 item 13).
+Fourth pass 2026-10-05 ( added BBNR 2020, BINT 2018, Pluma–Speicher 2019, Bożejko–Kümmerer–Speicher
 1997, G. Lin 2026; new §8 on tools for the T₄/R program). Third pass 2026-09-30 added Belin–Fu–La Rocca 2026, Lin 2022,
 Liu–Shen 2026 and §7 on where the project sits. Second pass 2026-09-28 added 9 papers: PSSY, Turiaci–Witten, Boruch–Iliesiu–Yan, HITZ,
 Heydeman–Turiaci–Zhao, FGMS, Y. Chen, Collins–Matsumoto–Novak, Berkooz–Mamroud. Per-paper notes are in
@@ -46,6 +47,16 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
   TOC − OTOC.
 - See §8 for what this means for the T₄/R program.
 
+*Added 2026-10-26.*
+- Kanazawa–Wettig 2017 (KW) classify N=2 SYK level statistics per fermion number. They do this per *Hodge piece*:
+  V⁺ (coexact), V⁻ (exact) and V^z (BPS), with tables of all three dimensions for N_c = 3–17 (App. B).
+- The cohomology premise is CV's fortuity window.
+- They explain the exceptional window-edge zero modes at N_c ≡ 1 (mod 4) by Kramers degeneracy, but not the excess at
+  N_c = 9.
+- Every V^± is GUE except one supermultiplet: the one that straddles the window, from coexact at ℓ = −q̂ to exact at
+  ℓ = +q̂. It is GOE or GSE.
+- For the uplift anywhere in the window (D10), that multiplet is where off-centre dressing resonates.
+
 ## 2. Literature map
 
 ```
@@ -73,6 +84,8 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
  BKS 1997 (q-Gaussian functor Γ_q(T); q-Mehler; q-OU is Markov) ─► Pluma–Speicher 2019 (SYK copies & Brownian
    couplings → q-Gaussian/q-Brownian) ─► Liu–Shen 2026
  LMRS 2022 ─► G. Lin 2026 (particle on SU(1,1|1): exact zero-energy N=2 OTOC; Berry 2nd moment = TOC − OTOC) ◄─ CCMP 2026
+ ─── added 2026-10-26 ──────────────────────────────────────────────────────────────────────────────
+ FGMS 2016 ─► Kanazawa–Wettig 2017 (AZ classes per Hodge piece V^±_f; exceptional zero modes = Kramers; App. B dims) ─► CV 2026 [25]
 ```
 
 | Paper | Provides | Used by the project for | Connects to |
@@ -109,6 +122,7 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
 | Pluma–Speicher 2019 | iid SYK copies → q-Gaussian family (Thm. 3.1); Brownian couplings → q-Brownian motion by multilinearity (Cor. 3.2); exact word sign (Lemma 3.3); higher cumulants at scale binom(n,p)^{−1} (Thm. 4.1); no operator-valued continued fraction (§6) | OU-correlated copies = q-Gaussians with ⟨h,h_x⟩ = x (corrects our BBNR note); fluctuation scale of per-realization quantities | Liu–Shen, BKS |
 | BKS 1997 | q-Hermite & Rogers q-Mehler kernel (Thm. 1.10); second quantization Γ_q(T) for contractions, CP and trace-preserving (Thm. 2.11); q-OU is the unique stationary Markov q-Gaussian (Cor. 3.10, Prop. 3.11); classical versions reproduce only time-ordered correlators (§4) | rigorous "x per chord = x^{N̂}"; T₄^OU is out of OU-time order, so it is not fixed by the Markov kernel (D5) | Pluma–Speicher, BINT |
 | G. Lin 2026 | super-JT as a constrained particle on SU(1,1\|1), PSU(1,1\|2); physical supercharges; Wilson lines; zero-energy 3-pt; **exact zero-energy N=2 OTOC for equal Δ (5.26–5.38)**; N=4 large-Δ (5.41–5.42); Berry 2nd moment = TOC − OTOC (6.15–6.19) | triple-scaled target for the crossed channel of our light probe (Δ = 1/3); the isotropic OU expansion sees only the quantum metric, not curvature (D5) | LMRS, CCMP, BLY |
+| Kanazawa–Wettig 2017 | AZ classes of N=0,1,2 SYK. For N=2: V_f = V⁺_f (coexact) ⊕ V⁻_f (exact) ⊕ V^z_f (BPS) (6.8–6.10). Pairings N⁺_f = N⁻_{f+3} (6.12), N^±_f = N^∓_{N−f} (6.11). Zero modes in |f − N_c/2| ≤ 3/2 (premise 6.15). Exact sequences and closed forms for N^± (6.16–6.21; Table 8). Exceptional zero modes via DIII Kramers (§6.2; N_c = 9 excess unexplained, fn. 12). GOE/GSE only for the multiplet V⁺_{(N_c−q̂)/2} ↔ V⁻_{(N_c+q̂)/2} (6.13, 6.24). App. B tables. | Hodge dimensions at every degree, used by the uplift anywhere in the window (D10); the exceptional-state counts (verified against our code); the window-edge multiplet that controls resonant dressing | CV ([25]), FGMS, Miyahara–Shibuya, BBNR |
 
 ## 3. Established results (literature) that the project relies on
 
@@ -161,6 +175,17 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
 12. **Zero-energy N=2 crossed 4-pt function in super-JT** (equal Δ): G. Lin 2026, eqs. 5.26–5.38. The large-Δ ratio
     OTOC/TOC ~ e^{−3.52Δ} is LMRS eq. 159. For chiral operators the long-time TOC = OTOC up to sign (LMRS eq. 86 and
     Fig. 9).
+
+13. **Hodge pieces per degree and their statistics (Kanazawa–Wettig).**
+    - Exact, coexact and BPS dimensions at every fermion number, given the window premise (KW 6.16–6.21, App. B).
+      Our rank computations reproduce the App. B rows for N_c = 5, 9, 12, 13.
+    - Labels: KW's V⁺ is coexact and V⁻ exact. CV App. A uses the opposite labels (literature/notes/kanazawa_wettig_2017.md).
+    - Level statistics on each V^±_f are GUE except on the window-straddling multiplet, which is GOE (N_c ≡ 3 mod 4) or
+      GSE (N_c ≡ 1 mod 4) at q̂ = 3 (KW 6.13); general odd q̂ in 6.24.
+    - Exceptional zero modes at the window edges for N_c ≡ 1 (mod 4) at q̂ = 3: 1, 3, 1, 1 at N_c = 5, 9, 13, 17. The
+      N_c = 9 excess is unexplained.
+    - For q̂ = 5, KW report edge modes only at N_c = 7, 11 up to N_c = 17. Parity forces them again at N_c = 19
+      (project, D10 §3).
 
 ## 4. Tensions between the literature and the current draft
 
