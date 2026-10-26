@@ -21,7 +21,7 @@ D10 §4 (the window-edge resonance). The plan for the resonant chord problem has
 | job | command | seeds | etas | peak | time |
 |---|---|---|---|---|---|
 | small | `run_chord_resonance.py --Np 8 10 12 14` | 9000–9002 | 24 | 0.11 GB | 142 s |
-| N16 | `run_chord_resonance.py --Np 16 --no-control --neta 8` | 9000, 9001 | 8 | see log_N16.txt | see log |
+| N16 | `run_chord_resonance.py --Np 16 --no-control --neta 8` | 9000, 9001 | 8 | 3.35 GB | 1232 s |
 
 Couplings are as in `results/data/uplift_window_2026-10-26`, so the own-η spectra equal the window runs' σ² (checked to
 2e−15 at N′ = 12).
@@ -29,11 +29,10 @@ Couplings are as in `results/data/uplift_window_2026-10-26`, so the own-η spect
 ## Results (D11 §3)
 - The central control reproduces D7's error budget, which validates the pipeline.
 - Resonant sector, chord vs exact first order:
-  - W +8.5 % (N′ = 12) and +6.7 % (N′ = 14), as good as central;
-  - T₂ −8.8 % and −7.5 %, about twice central, mostly from the chord continuum;
-  - tail amplitude P·√K(100) about 25 % low. That deficit is entirely continuum: the planar model with the exact S
-    matches the exact tail to ≤ 2.5 %.
+  - W +8.5, +6.7, +4.8 % (N′ = 12, 14, 16), as good as central;
+  - T₂ −8.8, −7.5, −7.0 %, about twice central, mostly from the chord continuum;
+  - tail amplitude P·√K(100) low by 26, 21, 12 %. That deficit is entirely continuum: the planar model with the
+    exact S matches the exact tail to ≤ 2.5 %.
+  - Every error shrinks with N′.
 - The Kronecker model with the measured BPS heterogeneity fails in resonant sectors from N′ = 12 (T₂ 0.71 vs 0.52). The
   heterogeneity is dominated by a few edge modes.
-EOF
-cat /private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/tasks/biafsktoi.output; tail -2 /Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_resonance_2026-10-26/log_N16.txt

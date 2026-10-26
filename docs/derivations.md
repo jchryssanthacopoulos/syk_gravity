@@ -2439,7 +2439,7 @@ Code: `src/chord_dressing.py` (`DressingFamily(inner='svd')`, `old_model_from_up
 |---|---|---|---|---|---|
 | 12 | resonant ℓ′ = −2 | 0.1262 / 0.1332 / 0.1370 | +5.5 %, +2.8 %, +8.5 % | 0.5174 / 0.5020 / 0.4718 | −3.0 %, −6.0 %, −8.8 % |
 | 14 | resonant ℓ′ = −2 | 0.1331 / 0.1387 / 0.1419 | +4.3 %, +2.3 %, +6.7 % | 0.4767 / 0.4650 / 0.4409 | −2.4 %, −5.2 %, −7.5 % |
-| 16 | resonant ℓ′ = −2 | L1N16W | L1N16WERR | L1N16T | L1N16TERR |
+| 16 | resonant ℓ′ = −2 | 0.1369 / 0.1418 / 0.1435 | +3.6 %, +1.2 %, +4.8 % | 0.4493 / 0.4370 / 0.4178 | −2.7 %, −4.4 %, −7.0 % |
 | 12 | central ℓ′ = 0 (control) | 0.0853 / 0.0894 / 0.0902 | +4.9 %, +0.9 %, +5.8 % | 0.6340 / 0.6331 / 0.6143 | −0.2 %, −3.0 %, −3.1 % |
 | 14 | central ℓ′ = 0 (control) | 0.1051 / 0.1101 / 0.1123 | +4.8 %, +2.0 %, +6.9 % | 0.5694 / 0.5675 / 0.5524 | −0.3 %, −2.7 %, −3.0 % |
 
@@ -2447,15 +2447,17 @@ Code: `src/chord_dressing.py` (`DressingFamily(inner='svd')`, `old_model_from_up
   the generalized pipeline.
 - **The heavy-tailed free compound Poisson structure holds.**
   - The planar error in the resonant sector (W +4–6 %, T₂ −2 to −3 %) is the same as in central sectors.
-  - The planar model with the exact S reproduces the exact tail: P·√K at K = 100 is 0.677 / 0.650 (wishart) against
-    0.661 / 0.649 (sampled) at N′ = 12 / 14.
+  - The planar model with the exact S reproduces the exact tail: P·√K at K = 100 is 0.677 / 0.650 / 0.602 (wishart)
+    against 0.661 / 0.649 / 0.593 (sampled) at N′ = 12 / 14 / 16.
   - So uncrossed diagrams with factorized BPS faces still describe the spectrum when the jumps are unbounded.
 - **The chord continuum is the weak link at the edge.**
   - W is as good as in central sectors (continuum +2–3 %).
-  - T₂ is about twice as far off (continuum −5 to −6 % against −3 %).
-  - The tail amplitude is low by about 25 % (P·√K(100) = 0.49 / 0.51 against 0.66 / 0.65).
-  - Exponents: the chord population gives Hill α = 0.505–0.507 (K > 100). The exact data give 0.44 (N′ = 12) and
-    0.48 (N′ = 14).
+  - T₂ is about twice as far off (continuum −6.0, −5.2, −4.4 % at N′ = 12, 14, 16, against −3 % central).
+  - The tail amplitude ratio chord/exact is 0.74, 0.79, 0.88 (P·√K(100) = 0.49 / 0.51 / 0.52 against 0.66 / 0.65 / 0.59).
+  - Exponents: the chord population gives Hill α = 0.50–0.51 (K > 100). The exact data give 0.44, 0.48, 0.48.
+  - **Every error shrinks with N′.** Total W error +8.5 → +6.7 → +4.8 %, T₂ −8.8 → −7.5 → −7.0 %. The planar part of W
+    falls +5.5 → +4.3 → +3.6 %, as D7 found at half filling. The chord description of the resonant first order
+    converges toward the exact one.
   - The chord jump law has too little weight at small φ. In other words, the finite-N spectrum near the hard edge is
     denser than the double-scaled continuum. This is the same direction as D7's "the exact charged spectrum extends
     below the chord gap". It is the input for layer 2.
@@ -2474,8 +2476,8 @@ Code: `src/chord_dressing.py` (`DressingFamily(inner='svd')`, `old_model_from_up
   first-order decoder statistics.
 - **Numerical:**
   - the planar structure holds (tail amplitude to ≤ 2.5 %);
-  - chord vs exact first order: W +7–9 %, T₂ −7 to −9 % (central: +6–7 %, −3 %);
-  - the tail amplitude is 25 % low, a continuum effect;
+  - chord vs exact first order: W +8.5 → +4.8 %, T₂ −8.8 → −7.0 % for N′ = 12 → 16 (central: +6–7 %, −3 %);
+  - the tail amplitude is 26 → 12 % low, a continuum effect that shrinks with N′;
   - the Kronecker model fails.
 - **Next:**
   - layer 2: the finite-N hard edge, i.e. the 25 % tail deficit, E_min, and the KW class;

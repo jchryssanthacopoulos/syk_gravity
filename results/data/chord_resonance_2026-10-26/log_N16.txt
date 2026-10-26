@@ -1,0 +1,4 @@
+memwatch: pid 43897 cap 14.0 GB, budget 30 GB: /Users/james.chryssanthacopoulos/src/syk_gravity/.venv/bin/python /Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_chord_resonance.py --Np 16 --seeds 9000 9001 --neta 8 --no-control --out /Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_resonance_2026-10-26/chord_resonance_N16.jsonl
+N'=16 seed=9000 l'=-2 h: b=2187 e=4551 Emin/Emean=8.0e-08 | W own 0.1372 sampled 0.1366 wishart 0.1416 chord 0.1435 | T2 own 0.4516 sampled 0.4594 chord 0.4179 | P*sqrtK(100) sampled 0.634 chord 0.521 [620.5s]
+N'=16 seed=9001 l'=-2 h: b=2187 e=4551 Emin/Emean=1.5e-10 | W own 0.1382 sampled 0.1372 wishart 0.1420 chord 0.1435 | T2 own 0.4516 sampled 0.4391 chord 0.4177 | P*sqrtK(100) sampled 0.552 chord 0.521 [610.2s]
+memwatch: done rc=0 peak 3.35 GB (cap 14.0) in 1232s
