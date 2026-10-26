@@ -1,0 +1,18 @@
+{
+ "argv": [
+  "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_chord_resonance.py",
+  "--Np",
+  "16",
+  "--seeds",
+  "9000",
+  "9001",
+  "--neta",
+  "8",
+  "--no-control",
+  "--out",
+  "/Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_resonance_2026-10-26/chord_resonance_N16.jsonl"
+ ],
+ "git": "86d571e-dirty",
+ "started": "2026-10-26T18:05:41",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_resonance_2026-10-26/chord_resonance_N16.jsonl"
+}

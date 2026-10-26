@@ -55,9 +55,10 @@ def chord_sectors(Np: int, fam: str, p: int = 3, F: int | None = None) -> dict:
                 c0=c0, kappa=kappa, Din=comb(N, deg_in), b=b, e=e, r=e / b)
 
 
-def chord_t1(Np: int, fam: str) -> float:
-    """Mean first-order dressing cost (1/b) Tr D-bar = c0 int_0^inf G(tau) dtau, closed form (2phi1)."""
-    P = chord_sectors(Np, fam)
+def chord_t1(Np: int, fam: str, F: int | None = None) -> float:
+    """Mean first-order dressing cost (1/b) Tr D-bar = c0 int_0^inf G(tau) dtau, closed form (2phi1).
+    Finite only for s_in > 1/2 (gapped target)."""
+    P = chord_sectors(Np, fam, F=F)
     return P["c0"] / P["kappa"] * time_integrated_two_point(P["lam"], P["s_out"], P["delta"])
 
 
@@ -72,9 +73,11 @@ def chord_jump_law(Np: int, fam: str, nphi: int = 4000, F: int | None = None):
     return g, rho / rho.sum(), P
 
 
-def chord_population(Np: int, fam: str, n: int | None = None, nphi: int = 200001):
-    """n S-eigenvalues (default: the exact count e) placed at the quantiles of the B-family density."""
-    P = chord_sectors(Np, fam)
+def chord_population(Np: int, fam: str, n: int | None = None, nphi: int = 200001, F: int | None = None):
+    """n S-eigenvalues (default: the exact count e) placed at the quantiles of the B-family density.
+    In a resonant sector (s_in = 1/2, D10 §4) the eigenvalues are unbounded near phi = 0. The largest one is fixed by
+    the top quantile (n - 1/2)/n, which plays the role of the finite-n cutoff."""
+    P = chord_sectors(Np, fam, F=F)
     n = P["e"] if n is None else n
     phi = np.linspace(0, np.pi, nphi)[1:-1]
     rho = b_family_density(P["lam"], P["s_in"], phi)
@@ -147,6 +150,12 @@ def old_model_lean(Np: int, seed: int, p: int = 3):
     return dict(Np=Np, N=N, F=F, p=p, cA=cA, eta=eta, VF=VF, VF1=VF1, seed=seed)
 
 
+def old_model_from_uplift(om) -> dict:
+    """Lean old-model dict (as old_model_lean) from an uplift.OldModel built for any sector F (D10).  VF and VF1 are the
+    admissible sources (ker delta), so DressingFamily works in every window sector."""
+    return dict(Np=om.Np, N=om.N, F=om.F, p=om.p, cA=om.cA, eta=om.eta, VF=om.VF, VF1=om.VF1, seed=None)
+
+
 def pair_maps(N: int, deg: int):
     """For each pair I (combinations order): (rows in L^{deg+2}, cols in L^deg, signs) of psi_I^dag (nonzeros only)."""
     npair = comb(N, 2)
@@ -165,7 +174,10 @@ class DressingFamily:
     """Finite-N objects of one family: inner energies/eigenvectors (non-zero modes of H0 on the inner degree),
     the BPS basis, the pair maps, and the matter operator for a given eta."""
 
-    def __init__(self, om: dict, fam: str):
+    def __init__(self, om: dict, fam: str, inner: str = "eigh"):
+        """inner = 'eigh' (default, D7): inner energies from the Gram matrix with a 1e-9 relative cut.
+        inner = 'svd': from the singular values of Q0 (cut at 1e-10 sigma_max, as uplift.pinv does). This is needed in
+        resonant sectors (D10 §4), where the window-edge multiplet has E_min/E_max down to ~1e-11 at N = 15."""
         N, F, p, cA = om["N"], om["F"], om["p"], om["cA"]
         self.fam, self.N, self.F = fam, N, F
         if fam == "h":
@@ -180,10 +192,20 @@ class DressingFamily:
             self.Vb, self.deg_b, self.deg_in = om["VF1"], F - 1, F - 3
             self.maps = pair_maps(N, F - 3)                               # psi^dag: L^{F-3} (cols) -> L^{F-1} (rows)
             self._Ws = WedgeStructure(N, F - 3, 2)
-        w, U = np.linalg.eigh(A)
-        del A
-        keep = w > 1e-9 * w.max()
-        self.we, self.Ue = w[keep], np.ascontiguousarray(U[:, keep])
+        if inner == "svd":
+            del A
+            Qd = Qs.toarray() if fam == "h" else Qs.conj().T.toarray()       # inner degree = row space of Qd
+            U, sv, _ = np.linalg.svd(Qd, full_matrices=False)
+            del Qd
+            keep = sv > 1e-10 * sv.max()
+            self.we, self.Ue = sv[keep] ** 2, np.ascontiguousarray(U[:, keep])
+            order = np.argsort(self.we)
+            self.we, self.Ue = self.we[order], np.ascontiguousarray(self.Ue[:, order])
+        else:
+            w, U = np.linalg.eigh(A)
+            del A
+            keep = w > 1e-9 * w.max()
+            self.we, self.Ue = w[keep], np.ascontiguousarray(U[:, keep])
         del U
         self.b = self.Vb.shape[1]
         self.e = len(self.we)
@@ -227,7 +249,7 @@ class DressingFamily:
 
 
 def analyze_family(fam_obj: DressingFamily, eta_own, neta: int, rng, draws: int = 3, third_moment: bool = True,
-                   Np: int | None = None) -> tuple[dict, dict]:
+                   Np: int | None = None, Fsec: int | None = None) -> tuple[dict, dict]:
     """Error decomposition of one family (docs/derivations.md D7 sec. 6):
     own/sampled = exact first order (own eta; neta - 1 fresh etas), kron = separable model with exact S and C = Dbar/t1,
     wishart = exact S and C = 1, chord = chord population (exact e, b) and C = 1, chord_resc = same rescaled to exact t1."""
@@ -269,10 +291,15 @@ def analyze_family(fam_obj: DressingFamily, eta_own, neta: int, rng, draws: int 
     spec["kron"] = separable_samples(sev, dbev / t1, b, draws, rng)
     spec["wishart"] = separable_samples(sev, np.ones(b), b, draws, rng)
     if Np is not None:
-        gpop, P = chord_population(Np, F.fam, n=F.e)
+        Fs = fam_obj.F if Fsec is None else Fsec
+        Fs = None if Fs == Np // 2 else Fs                                # keep the D7 default path bit-identical
+        gpop, P = chord_population(Np, F.fam, n=F.e, F=Fs)
         spec["chord"] = separable_samples(gpop, np.ones(b), b, draws, rng)
-        spec["chord_rescaled"] = separable_samples(gpop * t1 / chord_t1(Np, F.fam), np.ones(b), b, draws, rng)
-        rec["t1_chord"] = chord_t1(Np, F.fam)
+        if P["s_in"] > 0.5 + 1e-12:                                       # t1 is finite only for a gapped target
+            spec["chord_rescaled"] = separable_samples(gpop * t1 / chord_t1(Np, F.fam, F=Fs), np.ones(b), b, draws, rng)
+            rec["t1_chord"] = chord_t1(Np, F.fam, F=Fs)
+        else:
+            rec["t1_chord"] = float("inf")
     rec["m2_sampled"] = float(np.mean(m2s))
     rec["m2_sampled_se"] = float(np.std(m2s) / np.sqrt(len(m2s)))
     rec["m3_sampled"] = float(np.mean(m3s))

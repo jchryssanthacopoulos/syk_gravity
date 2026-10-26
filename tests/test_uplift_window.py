@@ -191,6 +191,27 @@ def test_resonant_chord_weight_and_jump_tail():
         assert np.abs(g_phi2 / g_phi2[-1] - 1).max() < 1e-3
 
 
+def test_dressing_family_in_resonant_sector():
+    """Layer 1 (D11): DressingFamily(inner='svd') on the admissible sources of uplift.OldModel(F) reproduces the
+    first-order spectrum sigma^2 of OldModel in the resonant sector l' = -2.  At half filling 'svd' and 'eigh' agree."""
+    from chord_dressing import DressingFamily, old_model_from_uplift
+    Np = 10
+    rng, c = _model(Np, 9000)
+    om = OldModel(Np, c, rng, F=(Np - 2) // 2)
+    lean = old_model_from_uplift(om)
+    fam = DressingFamily(lean, "h", inner="svd")
+    X = fam.X(lean["eta"])
+    ev = np.sort(np.linalg.eigvalsh(X.conj().T @ X))
+    sig, _ = om.first_order_singular_values()
+    assert np.abs(ev - np.sort(sig ** 2)).max() < 1e-9 * max(1.0, ev.max())
+    half = old_model_from_uplift(OldModel(Np, c, np.random.default_rng(1), F=Np // 2))
+    for f in ("h", "g"):
+        A, B = DressingFamily(half, f, inner="eigh"), DressingFamily(half, f, inner="svd")
+        ea = np.linalg.eigvalsh(A.X(half["eta"]).conj().T @ A.X(half["eta"]))
+        eb = np.linalg.eigvalsh(B.X(half["eta"]).conj().T @ B.X(half["eta"]))
+        assert A.e == B.e and np.abs(ea - eb).max() < 1e-10 * max(1.0, ea.max())
+
+
 if __name__ == "__main__":
     import time
     for name, fn in list(globals().items()):

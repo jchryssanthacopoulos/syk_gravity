@@ -2391,3 +2391,92 @@ Seed-averaged values (3 seeds; N′ = 16: 1–2 seeds), from `summary.json`:
   - whether the "cloud-dominated" BPS states have a gravitational description: BPS states of N′ assembled from the
     gapless edge continuum of N;
   - two-flavor and q ≥ 5 versions of the radical criterion with the full counts.
+
+---
+
+## D11. Chords in the resonant sectors, layer 1: the first-order dressing spectrum
+
+*2026-10-26. Context: D7 (the first-order dressing spectrum from chords, central sectors) and D10 §4 (the window-edge
+resonance). The resonant chord problem is split into three layers:
+1. the first-order spectrum (this section);
+2. the finite-N hard edge;
+3. the self-dressing operator R, i.e. continuum → continuum chords.
+
+Code: `src/chord_dressing.py` (`DressingFamily(inner='svd')`, `old_model_from_uplift`, `chord_population(F=)`,
+`analyze_family(Fsec=)`). Scripts: `scripts/run_chord_resonance.py`, `scripts/analyze_chord_resonance.py`. Data:
+`results/data/chord_resonance_2026-10-26/`. Figure: `results/figures/chord_resonance_2026-10-26/fig_layer1.pdf`. Test:
+`tests/test_uplift_window.py::test_dressing_family_in_resonant_sector`.*
+
+### 1. What the chord rules predict [derived from the chord rules]
+- The resonant family is the h family at ℓ′ = −(q−1). For q = 3 its charges are (s_out, s_in, δ) = (−1/6, ½, 2/3).
+- D7's rules apply unchanged:
+  - uncrossed diagrams, plus BPS faces on the unique zero mode;
+  - so the first-order operator 𝒟 = P E† H₀⁺ E P is free compound Poisson, with rate r = e/b and jump law
+    g(φ) ∝ A(φ)/Λ(φ) under the B-family density.
+- What changes at s_in = ½ is only that the jumps are unbounded: g ≈ G₀/φ² near φ = 0 (D10 §4). Consequences:
+  - The moments of 𝒟 (t₁ = mean dressing, …) are infinite in the chord limit.
+  - The spectrum is still a well-defined free compound Poisson law, whose large-σ² tail is
+    P(σ² > K) ≈ r ρ₀ √G₀ K^{−1/2}.
+  - Bounded functions of σ² are finite and insensitive to the cutoff. This includes the first-order decoder
+    y = ((1−σ²)/(1+σ²))², W^(1) = ⟨y(1−y)⟩ and T₂^(1) = ⟨y⟩.
+- The prediction is computed as in D7 §3. The chord population of S (n = e inner levels at quantiles of the
+  B-family density) goes into the separable model X = S^{1/2} Z (factorized BPS faces, C = 1) at the exact (e, b).
+  The top quantile (e − ½)/e plays the role of a finite-e cutoff on the 1/φ² tail.
+
+### 2. Implementation notes [num]
+- The inner spectrum must come from singular values. D7's Gram cut (σ² > 10⁻⁹σ²_max) would drop the near-zero edge
+  modes at N = 15, the same failure as in D10 §5. `DressingFamily(inner='svd')` agrees with `'eigh'` to 3·10⁻¹⁵ at
+  half filling.
+- Sources are the admissible ones from `uplift.OldModel(F)`.
+- The own-η spectrum equals the window runs' σ² to 2·10⁻¹⁵ (same couplings).
+- Error budget as in D7 §4:
+  - "sampled": the exact first order over the η ensemble;
+  - "wishart": the exact inner S with C = 1, which tests the planar structure;
+  - "chord": the D7 jump law, which tests the chord continuum.
+
+### 3. Results [num] (seed means, 3 seeds; N′ = 16: 2 seeds, 8 etas)
+| N′ | sector | W: sampled / wishart / chord | W error: planar, continuum, total | T₂: sampled / wishart / chord | T₂ error: planar, continuum, total |
+|---|---|---|---|---|---|
+| 12 | resonant ℓ′ = −2 | 0.1262 / 0.1332 / 0.1370 | +5.5 %, +2.8 %, +8.5 % | 0.5174 / 0.5020 / 0.4718 | −3.0 %, −6.0 %, −8.8 % |
+| 14 | resonant ℓ′ = −2 | 0.1331 / 0.1387 / 0.1419 | +4.3 %, +2.3 %, +6.7 % | 0.4767 / 0.4650 / 0.4409 | −2.4 %, −5.2 %, −7.5 % |
+| 16 | resonant ℓ′ = −2 | L1N16W | L1N16WERR | L1N16T | L1N16TERR |
+| 12 | central ℓ′ = 0 (control) | 0.0853 / 0.0894 / 0.0902 | +4.9 %, +0.9 %, +5.8 % | 0.6340 / 0.6331 / 0.6143 | −0.2 %, −3.0 %, −3.1 % |
+| 14 | central ℓ′ = 0 (control) | 0.1051 / 0.1101 / 0.1123 | +4.8 %, +2.0 %, +6.9 % | 0.5694 / 0.5675 / 0.5524 | −0.3 %, −2.7 %, −3.0 % |
+
+- **The control reproduces D7** (W^(1) chord high by 4–9 %, planar about +5 %, chord inputs +1–3 %). This validates
+  the generalized pipeline.
+- **The heavy-tailed free compound Poisson structure holds.**
+  - The planar error in the resonant sector (W +4–6 %, T₂ −2 to −3 %) is the same as in central sectors.
+  - The planar model with the exact S reproduces the exact tail: P·√K at K = 100 is 0.677 / 0.650 (wishart) against
+    0.661 / 0.649 (sampled) at N′ = 12 / 14.
+  - So uncrossed diagrams with factorized BPS faces still describe the spectrum when the jumps are unbounded.
+- **The chord continuum is the weak link at the edge.**
+  - W is as good as in central sectors (continuum +2–3 %).
+  - T₂ is about twice as far off (continuum −5 to −6 % against −3 %).
+  - The tail amplitude is low by about 25 % (P·√K(100) = 0.49 / 0.51 against 0.66 / 0.65).
+  - Exponents: the chord population gives Hill α = 0.505–0.507 (K > 100). The exact data give 0.44 (N′ = 12) and
+    0.48 (N′ = 14).
+  - The chord jump law has too little weight at small φ. In other words, the finite-N spectrum near the hard edge is
+    denser than the double-scaled continuum. This is the same direction as D7's "the exact charged spectrum extends
+    below the chord gap". It is the input for layer 2.
+- **The Kronecker (separable) model fails in resonant sectors.**
+  - It uses C = E_η𝒟/t₁, the measured BPS heterogeneity. At N′ = 12 / 14 it gives W = 0.092 / 0.101 and
+    T₂ = 0.71 / 0.70, against sampled 0.126 / 0.133 and 0.52 / 0.48. In central sectors it is fine (≤ 5 %), as in D7.
+  - [interpretation] E_η𝒟 = Σ_n M_n/E_n is dominated by a few edge modes with low-rank coupling patterns M_n. The
+    BPS-side heterogeneity is then not separable from the inner side, and the uniform-face model (C = 1) is the right
+    planar model here.
+  - This is the resonant counterpart of D7 §5's coherent heterogeneity.
+- **First order misses the bottom of the exact decoder** (D10 §4; fig_layer1 b). Exact and chord first order both put
+  a pile of states at λ ≈ 0 that the exact uplift does not have. That is layer 3.
+
+### Status
+- **Derived (chord rules):** the heavy-tailed free compound Poisson law at s_in = ½, and finite, cutoff-insensitive
+  first-order decoder statistics.
+- **Numerical:**
+  - the planar structure holds (tail amplitude to ≤ 2.5 %);
+  - chord vs exact first order: W +7–9 %, T₂ −7 to −9 % (central: +6–7 %, −3 %);
+  - the tail amplitude is 25 % low, a continuum effect;
+  - the Kronecker model fails.
+- **Next:**
+  - layer 2: the finite-N hard edge, i.e. the 25 % tail deficit, E_min, and the KW class;
+  - layer 3: R from continuum → continuum chords.
