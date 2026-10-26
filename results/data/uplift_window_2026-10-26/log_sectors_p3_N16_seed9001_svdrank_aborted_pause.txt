@@ -1,0 +1,2 @@
+memwatch: pid 26088 cap 10.0 GB, budget 30 GB: /Users/james.chryssanthacopoulos/src/syk_gravity/.venv/bin/python /Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_uplift_window.py --task sectors --p 3 --Np 16 --F 7 --seeds 9001 --direct-max 14 --out /Users/james.chryssanthacopoulos/src/syk_gravity/results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001_svdrank.jsonl
+memwatch: done rc=-15 peak 1.91 GB (cap 10.0) in 193s

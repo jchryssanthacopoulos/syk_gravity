@@ -33,5 +33,14 @@ Which random-matrix ensemble is holographically dual to N=2 JT supergravity on s
 - The β=1 exception for particle–hole-symmetric sectors is a reminder to check the symmetry class of O_T at even N′,
   half filling. There, the audit found an exact λ ↔ 1−λ pairing. CV's ⟨r⟩ result is at N′=12, P=6, exactly such a
   sector; it still came out GUE, which should be understood.
+  - *Resolved 2026-10-26.*
+    - TW define J = Σψ†ψ − N/2 (p. 18). They explain the exception themselves (pp. 18–19): at odd N there is a
+      CT-invariant multiplet (−q̂/2, q̂/2), with β = 1 for CT² = 1 and β = 4 for CT² = −1.
+    - That multiplet is Kanazawa–Wettig's GOE/GSE multiplet V⁺_{(N−3)/2} ↔ V⁻_{(N+3)/2} (KW 6.13; N = 11 ≡ 3 mod 4
+      is GOE). It is also the window-edge multiplet through which off-centre uplifts resonate (D10 §4).
+    - At even N there is no CT-invariant multiplet, and KW find every V^± GUE.
+    - **[interpretation]** On the half-filling BPS space at even N′, CT acts on the decoder as μ ↔ −μ. That gives the
+      exact λ ↔ 1−λ pairing (D6 §5) but should not change bulk β = 2, as with particle–hole-type (AZ C/D)
+      symmetries. This is consistent with CV's GUE ⟨r⟩. The decoder's precise AZ class was not checked.
 - TR/loop-equation technology here (App. B) is the correct framework for any genuinely gravitational recursion,
   as opposed to TR applied to the Haar/Wachter curve in the draft's App. A.

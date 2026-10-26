@@ -164,20 +164,24 @@ def uplift_bookkeeping(Np: int, F: int, p: int = 3) -> dict:
     return out
 
 
-def harmonic_basis(S: Sector, c: np.ndarray, rng, d_expected: int | None = None) -> np.ndarray:
+def harmonic_basis(S: Sector, c: np.ndarray, rng, d_expected: int | None = None, rtol: float = 1e-10) -> np.ndarray:
     """Orthonormal basis (D x d) of the harmonic forms ker Q n ker Q^dag in Lambda^F, for any degree F.
     This includes the window edges, degrees with F < p or F + p > N (where one of the two maps is empty), and degrees
-    with no harmonic forms (d = 0).  The algorithm and the random draws are those of run_ou_fourarc.bps_basis_fast, so
-    the output is identical to it whenever both apply."""
-    from run_ou_fourarc import _orth_range_gram  # noqa: WPS433  (scripts/ on sys.path)
+    with no harmonic forms (d = 0).
+    - The ranges of Q^dag and Q are taken from thin SVDs, keeping singular values sigma > rtol sigma_max. This is the
+      same criterion as pinv and range_basis.
+    - The random draws are those of run_ou_fourarc.bps_basis_fast, so the spanned space is the same whenever that
+      function's Gram threshold (sigma^2 > 1e-10 sigma_max^2) decides correctly.
+    - The Gram threshold fails at the window edge once the edge multiplet's smallest mode drops below 1e-5 sigma_max.
+      That happened at N = 15 (D10 §4), so the singular values themselves are used here."""
     if S.D == 0:
         return np.zeros((0, 0), complex)
     has_up, has_down = S.up.shape[0] > 0, S.down.shape[1] > 0
     Rs = [np.zeros((S.D, 0), complex)]
     if has_up:
-        Rs.append(_orth_range_gram(S.up.matrix(c).toarray(), "row")[0])
+        Rs.append(range_basis(S.up.matrix(c).toarray().conj().T, rtol)[0])
     if has_down:
-        Rs.append(_orth_range_gram(S.down.matrix(c).toarray(), "col")[0])
+        Rs.append(range_basis(S.down.matrix(c).toarray(), rtol)[0])
     R = np.hstack(Rs)
     d = S.D - R.shape[1]
     if d_expected is not None and d != d_expected:

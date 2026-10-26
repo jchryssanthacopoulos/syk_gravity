@@ -1,0 +1,3 @@
+memwatch: pid 82484 cap 10.0 GB, budget 30 GB: .venv/bin/python scripts/run_uplift_window.py --task sectors --p 3 --Np 16 --F 7 --seeds 9001 --direct-max 14 --out results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001.jsonl
+N'=16 seed=9001 F=7 l'=-2 d=2187+1 (direct None, expected 2187) ranks 0,0 T2=0.4305 res=nan dev=nan [1768.12s]
+memwatch: done rc=0 peak 5.78 GB (cap 10.0) in 1770s

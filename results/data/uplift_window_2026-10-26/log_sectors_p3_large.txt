@@ -3,3 +3,7 @@ N'=15 seed=9000 F=6 l'=-3 d=0+0 (direct None, expected 0) ranks 729,0 T2=nan res
 N'=15 seed=9000 F=7 l'=-1 d=1458+729 (direct None, expected 2187) ranks 0,0 T2=0.5866 res=nan dev=nan [213.39s]
 N'=15 seed=9001 F=6 l'=-3 d=0+0 (direct None, expected 0) ranks 729,0 T2=nan res=nan dev=nan [84.49s]
 N'=15 seed=9001 F=7 l'=-1 d=1458+729 (direct None, expected 2187) ranks 0,0 T2=0.6013 res=nan dev=nan [248.1s]
+N'=16 seed=9000 F=7 l'=-2 d=2187+0 (direct None, expected 2187) ranks 0,0 T2=0.4246 res=nan dev=nan [1530.65s]
+N'=16 seed=9000 F=8 l'=+0 d=2187+2187 (direct None, expected 4374) ranks 0,0 T2=0.6075 res=nan dev=nan [1499.83s]
+/private/tmp/claude-503/-Users-james-chryssanthacopoulos-src-syk-gravity/bfa74cfd-89a1-4181-9719-2158f82f9027/scratchpad/stage3/jobD.sh: line 4: 55923 Terminated: 15          .venv/bin/python scripts/run_uplift_window.py --task sectors --p 3 --Np 16 --F 7 8 --seeds 9000 9001 --direct-max 14
+memwatch: done rc=143 peak 7.82 GB (cap 13.0) in 3653s

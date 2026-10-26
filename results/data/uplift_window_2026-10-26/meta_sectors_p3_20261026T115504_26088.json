@@ -1,0 +1,22 @@
+{
+ "argv": [
+  "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_uplift_window.py",
+  "--task",
+  "sectors",
+  "--p",
+  "3",
+  "--Np",
+  "16",
+  "--F",
+  "7",
+  "--seeds",
+  "9001",
+  "--direct-max",
+  "14",
+  "--out",
+  "/Users/james.chryssanthacopoulos/src/syk_gravity/results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001_svdrank.jsonl"
+ ],
+ "git": "b82e323-dirty",
+ "started": "2026-10-26T11:55:04",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001_svdrank.jsonl"
+}

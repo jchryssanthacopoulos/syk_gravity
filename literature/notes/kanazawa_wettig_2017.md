@@ -141,7 +141,9 @@ Exact diagonalization, using ratio-of-spacings distributions (Atas et al.). 10²
      for this multiplet: C(N, (N−q)/2) = C(N, (N+q)/2).
 4. **Decoder statistics.**
    - KW's "every V_f^± is GUE at even N_c" is consistent with CV's ⟨r⟩ = GUE for the decoder at N′ = 12, P = 6.
-   - It also bears on the Turiaci–Witten note's caution about β = 1 in particle–hole-symmetric sectors. That exception
-     belongs to odd N_c, i.e. to the edge multiplet, not to half filling at even N_c.
+   - It also bears on the Turiaci–Witten note's caution about β = 1 in particle–hole-symmetric sectors.
+     - TW's SYK check (Fig. 4, N = 11, J = f − N/2) finds β = 1 only for the CT-invariant multiplet (−3/2, 3/2). That is
+       exactly this GOE multiplet (N_c ≡ 3 mod 4), and TW give the same CT² = ±1 → β = 1/4 explanation (pp. 18–19).
+     - So the exception belongs to odd N_c, i.e. to the edge multiplet, not to half filling at even N_c.
    - At even N_c, H on V_{N_c/2} is two identical GUE copies (P pairs V⁺ with V⁻). This is the same particle–hole
      structure that gives the exact λ ↔ 1−λ pairing of the half-filling decoder at even N′ (D6 §5).

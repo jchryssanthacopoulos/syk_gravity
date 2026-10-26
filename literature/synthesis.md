@@ -182,6 +182,8 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
     - Labels: KW's V⁺ is coexact and V⁻ exact. CV App. A uses the opposite labels (literature/notes/kanazawa_wettig_2017.md).
     - Level statistics on each V^±_f are GUE except on the window-straddling multiplet, which is GOE (N_c ≡ 3 mod 4) or
       GSE (N_c ≡ 1 mod 4) at q̂ = 3 (KW 6.13); general odd q̂ in 6.24.
+    - That multiplet is Turiaci–Witten's "CT-invariant multiplet (−q̂/2, q̂/2)", β = 1 at N = 11 (TW Fig. 4, pp. 18–19).
+      This resolves the β = 1 remark in `literature/notes/turiaci_witten_2023.md`.
     - Exceptional zero modes at the window edges for N_c ≡ 1 (mod 4) at q̂ = 3: 1, 3, 1, 1 at N_c = 5, 9, 13, 17. The
       N_c = 9 excess is unexplained.
     - For q̂ = 5, KW report edge modes only at N_c = 7, 11 up to N_c = 17. Parity forces them again at N_c = 19

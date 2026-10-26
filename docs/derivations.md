@@ -2157,9 +2157,11 @@ removes that assumption.
     exceptional states);
   - uplift residual outside the BPS space ≤ 6.4·10⁻¹³, with full rank;
   - closed-form vs direct decoder ≤ 2.6·10⁻¹¹;
-  - splitting overlap ≤ 1.1·10⁻¹³.
+  - splitting overlap ≤ 1.1·10⁻¹³;
+  - monotone self-dressing (ordered h-eigenvalues at or above first order, g at or below) in all 50 single-family
+    sectors, to round-off (≤ 3·10⁻¹¹).
 - At N′ = 15 the code reproduces D6's exact half-filling T₂ (0.5866 and 0.6013 for seeds 9000 and 9001; D6 table:
-  0.587, 0.601).
+  0.587, 0.601). At N′ = 16 it gives T₂ = 0.6075 for seed 9000 at half filling, D6's pre-registered exact value.
 - One more identity: per realization, spec λ(F) = 1 − spec λ(N′ − F) **[derived; verified]**.
   - The Hodge star conjugates H_C to H_{C̄} and sends n_e to 1 − n_e; complex conjugation maps H_{C̄} back to H_C.
   - Verified on 39 (q = 3) and 40 (q = 5) sector pairs, to ≤ 2.7·10⁻¹².
@@ -2199,7 +2201,7 @@ removes that assumption.
   - So CV's strip walks count the dimension correctly, but an exceptional state's history is a boundary excursion.
     It is created at the edge by the radical (below), and it leaves by an up step that displaces one obstructed
     ordinary class.
-- [verified] All connecting-map ranks equal these predictions in all 139 q = 3 records (N′ ≤ 15) and all 114 q = 5
+- [verified] All connecting-map ranks equal these predictions in all 142 q = 3 records (N′ ≤ 16) and all 114 q = 5
   records (with the q = 5 analogues: e(N) at |ℓ′| = 4, 6; radical at |ℓ′| = 5).
 
 **Exceptional states = the radical of an (anti)symmetric form [derived; verified].**
@@ -2260,22 +2262,31 @@ f = (ab; q²)(q², e^{±2iφ}; q²)/[2π(ae^{±iφ}, be^{±iφ}; q²)] with a = 
 
 **Finite N [num]** (`summary.json`, seeds 9000–9002, `fig_resonance`):
 - **Which multiplet.** The resonant family dresses through coexact(−q) ↔ exact(+q). This is KW's window-straddling
-  multiplet, GOE/GSE (KW 6.13, 6.24).
+  multiplet, GOE/GSE (KW 6.13, 6.24), and Turiaci–Witten's CT-invariant multiplet (−q̂/2, q̂/2), which they find β = 1
+  at N = 11 (TW Fig. 4).
   - [heuristic] It is the only multiplet in which Q₀ maps between ambient spaces of equal dimension,
     C(N, (N−q)/2) = C(N, (N+q)/2). That suggests a "square" hard edge at zero.
-- **Its gap.** E_min/Ē = 2.5e−1, 2.1e−2, 2.9e−3, 5.9e−6, 8.1e−7 at N = 5, 7, 9, 11, 13. Gapped families sit at
-  0.02–0.6.
+- **Its gap** (seed means). E_min/Ē = 2.5e−1, 2.1e−2, 2.9e−3, 5.9e−6, 1.6e−6, 8.0e−8 at N = 5, 7, 9, 11, 13, 15
+  (N = 15: seed 9000; seed 9001: 1.5e−10). Gapped families sit at 0.02–0.6.
+  - n²E_min/Ē, with n the multiplet dimension (4, 21, 80, 319, 1208, 4551), stays at 0.003–24 per seed (q = 3,
+    N = 5–15; 1.65 and 0.003 at N = 15), and at 0.15–13 for q = 5.
+  - The smallest values (0.003 and 0.06) occur in the GOE multiplets (N ≡ 3 mod 4). This fits the softer β = 1 hard
+    edge, P(nσ_min < x) ∝ x. The Kramers (GSE) multiplets never go below 1.1. With 2–3 seeds per N this is
+    suggestive only. So E_min ~ Ē/n² up to an O(1–10) factor, exponentially small in N.
+  - [heuristic] This is the hard edge of a square random matrix: Edelman's square Gaussian law gives n²x_min = O(1).
+    The prefactor fluctuates by more than a decade across seeds, with no clean GOE/GSE separation.
   - The h family at ℓ′ = −1 (s_in = 2/3) closes much more slowly: 0.21 → 0.017 from N = 6 to 14. That is a power
     of N, in line with a chord gap Λ_min ∝ λ²(s_in − ½)² at small λ = 2q²/N; the matching was not checked.
-- **Dominance of the bottom modes.** The lowest 1 % of inner modes carry 90 % (N = 11) and 98 % (N = 13) of
-  Tr(first-order dressing). In gapped families they carry ≤ 14 %.
-- **Dressing costs (first order).** Mean 1.3, 4.1, 7.0, 1244, 1084 at N′ = 6, 8, 10, 12, 14; median 0.14–0.72;
-  maximum 4.7·10⁵ (N′ = 12). Central sectors: mean ≤ 0.4, maximum ≤ 5.
+- **Dominance of the bottom modes.** The lowest 1 % of inner modes carry 90 %, 96 % and 99 % of Tr(first-order
+  dressing) at N = 11, 13, 15. In gapped families they carry ≤ 14 %.
+- **Dressing costs (first order; seed means).** Mean 1.3, 4.1, 7.0, 1244, 851, 1579 / 6.6·10⁵ (per seed; the latter from one mode with E/Ē = 1.5·10⁻¹⁰, and 613 / 688 without the top state) at N′ = 6, 8, 10, 12, 14, 16;
+  median 0.14–0.74; maximum 1.45·10⁹ (N′ = 16, seed 9001). Central sectors: mean ≤ 0.42, maximum ≤ 5.2. The mean is dominated by single modes
+  and fluctuates strongly between seeds, as a K^{−1/2} tail requires.
 - **The tail.**
-  - P(σ² > K) ∝ K^{−α} over four decades: Hill α = 0.43 (N′ = 12, K > 100, n = 96) and 0.48 ± 0.03 (N′ = 14, n = 288).
-    The chord value is α = ½.
-  - Amplitude P·√K at K = 100: 0.66 (data) vs 0.50–0.51 (chord) at both N′. The data are heavier at the largest K,
-    and the effective exponent drifts toward ½ with N.
+  - P(σ² > K) ∝ K^{−α} over four decades. Hill α (K > 100, h family at ℓ′ = −2, all seeds) is 0.43 ± 0.06
+    (N′ = 12, n = 48), 0.48 ± 0.04 (N′ = 14, n = 144) and 0.48 ± 0.03 (n = 259) (N′ = 16). The chord value is α = ½.
+  - Amplitude P·√K at K = 100: 0.66, 0.66, 0.59 (data) vs 0.50, 0.51, 0.52 (chord) at N′ = 12, 14, 16. The ratio
+    data/chord falls with N′ (1.32, 1.29, 1.13), i.e. toward the chord law.
   - q = 5 shows the same at |ℓ′| = 4 only: gap 8.1e−5 (N = 11) and 7.5e−7 (N = 13); mean dressing 98 and 1070.
 
 **What the exact uplift does with the resonance** [derived identity + num].
@@ -2283,14 +2294,15 @@ f = (ab; q²)(q², e^{±2iφ}; q²)/[2π(ae^{±iφ}, be^{±iφ}; q²)] with a = 
   $$K_H^\dagger(1+R)^{-1}K_H=e^\dagger(S^2+W)^{-1}e,\qquad W=U^\dagger E P_{\rm Ex}E^\dagger U = S R S .$$
   - This is the first-order dressing with the propagator of H₀ + E P_Ex E† (a Dyson resummation; `OldModel.dyson`,
     verified ≤ 4·10⁻¹⁵).
-  - But [E, Q₀] = 0 forces W_jj = s_j² R_jj with R_jj = O(0.1) (measured 0.06–0.13 on the lowest modes). The
+  - But [E, Q₀] = 0 forces W_jj = s_j² R_jj with R_jj = O(0.1) (measured 0.06–0.14 on the lowest modes). The
     self-energy vanishes on the near-zero modes, so **the resonance survives in the exact (minimum-norm) dressing
-    cost**: mean 1190 vs 1244 first order at N′ = 12, and 1004 vs 1084 at N′ = 14.
+    cost**: mean 1190 vs 1244 first order at N′ = 12, 787 vs 851 at N′ = 14, and 1454 vs 1579 (seed 9000) and 6.1·10⁵ vs 6.6·10⁵ (seed 9001) at N′ = 16.
 - **The decoder does not resonate.**
   - For a cloud-dominated state, the exact h-block gives λ → 1 − ⟨k̂,(1+R)^{−2}k̂⟩/⟨k̂,(1+R)^{−1}k̂⟩. This is set by
     the bounded operator R, not by σ.
-  - Measured: first order puts 2.3–2.5 % of resonant-sector states within 10⁻³ of the wall (lowest λ₁ ≈ 10⁻⁶–10⁻⁵).
-    The exact decoder has none; its lowest λ is 4.5–6.5·10⁻³ (N′ = 12) and 8–10·10⁻³ (N′ = 14).
+  - Measured: first order puts 2.0–2.5 % of resonant-sector states within 10⁻³ of the wall (lowest λ₁ ≈ 10⁻⁷–10⁻⁵).
+    The exact decoder has none, and none within 10⁻² at N′ = 16.
+  - The exact floor rises with N′: the lowest λ is 4.5–6.5·10⁻³ (N′ = 12), 8–10·10⁻³ (N′ = 14) and (1.4–1.5)·10⁻² (first order: 5·10⁻⁷, 7·10⁻¹⁰) (N′ = 16).
   - D6's per-mode mean field (R → ρ_j) fails here (T₂ low by 0.04–0.05), while it is good in central sectors. The
     spread of R along the resonant direction matters.
 - **[interpretation]**
@@ -2303,7 +2315,7 @@ f = (ab; q²)(q², e^{±2iφ}; q²)/[2π(ae^{±iφ}, be^{±iφ}; q²)] with a = 
   - Two-flavor analogue: the resonances at s′ = ±1/5 (D9).
 
 ### 5. The decoder across the window [identities; num]
-Seed-averaged values (3 seeds), from `summary.json`:
+Seed-averaged values (3 seeds; N′ = 16: 1–2 seeds), from `summary.json`:
 
 | N′ | ℓ′ | d (h+g) | T₂ first → self → exact | H first / exact | T₄ − (T₂ − H_first) | walls(10⁻³) first / exact |
 |---|---|---|---|---|---|---|
@@ -2311,13 +2323,17 @@ Seed-averaged values (3 seeds), from `summary.json`:
 | 12 | −2 | 243 (243+0) | 0.515 → 0.497 → 0.497 | 0.125 / 0.132 | −0.0069 | 0.025 / 0.000 |
 | 13 | −1 | 729 (486+243) | 0.563 → 0.604 → 0.616 | 0.111 / 0.109 | +0.0026 | 0.112 / 0.123 |
 | 13 | −3 | 1 (1+0) | λ = 0.65, 0.58, 0.65 (one exceptional state) | – | – | – |
-| 14 | 0 | 1458 (729+729) | 0.574 → 0.624 → 0.640 | 0.104 / 0.107 | −0.0029 | 0.118 / 0.130 |
-| 14 | −2 | 729 (728+1) | 0.483 → 0.461 → 0.461 | 0.133 / 0.142 | −0.0088 | 0.023 / 0.000 |
+| 14 | 0 | 1458 (729+729) | 0.566 → 0.619 → 0.636 | 0.105 / 0.108 | −0.0034 | 0.116 / 0.128 |
+| 14 | −2 | 729 (728+1) | 0.477 → 0.455 → 0.455 | 0.133 / 0.142 | −0.0092 | 0.023 / 0.000 |
+| 16 | 0 | 4374 (2187+2187) | 0.539 → 0.595 → 0.608 (1 seed) | 0.122 / 0.125 | −0.0030 | 0.011 / 0.021 |
+| 16 | −2 | 2187 (2187+0) | 0.452 → 0.427 → 0.427 | 0.138 / 0.148 | −0.0106 | 0.020 / 0.000 |
 
 - **T₄ = T₂ − H** is exact in every sector. The first-order prediction T₄ ≈ T₂ − H_first (D6 §6) holds to ≤ 0.009 in
-  every extensive sector at N′ = 9–14.
-  - The resonant sectors are the worst (−0.007 to −0.009), although their first-order spectrum is visibly wrong at
-    the bottom.
+  every extensive sector at N′ = 9–14, and to ≤ 0.011 at N′ = 16.
+  - The resonant sectors are the worst, and there the error grows steadily: −0.0069, −0.0092, −0.0106 at
+    N′ = 12, 14, 16 (central: −0.0045, −0.0034, −0.0030).
+  - Their first-order spectrum is visibly wrong at the bottom, so this growth is expected.
+  - D6's H_first ≈ H is therefore not uniform across the window: it degrades where the dressing resonates.
 - **In resonant sectors self-dressing lowers T₂.** Cloud-dominated states move away from the λ = 0 wall, so y drops
   from ≈ 1. In central sectors self-dressing raises T₂.
 - **Atom counting** (D6 §4) generalizes: forced atoms = max(0, dim A − dim(target family)).
@@ -2330,6 +2346,14 @@ Seed-averaged values (3 seeds), from `summary.json`:
   - N′ = 10: in the exact decoder they sit at λ = 0.003–0.02, with g-weight 0.54–0.94.
   - N′ = 14: the single exceptional g-state dissolves into the resonant h-block. No exact eigenvector has g-weight
     above 5–9 %. The h–g mixing block −2εK_H†L(1+R′)⁻²K′_H is driven by the large resonant K_H.
+
+**Numerical caution [num].** The exponentially small edge gap makes rank decisions delicate.
+- At N = 15 (seed 9001) the smallest edge mode (σ/σ_max ~ 10⁻⁵) fell below the Gram-eigenvalue threshold
+  σ² > 10⁻¹⁰σ²_max of `bps_basis_fast`, and was counted as a harmonic form at level −3.
+- The dimension check caught it (d = 2187 + 1).
+- `harmonic_basis` now decides ranks by singular values (σ > 10⁻¹⁰σ_max, as `pinv` does); the record was rerun.
+- Beyond N′ ≈ 18 the edge gap approaches the precision of double-precision dense linear algebra. Larger sizes need
+  rank decisions informed by the known dimensions, or higher precision.
 
 ### 6. Figure (`scripts/plot_uplift_window_map.py`)
 - `fig_jump_map_q3` / `_q5`: CV Fig. 2/3 conventions with N up to 16. The right margin gives the regime of each row

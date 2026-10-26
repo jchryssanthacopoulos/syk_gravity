@@ -150,6 +150,47 @@ def test_dyson_form_of_the_self_dressed_metric():
     assert r.max() < 1.0 and dy["s2"].min() / dy["s2"].mean() < 1e-4   # hard edge of the edge multiplet; r bounded
 
 
+def test_kanazawa_wettig_appendix_b_rows():
+    """KW 2017 App. B (q = 3): N+_f = rank(Q: L^f -> L^{f+3}) (coexact), N-_f = rank(Q: L^{f-3} -> L^f) (exact),
+    Nz_f = C(N, f) - N+_f - N-_f (BPS), for one random realization.  Rows copied from the KW tables."""
+    from math import comb
+
+    from chord_chaos import WedgeStructure
+    kw = {5: ([1, 4, 1, 0, 0, 0], [0, 1, 9, 9, 1, 0]),
+          9: ([1, 9, 36, 80, 36, 9, 1, 0, 0, 0], [0, 0, 0, 3, 81, 81, 3, 0, 0, 0]),
+          13: ([1, 13, 78, 285, 702, 1208, 702, 285, 78, 13, 1, 0, 0, 0], [0, 0, 0, 0, 0, 1, 729, 729, 1, 0, 0, 0, 0, 0])}
+    for N, (Nplus, Nz) in kw.items():
+        c = random_couplings(np.random.default_rng(N), comb(N, 3))
+
+        def rank(k):
+            W = WedgeStructure(N, k, 3)
+            if not (W.shape[0] and W.shape[1]):
+                return 0
+            s = np.linalg.svd(W.matrix(c).toarray(), compute_uv=False)
+            return int(np.sum(s > 1e-9 * s[0]))
+        plus = [rank(f) for f in range(N + 1)]
+        minus = [plus[f - 3] if f >= 3 else 0 for f in range(N + 1)]
+        assert plus == Nplus and minus == [0, 0, 0] + Nplus[:-3], N
+        assert [comb(N, f) - plus[f] - minus[f] for f in range(N + 1)] == Nz, N
+
+
+def test_resonant_chord_weight_and_jump_tail():
+    """D10 §4 (chord limit, s_in = 1/2): the ASC weight is finite at phi = 0, f(0) = 2 (q^2;q^2) / (pi (b;q^2)),
+    b = q^{1/2 + delta - s_out}.  The jump law g ~ G0/phi^2, so g phi^2 tends to a constant: the K^{-1/2} tail."""
+    from chord_dressing import chord_sectors
+    from dssyk_n2 import bps_continuum_kernel, bps_continuum_weight, chord_energy, poch
+    for Np in (12, 16):
+        P = chord_sectors(Np, "h", F=(Np - 2) // 2)
+        lam, s_out, delta = P["lam"], P["s_out"], P["delta"]
+        assert abs(P["s_in"] - 0.5) < 1e-12
+        q = np.exp(-lam)
+        f0 = 2 * poch(q * q, q * q) / (np.pi * poch(q ** (0.5 + delta - s_out), q * q))
+        assert abs(float(bps_continuum_weight(lam, s_out, delta, np.array([1e-4]))[0]) - f0) < 1e-6 * f0
+        phi = np.array([1e-2, 1e-3, 1e-4])
+        g_phi2 = bps_continuum_kernel(lam, s_out, delta, phi) / chord_energy(lam, P["s_in"], phi) * phi ** 2
+        assert np.abs(g_phi2 / g_phi2[-1] - 1).max() < 1e-3
+
+
 if __name__ == "__main__":
     import time
     for name, fn in list(globals().items()):

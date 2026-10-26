@@ -1,0 +1,22 @@
+{
+ "argv": [
+  "scripts/run_uplift_window.py",
+  "--task",
+  "sectors",
+  "--p",
+  "3",
+  "--Np",
+  "16",
+  "--F",
+  "7",
+  "--seeds",
+  "9001",
+  "--direct-max",
+  "14",
+  "--out",
+  "results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001.jsonl"
+ ],
+ "git": "b82e323-dirty",
+ "started": "2026-10-26T11:09:01",
+ "out": "results/data/uplift_window_2026-10-26/sectors_p3_N16_seed9001.jsonl"
+}

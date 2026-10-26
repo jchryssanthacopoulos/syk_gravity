@@ -44,10 +44,12 @@ REG_COL = {"gapped": "#6b6b6b", "resonant": "#e08214", "obstructed": "#c51b1b"}
 
 
 def load(p):
-    fn = os.path.join(DATA, f"sectors_p{p}.jsonl")
-    if not os.path.exists(fn):
-        return []
-    return [json.loads(x) for x in open(fn)]
+    """All sector records for q = p: sectors_p{p}.jsonl plus any side files sectors_p{p}_*.jsonl (parallel runs)."""
+    import glob
+    recs = []
+    for fn in sorted(glob.glob(os.path.join(DATA, f"sectors_p{p}.jsonl")) + glob.glob(os.path.join(DATA, f"sectors_p{p}_*.jsonl"))):
+        recs += [json.loads(x) for x in open(fn)]
+    return recs
 
 
 def chord_tail(Nps=(12, 14, 16), nphi=4000):
@@ -311,8 +313,9 @@ def main():
     tails = []
     print("\n resonant tail: Hill alpha (K > 10, K > 100), P*sqrt(K) at K = 1e2: data vs chord")
     for Np in (8, 10, 12, 14, 16):
+        # h family at l' = -2 only: the g family at l' = +2 is its exact mirror (same spectrum per realization)
         s2 = [x for r in recs3 if r["Np"] == Np and r["lp"] == -2 and r["d_h"] for x in r["sigma2_h"]]
-        s2 += [x for r in recs3 if r["Np"] == Np and r["lp"] == 2 and r["d_g"] for x in r["sigma2_g"]]
+        nseeds = len({r["seed"] for r in recs3 if r["Np"] == Np and r["lp"] == -2 and r["d_h"]})
         if not s2:
             continue
         s2 = np.array(s2)
@@ -321,10 +324,10 @@ def main():
         pd = float(np.mean(s2 > 100) * 10)
         c = ct.get(str(Np))
         pc = float(np.interp(2.0, np.log10(c["K"]), c["P"]) * 10) if c else None
-        tails.append(dict(Np=Np, n=len(s2), alpha_K10=a10, n_K10=n10, alpha_K100=a100, n_K100=n100,
-                          Psqrt_data_K100=pd, Psqrt_chord_K100=pc))
-        print(f"  N'={Np}: states {len(s2)}  alpha(K>10) = {a10:.3f} (n={n10})  alpha(K>100) = {a100:.3f} (n={n100})  "
-              f"P*sqrt(K)|K=100: data {pd:.3f}  chord {pc if pc is None else round(pc, 3)}")
+        tails.append(dict(Np=Np, seeds=nseeds, n=len(s2), alpha_K10=a10, n_K10=n10, alpha_K100=a100, n_K100=n100,
+                          alpha_K100_err=a100 / np.sqrt(max(n100, 1)), Psqrt_data_K100=pd, Psqrt_chord_K100=pc))
+        print(f"  N'={Np}: seeds {nseeds} states {len(s2)}  alpha(K>10) = {a10:.3f} (n={n10})  alpha(K>100) = {a100:.3f}"
+              f" +- {a100 / np.sqrt(max(n100, 1)):.3f} (n={n100})  P*sqrt(K)|K=100: data {pd:.3f}  chord {pc if pc is None else round(pc, 3)}")
     summary["resonant_tail"] = tails
     summary["decoder_p5"] = decoder_table(recs5)
     with open(os.path.join(DATA, "summary.json"), "w") as fh:
