@@ -2394,7 +2394,7 @@ Seed-averaged values (3 seeds; N′ = 16: 1–2 seeds), from `summary.json`:
 
 ---
 
-## D11. Chords in the resonant sectors, layer 1: the first-order dressing spectrum
+## D11. Chords in the resonant sectors: layer 1 (first-order spectrum) and layer 3 (back-reaction R, exact decoder)
 
 *2026-10-26. Context: D7 (the first-order dressing spectrum from chords, central sectors) and D10 §4 (the window-edge
 resonance). The resonant chord problem is split into three layers:
@@ -2471,14 +2471,108 @@ Code: `src/chord_dressing.py` (`DressingFamily(inner='svd')`, `old_model_from_up
 - **First order misses the bottom of the exact decoder** (D10 §4; fig_layer1 b). Exact and chord first order both put
   a pile of states at λ ≈ 0 that the exact uplift does not have. That is layer 3.
 
+### 4. Layer 3: the back-reaction operator R and the exact resonant decoder [derived; num]
+
+*Code: `scripts/run_chord_layer3.py`. Data: `results/data/chord_layer3_2026-10-26/`. Numbers below are filled in from
+`layer3*.jsonl` (§4.4).*
+
+**4.1 Structure of R [derived].** In the h-only resonant sectors (N ≡ 3 mod 4) the exact decoder is the
+self-dressed h block (D6 §5):
+- G = 1 + K_H†(1+R)⁻¹K_H and 𝒩 = 1 − K_H†(1−R)(1+R)⁻²K_H.
+- Here K_H holds the first-order clouds (layer 1) and R = LL† acts on Co_Y. Co_Y is the coexact side of the window-edge
+  multiplet at level −q.
+
+The operator L = K|_Ex is regular:
+- For x = Q₀w ∈ Ex_X, D6 §5 gives Lx = P_Co E w.
+- Take the singular pairs x_m = Q₀w_m/s_m of the multiplet coexact(ℓ′−2q+1) ↔ exact(ℓ′+1). Then
+  L x_m = P_Co E w_m / s_m. So
+  $$R=LL^\dagger=AA^\dagger,\qquad A=P_{\rm Co}\,E\,H_0^{-1/2}\big|_{\rm coexact(\ell'-2q+1)} .$$
+
+Consequences:
+1. **No resonant denominators.** The only energies in R are those of coexact(ℓ′−2q+1), level −7 for q = 3. That multiplet
+   is gapped (s = −7/6). The resonance (the 1/s_j of the edge multiplet) sits entirely in K_H.
+2. **rank R = dim coexact(ℓ′−2q+1)**, i.e. the number of exact forms in the n_e = 0 slot. On the edge multiplet, of
+   dimension n, R has a kernel of dimension n − r_R.
+   - r_R/n = 9/80, 55/319, 285/1208, 1350/4551 at N = 9, 11, 13, 15.
+   - In the Gaussian approximation to the binomial ratio this is ≈ exp(−λ(2q−1)(q−1)/q²), i.e. exp(−10λ/9) at q = 3
+     (λ = 2q²/N). That gives 0.108, 0.163, 0.215, 0.264. A cloud in ker R cannot flow back to the n_e = 0 slot.
+3. **The nonzero spectrum of R** is the spectrum of A†A = H₀^{−1/2}(E†P_Co E)H₀^{−1/2} on coexact(ℓ′−2q+1).
+   - [num] E†P_Co E is nearly constant there: its diagonal has relative sd 4–7 %. So ρ ≈ c_R/E_w, with E_w the gapped
+     energies and c_R the pair-creation weight into the edge multiplet.
+   - The mean of ρ is reproduced exactly (0.471 / 0.472, 0.543 / 0.548, 0.412 / 0.411 at N′ = 10, 12, 14).
+4. **Cloud-dominated limit** (D10 §4): λ → 1 − ⟨k̂,(1+R)⁻²k̂⟩/⟨k̂,(1+R)⁻¹k̂⟩ ≈ ε⟨ρ/(1+ρ)²⟩ for a cloud with weight ε in
+   range R. [num] The softest edge modes have ε = 0.10–0.26, close to r_R/n, i.e. generic position. This sets the floor
+   λ ~ 10⁻²: first order (R = 0) has no floor.
+5. **R is not diagonal in the edge-mode basis** (diagonal fraction 0.11–0.17, against 98 %+ for D7's S). That is why the
+   per-mode mean field (R → diag R) fails: it removes the kernel and gives T₂ 0.43 against 0.48 at N′ = 12.
+
+**4.2 Free (Haar) model [num].** Insert into the exact pencil (exact clouds K_H) a model R. The exact h-block decoder is
+reproduced by R → URU† with U Haar on the edge multiplet, i.e. range R in generic position. It is also reproduced by
+the cruder:
+- "flat" model: rank r_R, all nonzero ρ equal to their mean;
+- "c_R/E_w" model.
+
+So T₂ and the bulk of the exact resonant decoder depend on R only through its rank fraction and its mean nonzero
+eigenvalue, as in free probability. The deepest tail is the exception. P(λ < 0.03) is 0.031 / 0.049 / 0.030 / 0.012
+(Haar) against 0.030 / 0.055 / 0.040 / 0.021 (exact) at N′ = 10 / 12 / 14 / 16. The Haar floor is also higher
+(2.1·10⁻² vs 1.35·10⁻² at N′ = 16). The exact range R is slightly aligned with the softest edge modes, beyond generic
+position, and the effect grows with N′.
+
+**4.3 Fully chord model [chord rules + free model].** Both ingredients are chord objects:
+- Clouds: the layer-1 chord population at (s_out, s_in) = (−1/6, ½), entering as K = S^{1/2}Z (D7 separable model,
+  C = 1).
+- R: Haar-rotated, with rank r_R (exact count, ≈ exp(−10λ/9) n) and ρ_m = c_R/(κ_w Λ_{7/6}(φ_m)).
+  - The B-family density sits at the mirrored charge 7/6 of the gapped channel.
+  - κ_w is calibrated by D7's first-moment rule.
+  - c_R is the η-averaged pair weight 2C(N−k, 2)·n/C(N, k+2), with k = F − 3.
+- This uses no finite-N spectral input. It is a gravitational prediction for the exact resonant decoder: a BPS→continuum
+  emission into the gapless edge, freely combined with a gapped continuum→continuum back-reaction channel.
+
+**4.4 Results** (h block; seeds 9000–9002, N′ = 16: 9000–9001; Haar averages over 2–3 rotations):
+
+| N′ | r_R/n (exp(−10λ/9)) | T₂ exact / Haar / flat / chord / diag / first order | P(λ<0.03) exact / Haar / chord / first order | P(λ<0.1) exact / Haar / chord | λ_min exact / Haar / chord / first order |
+|---|---|---|---|---|---|
+| 10 | 0.113 (0.108) | 0.512 / 0.512 / 0.511 / 0.505 / 0.489 / 0.517 | 0.030 / 0.031 / 0.054 / 0.047 | 0.107 / 0.103 / 0.134 | 1.2e−2 / 1.1e−2 / 5.8e−3 / 6.3e−3 |
+| 12 | 0.172 (0.162) | 0.497 / 0.498 / 0.496 / 0.458 / 0.455 / 0.515 | 0.055 / 0.049 / 0.036 / 0.106 | 0.137 / 0.143 / 0.126 | 4.5e−3 / 7.2e−3 / 1.0e−2 / 2.2e−6 |
+| 14 | 0.236 (0.215) | 0.455 / 0.453 / 0.449 / 0.420 / 0.402 / 0.477 | 0.040 / 0.030 / 0.019 / 0.107 | 0.132 / 0.135 / 0.116 | 8.0e−3 / 1.4e−2 / 1.7e−2 / 2.5e−6 |
+| 16 | 0.297 (0.264) | 0.427 / 0.427 / 0.422 / 0.390 / 0.383 / 0.452 | 0.021 / 0.012 / 0.004 / 0.098 | 0.114 / 0.120 / 0.106 | 1.35e−2 / 2.1e−2 / 2.7e−2 / 6.9e−10 |
+
+- **Free (Haar) R with exact clouds:** T₂ to ≤ 0.5 % and P(λ<0.1) to 2–5 %. The deepest tail (λ < 0.03) is
+  underestimated by up to 45 % at N′ = 16 (§4.2).
+- **The full chord model** is off in T₂ by −1.4, −7.9, −7.7, −8.8 %. This is inherited from layer 1's chord clouds
+  (first-order chord T₂ errors −2.8, −8.8, −7.5, −7.0 %).
+  - The R-induced shift of T₂ is reproduced: chord −0.009, −0.014, −0.021, −0.028 against exact −0.005, −0.018,
+    −0.022, −0.024. The chord shifts use the layer-1 chord first order as baseline; at N′ = 16 that is
+    0.4178 → 0.3900.
+  - It removes the wall pile-up: λ_min ~ 10⁻², against 10⁻⁶–10⁻⁹ at first order.
+- **Inputs of the back-reaction channel against chords:**
+  - rank fraction 0.113, 0.172, 0.236, 0.297 against exp(−10λ/9) = 0.108, 0.162, 0.215, 0.264, the Gaussian
+    approximation of the binomial ratio, low by 4–11 %;
+  - c_R (seed mean) within 2–8 % of the η-averaged value;
+  - mean ρ 0.505 / 0.457 / 0.438 / 0.342 against chord 0.514 / 0.473 / 0.422 / 0.379.
+- Runs: N′ = 10–14 peak 0.25 GB (75 s); N′ = 16 peaks 4.84 / 4.94 GB (seed 9000: 833 s; seed 9001, rerun after a
+  session restart: 821 s).
+
 ### Status
-- **Derived (chord rules):** the heavy-tailed free compound Poisson law at s_in = ½, and finite, cutoff-insensitive
-  first-order decoder statistics.
+- **Derived:**
+  - (chord rules) the heavy-tailed free compound Poisson law at s_in = ½, and finite, cutoff-insensitive first-order
+    decoder statistics (layer 1);
+  - (exact) R = AA† with A = P_Co E H₀^{−1/2} on the gapped coexact(ℓ′−2q+1): no resonant denominators,
+    rank = dim coexact(ℓ′−2q+1), and the cloud-dominated limit of λ (layer 3).
 - **Numerical:**
-  - the planar structure holds (tail amplitude to ≤ 2.5 %);
-  - chord vs exact first order: W +8.5 → +4.8 %, T₂ −8.8 → −7.0 % for N′ = 12 → 16 (central: +6–7 %, −3 %);
-  - the tail amplitude is 26 → 12 % low, a continuum effect that shrinks with N′;
-  - the Kronecker model fails.
+  - layer 1: the planar structure holds (tail amplitude to ≤ 2.5 %); chord vs exact first order W +8.5 → +4.8 %,
+    T₂ −8.8 → −7.0 % for N′ = 12 → 16; the tail amplitude is 26 → 12 % low; the Kronecker model fails;
+  - layer 3: a free (Haar) R with the exact rank and mean spectrum reproduces the exact resonant decoder, except the
+    deepest tail, which is up to 45 % low at N′ = 16. The full chord model gets T₂ to 1–9 % (layer-1 error) and the
+    floor ~10⁻². The diagonal mean field fails.
+- **Interpretation:**
+  - The exact BPS states of the off-centre sectors are assembled in two steps:
+    - BPS → edge-continuum emission (gapless, K^{−1/2});
+    - a gapped back-reaction channel at charge s − 2/3. Its Hilbert-space fraction e^{−10λ/9} limits how much of the
+      cloud returns to the n_e = 0 slot.
+  - The two are combined in nearly generic (free) position.
 - **Next:**
-  - layer 2: the finite-N hard edge, i.e. the 25 % tail deficit, E_min, and the KW class;
-  - layer 3: R from continuum → continuum chords.
+  - layer 2: the finite-N hard edge (the residual tail deficit, E_min, the KW class);
+  - the deep-tail alignment of range R with the soft modes;
+  - a continuum → continuum chord derivation of ρ (beyond the c_R/E_w closure);
+  - the two-flavor analogue (D9 resonances at s′ = ±1/5).

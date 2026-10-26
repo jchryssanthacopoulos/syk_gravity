@@ -36,3 +36,34 @@ Couplings are as in `results/data/uplift_window_2026-10-26`, so the own-η spect
   - Every error shrinks with N′.
 - The Kronecker model with the measured BPS heterogeneity fails in resonant sectors from N′ = 12 (T₂ 0.71 vs 0.52). The
   heterogeneity is dominated by a few edge modes.
+
+## Layer 3: the back-reaction operator R and the exact resonant decoder (same day; D11 §4)
+Code:
+- `scripts/run_chord_layer3.py`: models for R inside the exact self-dressed h-block pencil:
+  - exact; Haar-rotated; flat spectrum; c_R/E_w;
+  - full chord (chord clouds + chord R);
+  - diag R (D6 mean field); R = 0 (first order).
+- `scripts/analyze_chord_layer3.py`: table and `fig_layer3`.
+
+Runs (under memwatch; outputs in `results/data/chord_layer3_2026-10-26/`, see the naming note below):
+- small: `--Np 10 12 14 --seeds 9000 9001 9002 --haar 3`, peak 0.25 GB, 75 s.
+- N16: `--Np 16 --seeds 9000 9001 --haar 2`. Seed 9000 finished (peak 4.84 GB, 833 s); seed 9001 was interrupted by
+  a session restart before writing, and rerun alone (`log_N16_seed9001.txt`, peak 4.94 GB, 821 s).
+  The first log is kept as `log_N16_seed9000_then_interrupted.txt`.
+
+Findings:
+- R = A A† with A = P_Co E H₀^{−1/2} on coexact(ℓ′−5). It has no resonant denominators, and its rank is
+  dim coexact(ℓ′−5): r_R/n = 0.113, 0.172, 0.236 at N′ = 10, 12, 14, against exp(−10λ/9) = 0.108, 0.162, 0.215.
+- The soft edge modes have 74–90 % of their weight in ker R. R is far from diagonal in the edge basis (diagonal fraction
+  0.11–0.17), so the diagonal mean field fails.
+- Free (Haar) model: R → URU† reproduces the exact h-block decoder (T₂ to ≤ 0.5 %, P(λ < 0.1) to 2–5 %, N′ = 10–16).
+  So do the flat spectrum (rank + mean only) and the c_R/E_w spectrum. The deepest tail P(λ < 0.03) is underestimated,
+  increasingly with N′ (0.012 vs 0.021 at N′ = 16): the exact range R is slightly aligned with the softest edge modes.
+- Full chord model:
+  - T₂ is off by −1.4, −7.9, −7.7, −8.8 % at N′ = 10, 12, 14, 16, inherited from layer 1's chord clouds;
+  - the R-induced shift of T₂ is reproduced (−0.009 / −0.014 / −0.021 against exact −0.005 / −0.018 / −0.022);
+  - the floor is ~10⁻², against 10⁻⁶ at first order.
+
+Naming note: the layer-3 directories were first created as `*_2026-10-27` by mistake (the runs are dated 2026-10-26).
+They were renamed after the runs finished, and the scripts and D11 updated. The meta files inside keep the original
+absolute paths.

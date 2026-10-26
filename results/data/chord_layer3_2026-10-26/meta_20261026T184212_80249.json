@@ -1,0 +1,18 @@
+{
+ "argv": [
+  "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_chord_layer3.py",
+  "--Np",
+  "10",
+  "12",
+  "14",
+  "--seeds",
+  "9000",
+  "9001",
+  "9002",
+  "--haar",
+  "3"
+ ],
+ "git": "07c7e55-dirty",
+ "started": "2026-10-26T18:42:12",
+ "out": "/Users/james.chryssanthacopoulos/src/syk_gravity/scripts/../results/data/chord_layer3_2026-10-27/layer3.jsonl"
+}

@@ -1,0 +1,10 @@
+memwatch: pid 15042 cap 10.0 GB, budget 30 GB: /Users/james.chryssanthacopoulos/src/syk_gravity/.venv/bin/python /Users/james.chryssanthacopoulos/src/syk_gravity/scripts/run_chord_layer3.py --Np 16 --seeds 9001 --haar 2 --out /Users/james.chryssanthacopoulos/src/syk_gravity/results/data/chord_layer3_2026-10-27/layer3_N16.jsonl
+N'=16 seed=9001: rank R 1350/4551 (0.297; chord 0.264), c_R 95.9 (chord 100.0), rho mean 0.366 (chord 0.379) [821.4s]
+   exact : T2 0.4303  H 0.1485  P(<.01) 0.000  P(<.03) 0.021  P(<.1) 0.113  min 1.53e-02
+   haar  : T2 0.4262  H 0.1499  P(<.01) 0.000  P(<.03) 0.011  P(<.1) 0.117  min 2.25e-02
+   flat  : T2 0.4209  H 0.1510  P(<.01) 0.000  P(<.03) 0.003  P(<.1) 0.104  min 2.77e-02
+   cR_Ew : T2 0.4229  H 0.1506  P(<.01) 0.000  P(<.03) 0.005  P(<.1) 0.110  min 2.57e-02
+   chord : T2 0.3900  H 0.1563  P(<.01) 0.000  P(<.03) 0.003  P(<.1) 0.106  min 2.69e-02
+   diag  : T2 0.3819  H 0.1538  P(<.01) 0.000  P(<.03) 0.000  P(<.1) 0.000  min 1.13e-01
+   zero  : T2 0.4516  H 0.1382  P(<.01) 0.057  P(<.03) 0.095  P(<.1) 0.171  min 6.88e-10
+memwatch: done rc=0 peak 4.94 GB (cap 10.0) in 823s
