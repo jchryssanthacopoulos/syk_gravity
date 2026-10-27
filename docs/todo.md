@@ -1,7 +1,69 @@
 # To-do
 
-*Last revised 2026-10-26 (D10 uplift anywhere in the window; KW 2017 note); 2026-10-25 (D9 chords for the two-flavor uplift); 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
+*Last revised 2026-10-27 (paper roadmap checklist added at the top); 2026-10-26 (D10 uplift anywhere in the window; KW 2017 note); 2026-10-25 (D9 chords for the two-flavor uplift); 2026-10-23 (D8 two-flavor uplift); earlier 2026-10-12 (D6 uplift/localization), 2026-09-30 (literature pass), 2026-09-28 (post-archaeology). Linked questions refer to `docs/research_questions.md`.*
 Priority: **P0** blocks everything / **P1** next / **P2** later.
+
+## Paper roadmap (running checklist; started 2026-10-27)
+
+**Goal.** A paper on the gravitational (chord) interpretation of fragility and fortuity in N=2 SYK. It has three parts:
+1. the one-flavor uplift in every sector (fortuitous states only);
+2. its chord picture;
+3. the same for the two-flavor model (fortuitous and monotone states).
+The payoff is a distinction between fortuitous and monotone states inside a bona fide gravity (chord) calculation.
+
+### Done
+- [x] One-flavor uplift at half filling: exact formula, decoder, dressing, walls, T₄ = T₂ − H (D6).
+- [x] One-flavor uplift in every window sector (D10).
+  - General theorem on admissible sources; three regimes (central / resonant / edge).
+  - Exact ranks of CV's δ; exceptional states = radical, with the exchange.
+  - Jump maps for q = 3, 5. Verified to N′ = 16.
+- [x] One-flavor chords, central sectors, first order (D7): ASC measure, time integral, free compound Poisson law.
+- [x] One-flavor chords, resonant sectors (D11):
+  - layer 1: the heavy-tailed first order, K^{−1/2}, converging with N′;
+  - layer 3: R = AA†, rank fraction e^{−10λ/9}, a free (Haar) model of the exact decoder, and the full chord model.
+- [x] Two-flavor uplift (D8): obstructed mapping cones, protection identity [E, V] = K, counting laws, closed forms
+  with self-energies.
+- [x] Two-flavor chords at first order (D9): dictionary, window, emission, resonances at s′ = ±1/5, the tower does not
+  dress (numerically).
+- [x] Literature: Kanazawa–Wettig 2017 note; synthesis updated.
+
+### A. One-flavor chords: finish everywhere
+- [ ] A1. The exact (self-dressed) decoder of the central sectors from chords: R and the h–g mixing block (0.008–0.019
+  of T₂). Same machinery as D11 layer 3.
+- [ ] A2. Layer 2, the finite-N hard edge at the window edge: residual tail deficit (12–26 %), extreme modes, KW
+  GOE/GSE class. Appendix level.
+- [ ] A3. A chord derivation of R's spectrum from the continuum→continuum N=2 matter vertex. It replaces the c_R/E_w
+  closure.
+- [ ] A4. The deep-tail alignment of range R with the softest edge modes (the free model is up to 45 % low for
+  λ < 0.03 at N′ = 16). Caveat plus appendix.
+
+### B. Two-flavor: bring to parity with one-flavor
+- [ ] B1. D10-style regime classification in the 2D window (gapped / resonant / obstructed), with ranks and a jump map.
+- [ ] B2. Resonant layers 1 and 3 for two flavors at s′ = ±1/5. This includes the chord computation of the
+  self-energies 𝒮_G, the transfer 𝒵 and the leaks α, γ (open in D8/D9).
+- [ ] B3. Larger two-flavor sizes, e.g. N′ = 10 at resonant parity, via sparse or partial methods.
+
+### C. The fortuitous vs monotone distinction (the crux)
+- [ ] C1. Derive the tower's protection inside the chord theory: resum the twisted chords (V-descendants) into a chord
+  Hilbert space in which emission into the continuum vanishes. Highest priority and highest risk.
+- [ ] C2. A quantitative side-by-side in chord variables. Fortuitous: dressing distribution, resonances, decoder,
+  fragility. Monotone: zero dressing, slot weights (N+1−n)/(N+1), pair absorption c = n(N′−n)/N′². One table, one figure.
+- [ ] C3. The Schwarzian (triple-scaled) limit of both behaviours; connect to super-JT (HITZ, LMRS).
+- [ ] C4. Pressure-test the interpretation: is "tower = graviton gas" justified (check CCSY, HTZ)? Do any one-flavor
+  states, e.g. the exceptional states, behave tower-like?
+
+### D. Paper assembly
+- [ ] D1. Unified notation and dictionary across models: charges s, matter δ, regimes, and the admissible-source
+  theorem stated once.
+- [ ] D2. Consolidated figures. Main text: jump maps (both models), regime diagram, dressing vs protection.
+- [ ] D3. Acquire the literature: Penington–Witten (2412.15549), Lee–Lee (1911.10391), LMRS companion (2207.00407).
+- [ ] D4. Optional: the pinned pre-registered N′ = 17 chord test (D7). Run only when asked.
+- [ ] D5. Draft the paper. Half filling as the worked example; "the whole window" as one main-text section; details in
+  appendices.
+
+**Suggested order.** C1 → B1, B2 → A1 → C2, C3 → A2, A3 → D.
+
+---
 
 ## A. Environment & reproducibility (P0)
 
