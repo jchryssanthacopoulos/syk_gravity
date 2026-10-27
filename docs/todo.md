@@ -56,7 +56,15 @@ The payoff is a distinction between fortuitous and monotone states inside a bona
 - [ ] D1. Unified notation and dictionary across models: charges s, matter δ, regimes, and the admissible-source
   theorem stated once.
 - [ ] D2. Consolidated figures. Main text: jump maps (both models), regime diagram, dressing vs protection.
-- [ ] D3. Acquire the literature: Penington–Witten (2412.15549), Lee–Lee (1911.10391), LMRS companion (2207.00407).
+- [x] D3. Acquire the literature: Penington–Witten (2412.15549), Lee–Lee (1911.10391), LMRS companion (2207.00407).
+      Done 2026-10-27: notes in `literature/notes/`; synthesis §1 (2026-10-27), §3 items 14–15. Findings for the roadmap:
+      - LMRS-short eq. (33): the intermediate-multiplet gap is (s_in − ½)²/8C, so the D10 regimes have a gravity reading.
+        Cheap test: the gapped-sector ratio 1 : 4 : 9 (synthesis §1).
+      - PW: one zero-energy state per SU(1,1|1) multiplet, a candidate uplift dictionary for C1/A1. App. E (bosonic)
+        links canonical JT to chord space.
+      - Lee–Lee has no exchange data, so the N=2 super-6j for the OTOC route (C3/A3) is still missing.
+- [ ] D3b. Test the gap reading: at fixed N′ (q = 3), compare the smallest nonzero singular value² of Q₀ on the
+      intermediate multiplet in the gapped h sectors ℓ′ = −1, 0, 1 with (s_in − ½)² ∝ 1 : 4 : 9.
 - [ ] D4. Optional: the pinned pre-registered N′ = 17 chord test (D7). Run only when asked.
 - [ ] D5. Draft the paper. Half filling as the worked example; "the whole window" as one main-text section; details in
   appendices.
@@ -215,7 +223,7 @@ The payoff is a distinction between fortuitous and monotone states inside a bona
       Collins–Matsumoto–Novak (Weingarten), Berkooz–Mamroud (DSSYK chords).
 - [x] Boruch–Lin–Yan (arXiv:2308.16283) acquired and noted 2026-09-28 (`literature/notes/boruch_lin_yan_2023.md`).
 - [x] 2026-10-26: Kanazawa–Wettig 2017 acquired and noted (`literature/notes/kanazawa_wettig_2017.md`); synthesis §3 item 13.
-- [ ] Still to acquire: LMRS companion (2207.00407); double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.
+- [ ] Still to acquire (LMRS companion acquired 2026-10-27): double-scaled supersymmetric SYK (Berkooz et al.); SSS; Eynard–Orantin.
 - [x] 2026-09-30: notes for Belin–Fu–La Rocca 2026, Lin 2022, Liu–Shen 2026; synthesis §7 (positioning).
 - [ ] Acquire BINT 2018 (1811.02584, original matter-chord rule), Iniguez–Srednicki (2305.15702), Wang et al.
       (2310.20264), Pluma–Speicher, Feng–Tian–Wei.

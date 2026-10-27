@@ -1,6 +1,6 @@
 # Literature synthesis
 
-*Last revised 2026-10-26 (fifth pass: added Kanazawa–Wettig 2017, the per-degree Hodge/RMT classification; §3 item 13).
+*Last revised 2026-10-27 (sixth pass: added the LMRS companion 2207.00407, Penington–Witten 2024 and Lee–Lee 2019; §1 block 2026-10-27, §3 items 14–15, §6 updated, with a correction to the earlier Lee–Lee entry). Fifth pass 2026-10-26 ( added Kanazawa–Wettig 2017, the per-degree Hodge/RMT classification; §3 item 13).
 Fourth pass 2026-10-05 ( added BBNR 2020, BINT 2018, Pluma–Speicher 2019, Bożejko–Kümmerer–Speicher
 1997, G. Lin 2026; new §8 on tools for the T₄/R program). Third pass 2026-09-30 added Belin–Fu–La Rocca 2026, Lin 2022,
 Liu–Shen 2026 and §7 on where the project sits. Second pass 2026-09-28 added 9 papers: PSSY, Turiaci–Witten, Boruch–Iliesiu–Yan, HITZ,
@@ -57,6 +57,37 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
   ℓ = +q̂. It is GOE or GSE.
 - For the uplift anywhere in the window (D10), that multiplet is where off-centre dressing resonates.
 
+*Added 2026-10-27.*
+- **Gap per R-charge (LMRS companion eq. 33; Penington–Witten 4.133–4.135, 4.156).** Outside the BPS window the
+  continuum starts at E_gap(j) = (|j| − ½)²/(8C), with C = α_S J N. LMRS check it in N=2 SYK at N = 16 (their Fig. 9).
+  PW derive the same threshold structure in canonical super-JT; it closes at |J| = ½.
+- **[derived from (33); interpretation of our D10 regimes]** A dressing K = Q₀⁺E passes through the supermultiplet
+  coexact(ℓ′−1) ↔ exact(ℓ′+2q−1). Its two charges are j and j + 1, with j + 1 = s_in (Q carries R-charge 1 when
+  fermions carry 1/q̂).
+  - For j ∈ (−1, 0), (33) gives the same gap at both charges, (|j| − ½)² = (|j+1| − ½)² = (s_in − ½)².
+  - So the lowest energy of the intermediate multiplet is (s_in − ½)²/(8C).
+  - **gapped** (s_in > ½): finite threshold, so Q₀⁺ is bounded.
+  - **resonant** (s_in = ½): the threshold closes, which matches the heavy K^{−1/2} tail found in D11 layer 1.
+  - **obstructed** (s_in < ½): the threshold is again finite. The obstruction there comes from BPS states at the target
+    charge, not from gaplessness.
+  - Status: the algebra is a derivation from (33). That this threshold sets the dressing norms is an interpretation.
+    A cheap test: at fixed N′, the smallest nonzero singular value² of Q₀ on that multiplet in the three gapped h
+    sectors ℓ′ = −1, 0, 1 (q = 3: s_in = 2/3, 5/6, 1) should approach the ratio 1 : 4 : 9. The curved CCSY edge
+    (D7 [conj]) may shift this at small N.
+- **Penington–Witten.**
+  - Exactly one simultaneous zero-energy state per SU(1,1|1) matter multiplet with |2u − J_R| < ½, BPS *or long*.
+  - The projected algebra is Type II₁. Neutral projected operators multiply in closed form (5.20–5.21).
+  - The trace weights R-charge sectors by cos(πJ_R) (5.62), i.e. the BPS counting.
+  - The projected two-point function 2^{−4Δ}Γ(2Δ+1) (5.32) equals LMRS-short (10): an independent check of the
+    normalization.
+  - Π_T is a composite (1 − n_{N′}), not a primary, so PW do not directly give the decoder's moments.
+- **Lee–Lee.** The N=2 global multiplets, i.e. su(1,1|1) lowest-weight representations: L[j₀]_h with h > |j₀|/2, and
+  A[j₀]_{|j₀|/2}.
+  - Recombination L → A ⊕ A′ (4.4); characters (6.10–6.12).
+  - Dictionary to PW, derived here: λ = h₀, u = j₀/2.
+  - They do **not** contain OPE, tensor-product or exchange data. The super-6j input of G. Lin 2026's OTOC route (his
+    eq. 6.8) is still missing from the literature we hold.
+
 ## 2. Literature map
 
 ```
@@ -86,6 +117,10 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
  LMRS 2022 ─► G. Lin 2026 (particle on SU(1,1|1): exact zero-energy N=2 OTOC; Berry 2nd moment = TOC − OTOC) ◄─ CCMP 2026
  ─── added 2026-10-26 ──────────────────────────────────────────────────────────────────────────────
  FGMS 2016 ─► Kanazawa–Wettig 2017 (AZ classes per Hodge piece V^±_f; exceptional zero modes = Kramers; App. B dims) ─► CV 2026 [25]
+ ─── added 2026-10-27 ──────────────────────────────────────────────────────────────────────────────
+ HTZ 2022 (gap) ─► LMRS-short 2022 (E_gap(j) = (|j|−½)²/8C, N=16 check; Γ(1+2Δ)/4^{2Δ}; fuzzball depth log S_e) ─► window edge = resonance (D10/D11)
+ LMRS 2022 ─► Penington–Witten 2024 (one E_L=E_R=0 state per SU(1,1|1) multiplet; Type II₁ projected algebra; cos πJ trace) ─► G. Lin 2026 [49]
+ Lee–Lee 2019 (su(1,1|1) multiplets, recombination, characters; no exchange data) ─► G. Lin 2026 §6 [61]
 ```
 
 | Paper | Provides | Used by the project for | Connects to |
@@ -122,7 +157,10 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
 | Pluma–Speicher 2019 | iid SYK copies → q-Gaussian family (Thm. 3.1); Brownian couplings → q-Brownian motion by multilinearity (Cor. 3.2); exact word sign (Lemma 3.3); higher cumulants at scale binom(n,p)^{−1} (Thm. 4.1); no operator-valued continued fraction (§6) | OU-correlated copies = q-Gaussians with ⟨h,h_x⟩ = x (corrects our BBNR note); fluctuation scale of per-realization quantities | Liu–Shen, BKS |
 | BKS 1997 | q-Hermite & Rogers q-Mehler kernel (Thm. 1.10); second quantization Γ_q(T) for contractions, CP and trace-preserving (Thm. 2.11); q-OU is the unique stationary Markov q-Gaussian (Cor. 3.10, Prop. 3.11); classical versions reproduce only time-ordered correlators (§4) | rigorous "x per chord = x^{N̂}"; T₄^OU is out of OU-time order, so it is not fixed by the Markov kernel (D5) | Pluma–Speicher, BINT |
 | G. Lin 2026 | super-JT as a constrained particle on SU(1,1\|1), PSU(1,1\|2); physical supercharges; Wilson lines; zero-energy 3-pt; **exact zero-energy N=2 OTOC for equal Δ (5.26–5.38)**; N=4 large-Δ (5.41–5.42); Berry 2nd moment = TOC − OTOC (6.15–6.19) | triple-scaled target for the crossed channel of our light probe (Δ = 1/3); the isotropic OU expansion sees only the quantum metric, not curvature (D5) | LMRS, CCMP, BLY |
-| Kanazawa–Wettig 2017 | AZ classes of N=0,1,2 SYK. For N=2: V_f = V⁺_f (coexact) ⊕ V⁻_f (exact) ⊕ V^z_f (BPS) (6.8–6.10). Pairings N⁺_f = N⁻_{f+3} (6.12), N^±_f = N^∓_{N−f} (6.11). Zero modes in |f − N_c/2| ≤ 3/2 (premise 6.15). Exact sequences and closed forms for N^± (6.16–6.21; Table 8). Exceptional zero modes via DIII Kramers (§6.2; N_c = 9 excess unexplained, fn. 12). GOE/GSE only for the multiplet V⁺_{(N_c−q̂)/2} ↔ V⁻_{(N_c+q̂)/2} (6.13, 6.24). App. B tables. | Hodge dimensions at every degree, used by the uplift anywhere in the window (D10); the exceptional-state counts (verified against our code); the window-edge multiplet that controls resonant dressing | CV ([25]), FGMS, Miyahara–Shibuya, BBNR |
+| Kanazawa–Wettig 2017 | AZ classes of N=0,1,2 SYK. For N=2: V_f = V⁺_f (coexact) ⊕ V⁻_f (exact) ⊕ V^z_f (BPS) (6.8–6.10). Pairings N⁺_f = N⁻_{f+3} (6.12), N^±_f = N^∓_{N−f} (6.11). Zero modes in abs(f − N_c/2) ≤ 3/2 (premise 6.15). Exact sequences and closed forms for N^± (6.16–6.21; Table 8). Exceptional zero modes via DIII Kramers (§6.2; N_c = 9 excess unexplained, fn. 12). GOE/GSE only for the multiplet V⁺_{(N_c−q̂)/2} ↔ V⁻_{(N_c+q̂)/2} (6.13, 6.24). App. B tables. | Hodge dimensions at every degree, used by the uplift anywhere in the window (D10); the exceptional-state counts (verified against our code); the window-edge multiplet that controls resonant dressing | CV ([25]), FGMS, Miyahara–Shibuya, BBNR |
+| LMRS-short 2022 (2207.00407) | Zero-energy 2-pt e^{S0}Γ(1+2Δ)/4^{2Δ} (10); ⟨ℓ⟩ = 2(γ_E + log 4) (11); c_Δ² ∝ S_e^{−2Δ} (24), depth d̃ = log S_e (26); disk = cylinder in the probe limit (27–29); large-Δ POP semicircle; gap per R-charge (33) checked at N=16 (Fig. 9); Table 1 SYK vs Schwarzian | Gravitational origin of the window-edge resonance (D10/D11); normalization of projected correlators | LMRS 2022, HTZ, PW |
+| Penington–Witten 2024 | Canonical N=2 super-JT plus matter: one simultaneous ground state per SU(1,1\|1) multiplet with abs(2u−J_R)<½, even non-BPS (§4.4); thresholds (4.133–4.135); Type II₁ projected algebra with closed product (5.20–5.21); cos πJ_R trace = BPS counts (5.62); App. E highest-weight gauge ↔ chord space (bosonic) | Exact zero-energy count per multiplet (uplift dictionary, C1); algebraic status of the decoder; route to a gravity derivation of chord rules | LMRS, G. Lin 2026, BBNR, HITZ |
+| Lee–Lee 2019 | 2D global superconformal multiplets for all N; N=2 Table 2 (h ≥ abs(j₀)/2); recombination (4.4); characters (6.10–6.12) | Multiplet labels and channel sums for an N=2 OTOC (C3/A3); recombination as an algebraic analogue of fragile pairs (speculative) | G. Lin 2026, PW |
 
 ## 3. Established results (literature) that the project relies on
 
@@ -189,6 +227,15 @@ studied for structured projections (Haikin–Zamir–Gavish 2017; Kunisky 2023) 
     - For q̂ = 5, KW report edge modes only at N_c = 7, 11 up to N_c = 17. Parity forces them again at N_c = 19
       (project, D10 §3).
 
+14. **Gap per R-charge (LMRS-short eq. 33; HTZ; PW 4.133–4.135).** E_gap(j) = (|j| − ½)²/(8C) for |j| > ½, with C = α_S J N
+    and α_S = 0.00842 for q̂ = 3. Checked at N = 16 for one realization (LMRS-short Fig. 9). It vanishes at the window
+    edge |j| = ½.
+15. **Zero-energy states and the projected algebra (Penington–Witten).**
+    - One simultaneous ground state per SU(1,1|1) matter multiplet with |2u − J_R| < ½ (§4.4).
+    - Projected neutral operators close under multiplication (5.20–5.21), and the matter vacuum is the unique trace.
+      The algebra is Type II₁, assuming it is a factor.
+    - With charged operators, Tr Π_{J_R} ∝ cos(πJ_R) (5.62).
+
 ## 4. Tensions between the literature and the current draft
 
 | Draft claim | What the literature says |
@@ -233,14 +280,17 @@ controlled by Δ (3).
 ## 6. Gaps in the literature collection
 
 Still missing and worth adding:
-- LMRS companion, arXiv:2207.00407 (*Holography for people with no time*).
+- ~~LMRS companion, arXiv:2207.00407~~ (acquired 2026-10-27; `literature/notes/lin_maldacena_rozenberg_shan_2022_short.md`).
 - ~~Boruch, Lin, Yan~~ (acquired 2026-09-28).
 - ~~Berkooz, Isachenkov, Narovlansky, Torrents, arXiv:1811.02584~~ (acquired 2026-10-05).
 - ~~Pluma–Speicher~~, ~~double-scaled SUSY SYK (BBNR)~~ (acquired 2026-10-05). Feng–Tian–Wei is still missing.
 - New since 2026-10-05, not acquired:
-  - Penington–Witten, arXiv:2412.15549: zero-energy N=2 3-pt functions, cited by G. Lin 2026 [49].
-  - Lee–Lee, arXiv:1911.10391: superconformal representation and exchange data needed for a closed-form super-JT OTOC
-    (G. Lin 2026 §6).
+  - ~~Penington–Witten, arXiv:2412.15549~~ (acquired 2026-10-27; `literature/notes/penington_witten_2024.md`).
+  - ~~Lee–Lee, arXiv:1911.10391~~ (acquired 2026-10-27; `literature/notes/lee_lee_2019.md`). *Correction:* this entry
+    said Lee–Lee supply "exchange data". They do not. They give multiplets, recombination rules and characters, and G. Lin
+    cites them only for notation and channel sums.
+  - **New gap:** the N=2 (su(1,1|1)) super-6j / exchange matrix Λ_Ξ for G. Lin's OTOC route (his eq. 6.8). G. Lin says
+    it is not yet known; we have no source for it.
   - Aguilar-Gutierrez, arXiv:2510.11777: BPS Krylov complexity in N=2 DSSYK. Marginal for us (abstract checked
     only).
 - Iniguez–Srednicki, arXiv:2305.15702, and Wang et al., arXiv:2310.20264: microcanonical truncations
